@@ -13,7 +13,6 @@ import {
   Payment,
   TrendingUp,
   Shop,
-  PunchClock,
   ReceiptLong,
   BusinessCenter,
   PersonAdd,
