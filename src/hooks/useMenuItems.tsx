@@ -36,7 +36,26 @@ export default () => {
         key: '8',
         title: 'Appointments',
         icon: <PersonAdd />,
-        route: '/admin/all-users',
+        submenus: [
+          {
+            key: '4.1',
+            route: '/admin/sales/estimates',
+            title: 'Create Appointment',
+            icon: <Equalizer />,
+          },
+          {
+            key: '4.1',
+            route: '/admin/sales/estimates',
+            title: 'Upcoming Appointments',
+            icon: <Equalizer />,
+          },
+          {
+            key: '4.2',
+            route: '/admin/sales/invoices',
+            title: 'Completed Appointments',
+            icon: <ReceiptLong />,
+          },
+        ],
       },
       {
         key: '2',

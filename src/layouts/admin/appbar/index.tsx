@@ -29,7 +29,7 @@ export default function AppBar() {
     <>
       <header className={`shadow h-16 bg-white`}>
         <div className="flex h-16 items-center justify-between px-4">
-          <h1 className="hidden text-xl lg:block">Admin Panel</h1>
+          <h1 className="hidden text-2xl font-bold lg:block">Admin Panel</h1>
           <div className="flex items-center gap-6">
             <QuickAccessMenu />
             {/* <Tooltip title="Quick Access">

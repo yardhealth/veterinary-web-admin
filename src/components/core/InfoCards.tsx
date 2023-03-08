@@ -28,7 +28,7 @@ export default function InfoCards({
     <>
       <div
         onClick={() => router.push(`${clickableRoute}`)}
-        className={` dashboard-card-shadow group flex cursor-pointer flex-row items-center gap-4 rounded-[1.5rem] border-b-4 border-[#014488] p-6 transition duration-150 ease-in-out hover:bg-[#014488] ${className} `}
+        className={`dashboard-card-shadow group flex cursor-pointer flex-row items-center gap-4 rounded-[1.5rem] border-b-4 border-[#014488] p-6  transition duration-150 ease-in-out hover:bg-[#363c70] ${className} `}
       >
         <div className={`rounded-xl  ${iconClassName}`}>
           <div className="h-full w-[20%] p-3 text-sm group-hover:text-white">
@@ -44,7 +44,7 @@ export default function InfoCards({
 
           {/* <h4 className={`text-sm ${contentClassName}`}>{content}</h4> */}
           <h1
-            className={`text-md w-60 font-semibold group-hover:text-white ${titleClassName}`}
+            className={`text-md w-full font-semibold group-hover:text-white ${titleClassName}`}
           >
             {title}
           </h1>

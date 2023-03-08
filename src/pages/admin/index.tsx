@@ -1,6 +1,3 @@
-// import MonthlyPaitentGraph from "components/analytics/MonthlyPaitentGraph";
-// import IncomeVsExpence from "components/analytics/IncomeVsExpence";
-// import InfoCards from "components/admin/InfoCards";
 import { FaStethoscope } from 'react-icons/fa'
 import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
@@ -16,6 +13,17 @@ import {
   AirlineSeatFlat,
 } from '@mui/icons-material'
 import InfoCards from 'components/core/InfoCards'
+import Avatar from '@mui/material/Avatar'
+import {
+  CompletedAppointments,
+  DepartmentIcon,
+  Reports,
+  TotalClients,
+  TotalExpense,
+  TotalIncome,
+  TotalStaffs,
+  UpcomingAppointments,
+} from 'assets/static-icon'
 // import ViewDetailsBtn from "components/core/ViewDetailsBtn";
 
 const Dashboard = () => {
@@ -80,107 +88,115 @@ const Dashboard = () => {
 
   return (
     <AdminLayout title="Admin Dashboard">
-      <div className="m-5 !mb-6 grid grid-cols-12  content-between gap-6 ">
+      <div className="m-5 !mb-6 grid grid-cols-12 content-between gap-6 ">
         <InfoCards
-          title="Doctors"
-          iconClassName="bg-[#f3f8f2] group-hover:bg-[#913d83]"
+          title="Total Clients"
+          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
           content={'40'}
           titleClassName="text-slate-600 font-bold text-base"
           contentClassName="text-black font-bold"
           className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
           icon={
-            <FaStethoscope className="h-7 w-7 rounded-md text-[#913d83]  group-hover:text-white" />
+            // <FaStethoscope className="h-7 w-7 rounded-md text-[#ff7717]  group-hover:text-white" />
+            <Avatar variant="rounded" src={TotalClients.src} />
           }
           clickableRoute="/panel/admin/doctor/doctor-dashboard"
         />
         <InfoCards
-          title="Patients"
-          iconClassName="bg-[#f3f8f2] group-hover:bg-[#913d83]"
+          title="Total Staffs"
+          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
           content={'150'}
           titleClassName="text-black font-bold text-base"
           contentClassName="text-black"
           className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
           icon={
             // <Build className="text-white h-7 w-7 rounded-md group-hover:text-white " />
-            <LocalHotel className=" h-7 w-7 rounded-md text-[#913d83] group-hover:text-white " />
+            // <LocalHotel className=" h-7 w-7 rounded-md text-[#ff7717] group-hover:text-white " />
+            <Avatar variant="rounded" src={TotalStaffs.src} />
           }
           clickableRoute="/panel/admin/patient/patient-dashboard"
         />
         <InfoCards
-          title="Clinics"
-          iconClassName="bg-[#f3f8f2] group-hover:bg-[#913d83]"
+          title="Total Rooms"
+          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
           content={'10'}
           titleClassName="text-black font-bold text-base"
           contentClassName="text-black"
           className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
           icon={
             // <Build className="text-white h-7 w-7 rounded-md group-hover:text-white " />
-            <Apartment className="h-7 w-7 rounded-md text-[#913d83] group-hover:text-white " />
+            // <Apartment className="h-7 w-7 rounded-md text-[#ff7717] group-hover:text-white " />
+            <Avatar variant="rounded" src={TotalStaffs.src} />
           }
           clickableRoute="/panel/admin/clinics/clinic-dashboard"
         />
         <InfoCards
-          title="Appointments"
-          iconClassName="bg-[#f3f8f2] group-hover:bg-[#913d83]"
+          title="Upcoming Appointments"
+          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
           content={'170'}
           titleClassName="text-black font-bold text-base"
           contentClassName="text-black"
           className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
           icon={
             // <Build className="text-white h-7 w-7 rounded-md group-hover:text-white " />
-            <PermContactCalendar className="h-7 w-7 rounded-md text-[#913d83] group-hover:text-white " />
+            // <PermContactCalendar className="h-7 w-7 rounded-md text-[#ff7717] group-hover:text-white " />
+            <Avatar variant="rounded" src={UpcomingAppointments.src} />
           }
           clickableRoute="/panel/admin/appointments/appointments-dashboard"
         />
         <InfoCards
-          title="Users"
-          iconClassName="bg-[#f3f8f2] group-hover:bg-[#913d83]"
+          title="Completed Appointments"
+          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
           content={'80'}
           titleClassName="text-black font-bold text-base"
           contentClassName="text-black"
           className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
           icon={
             // <Build className="text-white h-7 w-7 rounded-md group-hover:text-white " />
-            <Article className="h-7 w-7 rounded-md text-[#913d83]  group-hover:text-white" />
+            // <Article className="h-7 w-7 rounded-md text-[#ff7717]  group-hover:text-white" />
+            <Avatar variant="rounded" src={CompletedAppointments.src} />
           }
           clickableRoute="/panel/admin/users/user-dashboard"
         />
         <InfoCards
-          title="Bed"
-          iconClassName="bg-[#f3f8f2] group-hover:bg-[#913d83]"
+          title="Reports"
+          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
           content={'180'}
           titleClassName="text-black font-bold text-base"
           contentClassName="text-black"
           className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
           icon={
             // <Build className="text-white h-7 w-7 rounded-md group-hover:text-white " />
-            <AirlineSeatFlat className="h-7 w-7 rounded-md text-[#913d83]  group-hover:text-white" />
+            // <AirlineSeatFlat className="h-7 w-7 rounded-md text-[#ff7717]  group-hover:text-white" />
+            <Avatar variant="rounded" src={Reports.src} />
           }
           clickableRoute="/panel/admin/bed/bed-dashboard"
         />
         <InfoCards
-          title="Lab Reports"
-          iconClassName="bg-[#f3f8f2] group-hover:bg-[#913d83]"
+          title="Total Income"
+          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
           content={'120'}
           titleClassName="text-black font-bold text-base"
           contentClassName="text-black"
           className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
           icon={
             // <Build className="text-white h-7 w-7 rounded-md group-hover:text-white " />
-            <Science className="h-7 w-7 rounded-md text-[#913d83]  group-hover:text-white" />
+            // <Science className="h-7 w-7 rounded-md text-[#ff7717]  group-hover:text-white" />
+            <Avatar variant="rounded" src={TotalIncome.src} />
           }
           clickableRoute="/panel/admin/lab/all-lab-test"
         />
         <InfoCards
-          title="Financial Activities"
-          iconClassName="bg-[#f3f8f2] group-hover:bg-[#913d83]"
+          title="Total Expense"
+          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
           content={'10'}
           titleClassName="text-black font-bold text-base"
           contentClassName="text-black"
           className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
           icon={
             // <Build className="text-white h-7 w-7 rounded-md group-hover:text-white " />
-            <CurrencyRupee className="h-7 w-7 rounded-md text-[#913d83]  group-hover:text-white" />
+            // <CurrencyRupee className="h-7 w-7 rounded-md text-[#ff7717]  group-hover:text-white" />
+            <Avatar variant="rounded" src={TotalExpense.src} />
           }
           clickableRoute="/panel/admin/financial-activity/financial-dashboard"
         />
