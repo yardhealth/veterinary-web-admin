@@ -179,7 +179,7 @@ const TextInput = ({
     case 'select':
       return (
         <div className={styleArea}>
-          <p className=" text-wider pb-2 font-medium">{title}</p>
+          <p className="text-wider pb-2 font-medium">{title}</p>
 
           <TextField
             fullWidth={fullWidth}
@@ -219,7 +219,7 @@ const TextInput = ({
               name={name}
               value={value || []}
               onChange={onChange}
-              input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+              input={<OutlinedInput id="select-multiple-chip" label="Choose" />}
               renderValue={(selected) => (
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                   {selected?.map((value: any) => (

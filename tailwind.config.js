@@ -11,7 +11,7 @@ module.exports = {
     extend: {
       colors: {
         theme: '#363c70',
-        primary: '#A8282E',
+        primary: '#ff7717',
         facebook: '#3b5999',
         twitter: '#55acee',
         linkedin: '#0077b5',

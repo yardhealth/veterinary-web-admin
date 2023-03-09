@@ -51,7 +51,7 @@ export default () => {
           },
           {
             key: '4.2',
-            route: '/admin/sales/invoices',
+            route: '/admin/appointments/completed-appointments',
             title: 'Completed Appointments',
             icon: <ReceiptLong />,
           },

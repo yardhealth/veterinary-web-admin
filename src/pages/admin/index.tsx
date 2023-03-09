@@ -92,6 +92,34 @@ const Dashboard = () => {
     <AdminLayout title="Admin Dashboard">
       <div className="m-5 !mb-6 grid grid-cols-12 content-between gap-6 ">
         <InfoCards
+          title="Upcoming Appointments"
+          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
+          content={'170'}
+          titleClassName="text-black font-bold text-base"
+          contentClassName="text-black"
+          className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
+          icon={
+            // <Build className="text-white h-7 w-7 rounded-md group-hover:text-white " />
+            // <PermContactCalendar className="h-7 w-7 rounded-md text-[#ff7717] group-hover:text-white " />
+            <Avatar variant="rounded" src={UpcomingAppointments.src} />
+          }
+          clickableRoute="/admin/appointments/upcoming-appointments"
+        />
+        <InfoCards
+          title="Completed Appointments"
+          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
+          content={'80'}
+          titleClassName="text-black font-bold text-base"
+          contentClassName="text-black"
+          className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
+          icon={
+            // <Build className="text-white h-7 w-7 rounded-md group-hover:text-white " />
+            // <Article className="h-7 w-7 rounded-md text-[#ff7717]  group-hover:text-white" />
+            <Avatar variant="rounded" src={CompletedAppointments.src} />
+          }
+          clickableRoute="/admin/appointments/completed-appointments"
+        />
+        <InfoCards
           title="Total Clients"
           iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
           content={'40'}
@@ -132,34 +160,7 @@ const Dashboard = () => {
           }
           clickableRoute="/panel/admin/clinics/clinic-dashboard"
         />
-        <InfoCards
-          title="Upcoming Appointments"
-          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
-          content={'170'}
-          titleClassName="text-black font-bold text-base"
-          contentClassName="text-black"
-          className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
-          icon={
-            // <Build className="text-white h-7 w-7 rounded-md group-hover:text-white " />
-            // <PermContactCalendar className="h-7 w-7 rounded-md text-[#ff7717] group-hover:text-white " />
-            <Avatar variant="rounded" src={UpcomingAppointments.src} />
-          }
-          clickableRoute="/panel/admin/appointments/appointments-dashboard"
-        />
-        <InfoCards
-          title="Completed Appointments"
-          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
-          content={'80'}
-          titleClassName="text-black font-bold text-base"
-          contentClassName="text-black"
-          className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
-          icon={
-            // <Build className="text-white h-7 w-7 rounded-md group-hover:text-white " />
-            // <Article className="h-7 w-7 rounded-md text-[#ff7717]  group-hover:text-white" />
-            <Avatar variant="rounded" src={CompletedAppointments.src} />
-          }
-          clickableRoute="/panel/admin/users/user-dashboard"
-        />
+
         <InfoCards
           title="Reports"
           iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"

@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 import AddNewPatientSchemas from 'schemas/AddNewPatientSchemas'
 import RecordExpense from 'components/admin/appointments/AddAppointment'
 import RecordMilage from 'components/admin/appointments/RecordMilage'
+import AddAppointment from 'components/admin/appointments/AddAppointment'
 interface TabPanelProps {
   children?: React.ReactNode
   index?: number
@@ -106,7 +107,7 @@ const CreateExpenses = () => {
           >
             Add Appointment
           </Typography>
-          <RecordExpense />
+          <AddAppointment />
         </Card>
       </Container>
     </AdminLayout>

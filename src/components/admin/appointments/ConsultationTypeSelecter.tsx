@@ -28,7 +28,7 @@ const ConsultationTypeSelecter = ({
           id=""
           className={`flex w-full gap-3 rounded-lg border  p-3 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 ${className}`}
         >
-          <option value=""> Choose Customer Type </option>
+          <option value=""> Choose Consultation Type </option>
           {options.map((item: any, index: any) => (
             <option key={index} value={item.value}>
               {item.label}

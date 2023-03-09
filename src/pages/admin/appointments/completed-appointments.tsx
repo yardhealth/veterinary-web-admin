@@ -16,7 +16,7 @@ import Swal from 'sweetalert2'
 import { formatCurrency, getArrFromObj } from '@ashirbad/js-core'
 import EditUpcomingAppointmentDrawer from 'components/admin/drawer/EditUpcomingAppointmentDrawer'
 
-const UpcomingAppointments = () => {
+const CompletedAppointments = () => {
   const router = useRouter()
 
   const [openEditAppointmentDrawer, setOpenEditAppointmentDrawer] =
@@ -42,13 +42,11 @@ const UpcomingAppointments = () => {
     {
       sl: '1',
       ownerName: 'Kate',
-      pet: 'Dog',
+      animal: 'Dog',
       gender: 'male',
-      petName: 'Cooper',
+      name: 'Cooper',
       breed: 'German Shepherd',
       age: '3',
-      wt: '30kG',
-      vaccinated: 'yes',
       healthIssues: 'Injury',
       consultationType: 'Clinic',
       appointmentDate: '20-03-2022',
@@ -59,20 +57,20 @@ const UpcomingAppointments = () => {
   ])
 
   return (
-    <AdminLayout title="Upcoming Appointments">
+    <AdminLayout title="Completed Appointments">
       <div className="grid grid-cols-12 content-between gap-6  px-5">
         <div className="!border-grey-500 !shadow-xl col-span-12 flex w-full flex-col justify-center gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-12">
-          <EditUpcomingAppointmentDrawer
+          {/* <EditUpcomingAppointmentDrawer
             open={openEditAppointmentDrawer}
             onClose={() => setOpenEditAppointmentDrawer(false)}
             // mutate={mutate}
-          />
+          /> */}
           <MaterialTable
             data={tabelData}
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
-            title={<HeadStyle name="Upcoming Appointments" />}
+            title={<HeadStyle name="Completed Appointments" />}
             options={{
               ...MuiTblOptions(),
               sorting: true,
@@ -93,8 +91,8 @@ const UpcomingAppointments = () => {
                 // width: "2%",
               },
               {
-                title: 'Pet',
-                field: 'pet',
+                title: 'Animal',
+                field: 'animal',
                 editable: 'never',
 
                 emptyValue: '--',
@@ -114,8 +112,8 @@ const UpcomingAppointments = () => {
               },
 
               {
-                title: 'Pet Name',
-                field: 'petName',
+                title: 'Name',
+                field: 'name',
                 searchable: true,
 
                 emptyValue: '--',
@@ -134,24 +132,6 @@ const UpcomingAppointments = () => {
               {
                 title: 'Age',
                 field: 'age',
-                searchable: true,
-
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
-              {
-                title: 'Wt.',
-                field: 'wt',
-                searchable: true,
-
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
-              {
-                title: 'Vaccinated',
-                field: 'vaccinated',
                 searchable: true,
 
                 emptyValue: '--',
@@ -223,7 +203,7 @@ const UpcomingAppointments = () => {
                 render: (row) => (
                   <>
                     <div className="flex">
-                      <Tooltip title="Edit">
+                      {/* <Tooltip title="Edit">
                         <Avatar
                           onClick={() => setOpenEditAppointmentDrawer(true)}
                           variant="rounded"
@@ -238,7 +218,7 @@ const UpcomingAppointments = () => {
                         >
                           <BorderColor sx={{ padding: '0px !important' }} />
                         </Avatar>
-                      </Tooltip>
+                      </Tooltip> */}
                       <Tooltip title="Delete">
                         <Avatar
                           // onClick={() => handleDelete(row?.id)}
@@ -288,19 +268,6 @@ const UpcomingAppointments = () => {
                         }}
                       >
                         <CardContent>
-                          <Typography gutterBottom align="left">
-                            Aggression :
-                            <span
-                              style={{
-                                color: 'rgb(30, 136, 229)',
-                                fontSize: '15px',
-                                wordBreak: 'break-word',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-                            </span>
-                          </Typography>
                           <Typography gutterBottom align="left">
                             State :
                             <span
@@ -381,4 +348,4 @@ const UpcomingAppointments = () => {
   )
 }
 
-export default UpcomingAppointments
+export default CompletedAppointments

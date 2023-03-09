@@ -3,14 +3,23 @@ import CountrySelector from 'components/core/CountrySelector'
 import { Container, Drawer, Typography } from '@mui/material'
 import TextInput from 'components/core/TextInput'
 import {
+  AddRoad,
+  BorderColor,
   CalendarMonth,
   CurrencyRupee,
   Done,
   Email,
+  House,
   Info,
+  LineWeight,
+  LocationCity,
+  LocationOn,
+  MergeType,
   Person,
   Photo,
+  PushPin,
   Receipt,
+  Transgender,
 } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import { Form, Formik } from 'formik'
@@ -53,13 +62,13 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         type: 'text',
         validationSchema: Yup.string().required('Owner name is required'),
         initialValue: '',
-        icon: <CalendarMonth />,
+        icon: <BorderColor />,
         required: true,
       },
       {
         key: '1',
         // placeholder: 'Enter your name',
-        name: 'animal',
+        name: 'pet',
         label: 'Category Name *',
         placeholder: '',
         styleContact: 'rounded-xl overflow-hidden bg-white ',
@@ -76,19 +85,31 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         },
         options: [
           {
-            label: 'Akshya Kumar Rout',
-            value: 'Akshya Kumar Rout',
+            label: 'Dog',
+            value: 'Dog',
           },
           {
-            label: 'Anshuman Agrawal',
-            value: 'Anshuman Agrawal',
+            label: 'Cat',
+            value: 'Cat',
           },
           {
-            label: '	Pabitra Pattnaik',
-            value: '	Pabitra Pattnaik',
+            label: 'Bird',
+            value: 'Bird',
           },
           ,
         ],
+      },
+
+      {
+        key: '3',
+        label: 'Pet Name',
+        name: 'name',
+        type: 'text',
+        validationSchema: Yup.string().required('Name is required'),
+        initialValue: '',
+        icon: <BorderColor />,
+        styleContact: 'rounded-lg',
+        required: true,
       },
 
       {
@@ -101,7 +122,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         type: 'select',
         validationSchema: Yup.string().required('Amount is required'),
         initialValue: '',
-        icon: <CurrencyRupee />,
+        icon: <Transgender />,
         required: true,
         options: [
           {
@@ -118,17 +139,6 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
       },
 
       {
-        key: '3',
-        label: 'Name',
-        name: 'name',
-        type: 'text',
-        validationSchema: Yup.string().required('Name is required'),
-        initialValue: '',
-        icon: <Receipt />,
-        styleContact: 'rounded-lg',
-        required: true,
-      },
-      {
         key: '5',
         name: 'breed',
         label: 'Breed *',
@@ -137,7 +147,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         // styleContact: "rounded-lg",
         validationSchema: Yup.string().required('Breed is required'),
         initialValue: '',
-        icon: <Info />,
+        icon: <MergeType />,
         required: true,
         // multiline: true,
         // rows: 2,
@@ -151,16 +161,194 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         // styleContact: "rounded-lg",
         validationSchema: Yup.string().required('Age is required'),
         initialValue: '',
-        icon: <Info />,
+        icon: <BorderColor />,
         required: true,
         // multiline: true,
         // rows: 2,
       },
       {
+        key: '5',
+        name: 'wt',
+        label: 'Weight *',
+        placeholder: '',
+        type: 'number',
+        // styleContact: "rounded-lg",
+        validationSchema: Yup.string().required('Weight is required'),
+        initialValue: '',
+        icon: <LineWeight />,
+        required: true,
+        // multiline: true,
+        // rows: 2,
+      },
+      {
+        key: '2',
+        // placeholder: 'Enter your email',
+        name: 'aggression',
+        label: 'Aggression *',
+        placeholder: '',
+        styleContact: 'rounded-lg',
+        type: 'select',
+        validationSchema: Yup.string().required('Aggression is required'),
+        initialValue: '',
+        icon: <CurrencyRupee />,
+        required: true,
+        options: [
+          {
+            label: 'Low',
+            value: 'Low',
+          },
+          {
+            label: 'Med',
+            value: 'Med',
+          },
+          {
+            label: 'High',
+            value: 'High',
+          },
+
+          ,
+        ],
+      },
+      {
+        key: '2',
+        // placeholder: 'Enter your email',
+        name: 'vaccinated',
+        label: 'Vaccinated *',
+        placeholder: '',
+        styleContact: 'rounded-lg',
+        type: 'select',
+        validationSchema: Yup.string().required('Field is required'),
+        initialValue: '',
+        icon: <CurrencyRupee />,
+        required: true,
+        options: [
+          {
+            label: 'Yes',
+            value: 'Yes',
+          },
+          {
+            label: 'No',
+            value: 'No',
+          },
+          ,
+        ],
+      },
+      {
+        key: '1',
+        // placeholder: 'Enter your name',
+        name: 'generalHealthIssues',
+        label: 'General Health Issues *',
+        placeholder: '',
+        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        validationSchema: Yup.array(Yup.string()).required(
+          'Category name is required'
+        ),
+        initialValue: '',
+        type: 'multi-select',
+        icon: <Person />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+        options: [
+          {
+            label: 'General checkup',
+            value: 'General checkup',
+          },
+          {
+            label: 'Fever',
+            value: 'Fever',
+          },
+          {
+            label: 'Inactive',
+            value: 'Inactive',
+          },
+          {
+            label: 'Skin rash or allergy',
+            value: 'Skin rash or allergy',
+          },
+          {
+            label: 'Injury',
+            value: 'Injury',
+          },
+          {
+            label: 'Vaccination',
+            value: 'Vaccination',
+          },
+          {
+            label: 'Swelling',
+            value: 'Swelling',
+          },
+          {
+            label: 'Not eating food',
+            value: 'Not eating food',
+          },
+          {
+            label: 'Travel certificate',
+            value: 'Travel certificate',
+          },
+          ,
+        ],
+      },
+      {
+        key: '1',
+        // placeholder: 'Enter your name',
+        name: 'digestiveProblems',
+        label: 'Digestive Problems *',
+        placeholder: '',
+        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        validationSchema: Yup.array(Yup.string()).required(
+          'Category name is required'
+        ),
+        initialValue: '',
+        type: 'multi-select',
+        icon: <Person />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+        options: [
+          {
+            label: 'Weight loss',
+            value: 'Weight loss',
+          },
+          {
+            label: 'Diarrhea',
+            value: 'Diarrhea',
+          },
+          {
+            label: 'Vomiting',
+            value: 'Vomiting',
+          },
+          {
+            label: 'Constipation',
+            value: 'Constipation',
+          },
+          {
+            label: 'Bloated Stomach',
+            value: 'Bloated Stomach',
+          },
+          {
+            label: 'Blood in Vomit',
+            value: 'Blood in Vomit',
+          },
+          {
+            label: 'Blood in Stool',
+            value: 'Blood in Stool',
+          },
+        ],
+      },
+      {
         key: '1',
         // placeholder: 'Enter your name',
         name: 'healthIssues',
-        label: 'Health Issues *',
+        label: 'General Problem',
         placeholder: '',
         styleContact: 'rounded-xl overflow-hidden bg-white ',
         validationSchema: Yup.array(Yup.string()).required(
@@ -222,7 +410,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
           otherwise: Yup.string(),
         }),
         initialValue: '',
-        icon: <Email />,
+        icon: <Info />,
         required: true,
         multiline: true,
         rows: 2,
@@ -269,7 +457,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
           otherwise: Yup.string(),
         }),
         initialValue: '',
-        icon: <Email />,
+        icon: <House />,
         required: true,
       },
       {
@@ -286,7 +474,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
           otherwise: Yup.string(),
         }),
         initialValue: '',
-        icon: <Email />,
+        icon: <AddRoad />,
         required: true,
       },
       {
@@ -303,7 +491,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
           otherwise: Yup.string(),
         }),
         initialValue: '',
-        icon: <Email />,
+        icon: <LocationOn />,
         required: true,
       },
       {
@@ -320,7 +508,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
           otherwise: Yup.string(),
         }),
         initialValue: '',
-        icon: <Email />,
+        icon: <PushPin />,
         required: true,
       },
       {
@@ -337,7 +525,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
           otherwise: Yup.string(),
         }),
         initialValue: '',
-        icon: <Email />,
+        icon: <LocationCity />,
         required: true,
       },
 
@@ -354,17 +542,28 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         icon: <CalendarMonth />,
         required: true,
       },
+      // {
+      //   key: '1',
+      //   // placeholder: 'Enter your email',
+      //   name: 'time',
+      //   label: 'Select Appointment Time *',
+      //   placeholder: '',
+      //   styleContact: 'rounded-lg',
+      //   type: 'time',
+      //   validationSchema: Yup.string().required('Appointment time is required'),
+      //   initialValue: '',
+      //   icon: <CalendarMonth />,
+      //   required: true,
+      // },
       {
-        key: '1',
-        // placeholder: 'Enter your email',
-        name: 'time',
-        label: 'Select Appointment Time *',
-        placeholder: '',
+        key: '15',
+        name: 'time2',
+        label: 'City *',
+        validationSchema: Yup.string().required('City is required'),
         styleContact: 'rounded-lg',
-        type: 'time',
-        validationSchema: Yup.string().required('Appointment time is required'),
         initialValue: '',
-        icon: <CalendarMonth />,
+        placeholder: 'City',
+        icon: <LocationCity />,
         required: true,
       },
       // {
