@@ -104,7 +104,7 @@ const CreateExpenses = () => {
             className="!mt-2 font-bold text-theme"
             sx={{ marginBottom: 3 }}
           >
-            Add Expense
+            Add Appointment
           </Typography>
           <RecordExpense />
         </Card>

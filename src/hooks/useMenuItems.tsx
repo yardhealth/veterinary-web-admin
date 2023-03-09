@@ -39,7 +39,7 @@ export default () => {
         submenus: [
           {
             key: '4.1',
-            route: '/admin/sales/estimates',
+            route: '/admin/appointments/create-appointments',
             title: 'Create Appointment',
             icon: <Equalizer />,
           },

@@ -24,6 +24,8 @@ import {
   TotalStaffs,
   UpcomingAppointments,
 } from 'assets/static-icon'
+import ColumnChartUserDashboard from 'components/admin/dashboard/ColumnChartUserDashboard'
+import RegisteredPetDetails from 'components/admin/dashboard/RegisteredPetDetails'
 // import ViewDetailsBtn from "components/core/ViewDetailsBtn";
 
 const Dashboard = () => {
@@ -201,10 +203,43 @@ const Dashboard = () => {
           clickableRoute="/panel/admin/financial-activity/financial-dashboard"
         />
 
-        {/* <div className="col-span-12 pt-9 w-full  gap-5 md:col-span-12 lg:col-span-8 !border-grey-500 rounded-xl !shadow-xl">
-					<MonthlyPaitentGraph text="Repairs Report" type="bar" />
-				</div>
-				<div className="col-span-12 pt-9 w-full flex flex-col justify-center  gap-5 md:col-span-12 lg:col-span-4 !border-grey-500 rounded-xl !shadow-xl">
+        <div className="!border-grey-500 !shadow-xl col-span-12  w-full gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-8">
+          <ColumnChartUserDashboard
+            type={'bar'}
+            title={'Past Income vs Expenxe Report'}
+            categories={[
+              '2022',
+              '2021',
+              '2020',
+              '2019',
+              '2018',
+              '2017',
+              '2016',
+            ]}
+            series={[
+              {
+                name: 'Income',
+                data: [44, 55, 57, 56, 61, 58, 63],
+              },
+              {
+                name: 'Expense',
+                data: [76, 85, 101, 98, 87, 105, 91],
+              },
+            ]}
+            className={'col-span-12   flex  flex-col gap-10 '}
+          />
+        </div>
+        <div className="col-span-12 gap-2 md:col-span-12 lg:col-span-4">
+          <RegisteredPetDetails
+            pieLabel={['Dogs', 'Cats', 'Cows', 'Birds', 'Other']}
+            pieSeries={[5000, 4590, 2422, 5922, 1522]}
+            title={'Registered Pet Details'}
+            className={
+              'shadow-lg col-span-12  flex flex-col items-center gap-4 rounded-xl border bg-white p-6 md:col-span-12 lg:col-span-5'
+            }
+          />
+        </div>
+        {/* <div className="col-span-12 pt-9 w-full flex flex-col justify-center  gap-5 md:col-span-12 lg:col-span-4 !border-grey-500 rounded-xl !shadow-xl">
 					<IncomeVsExpence text="Repairs Report" type="pie" />
 				</div> */}
 

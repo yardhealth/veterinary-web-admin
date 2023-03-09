@@ -26,7 +26,7 @@ import { database, storage } from 'configs'
 import CustomerType from 'types/customer'
 import Swal from 'sweetalert2'
 import PhotoUpload from 'components/core/PhotoUpload'
-import CategorySelecter from 'components/core/CategorySelecter'
+import CategorySelecter from 'components/core/AnimalSelecter'
 import CategoryType from 'types/category'
 import { useFetch } from 'hooks'
 

@@ -31,7 +31,7 @@ const style = {
   borderRadius: '20px',
 }
 
-const CategorySelecter = ({
+const AnimalSelecter = ({
   name,
   onChange,
   onBlur,
@@ -84,7 +84,7 @@ const CategorySelecter = ({
         aria-describedby="modal-modal-description"
       >
         <Box className="flex  flex-col" sx={style}>
-          <h1 className="mb-4 text-xl font-bold text-theme">New Category</h1>
+          <h1 className="mb-4 text-xl font-bold text-theme">Add New Animal</h1>
 
           <Formik
             initialValues={initialValues}
@@ -150,13 +150,13 @@ const CategorySelecter = ({
       </Modal>
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between pt-3 font-bold text-theme">
-          Select Category *
+          Select Animal *
           <p
             className="cursor-pointer pr-10 text-sm font-semibold text-theme"
             // onClick={() => router.push(`/panel/admin/patient/add-patient`)}
             onClick={handleOpen}
           >
-            Add New Category +
+            Add New Animal +
           </p>
         </div>
         <select
@@ -168,7 +168,7 @@ const CategorySelecter = ({
           id=""
           className={`flex w-full gap-3 rounded-lg border  p-3 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 ${className}`}
         >
-          <option value=""> Choose Category </option>
+          <option value=""> Choose Animal </option>
           {options?.map((item: any, index: any) => (
             <option key={index} value={item.value}>
               {item.label}
@@ -185,7 +185,7 @@ const CategorySelecter = ({
   )
 }
 
-export default CategorySelecter
+export default AnimalSelecter
 
 // interface CountryType {
 //   code: string;

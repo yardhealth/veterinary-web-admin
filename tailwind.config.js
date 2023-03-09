@@ -10,7 +10,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        theme: '#101d6c',
+        theme: '#363c70',
         primary: '#A8282E',
         facebook: '#3b5999',
         twitter: '#55acee',

@@ -24,7 +24,7 @@ import { Form, Formik } from 'formik'
 import { useMemo, useState } from 'react'
 import * as Yup from 'yup'
 import RoleSelecter from 'components/core/RoleSelecter'
-import CategorySelecter from 'components/core/CategorySelecter'
+import AnimalSelecter from 'components/core/AnimalSelecter'
 import PhotoUpload from 'components/core/PhotoUpload'
 import { useFetch } from 'hooks'
 import CategoryType from 'types/category'
@@ -32,7 +32,7 @@ import CustomerType from 'types/customer'
 import { database, storage } from 'configs'
 import Swal from 'sweetalert2'
 
-const RecordExpense = () => {
+const AddAppointment = () => {
   const [categories] = useFetch<CategoryType[]>(`/Categories`, {
     needNested: false,
     needArray: true,
@@ -46,12 +46,12 @@ const RecordExpense = () => {
       {
         key: '1',
         // placeholder: 'Enter your email',
-        name: 'date',
-        label: 'Date *',
+        name: 'ownerName',
+        label: 'Owner Name *',
         placeholder: '',
         styleContact: 'rounded-lg',
-        type: 'date',
-        validationSchema: Yup.string().required('Date is required'),
+        type: 'text',
+        validationSchema: Yup.string().required('Owner name is required'),
         initialValue: '',
         icon: <CalendarMonth />,
         required: true,
@@ -59,13 +59,13 @@ const RecordExpense = () => {
       {
         key: '1',
         // placeholder: 'Enter your name',
-        name: 'category',
+        name: 'animal',
         label: 'Category Name *',
         placeholder: '',
         styleContact: 'rounded-xl overflow-hidden bg-white ',
         validationSchema: Yup.string().required('Category name is required'),
         initialValue: '',
-        type: 'text',
+        type: 'select',
         icon: <Person />,
         required: true,
         contactField: {
@@ -74,25 +74,47 @@ const RecordExpense = () => {
           md: 6,
           lg: 6,
         },
-        options: categories?.map((item: CategoryType) => ({
-          label: `${item?.categoryName} `,
-          value: `${item?.id}`,
-          key: `${item?.id}`,
-        })),
+        options: [
+          {
+            label: 'Akshya Kumar Rout',
+            value: 'Akshya Kumar Rout',
+          },
+          {
+            label: 'Anshuman Agrawal',
+            value: 'Anshuman Agrawal',
+          },
+          {
+            label: '	Pabitra Pattnaik',
+            value: '	Pabitra Pattnaik',
+          },
+          ,
+        ],
       },
 
       {
         key: '2',
         // placeholder: 'Enter your email',
-        name: 'amount',
-        label: 'Amount *',
+        name: 'gender',
+        label: 'Gender *',
         placeholder: '',
         styleContact: 'rounded-lg',
-        type: 'number',
+        type: 'select',
         validationSchema: Yup.string().required('Amount is required'),
         initialValue: '',
         icon: <CurrencyRupee />,
         required: true,
+        options: [
+          {
+            label: 'Male',
+            value: 'Male',
+          },
+          {
+            label: 'Female',
+            value: 'Female',
+          },
+
+          ,
+        ],
       },
 
       {
@@ -284,16 +306,16 @@ const RecordExpense = () => {
                           )}
                       </FormControl>
                     </div>
-                  ) : inputItem?.name === 'category' ? (
+                  ) : inputItem?.name === 'animal' ? (
                     <div className=" w-full py-4">
-                      <CategorySelecter
-                        name="category"
+                      <AnimalSelecter
+                        name="animal"
                         options={inputItem.options}
                         error={Boolean(
-                          formik?.touched?.category && formik?.errors?.category
+                          formik?.touched?.animal && formik?.errors?.animal
                         )}
-                        helperText={formik?.errors?.category}
-                        value={formik?.values?.category}
+                        helperText={formik?.errors?.animal}
+                        value={formik?.values?.animal}
                         onChange={formik?.handleChange}
                         onBlur={formik?.handleBlur}
                       />
@@ -349,4 +371,4 @@ const RecordExpense = () => {
   )
 }
 
-export default RecordExpense
+export default AddAppointment

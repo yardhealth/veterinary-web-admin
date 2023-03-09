@@ -16,7 +16,7 @@ import { Form, Formik } from 'formik'
 import { useState } from 'react'
 import * as Yup from 'yup'
 import RoleSelecter from 'components/core/RoleSelecter'
-import CategorySelecter from 'components/core/CategorySelecter'
+import CategorySelecter from 'components/core/AnimalSelecter'
 import PhotoUpload from 'components/core/PhotoUpload'
 import Checkbox from '@mui/material/Checkbox'
 
