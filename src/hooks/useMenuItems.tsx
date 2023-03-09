@@ -45,7 +45,7 @@ export default () => {
           },
           {
             key: '4.1',
-            route: '/admin/sales/estimates',
+            route: '/admin/appointments/upcoming-appointments',
             title: 'Upcoming Appointments',
             icon: <Equalizer />,
           },

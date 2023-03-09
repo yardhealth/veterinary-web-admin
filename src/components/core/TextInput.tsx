@@ -1,12 +1,33 @@
 import { AccountCircle } from '@mui/icons-material'
-import { InputAdornment, MenuItem, TextField } from '@mui/material'
+import {
+  Box,
+  Chip,
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  TextField,
+  SelectChangeEvent,
+} from '@mui/material'
 import { ChangeEvent, FocusEvent } from 'react'
 
 type Props = {
-  type: 'text' | 'select' | 'date' | 'file' | 'number' | 'email' | 'month'
+  type:
+    | 'text'
+    | 'select'
+    | 'date'
+    | 'file'
+    | 'number'
+    | 'email'
+    | 'month'
+    | 'multi-select'
   value?: any
   onChange?: (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event:
+      | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent<any>
   ) => void
   onBlur?: (e: FocusEvent<any, Element>) => void
   error?: boolean
@@ -31,6 +52,7 @@ type Props = {
   multiline?: boolean
   rows?: number
   size?: 'small' | 'medium'
+  multiple?: boolean
 }
 
 const TextInput = ({
@@ -59,6 +81,7 @@ const TextInput = ({
   rows,
   multiline,
   size,
+  multiple = false,
 }: Props) => {
   switch (type) {
     case 'text':
@@ -180,6 +203,41 @@ const TextInput = ({
               </MenuItem>
             ))}
           </TextField>
+        </div>
+      )
+    case 'multi-select':
+      return (
+        <div className={styleArea}>
+          <p className="text-wider pb-2 font-medium">{title}</p>
+
+          <FormControl sx={{ m: 1 }} fullWidth>
+            <InputLabel id="demo-multiple-chip-label">{`Choose`}</InputLabel>
+            <Select
+              labelId="demo-multiple-chip-label"
+              id="demo-multiple-chip"
+              multiple
+              name={name}
+              value={value || []}
+              onChange={onChange}
+              input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+              renderValue={(selected) => (
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                  {selected?.map((value: any) => (
+                    <Chip key={value} label={value} />
+                  ))}
+                </Box>
+              )}
+            >
+              {options?.map((option: any) => (
+                <MenuItem
+                  key={option?.value || option?.state}
+                  value={option?.value || option?.state}
+                >
+                  {option?.label || option?.state}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </div>
       )
 
