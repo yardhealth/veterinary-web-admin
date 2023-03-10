@@ -42,9 +42,9 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
         label: 'Select Day *',
         placeholder: '',
         styleContact: 'rounded-xl overflow-hidden bg-white ',
-        validationSchema: Yup.string().required('Category name is required'),
+        validationSchema: Yup.string().required('Day is required'),
         initialValue: '',
-        type: 'select',
+        type: 'multi-select',
         icon: <Person />,
         required: true,
         contactField: {
@@ -98,7 +98,7 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
         placeholder: '',
         styleContact: 'rounded-lg',
         type: 'multi-select',
-        validationSchema: Yup.string().required('Amount is required'),
+        validationSchema: Yup.string().required('Slot is required'),
         initialValue: '',
         icon: <Transgender />,
         required: true,
@@ -153,7 +153,7 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
         placeholder: '',
         type: 'text',
         // styleContact: "rounded-lg",
-        validationSchema: Yup.string().required('Breed is required'),
+        validationSchema: Yup.string().optional(),
         initialValue: '',
         icon: <Info />,
         required: true,
@@ -225,7 +225,7 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
               <Form>
                 {AddHolidaySchema?.map((inputItem, index) => (
                   <div key={index}>
-                    {inputItem.name === 'slot' ? (
+                    {inputItem.name === 'slot' && 'day' ? (
                       <div
                         className={
                           ''
