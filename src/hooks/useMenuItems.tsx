@@ -22,6 +22,8 @@ import {
   EventRepeat,
   CalendarMonth,
   EventAvailable,
+  Schedule,
+  MoreTime,
 } from '@mui/icons-material'
 import { useAppContext } from 'contexts'
 
@@ -63,10 +65,23 @@ export default () => {
         ],
       },
       {
-        key: '2',
+        key: '9',
         title: 'Schedule',
-        icon: <Groups />,
-        route: '/admin/customers',
+        icon: <Schedule />,
+        submenus: [
+          {
+            key: '4.1',
+            route: '/admin/schedule/create-schedule',
+            title: 'Create Schedule',
+            icon: <MoreTime />,
+          },
+          {
+            key: '4.1',
+            route: '/admin/schedule/all-schedule',
+            title: 'All Schedule',
+            icon: <EventNote />,
+          },
+        ],
       },
       {
         key: '3',

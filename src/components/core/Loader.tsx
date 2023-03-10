@@ -15,7 +15,7 @@ const Loader = ({ visible }: Props) => {
         <img
           alt=""
           src={LOGO}
-          className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 animate-pulse"
+          className="absolute left-1/2 top-1/2 h-24 w-44 -translate-x-1/2 -translate-y-1/2 animate-pulse"
         />
       </div>
     </div>
