@@ -42,20 +42,13 @@ const AllSchedule = () => {
   const [tabelData, settabelData] = useState([
     {
       sl: '1',
-      ownerName: 'Kate',
-      pet: 'Dog',
-      gender: 'male',
-      petName: 'Cooper',
-      breed: 'German Shepherd',
-      age: '3',
-      wt: '30kG',
-      vaccinated: 'yes',
-      healthIssues: 'Injury',
-      consultationType: 'Clinic',
-      appointmentDate: '20-03-2022',
-      appointmentTime: '15:20',
-      status: <Status title1="Accept" title2="Reject" title3="Reschedule" />,
-      paymentMethod: 'cash',
+      day: 'mon',
+      startTime: '10:00',
+      endTime: '18:00',
+      breakTime: '13:00',
+      intervalPeriod: '1 hr',
+      slotDuration: '15',
+      slotGap: '30kG',
       createdAt: 'March 2, 2023 3:57 PM',
     },
   ])
@@ -134,7 +127,7 @@ const AllSchedule = () => {
                 filtering: false,
               },
               {
-                title: 'Slot Duration',
+                title: 'Slot Duration(mins)',
                 field: 'slotDuration',
                 searchable: true,
 
@@ -315,10 +308,10 @@ const AllSchedule = () => {
             actions={[
               {
                 icon: 'add',
-                tooltip: 'Add Appointments',
+                tooltip: 'Add Schedule',
                 isFreeAction: true,
                 onClick: () => {
-                  router.push('/admin/appointments/create-appointments')
+                  router.push('/admin/schedule/create-schedule')
                 },
               },
             ]}
