@@ -10,6 +10,7 @@ export const MuiTblOptions = () => {
       fontWeight: 'bold',
       fontSize: '0.9rem',
       fontFamily: 'inherit',
+      textAlign: 'center',
     },
     actionsColumnIndex: -1,
     pageSize: 5,

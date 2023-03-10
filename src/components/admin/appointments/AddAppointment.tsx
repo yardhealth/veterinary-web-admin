@@ -14,6 +14,7 @@ import {
   Apartment,
   BorderColor,
   CalendarMonth,
+  ContactPhone,
   CurrencyRupee,
   Done,
   Email,
@@ -70,7 +71,20 @@ const AddAppointment = () => {
         required: true,
       },
       {
-        key: '1',
+        key: '2',
+        // placeholder: 'Enter your email',
+        name: 'contact',
+        label: 'Contact Number *',
+        placeholder: '',
+        styleContact: 'rounded-lg',
+        type: 'number',
+        validationSchema: Yup.string().required('Contact number is required'),
+        initialValue: '',
+        icon: <ContactPhone />,
+        required: true,
+      },
+      {
+        key: '3',
         // placeholder: 'Enter your name',
         name: 'pet',
         label: 'Category Name *',
@@ -105,7 +119,7 @@ const AddAppointment = () => {
       },
 
       {
-        key: '3',
+        key: '4',
         label: 'Pet Name',
         name: 'name',
         type: 'text',
@@ -117,7 +131,7 @@ const AddAppointment = () => {
       },
 
       {
-        key: '2',
+        key: '5',
         // placeholder: 'Enter your email',
         name: 'gender',
         label: 'Gender *',
@@ -143,7 +157,7 @@ const AddAppointment = () => {
       },
 
       {
-        key: '5',
+        key: '6',
         name: 'breed',
         label: 'Breed *',
         placeholder: '',
@@ -157,7 +171,7 @@ const AddAppointment = () => {
         // rows: 2,
       },
       {
-        key: '5',
+        key: '7',
         name: 'age',
         label: 'Age *',
         placeholder: '',
@@ -171,7 +185,7 @@ const AddAppointment = () => {
         // rows: 2,
       },
       {
-        key: '5',
+        key: '8',
         name: 'wt',
         label: 'Weight *',
         placeholder: '',
@@ -185,7 +199,7 @@ const AddAppointment = () => {
         // rows: 2,
       },
       {
-        key: '2',
+        key: '9',
         // placeholder: 'Enter your email',
         name: 'aggression',
         label: 'Aggression *',
@@ -214,7 +228,7 @@ const AddAppointment = () => {
         ],
       },
       {
-        key: '2',
+        key: '10',
         // placeholder: 'Enter your email',
         name: 'vaccinated',
         label: 'Vaccinated *',
@@ -238,7 +252,7 @@ const AddAppointment = () => {
         ],
       },
       {
-        key: '1',
+        key: '11',
         // placeholder: 'Enter your name',
         name: 'generalHealthIssues',
         label: 'General Health Issues *',
@@ -298,7 +312,7 @@ const AddAppointment = () => {
         ],
       },
       {
-        key: '1',
+        key: '12',
         // placeholder: 'Enter your name',
         name: 'digestiveProblems',
         label: 'Digestive Problems *',
@@ -349,7 +363,7 @@ const AddAppointment = () => {
         ],
       },
       {
-        key: '1',
+        key: '13',
         // placeholder: 'Enter your name',
         name: 'skinProblems',
         label: 'Skin Problems *',
@@ -396,7 +410,7 @@ const AddAppointment = () => {
         ],
       },
       {
-        key: '1',
+        key: '14',
         // placeholder: 'Enter your name',
         name: 'eyeAndEarProblems',
         label: 'Eye and Ear Problems *',
@@ -455,7 +469,7 @@ const AddAppointment = () => {
         ],
       },
       {
-        key: '1',
+        key: '15',
         // placeholder: 'Enter your name',
         name: 'healthIssues',
         label: 'Other Problem',
@@ -515,7 +529,7 @@ const AddAppointment = () => {
         ],
       },
       {
-        key: '13',
+        key: '16',
         // placeholder: 'Enter your email',
         name: 'description',
         label: 'Description *',
@@ -534,7 +548,7 @@ const AddAppointment = () => {
         rows: 2,
       },
       {
-        key: '1',
+        key: '17',
         // placeholder: 'Enter your name',
         name: 'consultation',
         label: 'Consultation Type *',
@@ -562,7 +576,7 @@ const AddAppointment = () => {
         ],
       },
       {
-        key: '13',
+        key: '18',
         // placeholder: 'Enter your email',
         name: 'consultationType',
         label: 'House/Flat/Floor No. *',
@@ -579,7 +593,7 @@ const AddAppointment = () => {
         required: true,
       },
       {
-        key: '13',
+        key: '19',
         // placeholder: 'Enter your email',
         name: 'consultationType',
         label: 'Apartment/Road/Area *',
@@ -596,7 +610,7 @@ const AddAppointment = () => {
         required: true,
       },
       {
-        key: '13',
+        key: '20',
         // placeholder: 'Enter your email',
         name: 'consultationType',
         label: 'State *',
@@ -613,7 +627,7 @@ const AddAppointment = () => {
         required: true,
       },
       {
-        key: '13',
+        key: '21',
         // placeholder: 'Enter your email',
         name: 'consultationType',
         label: 'Zip Code *',
@@ -630,7 +644,7 @@ const AddAppointment = () => {
         required: true,
       },
       {
-        key: '13',
+        key: '22',
         // placeholder: 'Enter your email',
         name: 'consultationType',
         label: 'City *',
@@ -648,7 +662,7 @@ const AddAppointment = () => {
       },
 
       {
-        key: '1',
+        key: '23',
         // placeholder: 'Enter your email',
         name: 'date',
         label: 'Select Appointment Date *',
@@ -674,7 +688,7 @@ const AddAppointment = () => {
       //   required: true,
       // },
       {
-        key: '15',
+        key: '24',
         name: 'time2',
         label: 'City *',
         validationSchema: Yup.string().required('City is required'),
@@ -709,7 +723,7 @@ const AddAppointment = () => {
       //   })),
       // },
       {
-        key: '1',
+        key: '25',
         // placeholder: 'Enter your name',
         name: 'payment',
         label: 'Payment Method *',
@@ -743,7 +757,7 @@ const AddAppointment = () => {
       },
 
       {
-        key: '6',
+        key: '26',
         name: 'photo',
         label: 'Photo',
         type: 'file',

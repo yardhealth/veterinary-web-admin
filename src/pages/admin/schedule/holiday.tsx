@@ -44,12 +44,8 @@ const Holiday = () => {
     {
       sl: '1',
       day: 'mon',
-      startTime: '10:00',
-      endTime: '18:00',
-      breakTime: '13:00',
-      intervalPeriod: '1 hr',
-      slotDuration: '15',
-      slotGap: '5',
+      slot: '10:00',
+      reason: 'Personal',
       createdAt: 'March 2, 2023 3:57 PM',
     },
   ])
@@ -89,8 +85,8 @@ const Holiday = () => {
                 // width: "2%",
               },
               {
-                title: 'Start Time',
-                field: 'startTime',
+                title: 'Slot',
+                field: 'slot',
                 editable: 'never',
 
                 emptyValue: '--',
@@ -99,57 +95,13 @@ const Holiday = () => {
               },
 
               {
-                title: 'End Time',
-                field: 'endTime',
+                title: 'Reason',
+                field: 'reason',
                 searchable: true,
                 export: true,
                 emptyValue: '--',
                 //   hidden:true,
 
-                filtering: false,
-              },
-
-              {
-                title: 'Break Time',
-                field: 'breakTime',
-                searchable: true,
-
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
-              {
-                title: 'Interval Period',
-                field: 'intervalPeriod',
-                searchable: true,
-                cellStyle: {
-                  textAlign: 'center',
-                },
-                export: true,
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
-              {
-                title: 'Slot Duration(mins)',
-                field: 'slotDuration',
-                searchable: true,
-                cellStyle: {
-                  textAlign: 'center',
-                },
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
-              {
-                title: 'Slot Gap(mins)',
-                field: 'slotGap',
-                searchable: true,
-                cellStyle: {
-                  textAlign: 'center',
-                },
-                emptyValue: '--',
-                //   hidden:true,
                 filtering: false,
               },
 

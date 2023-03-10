@@ -143,6 +143,10 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
             label: '12:15 PM - 12:30 PM',
             value: '12:15 PM - 12:30 PM',
           },
+          {
+            label: '12:30 PM - 12:45 PM',
+            value: '12:30 PM - 12:45 PM',
+          },
         ],
       },
 
@@ -178,6 +182,7 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
 
   const [image, setImage] = useState<any>()
   const handleSend = async (values: any, submitProps: any) => {
+    console.log(values)
     try {
       database
         .ref(`Items`)

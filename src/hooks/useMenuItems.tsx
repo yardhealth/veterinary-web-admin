@@ -24,6 +24,8 @@ import {
   EventAvailable,
   Schedule,
   MoreTime,
+  HolidayVillage,
+  NoteAlt,
 } from '@mui/icons-material'
 import { useAppContext } from 'contexts'
 
@@ -85,9 +87,21 @@ export default () => {
             key: '4.1',
             route: '/admin/schedule/holiday',
             title: 'Holiday',
-            icon: <EventNote />,
+            icon: <HolidayVillage />,
           },
         ],
+      },
+      {
+        key: '3',
+        title: 'Reports',
+        icon: <NoteAlt />,
+        route: '/admin/items',
+      },
+      {
+        key: '3',
+        title: 'Financial Activity',
+        icon: <CurrencyRupee />,
+        route: '/admin/items',
       },
       {
         key: '3',
