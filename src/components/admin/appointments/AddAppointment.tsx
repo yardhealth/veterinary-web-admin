@@ -351,8 +351,8 @@ const AddAppointment = () => {
       {
         key: '1',
         // placeholder: 'Enter your name',
-        name: 'healthIssues',
-        label: 'General Problem',
+        name: 'skinProblems',
+        label: 'Skin Problems *',
         placeholder: '',
         styleContact: 'rounded-xl overflow-hidden bg-white ',
         validationSchema: Yup.array(Yup.string()).required(
@@ -370,28 +370,142 @@ const AddAppointment = () => {
         },
         options: [
           {
+            label: 'Hair loss',
+            value: 'Hair loss',
+          },
+          {
+            label: 'Allergies',
+            value: 'Allergies',
+          },
+          {
+            label: 'Skin Rashes',
+            value: 'Skin Rashes',
+          },
+          {
+            label: 'Skin Infection',
+            value: 'Skin Infection',
+          },
+          {
+            label: 'Ticks/Fleas',
+            value: 'Ticks/Fleas',
+          },
+          {
+            label: 'Itching and Self Biting',
+            value: 'Itching and Self Biting',
+          },
+        ],
+      },
+      {
+        key: '1',
+        // placeholder: 'Enter your name',
+        name: 'eyeAndEarProblems',
+        label: 'Eye and Ear Problems *',
+        placeholder: '',
+        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        validationSchema: Yup.array(Yup.string()).required(
+          'Category name is required'
+        ),
+        initialValue: '',
+        type: 'multi-select',
+        icon: <Person />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+        options: [
+          {
+            label: 'Eye Infection',
+            value: 'Eye Infection',
+          },
+          {
             label: 'Ear Infection',
             value: 'Ear Infection',
           },
           {
-            label: 'Throwing Up',
-            value: 'Throwing Up',
+            label: 'Swollen Eye',
+            value: 'Swollen Eye',
           },
           {
-            label: 'Behavioral Problem',
-            value: 'Behavioral Problem',
+            label: 'Swollen Ear',
+            value: 'Swollen Ear',
           },
           {
-            label: 'Skin rash or allergy',
-            value: 'Skin rash or allergy',
+            label: 'Discharge from Eye',
+            value: 'Discharge from Eye',
           },
           {
-            label: 'Injury',
-            value: 'Injury',
+            label: 'Discharge from Ear',
+            value: 'Discharge from Ear',
           },
           {
-            label: 'Dental Issues',
-            value: 'Dental Issues',
+            label: 'Redness of Eye',
+            value: 'Redness of Eye',
+          },
+          {
+            label: 'Smell form Ear',
+            value: 'Smell form Ear',
+          },
+          {
+            label: 'Injury in Eye',
+            value: 'Injury in Eye',
+          },
+        ],
+      },
+      {
+        key: '1',
+        // placeholder: 'Enter your name',
+        name: 'healthIssues',
+        label: 'Other Problem',
+        placeholder: '',
+        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        validationSchema: Yup.array(Yup.string()).required(
+          'Category name is required'
+        ),
+        initialValue: '',
+        type: 'multi-select',
+        icon: <Person />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+        options: [
+          {
+            label: 'Need Antibiotics and Drips',
+            value: 'Need Antibiotics and Drips',
+          },
+          {
+            label: 'Regular Dressing',
+            value: 'Regular Dressing',
+          },
+          {
+            label: 'Follow-up Treatment',
+            value: 'Follow-up Treatment',
+          },
+          {
+            label: 'Ear Cleaning',
+            value: 'Ear Cleaning',
+          },
+          {
+            label: 'Swollen Testicles',
+            value: 'Swollen Testicles',
+          },
+          {
+            label: 'Blood Test',
+            value: 'Blood Test',
+          },
+          {
+            label: 'Nail Clipping',
+            value: 'Nail Clipping',
+          },
+          {
+            label: 'Anal Gland Cleaning',
+            value: 'Anal Gland Cleaning',
           },
           {
             label: 'Other',

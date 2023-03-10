@@ -15,6 +15,7 @@ import { database } from 'configs'
 import Swal from 'sweetalert2'
 import { formatCurrency, getArrFromObj } from '@ashirbad/js-core'
 import EditUpcomingAppointmentDrawer from 'components/admin/drawer/EditUpcomingAppointmentDrawer'
+import Status from 'components/core/Status'
 
 const UpcomingAppointments = () => {
   const router = useRouter()
@@ -53,6 +54,7 @@ const UpcomingAppointments = () => {
       consultationType: 'Clinic',
       appointmentDate: '20-03-2022',
       appointmentTime: '15:20',
+      status: <Status title1="Accept" title2="Reject" title3="Reschedule" />,
       paymentMethod: 'cash',
       createdAt: 'March 2, 2023 3:57 PM',
     },
@@ -193,6 +195,14 @@ const UpcomingAppointments = () => {
                 emptyValue: '--',
                 //   hidden:true,
                 filtering: false,
+              },
+              {
+                title: 'Status',
+                field: 'status',
+                filtering: true,
+                headerStyle: {
+                  textAlign: 'center',
+                },
               },
               {
                 title: 'Payment Method',

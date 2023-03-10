@@ -31,7 +31,7 @@ export default function AppBar() {
         <div className="flex h-16 items-center justify-between px-4">
           <h1 className="hidden text-2xl font-bold lg:block">Admin Panel</h1>
           <div className="flex items-center gap-6">
-            <QuickAccessMenu />
+            {/* <QuickAccessMenu /> */}
             {/* <Tooltip title="Quick Access">
               <Badge badgeContent={notifications?.length || 0} color="warning">
                 <Link

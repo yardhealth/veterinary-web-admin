@@ -89,7 +89,7 @@ const CreateExpenses = () => {
   })
 
   return (
-    <AdminLayout title="Add Allotment">
+    <AdminLayout title="Create Appointment">
       <Container
         maxWidth="xl"
         // style={{

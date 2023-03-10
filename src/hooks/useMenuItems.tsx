@@ -17,6 +17,11 @@ import {
   BusinessCenter,
   PersonAdd,
   CurrencyRupee,
+  Add,
+  EventNote,
+  EventRepeat,
+  CalendarMonth,
+  EventAvailable,
 } from '@mui/icons-material'
 import { useAppContext } from 'contexts'
 
@@ -35,25 +40,25 @@ export default () => {
       {
         key: '8',
         title: 'Appointments',
-        icon: <PersonAdd />,
+        icon: <CalendarMonth />,
         submenus: [
           {
             key: '4.1',
             route: '/admin/appointments/create-appointments',
             title: 'Create Appointment',
-            icon: <Equalizer />,
+            icon: <Add />,
           },
           {
             key: '4.1',
             route: '/admin/appointments/upcoming-appointments',
             title: 'Upcoming Appointments',
-            icon: <Equalizer />,
+            icon: <EventNote />,
           },
           {
             key: '4.2',
             route: '/admin/appointments/completed-appointments',
             title: 'Completed Appointments',
-            icon: <ReceiptLong />,
+            icon: <EventAvailable />,
           },
         ],
       },
