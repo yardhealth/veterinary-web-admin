@@ -7,7 +7,7 @@ import {
   FormControl,
   FormHelperText,
 } from '@mui/material'
-import AddRecordExpenseSchema from 'schemas/AddRecordExpenseSchema'
+// import AddScheduleSchema from 'schemas/AddScheduleSchema'
 import TextInput from 'components/core/TextInput'
 import {
   AccessTimeFilled,
@@ -47,7 +47,7 @@ const AddSchedule = () => {
     needNested: false,
     needArray: true,
   })
-  const AddRecordExpenseSchema = useMemo(() => {
+  const AddScheduleSchema = useMemo(() => {
     return [
       // {
       //   key: '1',
@@ -202,14 +202,14 @@ const AddSchedule = () => {
       submitProps.setSubmitting(false)
     }
   }
-  const initialValues = AddRecordExpenseSchema.reduce(
+  const initialValues = AddScheduleSchema.reduce(
     (accumulator, currentValue) => {
       accumulator[currentValue.name] = currentValue.initialValue
       return accumulator
     },
     {} as any
   )
-  const validationSchema = AddRecordExpenseSchema?.reduce(
+  const validationSchema = AddScheduleSchema?.reduce(
     (accumulator, currentValue) => {
       accumulator[currentValue.name] = currentValue.validationSchema
       return accumulator
@@ -245,7 +245,7 @@ const AddSchedule = () => {
             <Form>
               <Weekdays />
               {console.log(formik.errors)}
-              {AddRecordExpenseSchema?.map((inputItem: any, index: any) => (
+              {AddScheduleSchema?.map((inputItem: any, index: any) => (
                 <div key={index}>
                   {inputItem?.name === 'photo' ? (
                     <div className="w-full">
@@ -270,20 +270,6 @@ const AddSchedule = () => {
                             </FormHelperText>
                           )}
                       </FormControl>
-                    </div>
-                  ) : inputItem?.name === 'category' ? (
-                    <div className=" w-full py-4">
-                      {/* <CategorySelecter
-                        name="category"
-                        options={inputItem.options}
-                        error={Boolean(
-                          formik?.touched?.category && formik?.errors?.category
-                        )}
-                        helperText={formik?.errors?.category}
-                        value={formik?.values?.category}
-                        onChange={formik?.handleChange}
-                        onBlur={formik?.handleBlur}
-                      /> */}
                     </div>
                   ) : (
                     <div className={''}>

@@ -81,6 +81,12 @@ export default () => {
             title: 'All Schedule',
             icon: <EventNote />,
           },
+          {
+            key: '4.1',
+            route: '/admin/schedule/holiday',
+            title: 'Holiday',
+            icon: <EventNote />,
+          },
         ],
       },
       {

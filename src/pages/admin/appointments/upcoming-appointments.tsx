@@ -191,7 +191,9 @@ const UpcomingAppointments = () => {
                 title: 'Appointment Time',
                 field: 'appointmentTime',
                 searchable: true,
-
+                cellStyle: {
+                  textAlign: 'center',
+                },
                 emptyValue: '--',
                 //   hidden:true,
                 filtering: false,

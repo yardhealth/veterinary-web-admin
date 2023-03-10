@@ -64,7 +64,7 @@ const Weekdays = () => {
         All
       </label>
       {checkboxes.map((checkbox) => (
-        <label key={checkbox.id} className="mx-4 font-semibold text-gray-600">
+        <label key={checkbox.id} className="mx-2 font-semibold text-gray-600">
           <input
             type="checkbox"
             value={checkbox.value}

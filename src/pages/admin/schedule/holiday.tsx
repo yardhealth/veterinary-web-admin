@@ -17,19 +17,19 @@ import { formatCurrency, getArrFromObj } from '@ashirbad/js-core'
 import EditUpcomingAppointmentDrawer from 'components/admin/drawer/EditUpcomingAppointmentDrawer'
 import Status from 'components/core/Status'
 import EditScheduleDrawer from 'components/admin/drawer/EditScheduleDrawer'
+import AddHolidayDrawer from 'components/admin/drawer/AddHolidayDrawer'
 
-const AllSchedule = () => {
+const Holiday = () => {
   const router = useRouter()
 
-  const [openEditAppointmentDrawer, setOpenEditAppointmentDrawer] =
-    useState(false)
+  const [openAddHolidayDrawer, setOpeAddHolidayDrawer] = useState(false)
 
   const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
     needNested: false,
     needArray: true,
   })
   // console.log(data)
-  console.log(openEditAppointmentDrawer)
+  console.log(openAddHolidayDrawer)
   const handleDelete = (row: CustomerType) => {
     try {
       database.ref(`Customers/${row?.id}`).remove()
@@ -55,12 +55,12 @@ const AllSchedule = () => {
   ])
 
   return (
-    <AdminLayout title="All Schedules">
+    <AdminLayout title="Holiday">
       <div className="grid grid-cols-12 content-between gap-6  px-5">
         <div className="!border-grey-500 !shadow-xl col-span-12 flex w-full flex-col justify-center gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-12">
-          <EditScheduleDrawer
-            open={openEditAppointmentDrawer}
-            onClose={() => setOpenEditAppointmentDrawer(false)}
+          <AddHolidayDrawer
+            open={openAddHolidayDrawer}
+            onClose={() => setOpeAddHolidayDrawer(false)}
             // mutate={mutate}
           />
           <MaterialTable
@@ -68,7 +68,7 @@ const AllSchedule = () => {
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
-            title={<HeadStyle name="All Schedules" />}
+            title={<HeadStyle name="Holiday" />}
             options={{
               ...MuiTblOptions(),
               sorting: true,
@@ -174,7 +174,7 @@ const AllSchedule = () => {
                     <div className="flex">
                       <Tooltip title="Edit">
                         <Avatar
-                          onClick={() => setOpenEditAppointmentDrawer(true)}
+                          onClick={() => setOpeAddHolidayDrawer(true)}
                           variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-theme !p-0"
                           sx={{
@@ -209,117 +209,13 @@ const AllSchedule = () => {
                 ),
               },
             ]}
-            // detailPanel={[
-            //   {
-            //     tooltip: 'info',
-            //     icon: 'info',
-            //     openIcon: 'visibility',
-            //     render: ({ rowData }) => (
-            //       <>
-            //         <div
-            //           style={{
-            //             padding: '12px',
-            //             margin: 'auto',
-            //             backgroundColor: '#eef5f9',
-            //           }}
-            //         >
-            //           <Card
-            //             sx={{
-            //               minWidth: 400,
-            //               maxWidth: 450,
-            //               transition: '0.3s',
-            //               margin: 'auto',
-            //               borderRadius: '10px',
-            //               boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
-            //               '&:hover': {
-            //                 boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
-            //               },
-            //             }}
-            //           >
-            //             <CardContent>
-            //               <Typography gutterBottom align="left">
-            //                 Aggression :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //               <Typography gutterBottom align="left">
-            //                 State :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.state ? rowData.state : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //               <Typography gutterBottom align="left">
-            //                 City :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //               <Typography gutterBottom align="left">
-            //                 Zip Code :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.pinCode
-            //                     ? rowData.pinCode
-            //                     : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //               <Typography gutterBottom align="left">
-            //                 Street Name :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.streetName
-            //                     ? rowData.streetName
-            //                     : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //             </CardContent>
-            //           </Card>
-            //         </div>
-            //       </>
-            //     ),
-            //   },
-            // ]}
             actions={[
               {
                 icon: 'add',
                 tooltip: 'Add Schedule',
                 isFreeAction: true,
                 onClick: () => {
-                  router.push('/admin/schedule/create-schedule')
+                  setOpeAddHolidayDrawer(true)
                 },
               },
             ]}
@@ -330,4 +226,4 @@ const AllSchedule = () => {
   )
 }
 
-export default AllSchedule
+export default Holiday
