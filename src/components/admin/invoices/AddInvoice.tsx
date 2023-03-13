@@ -58,7 +58,7 @@ const AddInvoice = () => {
         name: 'ownerName',
         label: 'Owner Name *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'text',
         validationSchema: Yup.string().required('Owner Name is required'),
         initialValue: '',
@@ -71,7 +71,7 @@ const AddInvoice = () => {
         name: 'pet',
         label: 'Select Pet *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl bg-white mb-5 ',
         validationSchema: Yup.string().required('Pet is required'),
         initialValue: '',
         type: 'select',
@@ -125,21 +125,21 @@ const AddInvoice = () => {
         icon: <MedicationLiquid />,
         required: true,
       },
-      {
-        key: '4',
-        // placeholder: 'Enter your email',
-        name: 'itemDescription',
-        label: 'Item Description *',
-        placeholder: '',
-        styleContact: 'rounded-lg mb-5',
-        type: 'text',
-        validationSchema: Yup.string().required('Item Description is required'),
-        initialValue: '',
-        icon: <Info />,
-        multiline: true,
-        rows: 2,
-        required: true,
-      },
+      // {
+      //   key: '4',
+      //   // placeholder: 'Enter your email',
+      //   name: 'itemDescription',
+      //   label: 'Item Description *',
+      //   placeholder: '',
+      //   styleContact: 'rounded-lg mb-5',
+      //   type: 'text',
+      //   validationSchema: Yup.string().required('Item Description is required'),
+      //   initialValue: '',
+      //   icon: <Info />,
+      //   multiline: true,
+      //   rows: 2,
+      //   required: true,
+      // },
 
       {
         key: '3',
@@ -147,7 +147,7 @@ const AddInvoice = () => {
         name: 'suTotal',
         label: 'Sub Total *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl bg-white mb-5',
         validationSchema: Yup.string().required('Sub Total is required'),
         initialValue: '',
         type: 'number',
@@ -166,7 +166,7 @@ const AddInvoice = () => {
         name: 'discount',
         label: 'Discount *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl bg-white mb-5',
         validationSchema: Yup.string().required('Discount is required'),
         initialValue: '',
         type: 'number',
@@ -186,7 +186,7 @@ const AddInvoice = () => {
         name: 'grossTotal',
         label: 'Gross Total *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl bg-white mb-5',
         validationSchema: Yup.string().required('Gross Total is required'),
         initialValue: '',
         type: 'number',
@@ -205,7 +205,7 @@ const AddInvoice = () => {
         name: 'depositedAmount',
         label: 'Deposited Amount *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl bg-white mb-5',
         validationSchema: Yup.string().required('Deposited Amount is required'),
         initialValue: '',
         type: 'number',
@@ -322,6 +322,21 @@ const AddInvoice = () => {
               {AddInvoiceSchema?.map((inputItem: any, index: any) => (
                 <div key={index}>
                   {
+                    // inputItem?.name === 'item' ? (
+                    //   <div className=" w-full py-4">
+                    //     <AddMoreItems
+                    //       name="item"
+                    //       options={inputItem.options}
+                    //       error={Boolean(
+                    //         formik?.touched?.item && formik?.errors?.item
+                    //       )}
+                    //       helperText={formik?.errors?.item}
+                    //       value={formik?.values?.item}
+                    //       onChange={formik?.handleChange}
+                    //       onBlur={formik?.handleBlur}
+                    //     />
+                    //   </div>
+                    // ) :
                     <div className={''}>
                       <TextInput
                         fullWidth
@@ -333,7 +348,7 @@ const AddInvoice = () => {
                         rows={inputItem?.rows}
                         type={inputItem?.type as any}
                         startIcon={inputItem?.icon}
-                        // styleContact={inputItem?.styleContact}
+                        styleContact={inputItem?.styleContact}
                         error={Boolean(
                           formik?.touched[inputItem.name] &&
                             formik?.errors[inputItem.name]

@@ -906,10 +906,10 @@ const AddAppointment = () => {
                         name="pet"
                         options={inputItem.options}
                         error={Boolean(
-                          formik?.touched?.animal && formik?.errors?.animal
+                          formik?.touched?.pet && formik?.errors?.pet
                         )}
-                        helperText={formik?.errors?.animal}
-                        value={formik?.values?.animal}
+                        helperText={formik?.errors?.pet}
+                        value={formik?.values?.pet}
                         onChange={formik?.handleChange}
                         onBlur={formik?.handleBlur}
                       />

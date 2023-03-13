@@ -237,63 +237,63 @@ const AllInvoices = () => {
                 ),
               },
             ]}
-            detailPanel={[
-              {
-                tooltip: 'info',
-                icon: 'info',
-                openIcon: 'visibility',
-                render: ({ rowData }) => (
-                  <>
-                    <div
-                      style={{
-                        padding: '12px',
-                        margin: 'auto',
-                        backgroundColor: '#eef5f9',
-                      }}
-                    >
-                      <Card
-                        sx={{
-                          minWidth: 400,
-                          maxWidth: 450,
-                          transition: '0.3s',
-                          margin: 'auto',
-                          borderRadius: '10px',
-                          boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
-                          '&:hover': {
-                            boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
-                          },
-                        }}
-                      >
-                        <CardContent>
-                          <Typography gutterBottom align="left">
-                            Item Description :
-                            <span
-                              style={{
-                                color: 'rgb(30, 136, 229)',
-                                fontSize: '15px',
-                                wordBreak: 'break-word',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Exercitationem, officia?
-                            </span>
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </>
-                ),
-              },
-            ]}
+            // detailPanel={[
+            //   {
+            //     tooltip: 'info',
+            //     icon: 'info',
+            //     openIcon: 'visibility',
+            //     render: ({ rowData }) => (
+            //       <>
+            //         <div
+            //           style={{
+            //             padding: '12px',
+            //             margin: 'auto',
+            //             backgroundColor: '#eef5f9',
+            //           }}
+            //         >
+            //           <Card
+            //             sx={{
+            //               minWidth: 400,
+            //               maxWidth: 450,
+            //               transition: '0.3s',
+            //               margin: 'auto',
+            //               borderRadius: '10px',
+            //               boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
+            //               '&:hover': {
+            //                 boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
+            //               },
+            //             }}
+            //           >
+            //             <CardContent>
+            //               <Typography gutterBottom align="left">
+            //                 Item Description :
+            //                 <span
+            //                   style={{
+            //                     color: 'rgb(30, 136, 229)',
+            //                     fontSize: '15px',
+            //                     wordBreak: 'break-word',
+            //                     wordWrap: 'break-word',
+            //                   }}
+            //                 >
+            //                   {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
+            //                   Lorem ipsum dolor sit amet consectetur adipisicing
+            //                   elit. Exercitationem, officia?
+            //                 </span>
+            //               </Typography>
+            //             </CardContent>
+            //           </Card>
+            //         </div>
+            //       </>
+            //     ),
+            //   },
+            // ]}
             actions={[
               {
                 icon: 'add',
-                tooltip: 'Add Prescription',
+                tooltip: 'Add Invoice',
                 isFreeAction: true,
                 onClick: () => {
-                  router.push('/admin/prescription/create-prescription')
+                  router.push('/admin/invoices/generate-invoice')
                 },
               },
             ]}
