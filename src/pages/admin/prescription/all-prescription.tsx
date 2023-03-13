@@ -1,5 +1,5 @@
 import AddCustomerDrawer from 'components/admin/drawer/AddCustomerDrawer'
-import { BorderColor, Delete } from '@mui/icons-material'
+import { BorderColor, Delete, Visibility } from '@mui/icons-material'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
 import { Avatar, Card, CardContent, Paper, Typography } from '@mui/material'
@@ -17,11 +17,12 @@ import { formatCurrency, getArrFromObj } from '@ashirbad/js-core'
 import EditUpcomingAppointmentDrawer from 'components/admin/drawer/EditUpcomingAppointmentDrawer'
 import Status from 'components/core/Status'
 import EditScheduleDrawer from 'components/admin/drawer/EditScheduleDrawer'
+import EditPrescriptionDrawer from 'components/admin/drawer/EditPrescriptionDrawer'
 
 const AllPrescription = () => {
   const router = useRouter()
 
-  const [openEditAppointmentDrawer, setOpenEditAppointmentDrawer] =
+  const [openEditPrescriptionDrawer, setOpenEditPrescriptionDrawer] =
     useState(false)
 
   const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
@@ -29,7 +30,7 @@ const AllPrescription = () => {
     needArray: true,
   })
   // console.log(data)
-  console.log(openEditAppointmentDrawer)
+  console.log(openEditPrescriptionDrawer)
   const handleDelete = (row: CustomerType) => {
     try {
       database.ref(`Customers/${row?.id}`).remove()
@@ -43,14 +44,12 @@ const AllPrescription = () => {
   const [tabelData, settabelData] = useState([
     {
       sl: '1',
-      day: 'mon',
-      startTime: '10:00',
-      endTime: '18:00',
-      breakTime: '13:00',
-      intervalPeriod: '1 hr',
-      slotDuration: '15',
-      slotGap: '5',
-      createdAt: 'March 2, 2023 3:57 PM',
+      ownerName: 'Kate',
+      pet: 'Dog',
+      drugName: 'Ketoconazole',
+      instruction: 'once a day',
+      time: 'After meal',
+      prescriptionNote: 'Lorem ipsum dolor sit.',
     },
   ])
 
@@ -58,9 +57,9 @@ const AllPrescription = () => {
     <AdminLayout title="All Schedules">
       <div className="grid grid-cols-12 content-between gap-6  px-5">
         <div className="!border-grey-500 !shadow-xl col-span-12 flex w-full flex-col justify-center gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-12">
-          <EditScheduleDrawer
-            open={openEditAppointmentDrawer}
-            onClose={() => setOpenEditAppointmentDrawer(false)}
+          <EditPrescriptionDrawer
+            open={openEditPrescriptionDrawer}
+            onClose={() => setOpenEditPrescriptionDrawer(false)}
             // mutate={mutate}
           />
           <MaterialTable
@@ -82,15 +81,15 @@ const AllPrescription = () => {
                 filtering: false,
               },
               {
-                title: 'Day',
-                field: 'day',
+                title: 'Owner Name',
+                field: 'ownerName',
                 editable: 'never',
                 emptyValue: '--',
                 // width: "2%",
               },
               {
-                title: 'Start Time',
-                field: 'startTime',
+                title: 'Pet',
+                field: 'pet',
                 editable: 'never',
 
                 emptyValue: '--',
@@ -99,8 +98,8 @@ const AllPrescription = () => {
               },
 
               {
-                title: 'End Time',
-                field: 'endTime',
+                title: 'Drug Name',
+                field: 'drugName',
                 searchable: true,
                 export: true,
                 emptyValue: '--',
@@ -110,8 +109,8 @@ const AllPrescription = () => {
               },
 
               {
-                title: 'Break Time',
-                field: 'breakTime',
+                title: 'Instruction',
+                field: 'instruction',
                 searchable: true,
 
                 emptyValue: '--',
@@ -119,8 +118,8 @@ const AllPrescription = () => {
                 filtering: false,
               },
               {
-                title: 'Interval Period',
-                field: 'intervalPeriod',
+                title: 'Time',
+                field: 'time',
                 searchable: true,
                 cellStyle: {
                   textAlign: 'center',
@@ -131,19 +130,8 @@ const AllPrescription = () => {
                 filtering: false,
               },
               {
-                title: 'Slot Duration(mins)',
-                field: 'slotDuration',
-                searchable: true,
-                cellStyle: {
-                  textAlign: 'center',
-                },
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
-              {
-                title: 'Slot Gap(mins)',
-                field: 'slotGap',
+                title: 'Prescription Note',
+                field: 'prescriptionNote',
                 searchable: true,
                 cellStyle: {
                   textAlign: 'center',
@@ -174,7 +162,7 @@ const AllPrescription = () => {
                     <div className="flex">
                       <Tooltip title="Edit">
                         <Avatar
-                          onClick={() => setOpenEditAppointmentDrawer(true)}
+                          onClick={() => setOpenEditPrescriptionDrawer(true)}
                           variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-theme !p-0"
                           sx={{
@@ -204,122 +192,37 @@ const AllPrescription = () => {
                           <Delete sx={{ padding: '0px !important' }} />
                         </Avatar>
                       </Tooltip>
+                      <Tooltip title="View Prescription">
+                        <Avatar
+                          // onClick={() => handleDelete(row?.id)}
+                          onClick={() =>
+                            router.push(`/admin/prescription/e-prescription`)
+                          }
+                          variant="rounded"
+                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-primary !p-0"
+                          sx={{
+                            mr: '0.1vw',
+                            padding: '0px !important',
+                            backgroundColor: 'Highlight',
+                            cursor: 'pointer',
+                            color: '',
+                          }}
+                        >
+                          <Visibility sx={{ padding: '0px !important' }} />
+                        </Avatar>
+                      </Tooltip>
                     </div>
                   </>
                 ),
               },
             ]}
-            // detailPanel={[
-            //   {
-            //     tooltip: 'info',
-            //     icon: 'info',
-            //     openIcon: 'visibility',
-            //     render: ({ rowData }) => (
-            //       <>
-            //         <div
-            //           style={{
-            //             padding: '12px',
-            //             margin: 'auto',
-            //             backgroundColor: '#eef5f9',
-            //           }}
-            //         >
-            //           <Card
-            //             sx={{
-            //               minWidth: 400,
-            //               maxWidth: 450,
-            //               transition: '0.3s',
-            //               margin: 'auto',
-            //               borderRadius: '10px',
-            //               boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
-            //               '&:hover': {
-            //                 boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
-            //               },
-            //             }}
-            //           >
-            //             <CardContent>
-            //               <Typography gutterBottom align="left">
-            //                 Aggression :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //               <Typography gutterBottom align="left">
-            //                 State :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.state ? rowData.state : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //               <Typography gutterBottom align="left">
-            //                 City :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //               <Typography gutterBottom align="left">
-            //                 Zip Code :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.pinCode
-            //                     ? rowData.pinCode
-            //                     : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //               <Typography gutterBottom align="left">
-            //                 Street Name :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.streetName
-            //                     ? rowData.streetName
-            //                     : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //             </CardContent>
-            //           </Card>
-            //         </div>
-            //       </>
-            //     ),
-            //   },
-            // ]}
             actions={[
               {
                 icon: 'add',
-                tooltip: 'Add Schedule',
+                tooltip: 'Add Prescription',
                 isFreeAction: true,
                 onClick: () => {
-                  router.push('/admin/schedule/create-schedule')
+                  router.push('/admin/prescription/create-prescription')
                 },
               },
             ]}

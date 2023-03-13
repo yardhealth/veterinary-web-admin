@@ -97,7 +97,7 @@ const CreateExpenses = () => {
         //   marginTop: '5vh',
         // }}
       >
-        <Card className="dashboard-card-shadow m-auto w-[95%] border-t-4 border-b-4 border-t-theme border-b-theme !p-1">
+        <Card className="dashboard-card-shadow m-auto w-[95%] border-t-4 border-b-4 border-t-primary border-b-primary !p-1">
           <Typography
             align="center"
             // color="text.primary"

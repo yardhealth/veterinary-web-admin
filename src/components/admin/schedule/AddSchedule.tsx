@@ -63,6 +63,62 @@ const AddSchedule = () => {
       //   required: true,
       // },
       {
+        key: '11',
+        // placeholder: 'Enter your name',
+        name: 'day',
+        label: 'Select Day *',
+        placeholder: '',
+        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        validationSchema: Yup.array(Yup.string()).required(
+          'Category name is required'
+        ),
+        initialValue: '',
+        type: 'multi-select',
+        icon: <Person />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+        options: [
+          {
+            label: 'All',
+            value: 'All',
+          },
+          {
+            label: 'Mon',
+            value: 'Mon',
+          },
+          {
+            label: 'Tue',
+            value: 'Tue',
+          },
+          {
+            label: 'Wed',
+            value: 'Wed',
+          },
+          {
+            label: 'Thur',
+            value: 'Thur',
+          },
+          {
+            label: 'Fri',
+            value: 'Fri',
+          },
+          {
+            label: 'Sat',
+            value: 'Sat',
+          },
+          {
+            label: 'Sun',
+            value: 'Sun',
+          },
+          ,
+        ],
+      },
+      {
         key: '2',
         // placeholder: 'Enter your email',
         name: 'startTime',
@@ -267,7 +323,7 @@ const AddSchedule = () => {
         >
           {(formik) => (
             <Form>
-              <Weekdays />
+              {/* <Weekdays /> */}
               {console.log(formik.errors)}
               {AddScheduleSchema?.map((inputItem: any, index: any) => (
                 <div key={index}>
