@@ -55,7 +55,7 @@ const AddSchedule = () => {
         name: 'day',
         label: 'Select Day *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl bg-white mb-5',
         validationSchema: Yup.array(Yup.string()).required(
           'Category name is required'
         ),
@@ -111,7 +111,7 @@ const AddSchedule = () => {
         name: 'startTime',
         label: 'Start Time *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'time',
         validationSchema: Yup.string().required('Start time is required'),
         initialValue: '',
@@ -124,7 +124,7 @@ const AddSchedule = () => {
         name: 'endTime',
         label: 'End Time *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'time',
         validationSchema: Yup.string().required('End time is required'),
         initialValue: '',
@@ -137,7 +137,7 @@ const AddSchedule = () => {
         name: 'breakStartTime',
         label: 'Break Start Time *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'time',
         validationSchema: Yup.string().required('Break start time is required'),
         initialValue: '',
@@ -151,7 +151,7 @@ const AddSchedule = () => {
         name: 'breakEndTime',
         label: 'Break End Time *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'time',
         validationSchema: Yup.string().required('Break end time is required'),
         initialValue: '',
@@ -164,7 +164,7 @@ const AddSchedule = () => {
         name: 'slotDuration',
         label: 'Slot Duration(mins) *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'number',
         validationSchema: Yup.number()
           .min(1)
@@ -180,7 +180,7 @@ const AddSchedule = () => {
         name: 'slotGap',
         label: 'Slot Gap(mins) *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'number',
         validationSchema: Yup.number()
           .min(1)
@@ -350,7 +350,7 @@ const AddSchedule = () => {
                         rows={inputItem?.rows}
                         type={inputItem?.type as any}
                         startIcon={inputItem?.icon}
-                        // styleContact={inputItem?.styleContact}
+                        styleContact={inputItem?.styleContact}
                         error={Boolean(
                           formik?.touched[inputItem.name] &&
                             formik?.errors[inputItem.name]

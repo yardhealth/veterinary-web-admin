@@ -57,7 +57,7 @@ const AddPrescription = () => {
         name: 'ownerName',
         label: 'Owner Name *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'text',
         validationSchema: Yup.string().required('Owner Name is required'),
         initialValue: '',
@@ -70,7 +70,7 @@ const AddPrescription = () => {
         name: 'pet',
         label: 'Select Pet *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5 bg-white ',
         validationSchema: Yup.string().required('Pet is required'),
         initialValue: '',
         type: 'select',
@@ -131,7 +131,7 @@ const AddPrescription = () => {
         name: 'instruction',
         label: 'Instruction *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5 bg-white ',
         validationSchema: Yup.string().required('Instruction is required'),
         initialValue: '',
         type: 'select',
@@ -182,7 +182,7 @@ const AddPrescription = () => {
         name: 'time',
         label: 'Time *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5 bg-white ',
         validationSchema: Yup.string().required('Time is required'),
         initialValue: '',
         type: 'select',
@@ -343,7 +343,7 @@ const AddPrescription = () => {
                         rows={inputItem?.rows}
                         type={inputItem?.type as any}
                         startIcon={inputItem?.icon}
-                        // styleContact={inputItem?.styleContact}
+                        styleContact={inputItem?.styleContact}
                         error={Boolean(
                           formik?.touched[inputItem.name] &&
                             formik?.errors[inputItem.name]

@@ -207,8 +207,8 @@ const TextInput = ({
       )
     case 'multi-select':
       return (
-        <div className={styleArea}>
-          <p className="text-wider pb-2 font-medium">{title}</p>
+        <div className={`${styleArea} mb-4 -ml-2`}>
+          <p className="text-wider ml-2 font-medium">{title}</p>
 
           <FormControl sx={{ m: 1 }} fullWidth>
             <InputLabel id="demo-multiple-chip-label">{`Choose`}</InputLabel>

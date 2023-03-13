@@ -63,7 +63,7 @@ const AddAppointment = () => {
         name: 'ownerName',
         label: 'Owner Name *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'text',
         validationSchema: Yup.string().required('Owner name is required'),
         initialValue: '',
@@ -76,7 +76,7 @@ const AddAppointment = () => {
         name: 'contact',
         label: 'Contact Number *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'number',
         validationSchema: Yup.string().required('Contact number is required'),
         initialValue: '',
@@ -89,7 +89,7 @@ const AddAppointment = () => {
         name: 'pet',
         label: 'Category Name *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5 bg-white ',
         validationSchema: Yup.string().required('Category name is required'),
         initialValue: '',
         type: 'select',
@@ -126,7 +126,7 @@ const AddAppointment = () => {
         validationSchema: Yup.string().required('Name is required'),
         initialValue: '',
         icon: <BorderColor />,
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         required: true,
       },
 
@@ -136,7 +136,7 @@ const AddAppointment = () => {
         name: 'gender',
         label: 'Gender *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'select',
         validationSchema: Yup.string().required('Amount is required'),
         initialValue: '',
@@ -162,7 +162,7 @@ const AddAppointment = () => {
         label: 'Breed *',
         placeholder: '',
         type: 'text',
-        // styleContact: "rounded-lg",
+        styleContact: 'rounded-lg mb-5',
         validationSchema: Yup.string().required('Breed is required'),
         initialValue: '',
         icon: <MergeType />,
@@ -176,7 +176,7 @@ const AddAppointment = () => {
         label: 'Age *',
         placeholder: '',
         type: 'number',
-        // styleContact: "rounded-lg",
+        styleContact: 'rounded-lg mb-5',
         validationSchema: Yup.string().required('Age is required'),
         initialValue: '',
         icon: <BorderColor />,
@@ -190,7 +190,7 @@ const AddAppointment = () => {
         label: 'Weight *',
         placeholder: '',
         type: 'number',
-        // styleContact: "rounded-lg",
+        styleContact: 'rounded-lg mb-5',
         validationSchema: Yup.string().required('Weight is required'),
         initialValue: '',
         icon: <LineWeight />,
@@ -204,7 +204,7 @@ const AddAppointment = () => {
         name: 'aggression',
         label: 'Aggression *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'select',
         validationSchema: Yup.string().required('Aggression is required'),
         initialValue: '',
@@ -233,7 +233,7 @@ const AddAppointment = () => {
         name: 'vaccinated',
         label: 'Vaccinated *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'select',
         validationSchema: Yup.string().required('Field is required'),
         initialValue: '',
@@ -257,7 +257,7 @@ const AddAppointment = () => {
         name: 'generalHealthIssues',
         label: 'General Health Issues *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5 bg-white ',
         validationSchema: Yup.array(Yup.string()).required(
           'Category name is required'
         ),
@@ -317,7 +317,7 @@ const AddAppointment = () => {
         name: 'digestiveProblems',
         label: 'Digestive Problems *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5 bg-white ',
         validationSchema: Yup.array(Yup.string()).required(
           'Category name is required'
         ),
@@ -368,7 +368,7 @@ const AddAppointment = () => {
         name: 'skinProblems',
         label: 'Skin Problems *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5 bg-white ',
         validationSchema: Yup.array(Yup.string()).required(
           'Category name is required'
         ),
@@ -415,7 +415,7 @@ const AddAppointment = () => {
         name: 'eyeAndEarProblems',
         label: 'Eye and Ear Problems *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5 bg-white ',
         validationSchema: Yup.array(Yup.string()).required(
           'Category name is required'
         ),
@@ -474,7 +474,7 @@ const AddAppointment = () => {
         name: 'healthIssues',
         label: 'Other Problem',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5 bg-white ',
         validationSchema: Yup.array(Yup.string()).required(
           'Category name is required'
         ),
@@ -534,7 +534,7 @@ const AddAppointment = () => {
         name: 'description',
         label: 'Description *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'text',
         validationSchema: Yup.string().when('healthIssues', {
           is: 'Other',
@@ -553,7 +553,7 @@ const AddAppointment = () => {
         name: 'consultation',
         label: 'Consultation Type *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5 bg-white ',
         validationSchema: Yup.string().required('Customer Type is required'),
         initialValue: '',
         icon: <Person />,
@@ -581,7 +581,7 @@ const AddAppointment = () => {
         name: 'consultationType',
         label: 'House/Flat/Floor No. *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'text',
         validationSchema: Yup.string().when('consultation', {
           is: 'Home',
@@ -598,7 +598,7 @@ const AddAppointment = () => {
         name: 'consultationType',
         label: 'Apartment/Road/Area *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'text',
         validationSchema: Yup.string().when('consultation', {
           is: 'Home',
@@ -615,7 +615,7 @@ const AddAppointment = () => {
         name: 'consultationType',
         label: 'State *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'text',
         validationSchema: Yup.string().when('consultation', {
           is: 'Home',
@@ -632,7 +632,7 @@ const AddAppointment = () => {
         name: 'consultationType',
         label: 'Zip Code *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'number',
         validationSchema: Yup.string().when('consultation', {
           is: 'Home',
@@ -649,7 +649,7 @@ const AddAppointment = () => {
         name: 'consultationType',
         label: 'City *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'text',
         validationSchema: Yup.string().when('consultation', {
           is: 'Home',
@@ -667,7 +667,7 @@ const AddAppointment = () => {
         name: 'date',
         label: 'Select Appointment Date *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'date',
         validationSchema: Yup.string().required('Appointment date is required'),
         initialValue: '',
@@ -680,7 +680,7 @@ const AddAppointment = () => {
       //   name: 'time',
       //   label: 'Select Appointment Time *',
       //   placeholder: '',
-      //   styleContact: 'rounded-lg',
+      //   styleContact: 'rounded-lg mb-5',
       //   type: 'time',
       //   validationSchema: Yup.string().required('Appointment time is required'),
       //   initialValue: '',
@@ -692,7 +692,7 @@ const AddAppointment = () => {
         name: 'time2',
         label: 'City *',
         validationSchema: Yup.string().required('City is required'),
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         initialValue: '',
         placeholder: 'City',
         icon: <LocationCity />,
@@ -729,7 +729,7 @@ const AddAppointment = () => {
         label: 'Payment Method *',
         type: 'select',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5',
         validationSchema: Yup.string().required('Payment method is required'),
         initialValue: '',
         icon: <Person />,
@@ -762,7 +762,7 @@ const AddAppointment = () => {
         label: 'Photo',
         type: 'file',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         // validationSchema: Yup.string().required('file is required'),
         initialValue: '',
         icon: <Photo />,
@@ -873,7 +873,7 @@ const AddAppointment = () => {
               {AddRecordExpenseSchema?.map((inputItem: any, index: any) => (
                 <div key={index}>
                   {inputItem?.name === 'time2' ? (
-                    <div className="w-full">
+                    <div className="my-5 w-full">
                       <AvailableSlot />
                     </div>
                   ) : inputItem?.name === 'photo' ? (
@@ -887,7 +887,7 @@ const AddAppointment = () => {
                             setImage(e)
                             formik?.setFieldValue('photo', e?.target?.files[0])
                           }}
-                          className={'mt-4 !w-full !rounded-lg !bg-theme'}
+                          className={'mt-4 mb-5 !w-full !rounded-lg !bg-theme'}
                           height={200}
                           width={400}
                         />
@@ -912,6 +912,7 @@ const AddAppointment = () => {
                         value={formik?.values?.pet}
                         onChange={formik?.handleChange}
                         onBlur={formik?.handleBlur}
+                        styleContact={inputItem?.styleContact}
                       />
                     </div>
                   ) : inputItem?.name === 'consultation' ? (
@@ -927,6 +928,7 @@ const AddAppointment = () => {
                         value={formik?.values?.consultation}
                         onChange={formik?.handleChange}
                         onBlur={formik?.handleBlur}
+                        styleContact={inputItem?.styleContact}
                       />
                     </div>
                   ) : inputItem?.name === 'consultationType' ? (
@@ -996,7 +998,7 @@ const AddAppointment = () => {
                         rows={inputItem?.rows}
                         type={inputItem?.type as any}
                         startIcon={inputItem?.icon}
-                        // styleContact={inputItem?.styleContact}
+                        styleContact={inputItem?.styleContact}
                         error={Boolean(
                           formik?.touched[inputItem.name] &&
                             formik?.errors[inputItem.name]
