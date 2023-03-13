@@ -58,7 +58,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'ownerName',
         label: 'Owner Name *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'text',
         validationSchema: Yup.string().required('Owner name is required'),
         initialValue: '',
@@ -71,7 +71,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'pet',
         label: 'Category Name *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5 ',
         validationSchema: Yup.string().required('Category name is required'),
         initialValue: '',
         type: 'select',
@@ -108,7 +108,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         validationSchema: Yup.string().required('Name is required'),
         initialValue: '',
         icon: <BorderColor />,
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         required: true,
       },
 
@@ -118,7 +118,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'gender',
         label: 'Gender *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'select',
         validationSchema: Yup.string().required('Amount is required'),
         initialValue: '',
@@ -144,7 +144,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         label: 'Breed *',
         placeholder: '',
         type: 'text',
-        // styleContact: "rounded-lg",
+        styleContact: 'rounded-lg mb-5',
         validationSchema: Yup.string().required('Breed is required'),
         initialValue: '',
         icon: <MergeType />,
@@ -158,7 +158,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         label: 'Age *',
         placeholder: '',
         type: 'number',
-        // styleContact: "rounded-lg",
+        styleContact: 'rounded-lg mb-5',
         validationSchema: Yup.string().required('Age is required'),
         initialValue: '',
         icon: <BorderColor />,
@@ -172,7 +172,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         label: 'Weight *',
         placeholder: '',
         type: 'number',
-        // styleContact: "rounded-lg",
+        styleContact: 'rounded-lg mb-5',
         validationSchema: Yup.string().required('Weight is required'),
         initialValue: '',
         icon: <LineWeight />,
@@ -186,7 +186,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'aggression',
         label: 'Aggression *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'select',
         validationSchema: Yup.string().required('Aggression is required'),
         initialValue: '',
@@ -215,7 +215,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'vaccinated',
         label: 'Vaccinated *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'select',
         validationSchema: Yup.string().required('Field is required'),
         initialValue: '',
@@ -239,7 +239,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'generalHealthIssues',
         label: 'General Health Issues *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5',
         validationSchema: Yup.array(Yup.string()).required(
           'Category name is required'
         ),
@@ -299,7 +299,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'digestiveProblems',
         label: 'Digestive Problems *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5',
         validationSchema: Yup.array(Yup.string()).required(
           'Category name is required'
         ),
@@ -350,7 +350,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'healthIssues',
         label: 'General Problem',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5',
         validationSchema: Yup.array(Yup.string()).required(
           'Category name is required'
         ),
@@ -402,7 +402,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'description',
         label: 'Description *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'text',
         validationSchema: Yup.string().when('healthIssues', {
           is: 'Other',
@@ -421,7 +421,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'consultation',
         label: 'Consultation Type *',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5',
         validationSchema: Yup.string().required('Customer Type is required'),
         initialValue: '',
         icon: <Person />,
@@ -449,7 +449,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'consultationType',
         label: 'House/Flat/Floor No. *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'text',
         validationSchema: Yup.string().when('consultation', {
           is: 'Home',
@@ -466,7 +466,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'consultationType',
         label: 'Apartment/Road/Area *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'text',
         validationSchema: Yup.string().when('consultation', {
           is: 'Home',
@@ -483,7 +483,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'consultationType',
         label: 'State *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'text',
         validationSchema: Yup.string().when('consultation', {
           is: 'Home',
@@ -500,7 +500,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'consultationType',
         label: 'Zip Code *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'number',
         validationSchema: Yup.string().when('consultation', {
           is: 'Home',
@@ -517,7 +517,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'consultationType',
         label: 'City *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'text',
         validationSchema: Yup.string().when('consultation', {
           is: 'Home',
@@ -535,7 +535,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'date',
         label: 'Select Appointment Date *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'date',
         validationSchema: Yup.string().required('Appointment date is required'),
         initialValue: '',
@@ -560,7 +560,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         name: 'time2',
         label: 'City *',
         validationSchema: Yup.string().required('City is required'),
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         initialValue: '',
         placeholder: 'City',
         icon: <LocationCity />,
@@ -597,7 +597,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         label: 'Payment Method *',
         type: 'select',
         placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        styleContact: 'rounded-xl mb-5',
         validationSchema: Yup.string().required('Payment method is required'),
         initialValue: '',
         icon: <Person />,
@@ -630,7 +630,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         label: 'Photo',
         type: 'file',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         // validationSchema: Yup.string().required('file is required'),
         initialValue: '',
         icon: <Photo />,
@@ -738,6 +738,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
                             formik?.touched?.animal && formik?.errors?.animal
                           )}
                           helperText={formik?.errors?.animal}
+                          styleContact={inputItem?.styleContact}
                           value={formik?.values?.animal}
                           onChange={formik?.handleChange}
                           onBlur={formik?.handleBlur}
@@ -752,6 +753,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
                             formik?.touched?.consultation &&
                               formik?.errors?.consultation
                           )}
+                          styleContact={inputItem?.styleContact}
                           helperText={formik?.errors?.consultation}
                           value={formik?.values?.consultation}
                           onChange={formik?.handleChange}
@@ -825,7 +827,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
                           rows={inputItem?.rows}
                           type={inputItem?.type as any}
                           startIcon={inputItem?.icon}
-                          // styleContact={inputItem?.styleContact}
+                          styleContact={inputItem?.styleContact}
                           error={Boolean(
                             formik?.touched[inputItem.name] &&
                               formik?.errors[inputItem.name]
