@@ -361,7 +361,7 @@ const AddPrescription = () => {
               <div>
                 <div className="mt-2 mb-2">
                   <LoadingButton
-                    className="btn-background !bg-theme"
+                    className="btn-background !bg-primary"
                     variant="contained"
                     type="submit"
                     fullWidth
