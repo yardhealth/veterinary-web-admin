@@ -109,14 +109,14 @@ export default () => {
             key: '4.2',
             route: '/admin/prescription/all-prescription',
             title: 'All Prescription',
-            icon: <ReceiptLong />,
+            icon: <Receipt />,
           },
         ],
       },
       {
         key: '5',
         title: 'Invoices',
-        icon: <CurrencyRupee />,
+        icon: <ReceiptLong />,
         submenus: [
           {
             key: '5.1',
@@ -128,7 +128,7 @@ export default () => {
             key: '5.2',
             route: '/admin/invoices/all-invoices',
             title: 'All Invoices',
-            icon: <Receipt />,
+            icon: <ReceiptLong />,
           },
         ],
       },

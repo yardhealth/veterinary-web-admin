@@ -1,10 +1,11 @@
-import { Box, Card, Container, Paper, Tooltip, Typography } from '@mui/material'
 import AddNewPatientSchemas from 'schemas/AddNewPatientSchemas'
+import { Box, Card, Tooltip, Typography } from '@mui/material'
 import { Download, Print } from '@mui/icons-material'
 import AdminLayout from 'layouts/admin'
+import { MuiTblOptions } from 'utils'
 import { useState } from 'react'
 
-const EPrescription = () => {
+const PaymentInvoice = () => {
   const [articleValue, setArticleValue] = useState('')
   const [image, setImage] = useState<any>('')
   const [countryDetails, setCountryDetails] = useState({
@@ -34,27 +35,26 @@ const EPrescription = () => {
 
   const [tabelData, settabelData] = useState([
     {
-      patientId: 'BS40',
-      drug: 'Ketoconazole',
-      strength: '500mg',
-      instruction: 'Once a Day',
-      // frequency: "4 days",
-      time: 'Before Meal',
-      duration: '4 days',
+      slNo: '1',
+      code: 'B004',
+      description: 'ECG',
+      unitPrice: '1000',
+      qty: '1',
+      amount: '1000',
     },
   ])
 
   return (
-    <AdminLayout title="e-prescription">
-      <Container
-        className="flex gap-2"
-        maxWidth="xl"
+    <AdminLayout title="Payment Invoice">
+      <div
+        className="flex w-full justify-evenly gap-1"
+        // maxWidth="xl"
         // style={{
         //   width: '40vw',
         //   marginTop: '5vh',
         // }}
       >
-        <Card className="dashboard-card-shadow w-[80%] border-t-4 border-b-4 border-t-primary border-b-primary  !p-6">
+        <Card className=" dashboard-card-shadow w-3/5 border-t-4 border-b-4 border-t-theme border-b-theme  !p-6">
           <Box className="shadow-md mb-5 flex justify-between shadow-slate-200">
             <Typography
               align="left"
@@ -76,7 +76,7 @@ const EPrescription = () => {
             </Typography>
           </Box>
           <Box className="flex h-20 items-center justify-center border border-gray-200 text-2xl font-bold">
-            Prescription
+            PAYMENT INVOICE
           </Box>
           <div className="my-5 grid grid-cols-12 gap-3">
             <div className="col-span-6 font-semibold">
@@ -85,11 +85,20 @@ const EPrescription = () => {
             <div className="col-span-6 font-semibold">
               Pet : <span className="font-normal">Dog</span>
             </div>
-            <div className="col-span-6 font-bold">
-              Date : <span className="font-normal">06-02-2023</span>
+            <div className="col-span-6 font-semibold">
+              Pet Name : <span className="font-normal">Cooper</span>
             </div>
             <div className="col-span-6 font-bold">
-              Prescribed By : <span className="font-normal">Dr. Anshuman</span>
+              Date : <span className="font-normal">31-01-2023</span>
+            </div>
+            <div className="col-span-6 font-bold">
+              Item Name : <span className="font-normal">Ketoconazole</span>
+            </div>
+            <div className="col-span-6 font-bold">
+              Doctor : <span className="font-normal">Dr. Anshuman</span>
+            </div>
+            <div className="col-span-6 font-bold">
+              Phone : <span className="font-normal"></span>
             </div>
           </div>
 
@@ -110,32 +119,38 @@ const EPrescription = () => {
                           scope="col"
                           className="px-6 py-4 text-left text-sm font-bold text-gray-900"
                         >
-                          Drug Name
-                        </th>
-                        {/* <th
-                          scope="col"
-                          className="px-6 py-4 text-left text-sm font-bold text-gray-900"
-                        >
-                          Drug Strength
-                        </th> */}
-                        <th
-                          scope="col"
-                          className="px-6 py-4 text-left text-sm font-bold text-gray-900"
-                        >
-                          Instruction
+                          Item Name
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-4 text-left text-sm font-bold text-gray-900"
                         >
-                          Time
+                          Item Description
                         </th>
-                        {/* <th
+                        <th
                           scope="col"
                           className="px-6 py-4 text-left text-sm font-bold text-gray-900"
                         >
-                          Duration
-                        </th> */}
+                          Sub Total(₹)
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-4 text-left text-sm font-bold text-gray-900"
+                        >
+                          Discount
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-4 text-left text-sm font-bold text-gray-900"
+                        >
+                          Gross Total(₹)
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-4 text-left text-sm font-bold text-gray-900"
+                        >
+                          Deposited Amount(₹)
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -143,37 +158,40 @@ const EPrescription = () => {
                         <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-black">
                           1
                         </td>
-                        <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-black">
+                        <td className="whitespace-nowrap px-6 py-4 text-sm font-light text-black">
                           Ketoconazole
                         </td>
-                        {/* <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-black">
-                          500mg
-                        </td> */}
-                        <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-black">
-                          Once a day
+                        <td className="whitespace-nowrap px-6 py-4 text-sm font-light text-black">
+                          Lorem ipsum dolor sit.
                         </td>
-                        <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-black">
-                          After meal
+                        <td className="whitespace-nowrap px-6 py-4 text-sm font-light text-black">
+                          ₹1200/-
                         </td>
-                        {/* <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-black">
-                          4 Days
-                        </td> */}
+                        <td className="whitespace-nowrap px-6 py-4 text-sm font-light text-black">
+                          10%
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4 text-sm font-light text-black">
+                          ₹1080/-
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4 text-sm font-light text-black">
+                          ₹1100/-
+                        </td>
                       </tr>
                       <tr className="border-2 border-gray-400 bg-white">
                         <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-black">
                           2
                         </td>
-                        <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-black"></td>
-                        <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-black"></td>
-                        <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-black"></td>
+                        <td className="whitespace-nowrap px-6 py-4 text-sm font-light text-black"></td>
+                        <td className="whitespace-nowrap px-6 py-4 text-sm font-light text-black"></td>
+                        <td className="whitespace-nowrap px-6 py-4 text-sm font-light text-black"></td>
                       </tr>
                       <tr className="border-2 border-gray-400 bg-white">
                         <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-black">
                           3
                         </td>
-                        <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-black"></td>
-                        <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-black"></td>
-                        <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-black"></td>
+                        <td className="whitespace-nowrap px-6 py-4 text-sm font-light text-black"></td>
+                        <td className="whitespace-nowrap px-6 py-4 text-sm font-light text-black"></td>
+                        <td className="whitespace-nowrap px-6 py-4 text-sm font-light text-black"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -181,32 +199,23 @@ const EPrescription = () => {
               </div>
             </div>
           </div>
-
-          <div className="mt-5 flex border border-y-gray-400 p-5 font-bold">
-            <p>Prescription Notes:</p>
-            <span className="pl-3 font-medium ">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-              eveniet deserunt rem ut aut repudiandae, provident amet
-              necessitatibus quae voluptatibus recusandae suscipit dolorum sit,
-              nam atque adipisci sapiente magnam accusantium?
-            </span>
-          </div>
         </Card>
-        <div className="mt-10 w-[30%] space-x-4">
+
+        <div className="mt-1 w-1/5 space-x-1">
           <Tooltip title="Print">
-            <button className="rounded-md bg-theme px-8 py-2 text-white">
+            <button className="rounded-md bg-theme px-2 py-2 text-white">
               Print <Print />
             </button>
           </Tooltip>
           <Tooltip title="Download">
-            <button className="rounded-md bg-theme px-8 py-2 text-white">
+            <button className="rounded-md bg-theme px-2 py-2 text-white">
               Download <Download />
             </button>
           </Tooltip>
         </div>
-      </Container>
+      </div>
     </AdminLayout>
   )
 }
 
-export default EPrescription
+export default PaymentInvoice
