@@ -1,11 +1,8 @@
+import { Box, Card, Container, Paper, Tooltip, Typography } from '@mui/material'
 import AddNewPatientSchemas from 'schemas/AddNewPatientSchemas'
 import { Download, Print } from '@mui/icons-material'
-import HeadStyle from 'components/core/HeadStyle'
-import MaterialTable from '@material-table/core'
 import AdminLayout from 'layouts/admin'
-import { MuiTblOptions } from 'utils'
 import { useState } from 'react'
-import { Box, Card, Container, Paper, Tooltip, Typography } from '@mui/material'
 
 const EPrescription = () => {
   const [articleValue, setArticleValue] = useState('')
@@ -38,7 +35,7 @@ const EPrescription = () => {
   const [tabelData, settabelData] = useState([
     {
       patientId: 'BS40',
-      drug: 'Azithromycin',
+      drug: 'Ketoconazole',
       strength: '500mg',
       instruction: 'Once a Day',
       // frequency: "4 days",

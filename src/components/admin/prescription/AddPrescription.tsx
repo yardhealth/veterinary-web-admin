@@ -51,19 +51,6 @@ const AddPrescription = () => {
   })
   const AddPrescriptionSchema = useMemo(() => {
     return [
-      // {
-      //   key: '1',
-      //   // placeholder: 'Enter your email',
-      //   name: 'date',
-      //   label: 'Date *',
-      //   placeholder: '',
-      //   styleContact: 'rounded-lg',
-      //   type: 'date',
-      //   validationSchema: Yup.string().required('Date is required'),
-      //   initialValue: '',
-      //   icon: <CalendarMonth />,
-      //   required: true,
-      // },
       {
         key: '2',
         // placeholder: 'Enter your email',

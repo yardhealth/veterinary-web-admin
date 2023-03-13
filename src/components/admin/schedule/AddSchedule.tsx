@@ -49,19 +49,6 @@ const AddSchedule = () => {
   })
   const AddScheduleSchema = useMemo(() => {
     return [
-      // {
-      //   key: '1',
-      //   // placeholder: 'Enter your email',
-      //   name: 'date',
-      //   label: 'Date *',
-      //   placeholder: '',
-      //   styleContact: 'rounded-lg',
-      //   type: 'date',
-      //   validationSchema: Yup.string().required('Date is required'),
-      //   initialValue: '',
-      //   icon: <CalendarMonth />,
-      //   required: true,
-      // },
       {
         key: '11',
         // placeholder: 'Enter your name',

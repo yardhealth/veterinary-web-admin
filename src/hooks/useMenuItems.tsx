@@ -28,6 +28,7 @@ import {
   NoteAlt,
   LocalHospital,
   Create,
+  BorderColor,
 } from '@mui/icons-material'
 import { useAppContext } from 'contexts'
 
@@ -44,24 +45,24 @@ export default () => {
         route: '/admin',
       },
       {
-        key: '8',
+        key: '2',
         title: 'Appointments',
         icon: <CalendarMonth />,
         submenus: [
           {
-            key: '4.1',
+            key: '2.1',
             route: '/admin/appointments/create-appointments',
             title: 'Create Appointment',
             icon: <Add />,
           },
           {
-            key: '4.1',
+            key: '2.2',
             route: '/admin/appointments/upcoming-appointments',
             title: 'Upcoming Appointments',
             icon: <EventNote />,
           },
           {
-            key: '4.2',
+            key: '2.3',
             route: '/admin/appointments/completed-appointments',
             title: 'Completed Appointments',
             icon: <EventAvailable />,
@@ -69,24 +70,24 @@ export default () => {
         ],
       },
       {
-        key: '9',
+        key: '3',
         title: 'Schedule',
         icon: <Schedule />,
         submenus: [
           {
-            key: '4.1',
+            key: '3.1',
             route: '/admin/schedule/create-schedule',
             title: 'Create Schedule',
             icon: <MoreTime />,
           },
           {
-            key: '4.1',
+            key: '3.2',
             route: '/admin/schedule/all-schedule',
             title: 'All Schedule',
             icon: <EventNote />,
           },
           {
-            key: '4.1',
+            key: '3.3',
             route: '/admin/schedule/holiday',
             title: 'Holiday',
             icon: <HolidayVillage />,
@@ -94,7 +95,7 @@ export default () => {
         ],
       },
       {
-        key: '10.1',
+        key: '4',
         title: 'Prescription',
         icon: <LocalHospital />,
         submenus: [
@@ -105,7 +106,7 @@ export default () => {
             icon: <Create />,
           },
           {
-            key: '4.1',
+            key: '4.2',
             route: '/admin/prescription/all-prescription',
             title: 'All Prescription',
             icon: <ReceiptLong />,
@@ -113,13 +114,26 @@ export default () => {
         ],
       },
       {
-        key: '3',
-        title: 'Financial Activity',
+        key: '5',
+        title: 'Invoices',
         icon: <CurrencyRupee />,
-        route: '/admin/items',
+        submenus: [
+          {
+            key: '5.1',
+            route: '/admin/invoice/generate-invoice',
+            title: 'Generate Invoice',
+            icon: <BorderColor />,
+          },
+          {
+            key: '5.2',
+            route: '/admin/invoice/all-invoices',
+            title: 'All Invoices',
+            icon: <Receipt />,
+          },
+        ],
       },
       {
-        key: '3',
+        key: '6',
         title: 'Support',
         icon: <BusinessCenter />,
         route: '/admin/items',
@@ -182,12 +196,12 @@ export default () => {
       //   route: '/admin/notifications',
       // },
       {
-        key: '10',
+        key: '7',
         title: 'Settings',
         icon: <Settings />,
         submenus: [
           {
-            key: '10.1',
+            key: '7.1',
             route: '/admin/change-password',
             title: 'Change Password',
             icon: <Key />,

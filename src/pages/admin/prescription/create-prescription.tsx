@@ -1,14 +1,11 @@
-import { Card, Container, Typography, Box, Tabs, Tab } from '@mui/material'
-
+import AddPrescription from 'components/admin/prescription/AddPrescription'
+import { Card, Container, Typography, Box } from '@mui/material'
+import AddNewPatientSchemas from 'schemas/AddNewPatientSchemas'
 import AdminLayout from 'layouts/admin'
 import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import AddNewPatientSchemas from 'schemas/AddNewPatientSchemas'
-import RecordExpense from 'components/admin/appointments/AddAppointment'
-import RecordMilage from 'components/admin/appointments/RecordMilage'
-import AddSchedule from 'components/admin/schedule/AddSchedule'
-import AddPrescription from 'components/admin/prescription/AddPrescription'
+
 interface TabPanelProps {
   children?: React.ReactNode
   index?: number

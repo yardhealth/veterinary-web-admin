@@ -54,7 +54,7 @@ const AllPrescription = () => {
   ])
 
   return (
-    <AdminLayout title="All Schedules">
+    <AdminLayout title="All Prescription">
       <div className="grid grid-cols-12 content-between gap-6  px-5">
         <div className="!border-grey-500 !shadow-xl col-span-12 flex w-full flex-col justify-center gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-12">
           <EditPrescriptionDrawer
@@ -67,7 +67,7 @@ const AllPrescription = () => {
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
-            title={<HeadStyle name="All Schedules" />}
+            title={<HeadStyle name="All Prescription" />}
             options={{
               ...MuiTblOptions(),
               sorting: true,
