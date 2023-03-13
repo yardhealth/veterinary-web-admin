@@ -26,6 +26,8 @@ import {
   MoreTime,
   HolidayVillage,
   NoteAlt,
+  LocalHospital,
+  Create,
 } from '@mui/icons-material'
 import { useAppContext } from 'contexts'
 
@@ -92,10 +94,23 @@ export default () => {
         ],
       },
       {
-        key: '3',
-        title: 'Reports',
-        icon: <NoteAlt />,
-        route: '/admin/items',
+        key: '10.1',
+        title: 'Prescription',
+        icon: <LocalHospital />,
+        submenus: [
+          {
+            key: '4.1',
+            route: '/admin/prescription/create-prescription',
+            title: 'Create Prescription',
+            icon: <Create />,
+          },
+          {
+            key: '4.1',
+            route: '/admin/prescription/all-prescription',
+            title: 'All Prescription',
+            icon: <ReceiptLong />,
+          },
+        ],
       },
       {
         key: '3',

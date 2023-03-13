@@ -7,7 +7,7 @@ import {
   FormControl,
   FormHelperText,
 } from '@mui/material'
-// import AddScheduleSchema from 'schemas/AddScheduleSchema'
+// import AddPrescriptionSchema from 'schemas/AddPrescriptionSchema'
 import TextInput from 'components/core/TextInput'
 import {
   AccessTimeFilled,
@@ -18,7 +18,9 @@ import {
   HistoryToggleOff,
   HourglassBottom,
   Info,
+  MedicationLiquid,
   Person,
+  Pets,
   Photo,
   Receipt,
   Timer,
@@ -38,7 +40,7 @@ import { database, storage } from 'configs'
 import Swal from 'sweetalert2'
 import Weekdays from 'components/core/Weekdays'
 
-const AddSchedule = () => {
+const AddPrescription = () => {
   const [categories] = useFetch<CategoryType[]>(`/Categories`, {
     needNested: false,
     needArray: true,
@@ -47,7 +49,7 @@ const AddSchedule = () => {
     needNested: false,
     needArray: true,
   })
-  const AddScheduleSchema = useMemo(() => {
+  const AddPrescriptionSchema = useMemo(() => {
     return [
       // {
       //   key: '1',
@@ -65,86 +67,141 @@ const AddSchedule = () => {
       {
         key: '2',
         // placeholder: 'Enter your email',
-        name: 'startTime',
-        label: 'Start Time *',
+        name: 'ownerName',
+        label: 'Owner Name *',
         placeholder: '',
         styleContact: 'rounded-lg',
-        type: 'time',
-        validationSchema: Yup.string().required('Start time is required'),
+        type: 'text',
+        validationSchema: Yup.string().required('Owner Name is required'),
         initialValue: '',
-        icon: <AccessTimeFilled />,
+        icon: <BorderColor />,
         required: true,
       },
       {
         key: '3',
         // placeholder: 'Enter your email',
-        name: 'endTime',
-        label: 'End Time *',
+        name: 'petName',
+        label: 'Pet Name *',
         placeholder: '',
         styleContact: 'rounded-lg',
-        type: 'time',
-        validationSchema: Yup.string().required('End time is required'),
+        type: 'text',
+        validationSchema: Yup.string().required('Pet Name is required'),
         initialValue: '',
-        icon: <AccessTimeFilled />,
+        icon: <Pets />,
         required: true,
       },
       {
         key: '4',
         // placeholder: 'Enter your email',
-        name: 'breakStartTime',
-        label: 'Break Start Time *',
+        name: 'drugName',
+        label: 'Drug Name *',
         placeholder: '',
-        styleContact: 'rounded-lg',
-        type: 'time',
-        validationSchema: Yup.string().required('Break start time is required'),
+        styleContact: 'rounded-lg mb-5',
+        type: 'text',
+        validationSchema: Yup.string().required('Drug Name is required'),
         initialValue: '',
-        icon: <HistoryToggleOff />,
+        icon: <MedicationLiquid />,
         required: true,
+      },
+
+      {
+        key: '3',
+        // placeholder: 'Enter your name',
+        name: 'instruction',
+        label: 'Instruction *',
+        placeholder: '',
+        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        validationSchema: Yup.string().required('Instruction is required'),
+        initialValue: '',
+        type: 'select',
+        icon: <Person />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+        options: [
+          {
+            label: 'OD (Once A Day / 1-0-0)',
+            value: 'OD (Once A Day / 1-0-0)',
+          },
+          {
+            label: 'BD (Twice A Day / 1-0-1)',
+            value: 'BD (Twice A Day / 1-0-1)',
+          },
+          {
+            label: 'TDS (Thrice A Day / 1-1-1)',
+            value: 'TDS (Thrice A Day / 1-1-1)',
+          },
+          {
+            label: 'Four Times A Day 1-1-1-1',
+            value: 'Four Times A Day 1-1-1-1',
+          },
+          {
+            label: 'Starts Immediately',
+            value: 'Starts Immediately',
+          },
+          {
+            label: 'When Required',
+            value: 'When Required',
+          },
+          {
+            label: 'Before Sleep / 0-0-1',
+            value: 'Before Sleep / 0-0-1',
+          },
+          ,
+        ],
+      },
+
+      {
+        key: '3',
+        // placeholder: 'Enter your name',
+        name: 'time',
+        label: 'Time *',
+        placeholder: '',
+        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        validationSchema: Yup.string().required('Time is required'),
+        initialValue: '',
+        type: 'select',
+        icon: <Person />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+        options: [
+          {
+            label: 'Before Meal',
+            value: 'Before Meal',
+          },
+          {
+            label: 'After Meal',
+            value: 'After Meal',
+          },
+
+          ,
+        ],
       },
 
       {
         key: '6',
         // placeholder: 'Enter your email',
-        name: 'breakEndTime',
-        label: 'Break End Time *',
+        name: 'prescriptionNote',
+        label: 'Prescription Note *',
         placeholder: '',
         styleContact: 'rounded-lg',
-        type: 'time',
-        validationSchema: Yup.string().required('Break end time is required'),
+        type: 'text',
+        validationSchema: Yup.string().required(
+          'Prescription Note is required'
+        ),
         initialValue: '',
         icon: <Timer />,
-        required: true,
-      },
-      {
-        key: '7',
-        // placeholder: 'Enter your email',
-        name: 'slotDuration',
-        label: 'Slot Duration(mins) *',
-        placeholder: '',
-        styleContact: 'rounded-lg',
-        type: 'number',
-        validationSchema: Yup.number()
-          .min(1)
-          .max(60)
-          .required('Slot Duration is required'),
-        initialValue: '',
-        icon: <HourglassBottom />,
-        required: true,
-      },
-      {
-        key: '7',
-        // placeholder: 'Enter your email',
-        name: 'slotGap',
-        label: 'Slot Gap(mins) *',
-        placeholder: '',
-        styleContact: 'rounded-lg',
-        type: 'number',
-        validationSchema: Yup.number()
-          .min(1)
-          .max(60)
-          .required('Slot Gap is required'),
-        initialValue: '',
-        icon: <BorderColor />,
+        multiline: true,
+        rows: 2,
         required: true,
       },
     ]
@@ -159,24 +216,6 @@ const AddSchedule = () => {
 
   const handleSend = async (values: any, submitProps: any) => {
     console.log(values)
-    let startDate = new Date()
-    let endDate = new Date()
-    const startTimeArr = values.startTime.split(':')
-    const endTimeArr = values.endTime.split(':')
-
-    const startTimeHours = startTimeArr[0]
-    const endTimeHours = startTimeArr[1]
-
-    startDate.setHours(startTimeHours)
-    startDate.setMinutes(endTimeHours)
-    const startTimeForEndDate = endTimeArr[0]
-    const endTimeForEndDate = endTimeArr[1]
-
-    endDate.setHours(startTimeForEndDate)
-    endDate.setMinutes(endTimeForEndDate)
-
-    const finalStartDate = startDate
-    const finalEndDate = endDate
     try {
       if (values?.photo) {
         const fileRef = `Customers/${values?.customerName}/photoUrl`
@@ -226,14 +265,14 @@ const AddSchedule = () => {
       submitProps.setSubmitting(false)
     }
   }
-  const initialValues = AddScheduleSchema.reduce(
+  const initialValues = AddPrescriptionSchema.reduce(
     (accumulator, currentValue) => {
       accumulator[currentValue.name] = currentValue.initialValue
       return accumulator
     },
     {} as any
   )
-  const validationSchema = AddScheduleSchema?.reduce(
+  const validationSchema = AddPrescriptionSchema?.reduce(
     (accumulator, currentValue) => {
       accumulator[currentValue.name] = currentValue.validationSchema
       return accumulator
@@ -267,35 +306,11 @@ const AddSchedule = () => {
         >
           {(formik) => (
             <Form>
-              <Weekdays />
+              {/* <Weekdays /> */}
               {console.log(formik.errors)}
-              {AddScheduleSchema?.map((inputItem: any, index: any) => (
+              {AddPrescriptionSchema?.map((inputItem: any, index: any) => (
                 <div key={index}>
-                  {inputItem?.name === 'photo' ? (
-                    <div className="w-full">
-                      <FormControl fullWidth>
-                        <PhotoUpload
-                          txtName="Upload Your Files"
-                          variant={'square'}
-                          value={image}
-                          onChange={(e: any) => {
-                            setImage(e)
-                            formik?.setFieldValue('photo', e?.target?.files[0])
-                          }}
-                          className={'mt-4 !w-full !rounded-lg !bg-theme'}
-                          height={200}
-                          width={400}
-                        />
-                        {formik?.touched[inputItem.name] &&
-                          (formik?.errors[inputItem.name] as any) && (
-                            <FormHelperText className="!text-red-500">
-                              {formik?.touched[inputItem?.name] &&
-                                (formik?.errors[inputItem?.name] as any)}
-                            </FormHelperText>
-                          )}
-                      </FormControl>
-                    </div>
-                  ) : (
+                  {
                     <div className={''}>
                       <TextInput
                         fullWidth
@@ -318,7 +333,7 @@ const AddSchedule = () => {
                         onBlur={formik?.handleBlur}
                       />
                     </div>
-                  )}
+                  }
                 </div>
               ))}
 
@@ -346,4 +361,4 @@ const AddSchedule = () => {
   )
 }
 
-export default AddSchedule
+export default AddPrescription
