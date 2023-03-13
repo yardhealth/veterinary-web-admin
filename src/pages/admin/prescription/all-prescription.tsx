@@ -46,6 +46,7 @@ const AllPrescription = () => {
       sl: '1',
       ownerName: 'Kate',
       pet: 'Dog',
+      petName: 'Cooper',
       drugName: 'Ketoconazole',
       instruction: 'once a day',
       time: 'After meal',
@@ -96,6 +97,15 @@ const AllPrescription = () => {
 
                 // width: "2%",
               },
+              {
+                title: 'Pet Name',
+                field: 'petName',
+                editable: 'never',
+
+                emptyValue: '--',
+
+                // width: "2%",
+              },
 
               {
                 title: 'Drug Name',
@@ -121,25 +131,19 @@ const AllPrescription = () => {
                 title: 'Time',
                 field: 'time',
                 searchable: true,
-                cellStyle: {
-                  textAlign: 'center',
-                },
                 export: true,
                 emptyValue: '--',
                 //   hidden:true,
                 filtering: false,
               },
-              {
-                title: 'Prescription Note',
-                field: 'prescriptionNote',
-                searchable: true,
-                cellStyle: {
-                  textAlign: 'center',
-                },
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
+              // {
+              //   title: 'Prescription Note',
+              //   field: 'prescriptionNote',
+              //   searchable: true,
+              //   emptyValue: '--',
+              //   //   hidden:true,
+              //   filtering: false,
+              // },
 
               {
                 title: 'Created At',
@@ -211,6 +215,56 @@ const AllPrescription = () => {
                           <Visibility sx={{ padding: '0px !important' }} />
                         </Avatar>
                       </Tooltip>
+                    </div>
+                  </>
+                ),
+              },
+            ]}
+            detailPanel={[
+              {
+                tooltip: 'info',
+                icon: 'info',
+                openIcon: 'visibility',
+                render: ({ rowData }) => (
+                  <>
+                    <div
+                      style={{
+                        padding: '12px',
+                        margin: 'auto',
+                        backgroundColor: '#eef5f9',
+                      }}
+                    >
+                      <Card
+                        sx={{
+                          minWidth: 400,
+                          maxWidth: 450,
+                          transition: '0.3s',
+                          margin: 'auto',
+                          borderRadius: '10px',
+                          boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
+                          '&:hover': {
+                            boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
+                          },
+                        }}
+                      >
+                        <CardContent>
+                          <Typography gutterBottom align="left">
+                            Prescription Note :
+                            <span
+                              style={{
+                                color: 'rgb(30, 136, 229)',
+                                fontSize: '15px',
+                                wordBreak: 'break-word',
+                                wordWrap: 'break-word',
+                              }}
+                            >
+                              {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
+                              Lorem ipsum dolor sit amet consectetur adipisicing
+                              elit. Exercitationem, officia?
+                            </span>
+                          </Typography>
+                        </CardContent>
+                      </Card>
                     </div>
                   </>
                 ),

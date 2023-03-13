@@ -237,7 +237,7 @@ const UpcomingAppointments = () => {
                         <Avatar
                           // onClick={() => setOpenEditAppointmentDrawer(true)}
                           variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-theme !p-0"
+                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-green-500 !p-0"
                           sx={{
                             mr: '.1vw',
                             padding: '0px !important',

@@ -7,7 +7,7 @@ import {
   FormControl,
   FormHelperText,
 } from '@mui/material'
-// import AddPrescriptionSchema from 'schemas/AddPrescriptionSchema'
+// import AddInvoiceSchema from 'schemas/AddInvoiceSchema'
 import TextInput from 'components/core/TextInput'
 import {
   AccessTimeFilled,
@@ -19,6 +19,7 @@ import {
   HourglassBottom,
   Info,
   MedicationLiquid,
+  Percent,
   Person,
   Pets,
   Photo,
@@ -40,7 +41,7 @@ import { database, storage } from 'configs'
 import Swal from 'sweetalert2'
 import Weekdays from 'components/core/Weekdays'
 
-const AddPrescription = () => {
+const AddInvoice = () => {
   const [categories] = useFetch<CategoryType[]>(`/Categories`, {
     needNested: false,
     needArray: true,
@@ -49,7 +50,7 @@ const AddPrescription = () => {
     needNested: false,
     needArray: true,
   })
-  const AddPrescriptionSchema = useMemo(() => {
+  const AddInvoiceSchema = useMemo(() => {
     return [
       {
         key: '2',
@@ -114,116 +115,108 @@ const AddPrescription = () => {
       {
         key: '4',
         // placeholder: 'Enter your email',
-        name: 'drugName',
-        label: 'Drug Name *',
+        name: 'item',
+        label: 'Item Name *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
         type: 'text',
-        validationSchema: Yup.string().required('Drug Name is required'),
+        validationSchema: Yup.string().required('Item Name is required'),
         initialValue: '',
         icon: <MedicationLiquid />,
         required: true,
       },
-
       {
-        key: '3',
-        // placeholder: 'Enter your name',
-        name: 'instruction',
-        label: 'Instruction *',
-        placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
-        validationSchema: Yup.string().required('Instruction is required'),
-        initialValue: '',
-        type: 'select',
-        icon: <Person />,
-        required: true,
-        contactField: {
-          xs: 12,
-          sm: 12,
-          md: 6,
-          lg: 6,
-        },
-        options: [
-          {
-            label: 'OD (Once A Day / 1-0-0)',
-            value: 'OD (Once A Day / 1-0-0)',
-          },
-          {
-            label: 'BD (Twice A Day / 1-0-1)',
-            value: 'BD (Twice A Day / 1-0-1)',
-          },
-          {
-            label: 'TDS (Thrice A Day / 1-1-1)',
-            value: 'TDS (Thrice A Day / 1-1-1)',
-          },
-          {
-            label: 'Four Times A Day 1-1-1-1',
-            value: 'Four Times A Day 1-1-1-1',
-          },
-          {
-            label: 'Starts Immediately',
-            value: 'Starts Immediately',
-          },
-          {
-            label: 'When Required',
-            value: 'When Required',
-          },
-          {
-            label: 'Before Sleep / 0-0-1',
-            value: 'Before Sleep / 0-0-1',
-          },
-          ,
-        ],
-      },
-
-      {
-        key: '3',
-        // placeholder: 'Enter your name',
-        name: 'time',
-        label: 'Time *',
-        placeholder: '',
-        styleContact: 'rounded-xl overflow-hidden bg-white ',
-        validationSchema: Yup.string().required('Time is required'),
-        initialValue: '',
-        type: 'select',
-        icon: <Person />,
-        required: true,
-        contactField: {
-          xs: 12,
-          sm: 12,
-          md: 6,
-          lg: 6,
-        },
-        options: [
-          {
-            label: 'Before Meal',
-            value: 'Before Meal',
-          },
-          {
-            label: 'After Meal',
-            value: 'After Meal',
-          },
-
-          ,
-        ],
-      },
-
-      {
-        key: '6',
+        key: '4',
         // placeholder: 'Enter your email',
-        name: 'prescriptionNote',
-        label: 'Prescription Note *',
+        name: 'itemDescription',
+        label: 'Item Description *',
         placeholder: '',
-        styleContact: 'rounded-lg',
+        styleContact: 'rounded-lg mb-5',
         type: 'text',
-        validationSchema: Yup.string().required(
-          'Prescription Note is required'
-        ),
+        validationSchema: Yup.string().required('Item Description is required'),
         initialValue: '',
-        icon: <Timer />,
+        icon: <Info />,
         multiline: true,
         rows: 2,
         required: true,
+      },
+
+      {
+        key: '3',
+        // placeholder: 'Enter your name',
+        name: 'suTotal',
+        label: 'Sub Total *',
+        placeholder: '',
+        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        validationSchema: Yup.string().required('Sub Total is required'),
+        initialValue: '',
+        type: 'number',
+        icon: <CurrencyRupee />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+      },
+      {
+        key: '3',
+        // placeholder: 'Enter your name',
+        name: 'discount',
+        label: 'Discount *',
+        placeholder: '',
+        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        validationSchema: Yup.string().required('Discount is required'),
+        initialValue: '',
+        type: 'number',
+        icon: <Percent />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+      },
+
+      {
+        key: '3',
+        // placeholder: 'Enter your name',
+        name: 'grossTotal',
+        label: 'Gross Total *',
+        placeholder: '',
+        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        validationSchema: Yup.string().required('Gross Total is required'),
+        initialValue: '',
+        type: 'number',
+        icon: <CurrencyRupee />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+      },
+      {
+        key: '3',
+        // placeholder: 'Enter your name',
+        name: 'depositedAmount',
+        label: 'Deposited Amount *',
+        placeholder: '',
+        styleContact: 'rounded-xl overflow-hidden bg-white ',
+        validationSchema: Yup.string().required('Deposited Amount is required'),
+        initialValue: '',
+        type: 'number',
+        icon: <CurrencyRupee />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
       },
     ]
   }, [categories])
@@ -286,14 +279,11 @@ const AddPrescription = () => {
       submitProps.setSubmitting(false)
     }
   }
-  const initialValues = AddPrescriptionSchema.reduce(
-    (accumulator, currentValue) => {
-      accumulator[currentValue.name] = currentValue.initialValue
-      return accumulator
-    },
-    {} as any
-  )
-  const validationSchema = AddPrescriptionSchema?.reduce(
+  const initialValues = AddInvoiceSchema.reduce((accumulator, currentValue) => {
+    accumulator[currentValue.name] = currentValue.initialValue
+    return accumulator
+  }, {} as any)
+  const validationSchema = AddInvoiceSchema?.reduce(
     (accumulator, currentValue) => {
       accumulator[currentValue.name] = currentValue.validationSchema
       return accumulator
@@ -326,10 +316,10 @@ const AddPrescription = () => {
           onSubmit={handleSend}
         >
           {(formik) => (
-            <Form>
+            <Form className="">
               {/* <Weekdays /> */}
               {console.log(formik.errors)}
-              {AddPrescriptionSchema?.map((inputItem: any, index: any) => (
+              {AddInvoiceSchema?.map((inputItem: any, index: any) => (
                 <div key={index}>
                   {
                     <div className={''}>
@@ -382,4 +372,4 @@ const AddPrescription = () => {
   )
 }
 
-export default AddPrescription
+export default AddInvoice

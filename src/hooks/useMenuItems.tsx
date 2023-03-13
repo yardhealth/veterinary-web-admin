@@ -120,13 +120,13 @@ export default () => {
         submenus: [
           {
             key: '5.1',
-            route: '/admin/invoice/generate-invoice',
+            route: '/admin/invoices/generate-invoice',
             title: 'Generate Invoice',
             icon: <BorderColor />,
           },
           {
             key: '5.2',
-            route: '/admin/invoice/all-invoices',
+            route: '/admin/invoices/all-invoices',
             title: 'All Invoices',
             icon: <Receipt />,
           },
