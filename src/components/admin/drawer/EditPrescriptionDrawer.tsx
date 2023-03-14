@@ -321,7 +321,7 @@ const EditPrescriptionDrawer = ({ open, onClose, mutate }: Props) => {
             variant="h5"
             sx={{ marginBottom: 3 }}
           >
-            Edit Schedule
+            Edit Prescription
           </Typography>
           <Formik
             initialValues={initialValues}
@@ -335,7 +335,7 @@ const EditPrescriptionDrawer = ({ open, onClose, mutate }: Props) => {
                 {AddPrescriptionSchema?.map((inputItem: any, index: any) => (
                   <div key={index}>
                     {
-                      <div className={''}>
+                      <div className={'py-3'}>
                         <TextInput
                           fullWidth
                           key={index}
@@ -351,7 +351,10 @@ const EditPrescriptionDrawer = ({ open, onClose, mutate }: Props) => {
                             formik?.touched[inputItem.name] &&
                               formik?.errors[inputItem.name]
                           )}
-                          helperText={formik?.errors[inputItem.name] as string}
+                          helperText={
+                            formik?.touched[inputItem.name] &&
+                            (formik?.errors[inputItem.name] as any)
+                          }
                           value={formik?.values[inputItem.name]}
                           onChange={formik?.handleChange}
                           onBlur={formik?.handleBlur}

@@ -62,7 +62,7 @@ const AvailableSlot = () => {
       <div className="rounded-md border border-theme p-7 ">
         <div className="">
           <p className="pb-3 font-semibold text-theme">Morning Session</p>
-          <div className=" grid grid-cols-3 justify-items-center gap-x-2 gap-y-2 md:grid-cols-7">
+          <div className=" grid grid-cols-3 justify-items-center gap-x-2 gap-y-2 md:grid-cols-5">
             {result && result.length > 0
               ? result.map((time: any, index: any) => {
                   return (
@@ -85,7 +85,7 @@ const AvailableSlot = () => {
 
         <div className="pt-5">
           <p className="py-3 font-semibold text-theme">Evening Session</p>
-          <div className=" grid grid-cols-3 justify-items-center gap-x-2 gap-y-2 md:grid-cols-7">
+          <div className=" grid grid-cols-3 justify-items-center gap-x-2 gap-y-2 md:grid-cols-5">
             {result2 && result2.length > 0
               ? result2.map((time: any, index: any) => {
                   return (

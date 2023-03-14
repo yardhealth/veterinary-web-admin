@@ -132,7 +132,7 @@ const Dashboard = () => {
           }
           clickableRoute="/panel/admin/doctor/doctor-dashboard"
         />
-        <InfoCards
+        {/* <InfoCards
           title="Total Staffs"
           iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
           content={'150'}
@@ -145,8 +145,8 @@ const Dashboard = () => {
             <Avatar variant="rounded" src={TotalStaffs.src} />
           }
           clickableRoute="/panel/admin/patient/patient-dashboard"
-        />
-        <InfoCards
+        /> */}
+        {/* <InfoCards
           title="Total Rooms"
           iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
           content={'10'}
@@ -159,9 +159,9 @@ const Dashboard = () => {
             <Avatar variant="rounded" src={TotalStaffs.src} />
           }
           clickableRoute="/panel/admin/clinics/clinic-dashboard"
-        />
+        /> */}
 
-        <InfoCards
+        {/* <InfoCards
           title="Reports"
           iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
           content={'180'}
@@ -174,7 +174,7 @@ const Dashboard = () => {
             <Avatar variant="rounded" src={Reports.src} />
           }
           clickableRoute="/panel/admin/bed/bed-dashboard"
-        />
+        /> */}
         <InfoCards
           title="Total Income"
           iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
@@ -189,7 +189,7 @@ const Dashboard = () => {
           }
           clickableRoute="/panel/admin/lab/all-lab-test"
         />
-        <InfoCards
+        {/* <InfoCards
           title="Total Expense"
           iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
           content={'10'}
@@ -202,7 +202,7 @@ const Dashboard = () => {
             <Avatar variant="rounded" src={TotalExpense.src} />
           }
           clickableRoute="/panel/admin/financial-activity/financial-dashboard"
-        />
+        /> */}
 
         <div className="!border-grey-500 !shadow-xl col-span-12  w-full gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-8">
           <ColumnChartUserDashboard

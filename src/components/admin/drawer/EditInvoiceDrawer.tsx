@@ -77,7 +77,7 @@ const EditInvoiceDrawer = ({ open, onClose, mutate }: Props) => {
         label: 'Select Pet *',
         placeholder: '',
         styleContact: 'rounded-xl overflow-hidden bg-white ',
-        validationSchema: Yup.string().required('Pet is required'),
+        validationSchema: Yup.string().required('Pet category is required'),
         initialValue: '',
         type: 'select',
         icon: <Person />,
@@ -328,7 +328,7 @@ const EditInvoiceDrawer = ({ open, onClose, mutate }: Props) => {
                 {EditInvoiceSchema?.map((inputItem: any, index: any) => (
                   <div key={index}>
                     {
-                      <div className={''}>
+                      <div className={'py-3'}>
                         <TextInput
                           fullWidth
                           key={index}
@@ -344,7 +344,10 @@ const EditInvoiceDrawer = ({ open, onClose, mutate }: Props) => {
                             formik?.touched[inputItem.name] &&
                               formik?.errors[inputItem.name]
                           )}
-                          helperText={formik?.errors[inputItem.name] as string}
+                          helperText={
+                            formik?.touched[inputItem.name] &&
+                            (formik?.errors[inputItem.name] as any)
+                          }
                           value={formik?.values[inputItem.name]}
                           onChange={formik?.handleChange}
                           onBlur={formik?.handleBlur}

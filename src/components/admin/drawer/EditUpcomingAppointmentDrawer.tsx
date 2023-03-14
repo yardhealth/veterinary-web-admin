@@ -87,7 +87,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         label: 'Category Name *',
         placeholder: '',
         styleContact: 'rounded-xl mb-10 bg-white ',
-        validationSchema: Yup.string().required('Category name is required'),
+        validationSchema: Yup.string().required('Pet Category is required'),
         initialValue: '',
         type: 'select',
         icon: <Person />,
@@ -551,7 +551,9 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         label: 'Consultation Type *',
         placeholder: '',
         styleContact: 'rounded-xl mb-5 bg-white ',
-        validationSchema: Yup.string().required('Customer Type is required'),
+        validationSchema: Yup.string().required(
+          'Consultation Type is required'
+        ),
         initialValue: '',
         icon: <Person />,
         required: true,

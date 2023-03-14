@@ -314,31 +314,32 @@ const AddSchedule = () => {
               {console.log(formik.errors)}
               {AddScheduleSchema?.map((inputItem: any, index: any) => (
                 <div key={index}>
-                  {inputItem?.name === 'photo' ? (
-                    <div className="w-full">
-                      <FormControl fullWidth>
-                        <PhotoUpload
-                          txtName="Upload Your Files"
-                          variant={'square'}
-                          value={image}
-                          onChange={(e: any) => {
-                            setImage(e)
-                            formik?.setFieldValue('photo', e?.target?.files[0])
-                          }}
-                          className={'mt-4 !w-full !rounded-lg !bg-theme'}
-                          height={200}
-                          width={400}
-                        />
-                        {formik?.touched[inputItem.name] &&
-                          (formik?.errors[inputItem.name] as any) && (
-                            <FormHelperText className="!text-red-500">
-                              {formik?.touched[inputItem?.name] &&
-                                (formik?.errors[inputItem?.name] as any)}
-                            </FormHelperText>
-                          )}
-                      </FormControl>
-                    </div>
-                  ) : (
+                  {
+                    // inputItem?.name === 'photo' ? (
+                    //   <div className="w-full">
+                    //     <FormControl fullWidth>
+                    //       <PhotoUpload
+                    //         txtName="Upload Your Files"
+                    //         variant={'square'}
+                    //         value={image}
+                    //         onChange={(e: any) => {
+                    //           setImage(e)
+                    //           formik?.setFieldValue('photo', e?.target?.files[0])
+                    //         }}
+                    //         className={'mt-4 !w-full !rounded-lg !bg-theme'}
+                    //         height={200}
+                    //         width={400}
+                    //       />
+                    //       {formik?.touched[inputItem.name] &&
+                    //         (formik?.errors[inputItem.name] as any) && (
+                    //           <FormHelperText className="!text-red-500">
+                    //             {formik?.touched[inputItem?.name] &&
+                    //               (formik?.errors[inputItem?.name] as any)}
+                    //           </FormHelperText>
+                    //         )}
+                    //     </FormControl>
+                    //   </div>
+                    // )
                     <div className={''}>
                       <TextInput
                         fullWidth
@@ -361,7 +362,7 @@ const AddSchedule = () => {
                         onBlur={formik?.handleBlur}
                       />
                     </div>
-                  )}
+                  }
                 </div>
               ))}
 

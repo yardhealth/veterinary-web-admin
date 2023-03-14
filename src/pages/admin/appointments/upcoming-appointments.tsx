@@ -203,22 +203,6 @@ const UpcomingAppointments = () => {
                 render: (row) => (
                   <>
                     <div className="flex">
-                      {/* <Tooltip title="Edit">
-                        <Avatar
-                          onClick={() => setOpenEditAppointmentDrawer(true)}
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-theme !p-0"
-                          sx={{
-                            mr: '.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <BorderColor sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip> */}
                       <Tooltip title="Delete">
                         <Avatar
                           // onClick={() => handleDelete(row?.id)}

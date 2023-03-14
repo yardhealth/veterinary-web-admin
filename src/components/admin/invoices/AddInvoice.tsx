@@ -276,7 +276,7 @@ const AddInvoice = () => {
           createdAt: new Date().toString(),
         })
         setImage('')
-        Swal.fire('Success', 'Successfully Addded', 'success')
+        Swal.fire('Success', 'Successfully Added', 'success')
         submitProps.resetForm()
       } else {
         await database.ref(`Customers/${values?.customerName}/Expenses`).push({
@@ -287,7 +287,7 @@ const AddInvoice = () => {
           ...values,
           createdAt: new Date().toString(),
         })
-        Swal.fire('Success', 'Successfully Addded', 'success')
+        Swal.fire('Success', 'Successfully Added', 'success')
         submitProps.resetForm()
       }
     } catch (error) {
@@ -425,7 +425,10 @@ const AddInvoice = () => {
                           formik?.touched[inputItem.name] &&
                             formik?.errors[inputItem.name]
                         )}
-                        helperText={formik?.errors[inputItem.name] as string}
+                        helperText={
+                          formik?.touched[inputItem.name] &&
+                          (formik?.errors[inputItem.name] as any)
+                        }
                         value={formik?.values[inputItem.name]}
                         onChange={formik?.handleChange}
                         onBlur={formik?.handleBlur}

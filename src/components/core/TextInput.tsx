@@ -208,7 +208,7 @@ const TextInput = ({
       )
     case 'multi-select':
       return (
-        <div className={`${styleArea} mb-4 -ml-2`}>
+        <div className={`${styleArea} mb-1 -ml-2`}>
           <p className="text-wider ml-2 font-medium">{title}</p>
 
           <FormControl sx={{ m: 1 }} fullWidth>

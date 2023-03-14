@@ -69,6 +69,62 @@ const EditScheduleDrawer = ({ open, onClose, mutate }: Props) => {
       //   required: true,
       // },
       {
+        key: '11',
+        // placeholder: 'Enter your name',
+        name: 'day',
+        label: 'Select Day *',
+        placeholder: '',
+        styleContact: 'rounded-xl bg-white ',
+        validationSchema: Yup.array(Yup.string()).required(
+          'Category name is required'
+        ),
+        initialValue: '',
+        type: 'multi-select',
+        icon: <Person />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+        options: [
+          {
+            label: 'All',
+            value: 'All',
+          },
+          {
+            label: 'Mon',
+            value: 'Mon',
+          },
+          {
+            label: 'Tue',
+            value: 'Tue',
+          },
+          {
+            label: 'Wed',
+            value: 'Wed',
+          },
+          {
+            label: 'Thur',
+            value: 'Thur',
+          },
+          {
+            label: 'Fri',
+            value: 'Fri',
+          },
+          {
+            label: 'Sat',
+            value: 'Sat',
+          },
+          {
+            label: 'Sun',
+            value: 'Sun',
+          },
+          ,
+        ],
+      },
+      {
         key: '2',
         // placeholder: 'Enter your email',
         name: 'startTime',
@@ -247,39 +303,40 @@ const EditScheduleDrawer = ({ open, onClose, mutate }: Props) => {
           >
             {(formik) => (
               <Form>
-                <Weekdays />
+                {/* <Weekdays /> */}
                 {console.log(formik.errors)}
                 {AddScheduleSchema?.map((inputItem: any, index: any) => (
                   <div key={index}>
-                    {inputItem?.name === 'photo' ? (
-                      <div className="w-full">
-                        <FormControl fullWidth>
-                          <PhotoUpload
-                            txtName="Upload Your Files"
-                            variant={'square'}
-                            value={image}
-                            onChange={(e: any) => {
-                              setImage(e)
-                              formik?.setFieldValue(
-                                'photo',
-                                e?.target?.files[0]
-                              )
-                            }}
-                            className={'mt-4 !w-full !rounded-lg !bg-theme'}
-                            height={200}
-                            width={400}
-                          />
-                          {formik?.touched[inputItem.name] &&
-                            (formik?.errors[inputItem.name] as any) && (
-                              <FormHelperText className="!text-red-500">
-                                {formik?.touched[inputItem?.name] &&
-                                  (formik?.errors[inputItem?.name] as any)}
-                              </FormHelperText>
-                            )}
-                        </FormControl>
-                      </div>
-                    ) : (
-                      <div className={''}>
+                    {
+                      // inputItem?.name === 'photo' ? (
+                      //   <div className="w-full">
+                      //     <FormControl fullWidth>
+                      //       <PhotoUpload
+                      //         txtName="Upload Your Files"
+                      //         variant={'square'}
+                      //         value={image}
+                      //         onChange={(e: any) => {
+                      //           setImage(e)
+                      //           formik?.setFieldValue(
+                      //             'photo',
+                      //             e?.target?.files[0]
+                      //           )
+                      //         }}
+                      //         className={'mt-4 !w-full !rounded-lg !bg-theme'}
+                      //         height={200}
+                      //         width={400}
+                      //       />
+                      //       {formik?.touched[inputItem.name] &&
+                      //         (formik?.errors[inputItem.name] as any) && (
+                      //           <FormHelperText className="!text-red-500">
+                      //             {formik?.touched[inputItem?.name] &&
+                      //               (formik?.errors[inputItem?.name] as any)}
+                      //           </FormHelperText>
+                      //         )}
+                      //     </FormControl>
+                      //   </div>
+                      // )
+                      <div className={'py-3'}>
                         <TextInput
                           fullWidth
                           key={index}
@@ -295,13 +352,16 @@ const EditScheduleDrawer = ({ open, onClose, mutate }: Props) => {
                             formik?.touched[inputItem.name] &&
                               formik?.errors[inputItem.name]
                           )}
-                          helperText={formik?.errors[inputItem.name] as string}
+                          helperText={
+                            formik?.touched[inputItem.name] &&
+                            (formik?.errors[inputItem.name] as any)
+                          }
                           value={formik?.values[inputItem.name]}
                           onChange={formik?.handleChange}
                           onBlur={formik?.handleBlur}
                         />
                       </div>
-                    )}
+                    }
                   </div>
                 ))}
 
