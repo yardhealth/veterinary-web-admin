@@ -30,6 +30,7 @@ import {
   Create,
   BorderColor,
   SettingsApplications,
+  Upcoming,
 } from '@mui/icons-material'
 import { useAppContext } from 'contexts'
 
@@ -58,9 +59,15 @@ export default () => {
           },
           {
             key: '2.2',
+            route: '/admin/appointments/all-appointments',
+            title: 'All Appointments',
+            icon: <EventNote />,
+          },
+          {
+            key: '2.2',
             route: '/admin/appointments/upcoming-appointments',
             title: 'Upcoming Appointments',
-            icon: <EventNote />,
+            icon: <Upcoming />,
           },
           {
             key: '2.3',

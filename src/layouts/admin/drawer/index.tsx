@@ -92,7 +92,7 @@ const Drawer = ({ open, onToggle }: DrawerType) => {
                   }}
                   className={
                     router.asPath === item.route
-                      ? '!rounded-r-[25px] bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 !font-bold !text-white  '
+                      ? '!rounded-r-[25px] bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 !font-bold !text-white'
                       : '!font-bold !text-black'
                   }
                   selected={
@@ -127,6 +127,11 @@ const Drawer = ({ open, onToggle }: DrawerType) => {
                   <List component="div" disablePadding>
                     {item?.submenus.map((submenu: any) => (
                       <ListItemButton
+                        className={
+                          router.asPath === submenu.route
+                            ? '!rounded-r-[25px] bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 !font-bold !text-white'
+                            : '!font-bold !text-black'
+                        }
                         onClick={() => router.push(submenu.route)}
                         sx={{ pl: 4 }}
                         selected={router.pathname === submenu.route}

@@ -1,5 +1,5 @@
 import AddCustomerDrawer from 'components/admin/drawer/AddCustomerDrawer'
-import { BorderColor, Close, Delete, Done, Update } from '@mui/icons-material'
+import { BorderColor, Delete } from '@mui/icons-material'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
 import { Avatar, Card, CardContent, Paper, Typography } from '@mui/material'
@@ -15,7 +15,6 @@ import { database } from 'configs'
 import Swal from 'sweetalert2'
 import { formatCurrency, getArrFromObj } from '@ashirbad/js-core'
 import EditUpcomingAppointmentDrawer from 'components/admin/drawer/EditUpcomingAppointmentDrawer'
-import Status from 'components/core/Status'
 
 const UpcomingAppointments = () => {
   const router = useRouter()
@@ -43,18 +42,15 @@ const UpcomingAppointments = () => {
     {
       sl: '1',
       ownerName: 'Kate',
-      pet: 'Dog',
+      animal: 'Dog',
       gender: 'male',
-      petName: 'Cooper',
+      name: 'Cooper',
       breed: 'German Shepherd',
       age: '3',
-      wt: '30kG',
-      vaccinated: 'yes',
       healthIssues: 'Injury',
       consultationType: 'Clinic',
       appointmentDate: '20-03-2022',
       appointmentTime: '15:20',
-      status: <Status title1="Accept" title2="Reject" title3="Reschedule" />,
       paymentMethod: 'cash',
       createdAt: 'March 2, 2023 3:57 PM',
     },
@@ -64,11 +60,11 @@ const UpcomingAppointments = () => {
     <AdminLayout title="Upcoming Appointments">
       <div className="grid grid-cols-12 content-between gap-6  px-5">
         <div className="!border-grey-500 !shadow-xl col-span-12 flex w-full flex-col justify-center gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-12">
-          <EditUpcomingAppointmentDrawer
+          {/* <EditUpcomingAppointmentDrawer
             open={openEditAppointmentDrawer}
             onClose={() => setOpenEditAppointmentDrawer(false)}
             // mutate={mutate}
-          />
+          /> */}
           <MaterialTable
             data={tabelData}
             components={{
@@ -95,8 +91,8 @@ const UpcomingAppointments = () => {
                 // width: "2%",
               },
               {
-                title: 'Pet',
-                field: 'pet',
+                title: 'Animal',
+                field: 'animal',
                 editable: 'never',
 
                 emptyValue: '--',
@@ -104,62 +100,44 @@ const UpcomingAppointments = () => {
                 // width: "2%",
               },
 
-              // {
-              //   title: 'Gender',
-              //   field: 'gender',
-              //   searchable: true,
-              //   export: true,
-              //   emptyValue: '--',
-              //   //   hidden:true,
+              {
+                title: 'Gender',
+                field: 'gender',
+                searchable: true,
+                export: true,
+                emptyValue: '--',
+                //   hidden:true,
 
-              //   filtering: false,
-              // },
+                filtering: false,
+              },
 
-              // {
-              //   title: 'Pet Name',
-              //   field: 'petName',
-              //   searchable: true,
+              {
+                title: 'Name',
+                field: 'name',
+                searchable: true,
 
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
-              // {
-              //   title: 'Breed',
-              //   field: 'breed',
-              //   searchable: true,
-              //   export: true,
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
-              // {
-              //   title: 'Age',
-              //   field: 'age',
-              //   searchable: true,
+                emptyValue: '--',
+                //   hidden:true,
+                filtering: false,
+              },
+              {
+                title: 'Breed',
+                field: 'breed',
+                searchable: true,
+                export: true,
+                emptyValue: '--',
+                //   hidden:true,
+                filtering: false,
+              },
+              {
+                title: 'Age',
+                field: 'age',
+                searchable: true,
 
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
-              // {
-              //   title: 'Wt.',
-              //   field: 'wt',
-              //   searchable: true,
-
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
-              // {
-              //   title: 'Vaccinated',
-              //   field: 'vaccinated',
-              //   searchable: true,
-
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
+                emptyValue: '--',
+                //   hidden:true,
+                filtering: false,
+              },
               {
                 title: 'Health Issues',
                 field: 'healthIssues',
@@ -191,22 +169,20 @@ const UpcomingAppointments = () => {
                 title: 'Appointment Time',
                 field: 'appointmentTime',
                 searchable: true,
-                cellStyle: {
-                  textAlign: 'center',
-                },
+
                 emptyValue: '--',
                 //   hidden:true,
                 filtering: false,
               },
-              // {
-              //   title: 'Payment Method',
-              //   field: 'paymentMethod',
-              //   searchable: true,
+              {
+                title: 'Payment Method',
+                field: 'paymentMethod',
+                searchable: true,
 
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
+                emptyValue: '--',
+                //   hidden:true,
+                filtering: false,
+              },
 
               {
                 title: 'Created At',
@@ -216,76 +192,6 @@ const UpcomingAppointments = () => {
                 render: ({ createdAt }: any) =>
                   moment(new Date(createdAt)).format('lll'),
               },
-              // {
-              //   title: 'Status',
-              //   field: 'status',
-              //   filtering: true,
-              // },
-
-              {
-                title: 'Status',
-                cellStyle: {
-                  textAlign: 'right',
-                },
-                export: true,
-                // width: "18%",
-                // field: "pick",
-                render: (row) => (
-                  <>
-                    <div className="flex gap-1">
-                      <Tooltip title="Accept">
-                        <Avatar
-                          // onClick={() => setOpenEditAppointmentDrawer(true)}
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-green-500 !p-0"
-                          sx={{
-                            mr: '.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <Done sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip>
-                      <Tooltip title="Reject">
-                        <Avatar
-                          // onClick={() => setOpenEditAppointmentDrawer(true)}
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-red-500 !p-0"
-                          sx={{
-                            mr: '.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <Close sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip>
-                      <Tooltip title="Reschedule">
-                        <Avatar
-                          // onClick={() => setOpenEditAppointmentDrawer(true)}
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-[#ff7717] !p-0"
-                          sx={{
-                            mr: '.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <Update sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip>
-                    </div>
-                  </>
-                ),
-              },
-
               {
                 title: 'Actions',
                 cellStyle: {
@@ -297,7 +203,7 @@ const UpcomingAppointments = () => {
                 render: (row) => (
                   <>
                     <div className="flex">
-                      <Tooltip title="Edit">
+                      {/* <Tooltip title="Edit">
                         <Avatar
                           onClick={() => setOpenEditAppointmentDrawer(true)}
                           variant="rounded"
@@ -312,7 +218,7 @@ const UpcomingAppointments = () => {
                         >
                           <BorderColor sx={{ padding: '0px !important' }} />
                         </Avatar>
-                      </Tooltip>
+                      </Tooltip> */}
                       <Tooltip title="Delete">
                         <Avatar
                           // onClick={() => handleDelete(row?.id)}
@@ -362,110 +268,6 @@ const UpcomingAppointments = () => {
                         }}
                       >
                         <CardContent>
-                          <Typography gutterBottom align="left">
-                            Pet Name :
-                            <span
-                              style={{
-                                color: 'rgb(30, 136, 229)',
-                                fontSize: '15px',
-                                wordBreak: 'break-word',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-                            </span>
-                          </Typography>
-                          <Typography gutterBottom align="left">
-                            Gender :
-                            <span
-                              style={{
-                                color: 'rgb(30, 136, 229)',
-                                fontSize: '15px',
-                                wordBreak: 'break-word',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-                            </span>
-                          </Typography>
-                          <Typography gutterBottom align="left">
-                            Breed :
-                            <span
-                              style={{
-                                color: 'rgb(30, 136, 229)',
-                                fontSize: '15px',
-                                wordBreak: 'break-word',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-                            </span>
-                          </Typography>
-                          <Typography gutterBottom align="left">
-                            Age :
-                            <span
-                              style={{
-                                color: 'rgb(30, 136, 229)',
-                                fontSize: '15px',
-                                wordBreak: 'break-word',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-                            </span>
-                          </Typography>
-                          <Typography gutterBottom align="left">
-                            Wt :
-                            <span
-                              style={{
-                                color: 'rgb(30, 136, 229)',
-                                fontSize: '15px',
-                                wordBreak: 'break-word',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-                            </span>
-                          </Typography>
-                          <Typography gutterBottom align="left">
-                            Vaccinated :
-                            <span
-                              style={{
-                                color: 'rgb(30, 136, 229)',
-                                fontSize: '15px',
-                                wordBreak: 'break-word',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-                            </span>
-                          </Typography>
-                          <Typography gutterBottom align="left">
-                            Payment Method :
-                            <span
-                              style={{
-                                color: 'rgb(30, 136, 229)',
-                                fontSize: '15px',
-                                wordBreak: 'break-word',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-                            </span>
-                          </Typography>
-                          <Typography gutterBottom align="left">
-                            Aggression :
-                            <span
-                              style={{
-                                color: 'rgb(30, 136, 229)',
-                                fontSize: '15px',
-                                wordBreak: 'break-word',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-                            </span>
-                          </Typography>
                           <Typography gutterBottom align="left">
                             State :
                             <span

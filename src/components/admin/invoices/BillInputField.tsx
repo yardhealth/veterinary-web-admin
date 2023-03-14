@@ -46,23 +46,6 @@ const BillInputField = ({
   return (
     <FormControl fullWidth>
       <div>
-        {/* {inputs.map((input, index) => (
-				<div key={index} className="grid grid-cols-2 gap-3 py-3">
-					<input
-						className="rounded-md"
-						type="text"
-						value={input.value}
-						onChange={(e) => handleNameChange(index, e)}
-					/>
-					<input
-						className="rounded-md"
-						type="number"
-						value={input.amount}
-						onChange={(e) => handleAmtChange(index, e)}
-					/>
-				</div>
-			))} */}
-
         {/* {inputs.map((input, index) => ( */}
         <div className="grid grid-cols-2 gap-3 py-3">
           <div className="flex flex-col">
