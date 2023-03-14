@@ -11,6 +11,7 @@ import {
 import TextInput from 'components/core/TextInput'
 import {
   AccessTimeFilled,
+  Add,
   BorderColor,
   CalendarMonth,
   CurrencyRupee,
@@ -27,7 +28,7 @@ import {
 } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import AdminLayout from 'layouts/admin'
-import { Form, Formik } from 'formik'
+import { Form, Formik, FormikProps } from 'formik'
 import { useMemo, useState } from 'react'
 import * as Yup from 'yup'
 import RoleSelecter from 'components/core/RoleSelecter'
@@ -39,6 +40,7 @@ import CustomerType from 'types/customer'
 import { database, storage } from 'configs'
 import Swal from 'sweetalert2'
 import Weekdays from 'components/core/Weekdays'
+import DrugInputField from './DrugInputField'
 
 const AddPrescription = () => {
   const [categories] = useFetch<CategoryType[]>(`/Categories`, {
@@ -119,112 +121,112 @@ const AddPrescription = () => {
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
         type: 'text',
-        validationSchema: Yup.string().required('Drug Name is required'),
-        initialValue: '',
+        validationSchema: Yup.array().required('Item Name is required'),
+        initialValue: [{ value: '', amount: '', key: '1' }],
         icon: <MedicationLiquid />,
         required: true,
       },
 
-      {
-        key: '3',
-        // placeholder: 'Enter your name',
-        name: 'instruction',
-        label: 'Instruction *',
-        placeholder: '',
-        styleContact: 'rounded-xl mb-5 bg-white ',
-        validationSchema: Yup.string().required('Instruction is required'),
-        initialValue: '',
-        type: 'select',
-        icon: <Person />,
-        required: true,
-        contactField: {
-          xs: 12,
-          sm: 12,
-          md: 6,
-          lg: 6,
-        },
-        options: [
-          {
-            label: 'OD (Once A Day / 1-0-0)',
-            value: 'OD (Once A Day / 1-0-0)',
-          },
-          {
-            label: 'BD (Twice A Day / 1-0-1)',
-            value: 'BD (Twice A Day / 1-0-1)',
-          },
-          {
-            label: 'TDS (Thrice A Day / 1-1-1)',
-            value: 'TDS (Thrice A Day / 1-1-1)',
-          },
-          {
-            label: 'Four Times A Day 1-1-1-1',
-            value: 'Four Times A Day 1-1-1-1',
-          },
-          {
-            label: 'Starts Immediately',
-            value: 'Starts Immediately',
-          },
-          {
-            label: 'When Required',
-            value: 'When Required',
-          },
-          {
-            label: 'Before Sleep / 0-0-1',
-            value: 'Before Sleep / 0-0-1',
-          },
-          ,
-        ],
-      },
+      // {
+      //   key: '3',
+      //   // placeholder: 'Enter your name',
+      //   name: 'instruction',
+      //   label: 'Instruction *',
+      //   placeholder: '',
+      //   styleContact: 'rounded-xl mb-5 bg-white ',
+      //   validationSchema: Yup.string().required('Instruction is required'),
+      //   initialValue: '',
+      //   type: 'select',
+      //   icon: <Person />,
+      //   required: true,
+      //   contactField: {
+      //     xs: 12,
+      //     sm: 12,
+      //     md: 6,
+      //     lg: 6,
+      //   },
+      //   options: [
+      //     {
+      //       label: 'OD (Once A Day / 1-0-0)',
+      //       value: 'OD (Once A Day / 1-0-0)',
+      //     },
+      //     {
+      //       label: 'BD (Twice A Day / 1-0-1)',
+      //       value: 'BD (Twice A Day / 1-0-1)',
+      //     },
+      //     {
+      //       label: 'TDS (Thrice A Day / 1-1-1)',
+      //       value: 'TDS (Thrice A Day / 1-1-1)',
+      //     },
+      //     {
+      //       label: 'Four Times A Day 1-1-1-1',
+      //       value: 'Four Times A Day 1-1-1-1',
+      //     },
+      //     {
+      //       label: 'Starts Immediately',
+      //       value: 'Starts Immediately',
+      //     },
+      //     {
+      //       label: 'When Required',
+      //       value: 'When Required',
+      //     },
+      //     {
+      //       label: 'Before Sleep / 0-0-1',
+      //       value: 'Before Sleep / 0-0-1',
+      //     },
+      //     ,
+      //   ],
+      // },
 
-      {
-        key: '3',
-        // placeholder: 'Enter your name',
-        name: 'time',
-        label: 'Time *',
-        placeholder: '',
-        styleContact: 'rounded-xl mb-5 bg-white ',
-        validationSchema: Yup.string().required('Time is required'),
-        initialValue: '',
-        type: 'select',
-        icon: <Person />,
-        required: true,
-        contactField: {
-          xs: 12,
-          sm: 12,
-          md: 6,
-          lg: 6,
-        },
-        options: [
-          {
-            label: 'Before Meal',
-            value: 'Before Meal',
-          },
-          {
-            label: 'After Meal',
-            value: 'After Meal',
-          },
+      // {
+      //   key: '3',
+      //   // placeholder: 'Enter your name',
+      //   name: 'time',
+      //   label: 'Time *',
+      //   placeholder: '',
+      //   styleContact: 'rounded-xl mb-5 bg-white ',
+      //   validationSchema: Yup.string().required('Time is required'),
+      //   initialValue: '',
+      //   type: 'select',
+      //   icon: <Person />,
+      //   required: true,
+      //   contactField: {
+      //     xs: 12,
+      //     sm: 12,
+      //     md: 6,
+      //     lg: 6,
+      //   },
+      //   options: [
+      //     {
+      //       label: 'Before Meal',
+      //       value: 'Before Meal',
+      //     },
+      //     {
+      //       label: 'After Meal',
+      //       value: 'After Meal',
+      //     },
 
-          ,
-        ],
-      },
+      //     ,
+      //   ],
+      // },
 
-      {
-        key: '6',
-        // placeholder: 'Enter your email',
-        name: 'prescriptionNote',
-        label: 'Prescription Note *',
-        placeholder: '',
-        styleContact: 'rounded-lg',
-        type: 'text',
-        validationSchema: Yup.string().required(
-          'Prescription Note is required'
-        ),
-        initialValue: '',
-        icon: <Timer />,
-        multiline: true,
-        rows: 2,
-        required: true,
-      },
+      // {
+      //   key: '6',
+      //   // placeholder: 'Enter your email',
+      //   name: 'prescriptionNote',
+      //   label: 'Prescription Note *',
+      //   placeholder: '',
+      //   styleContact: 'rounded-lg',
+      //   type: 'text',
+      //   validationSchema: Yup.string().required(
+      //     'Prescription Note is required'
+      //   ),
+      //   initialValue: '',
+      //   icon: <Timer />,
+      //   multiline: true,
+      //   rows: 2,
+      //   required: true,
+      // },
     ]
   }, [categories])
   const [articleValue, setArticleValue] = useState('')
@@ -301,6 +303,44 @@ const AddPrescription = () => {
     {} as any
   )
 
+  const handleClick = (name: string, formik: FormikProps<any>) => {
+    try {
+      console.log(name)
+      formik?.setFieldValue(
+        name,
+        formik?.values[name]?.length > 0
+          ? [
+              ...formik?.values[name],
+              { key: Date.now(), value: '', amount: '' },
+            ]
+          : [{ key: Date.now(), value: '', amount: '' }]
+      )
+    } catch (error) {}
+  }
+
+  const handleFormikOnChange = (
+    formik: FormikProps<any>,
+    amount: any,
+    value: any,
+    key: string
+  ) => {
+    try {
+      formik?.setFieldValue(
+        'drugName',
+        formik?.values?.drugName?.map((item: any) => {
+          if (item.key === key) {
+            return {
+              ...item,
+              value,
+              amount,
+            }
+          }
+          return item
+        })
+      )
+    } catch (error) {}
+  }
+
   return (
     <Container
       maxWidth="xl"
@@ -331,7 +371,40 @@ const AddPrescription = () => {
               {console.log(formik.errors)}
               {AddPrescriptionSchema?.map((inputItem: any, index: any) => (
                 <div key={index}>
-                  {
+                  {inputItem?.name === 'drugName' ? (
+                    <div className=" w-full py-4">
+                      {formik.values[inputItem.name]?.length &&
+                        formik?.values[inputItem.name]?.map((item: any) => {
+                          return (
+                            <DrugInputField
+                              name="item"
+                              error={Boolean(
+                                formik?.touched?.drugName &&
+                                  formik?.errors?.drugName
+                              )}
+                              helperText={'This field is required.'}
+                              value={item.value}
+                              amount={item?.amount}
+                              onChange={(amount: any, value: any) =>
+                                handleFormikOnChange(
+                                  formik,
+                                  amount,
+                                  value,
+                                  item?.key
+                                )
+                              }
+                            />
+                          )
+                        })}
+
+                      <button
+                        onClick={() => handleClick(inputItem?.name, formik)}
+                        className="mt-5 flex items-center gap-1 rounded-md bg-theme px-4 py-2 text-sm text-white transition-all duration-300 ease-in-out hover:scale-105"
+                      >
+                        <Add className="!text-[1.3rem]" /> Add More
+                      </button>
+                    </div>
+                  ) : (
                     <div className={''}>
                       <TextInput
                         fullWidth
@@ -354,7 +427,7 @@ const AddPrescription = () => {
                         onBlur={formik?.handleBlur}
                       />
                     </div>
-                  }
+                  )}
                 </div>
               ))}
 

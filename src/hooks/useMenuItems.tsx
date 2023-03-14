@@ -29,6 +29,7 @@ import {
   LocalHospital,
   Create,
   BorderColor,
+  SettingsApplications,
 } from '@mui/icons-material'
 import { useAppContext } from 'contexts'
 
@@ -134,9 +135,16 @@ export default () => {
       },
       {
         key: '6',
+        title: 'Config',
+        icon: <SettingsApplications />,
+        route: '/admin/config',
+      },
+
+      {
+        key: '7',
         title: 'Support',
         icon: <BusinessCenter />,
-        route: '/admin/items',
+        route: '/admin/support',
       },
       // {
       //   key: '4',
@@ -196,12 +204,12 @@ export default () => {
       //   route: '/admin/notifications',
       // },
       {
-        key: '7',
+        key: '8',
         title: 'Settings',
         icon: <Settings />,
         submenus: [
           {
-            key: '7.1',
+            key: '8.1',
             route: '/admin/change-password',
             title: 'Change Password',
             icon: <Key />,
