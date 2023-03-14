@@ -6,6 +6,7 @@ import {
   AddRoad,
   BorderColor,
   CalendarMonth,
+  ContactPhone,
   CurrencyRupee,
   Done,
   Email,
@@ -34,6 +35,7 @@ import PhotoUpload from 'components/core/PhotoUpload'
 import FormHelperText from '@mui/material/FormHelperText'
 import AnimalSelecter from 'components/core/AnimalSelecter'
 import ConsultationTypeSelecter from '../appointments/ConsultationTypeSelecter'
+import AvailableSlot from 'components/core/AvailableSlot'
 
 type Props = {
   open?: boolean | any
@@ -66,12 +68,25 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         required: true,
       },
       {
-        key: '1',
+        key: '2',
+        // placeholder: 'Enter your email',
+        name: 'contact',
+        label: 'Contact Number *',
+        placeholder: '',
+        styleContact: 'rounded-lg mb-5',
+        type: 'number',
+        validationSchema: Yup.string().required('Contact number is required'),
+        initialValue: '',
+        icon: <ContactPhone />,
+        required: true,
+      },
+      {
+        key: '3',
         // placeholder: 'Enter your name',
         name: 'pet',
         label: 'Category Name *',
         placeholder: '',
-        styleContact: 'rounded-xl mb-5 ',
+        styleContact: 'rounded-xl mb-10 bg-white ',
         validationSchema: Yup.string().required('Category name is required'),
         initialValue: '',
         type: 'select',
@@ -101,11 +116,11 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
       },
 
       {
-        key: '3',
+        key: '4',
         label: 'Pet Name',
         name: 'name',
         type: 'text',
-        validationSchema: Yup.string().required('Name is required'),
+        validationSchema: Yup.string().required('Pet Name is required'),
         initialValue: '',
         icon: <BorderColor />,
         styleContact: 'rounded-lg mb-5',
@@ -113,14 +128,14 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
       },
 
       {
-        key: '2',
+        key: '5',
         // placeholder: 'Enter your email',
         name: 'gender',
         label: 'Gender *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
         type: 'select',
-        validationSchema: Yup.string().required('Amount is required'),
+        validationSchema: Yup.string().required('Gender is required'),
         initialValue: '',
         icon: <Transgender />,
         required: true,
@@ -139,7 +154,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
       },
 
       {
-        key: '5',
+        key: '6',
         name: 'breed',
         label: 'Breed *',
         placeholder: '',
@@ -153,7 +168,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         // rows: 2,
       },
       {
-        key: '5',
+        key: '7',
         name: 'age',
         label: 'Age *',
         placeholder: '',
@@ -167,7 +182,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         // rows: 2,
       },
       {
-        key: '5',
+        key: '8',
         name: 'wt',
         label: 'Weight *',
         placeholder: '',
@@ -181,7 +196,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         // rows: 2,
       },
       {
-        key: '2',
+        key: '9',
         // placeholder: 'Enter your email',
         name: 'aggression',
         label: 'Aggression *',
@@ -210,14 +225,14 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         ],
       },
       {
-        key: '2',
+        key: '10',
         // placeholder: 'Enter your email',
         name: 'vaccinated',
         label: 'Vaccinated *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
         type: 'select',
-        validationSchema: Yup.string().required('Field is required'),
+        validationSchema: Yup.string().required('Vaccinated field is required'),
         initialValue: '',
         icon: <CurrencyRupee />,
         required: true,
@@ -234,14 +249,14 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         ],
       },
       {
-        key: '1',
+        key: '11',
         // placeholder: 'Enter your name',
         name: 'generalHealthIssues',
         label: 'General Health Issues *',
         placeholder: '',
-        styleContact: 'rounded-xl mb-5',
+        styleContact: 'rounded-xl bg-white ',
         validationSchema: Yup.array(Yup.string()).required(
-          'Category name is required'
+          'Please select any issues'
         ),
         initialValue: '',
         type: 'multi-select',
@@ -294,14 +309,14 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         ],
       },
       {
-        key: '1',
+        key: '12',
         // placeholder: 'Enter your name',
         name: 'digestiveProblems',
         label: 'Digestive Problems *',
         placeholder: '',
-        styleContact: 'rounded-xl mb-5',
+        styleContact: 'rounded-xl  bg-white ',
         validationSchema: Yup.array(Yup.string()).required(
-          'Category name is required'
+          'Please select any issues'
         ),
         initialValue: '',
         type: 'multi-select',
@@ -345,14 +360,14 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         ],
       },
       {
-        key: '1',
+        key: '13',
         // placeholder: 'Enter your name',
-        name: 'healthIssues',
-        label: 'General Problem',
+        name: 'skinProblems',
+        label: 'Skin Problems *',
         placeholder: '',
-        styleContact: 'rounded-xl mb-5',
+        styleContact: 'rounded-xl bg-white ',
         validationSchema: Yup.array(Yup.string()).required(
-          'Category name is required'
+          'Please select any issues'
         ),
         initialValue: '',
         type: 'multi-select',
@@ -366,28 +381,142 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         },
         options: [
           {
+            label: 'Hair loss',
+            value: 'Hair loss',
+          },
+          {
+            label: 'Allergies',
+            value: 'Allergies',
+          },
+          {
+            label: 'Skin Rashes',
+            value: 'Skin Rashes',
+          },
+          {
+            label: 'Skin Infection',
+            value: 'Skin Infection',
+          },
+          {
+            label: 'Ticks/Fleas',
+            value: 'Ticks/Fleas',
+          },
+          {
+            label: 'Itching and Self Biting',
+            value: 'Itching and Self Biting',
+          },
+        ],
+      },
+      {
+        key: '14',
+        // placeholder: 'Enter your name',
+        name: 'eyeAndEarProblems',
+        label: 'Eye and Ear Problems *',
+        placeholder: '',
+        styleContact: 'rounded-xl bg-white ',
+        validationSchema: Yup.array(Yup.string()).required(
+          'Please select any issues'
+        ),
+        initialValue: '',
+        type: 'multi-select',
+        icon: <Person />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+        options: [
+          {
+            label: 'Eye Infection',
+            value: 'Eye Infection',
+          },
+          {
             label: 'Ear Infection',
             value: 'Ear Infection',
           },
           {
-            label: 'Throwing Up',
-            value: 'Throwing Up',
+            label: 'Swollen Eye',
+            value: 'Swollen Eye',
           },
           {
-            label: 'Behavioral Problem',
-            value: 'Behavioral Problem',
+            label: 'Swollen Ear',
+            value: 'Swollen Ear',
           },
           {
-            label: 'Skin rash or allergy',
-            value: 'Skin rash or allergy',
+            label: 'Discharge from Eye',
+            value: 'Discharge from Eye',
           },
           {
-            label: 'Injury',
-            value: 'Injury',
+            label: 'Discharge from Ear',
+            value: 'Discharge from Ear',
           },
           {
-            label: 'Dental Issues',
-            value: 'Dental Issues',
+            label: 'Redness of Eye',
+            value: 'Redness of Eye',
+          },
+          {
+            label: 'Smell form Ear',
+            value: 'Smell form Ear',
+          },
+          {
+            label: 'Injury in Eye',
+            value: 'Injury in Eye',
+          },
+        ],
+      },
+      {
+        key: '15',
+        // placeholder: 'Enter your name',
+        name: 'healthIssues',
+        label: 'Other Problem',
+        placeholder: '',
+        styleContact: 'rounded-xl bg-white ',
+        validationSchema: Yup.array(Yup.string()).required(
+          'Please select any issues'
+        ),
+        initialValue: '',
+        type: 'multi-select',
+        icon: <Person />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+        options: [
+          {
+            label: 'Need Antibiotics and Drips',
+            value: 'Need Antibiotics and Drips',
+          },
+          {
+            label: 'Regular Dressing',
+            value: 'Regular Dressing',
+          },
+          {
+            label: 'Follow-up Treatment',
+            value: 'Follow-up Treatment',
+          },
+          {
+            label: 'Ear Cleaning',
+            value: 'Ear Cleaning',
+          },
+          {
+            label: 'Swollen Testicles',
+            value: 'Swollen Testicles',
+          },
+          {
+            label: 'Blood Test',
+            value: 'Blood Test',
+          },
+          {
+            label: 'Nail Clipping',
+            value: 'Nail Clipping',
+          },
+          {
+            label: 'Anal Gland Cleaning',
+            value: 'Anal Gland Cleaning',
           },
           {
             label: 'Other',
@@ -397,12 +526,12 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         ],
       },
       {
-        key: '13',
+        key: '16',
         // placeholder: 'Enter your email',
         name: 'description',
         label: 'Description *',
         placeholder: '',
-        styleContact: 'rounded-lg mb-5',
+        styleContact: 'rounded-lg ',
         type: 'text',
         validationSchema: Yup.string().when('healthIssues', {
           is: 'Other',
@@ -416,12 +545,12 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         rows: 2,
       },
       {
-        key: '1',
+        key: '17',
         // placeholder: 'Enter your name',
         name: 'consultation',
         label: 'Consultation Type *',
         placeholder: '',
-        styleContact: 'rounded-xl mb-5',
+        styleContact: 'rounded-xl mb-5 bg-white ',
         validationSchema: Yup.string().required('Customer Type is required'),
         initialValue: '',
         icon: <Person />,
@@ -444,9 +573,9 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         ],
       },
       {
-        key: '13',
+        key: '18',
         // placeholder: 'Enter your email',
-        name: 'consultationType',
+        name: 'consultationType1',
         label: 'House/Flat/Floor No. *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
@@ -461,9 +590,9 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         required: true,
       },
       {
-        key: '13',
+        key: '19',
         // placeholder: 'Enter your email',
-        name: 'consultationType',
+        name: 'consultationType2',
         label: 'Apartment/Road/Area *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
@@ -478,9 +607,9 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         required: true,
       },
       {
-        key: '13',
+        key: '20',
         // placeholder: 'Enter your email',
-        name: 'consultationType',
+        name: 'consultationType3',
         label: 'State *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
@@ -495,9 +624,9 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         required: true,
       },
       {
-        key: '13',
+        key: '21',
         // placeholder: 'Enter your email',
-        name: 'consultationType',
+        name: 'consultationType4',
         label: 'Zip Code *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
@@ -512,9 +641,9 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
         required: true,
       },
       {
-        key: '13',
+        key: '22',
         // placeholder: 'Enter your email',
-        name: 'consultationType',
+        name: 'consultationType5',
         label: 'City *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
@@ -530,7 +659,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
       },
 
       {
-        key: '1',
+        key: '23',
         // placeholder: 'Enter your email',
         name: 'date',
         label: 'Select Appointment Date *',
@@ -548,7 +677,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
       //   name: 'time',
       //   label: 'Select Appointment Time *',
       //   placeholder: '',
-      //   styleContact: 'rounded-lg',
+      //   styleContact: 'rounded-lg mb-5',
       //   type: 'time',
       //   validationSchema: Yup.string().required('Appointment time is required'),
       //   initialValue: '',
@@ -556,7 +685,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
       //   required: true,
       // },
       {
-        key: '15',
+        key: '24',
         name: 'time2',
         label: 'City *',
         validationSchema: Yup.string().required('City is required'),
@@ -591,7 +720,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
       //   })),
       // },
       {
-        key: '1',
+        key: '25',
         // placeholder: 'Enter your name',
         name: 'payment',
         label: 'Payment Method *',
@@ -625,7 +754,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
       },
 
       {
-        key: '6',
+        key: '26',
         name: 'photo',
         label: 'Photo',
         type: 'file',
@@ -700,9 +829,16 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
             {(formik) => (
               <Form>
                 {console.log(formik.values)}
+                {console.log(formik.errors)}
+                {console.log(formik.touched)}
+
                 {AddRecordExpenseSchema?.map((inputItem: any, index: any) => (
                   <div key={index}>
-                    {inputItem?.name === 'photo' ? (
+                    {inputItem?.name === 'time2' ? (
+                      <div className="my-5 w-full">
+                        <AvailableSlot />
+                      </div>
+                    ) : inputItem?.name === 'photo' ? (
                       <div className="w-full">
                         <FormControl fullWidth>
                           <PhotoUpload
@@ -716,7 +852,9 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
                                 e?.target?.files[0]
                               )
                             }}
-                            className={'mt-4 !w-full !rounded-lg !bg-theme'}
+                            className={
+                              'mt-4 mb-5 !w-full !rounded-lg !bg-theme'
+                            }
                             height={200}
                             width={400}
                           />
@@ -729,19 +867,19 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
                             )}
                         </FormControl>
                       </div>
-                    ) : inputItem?.name === 'animal' ? (
-                      <div className=" w-full py-4">
+                    ) : inputItem?.name === 'pet' ? (
+                      <div className=" w-full">
                         <AnimalSelecter
-                          name="animal"
+                          name="pet"
                           options={inputItem.options}
                           error={Boolean(
-                            formik?.touched?.animal && formik?.errors?.animal
+                            formik?.touched?.pet && formik?.errors?.pet
                           )}
-                          helperText={formik?.errors?.animal}
-                          styleContact={inputItem?.styleContact}
-                          value={formik?.values?.animal}
+                          helperText={formik?.errors?.pet}
+                          value={formik?.values?.pet}
                           onChange={formik?.handleChange}
                           onBlur={formik?.handleBlur}
+                          styleContact={inputItem?.styleContact}
                         />
                       </div>
                     ) : inputItem?.name === 'consultation' ? (
@@ -753,16 +891,16 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
                             formik?.touched?.consultation &&
                               formik?.errors?.consultation
                           )}
-                          styleContact={inputItem?.styleContact}
                           helperText={formik?.errors?.consultation}
                           value={formik?.values?.consultation}
                           onChange={formik?.handleChange}
                           onBlur={formik?.handleBlur}
+                          styleContact={inputItem?.styleContact}
                         />
                       </div>
-                    ) : inputItem?.name === 'consultationType' ? (
+                    ) : inputItem?.name === 'consultationType1' ? (
                       formik?.values?.consultation === 'Home' ? (
-                        <div className=" w-full py-4">
+                        <div className=" w-full">
                           <TextInput
                             fullWidth
                             key={index}
@@ -771,7 +909,115 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
                             // multiline={inputItem?.multiline}
                             // rows={inputItem?.rows}
                             type={inputItem.type as any}
-                            // startIcon={inputItem?.icon}
+                            startIcon={inputItem?.icon}
+                            styleContact={inputItem?.styleContact}
+                            error={Boolean(
+                              formik?.touched[inputItem.name] &&
+                                formik?.errors[inputItem.name]
+                            )}
+                            helperText={
+                              formik?.touched[inputItem.name] &&
+                              (formik?.errors[inputItem.name] as any)
+                            }
+                            value={formik?.values[inputItem.name]}
+                            onChange={formik?.handleChange}
+                            onBlur={formik?.handleBlur}
+                          />
+                        </div>
+                      ) : null
+                    ) : inputItem?.name === 'consultationType2' ? (
+                      formik?.values?.consultation === 'Home' ? (
+                        <div className=" w-full">
+                          <TextInput
+                            fullWidth
+                            key={index}
+                            name={inputItem?.name}
+                            title={inputItem?.label as any}
+                            // multiline={inputItem?.multiline}
+                            // rows={inputItem?.rows}
+                            type={inputItem.type as any}
+                            startIcon={inputItem?.icon}
+                            styleContact={inputItem?.styleContact}
+                            error={Boolean(
+                              formik?.touched[inputItem.name] &&
+                                formik?.errors[inputItem.name]
+                            )}
+                            helperText={
+                              formik?.touched[inputItem.name] &&
+                              (formik?.errors[inputItem.name] as any)
+                            }
+                            value={formik?.values[inputItem.name]}
+                            onChange={formik?.handleChange}
+                            onBlur={formik?.handleBlur}
+                          />
+                        </div>
+                      ) : null
+                    ) : inputItem?.name === 'consultationType3' ? (
+                      formik?.values?.consultation === 'Home' ? (
+                        <div className=" w-full">
+                          <TextInput
+                            fullWidth
+                            key={index}
+                            name={inputItem?.name}
+                            title={inputItem?.label as any}
+                            // multiline={inputItem?.multiline}
+                            // rows={inputItem?.rows}
+                            type={inputItem.type as any}
+                            startIcon={inputItem?.icon}
+                            styleContact={inputItem?.styleContact}
+                            error={Boolean(
+                              formik?.touched[inputItem.name] &&
+                                formik?.errors[inputItem.name]
+                            )}
+                            helperText={
+                              formik?.touched[inputItem.name] &&
+                              (formik?.errors[inputItem.name] as any)
+                            }
+                            value={formik?.values[inputItem.name]}
+                            onChange={formik?.handleChange}
+                            onBlur={formik?.handleBlur}
+                          />
+                        </div>
+                      ) : null
+                    ) : inputItem?.name === 'consultationType4' ? (
+                      formik?.values?.consultation === 'Home' ? (
+                        <div className="w-full">
+                          <TextInput
+                            fullWidth
+                            key={index}
+                            name={inputItem?.name}
+                            title={inputItem?.label as any}
+                            // multiline={inputItem?.multiline}
+                            // rows={inputItem?.rows}
+                            type={inputItem.type as any}
+                            startIcon={inputItem?.icon}
+                            styleContact={inputItem?.styleContact}
+                            error={Boolean(
+                              formik?.touched[inputItem.name] &&
+                                formik?.errors[inputItem.name]
+                            )}
+                            helperText={
+                              formik?.touched[inputItem.name] &&
+                              (formik?.errors[inputItem.name] as any)
+                            }
+                            value={formik?.values[inputItem.name]}
+                            onChange={formik?.handleChange}
+                            onBlur={formik?.handleBlur}
+                          />
+                        </div>
+                      ) : null
+                    ) : inputItem?.name === 'consultationType5' ? (
+                      formik?.values?.consultation === 'Home' ? (
+                        <div className=" w-full">
+                          <TextInput
+                            fullWidth
+                            key={index}
+                            name={inputItem?.name}
+                            title={inputItem?.label as any}
+                            // multiline={inputItem?.multiline}
+                            // rows={inputItem?.rows}
+                            type={inputItem.type as any}
+                            startIcon={inputItem?.icon}
                             styleContact={inputItem?.styleContact}
                             error={Boolean(
                               formik?.touched[inputItem.name] &&
@@ -790,7 +1036,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
                     ) : inputItem?.name === 'description' ? (
                       formik?.values?.healthIssues?.length &&
                       formik?.values?.healthIssues?.includes('Other') ? (
-                        <div className=" w-full py-4">
+                        <div className=" w-full">
                           <TextInput
                             fullWidth
                             key={index}
@@ -816,7 +1062,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
                         </div>
                       ) : null
                     ) : (
-                      <div className={''}>
+                      <div className={'w-full'}>
                         <TextInput
                           fullWidth
                           key={index}
@@ -832,7 +1078,10 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
                             formik?.touched[inputItem.name] &&
                               formik?.errors[inputItem.name]
                           )}
-                          helperText={formik?.errors[inputItem.name] as string}
+                          helperText={
+                            formik?.touched[inputItem.name] &&
+                            (formik?.errors[inputItem.name] as any)
+                          }
                           value={formik?.values[inputItem.name]}
                           onChange={formik?.handleChange}
                           onBlur={formik?.handleBlur}
@@ -845,7 +1094,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
                 <div>
                   <div className="mt-2 mb-2">
                     <LoadingButton
-                      className="btn-background !bg-theme"
+                      className="btn-background !bg-primary"
                       variant="contained"
                       type="submit"
                       fullWidth

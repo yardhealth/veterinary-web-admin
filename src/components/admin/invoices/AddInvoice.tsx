@@ -11,6 +11,7 @@ import {
 import TextInput from 'components/core/TextInput'
 import {
   AccessTimeFilled,
+  Add,
   BorderColor,
   CalendarMonth,
   CurrencyRupee,
@@ -28,7 +29,7 @@ import {
 } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import AdminLayout from 'layouts/admin'
-import { Form, Formik } from 'formik'
+import { Form, Formik, FormikProps } from 'formik'
 import { useMemo, useState } from 'react'
 import * as Yup from 'yup'
 import RoleSelecter from 'components/core/RoleSelecter'
@@ -40,6 +41,7 @@ import CustomerType from 'types/customer'
 import { database, storage } from 'configs'
 import Swal from 'sweetalert2'
 import Weekdays from 'components/core/Weekdays'
+import BillInputField from './BillInputField'
 
 const AddInvoice = () => {
   const [categories] = useFetch<CategoryType[]>(`/Categories`, {
@@ -99,6 +101,34 @@ const AddInvoice = () => {
           ,
         ],
       },
+
+      {
+        key: '4',
+        // placeholder: 'Enter your email',
+        name: 'item',
+        label: 'Item Name *',
+        placeholder: '',
+        styleContact: 'rounded-lg mb-5',
+        type: 'text',
+        validationSchema: Yup.array().required('Item Name is required'),
+        //
+        initialValue: [{ value: '', amount: '', key: '1' }],
+        icon: <MedicationLiquid />,
+        required: true,
+      },
+      // {
+      //   key: '4',
+      //   // placeholder: 'Enter your email',
+      //   name: 'itemPrice',
+      //   label: 'Item Price *',
+      //   placeholder: '',
+      //   styleContact: 'rounded-lg mb-5',
+      //   type: 'number',
+      //   validationSchema: Yup.string().required('Item Price is required'),
+      //   initialValue: '',
+      //   icon: <MedicationLiquid />,
+      //   required: true,
+      // },
       {
         key: '5',
         // placeholder: 'Enter your email',
@@ -110,19 +140,6 @@ const AddInvoice = () => {
         validationSchema: Yup.string().required('Pet Name is required'),
         initialValue: '',
         icon: <BorderColor />,
-        required: true,
-      },
-      {
-        key: '4',
-        // placeholder: 'Enter your email',
-        name: 'item',
-        label: 'Item Name *',
-        placeholder: '',
-        styleContact: 'rounded-lg mb-5',
-        type: 'text',
-        validationSchema: Yup.string().required('Item Name is required'),
-        initialValue: '',
-        icon: <MedicationLiquid />,
         required: true,
       },
       // {
@@ -291,6 +308,44 @@ const AddInvoice = () => {
     {} as any
   )
 
+  const handleClick = (name: string, formik: FormikProps<any>) => {
+    try {
+      console.log(name)
+      formik?.setFieldValue(
+        name,
+        formik?.values[name]?.length > 0
+          ? [
+              ...formik?.values[name],
+              { key: Date.now(), value: '', amount: '' },
+            ]
+          : [{ key: Date.now(), value: '', amount: '' }]
+      )
+    } catch (error) {}
+  }
+
+  const handleFormikOnChange = (
+    formik: FormikProps<any>,
+    amount: any,
+    value: any,
+    key: string
+  ) => {
+    try {
+      formik?.setFieldValue(
+        'item',
+        formik?.values?.item?.map((item: any) => {
+          if (item.key === key) {
+            return {
+              ...item,
+              value,
+              amount,
+            }
+          }
+          return item
+        })
+      )
+    } catch (error) {}
+  }
+
   return (
     <Container
       maxWidth="xl"
@@ -318,25 +373,42 @@ const AddInvoice = () => {
           {(formik) => (
             <Form className="">
               {/* <Weekdays /> */}
-              {console.log(formik.errors)}
+              {console.log(formik)}
               {AddInvoiceSchema?.map((inputItem: any, index: any) => (
                 <div key={index}>
-                  {
-                    // inputItem?.name === 'item' ? (
-                    //   <div className=" w-full py-4">
-                    //     <AddMoreItems
-                    //       name="item"
-                    //       options={inputItem.options}
-                    //       error={Boolean(
-                    //         formik?.touched?.item && formik?.errors?.item
-                    //       )}
-                    //       helperText={formik?.errors?.item}
-                    //       value={formik?.values?.item}
-                    //       onChange={formik?.handleChange}
-                    //       onBlur={formik?.handleBlur}
-                    //     />
-                    //   </div>
-                    // ) :
+                  {inputItem?.name === 'item' ? (
+                    <div className=" w-full py-4">
+                      {formik.values[inputItem.name]?.length &&
+                        formik?.values[inputItem.name]?.map((item: any) => {
+                          return (
+                            <BillInputField
+                              name="item"
+                              error={Boolean(
+                                formik?.touched?.item && formik?.errors?.item
+                              )}
+                              helperText={'This field is required.'}
+                              value={item.value}
+                              amount={item?.amount}
+                              onChange={(amount: any, value: any) =>
+                                handleFormikOnChange(
+                                  formik,
+                                  amount,
+                                  value,
+                                  item?.key
+                                )
+                              }
+                            />
+                          )
+                        })}
+
+                      <button
+                        onClick={() => handleClick(inputItem?.name, formik)}
+                        className="mt-5 flex items-center gap-1 rounded-md bg-theme px-4 py-2 text-sm text-white transition-all duration-300 ease-in-out hover:scale-105"
+                      >
+                        <Add className="!text-[1.3rem]" /> Add More
+                      </button>
+                    </div>
+                  ) : (
                     <div className={''}>
                       <TextInput
                         fullWidth
@@ -359,7 +431,7 @@ const AddInvoice = () => {
                         onBlur={formik?.handleBlur}
                       />
                     </div>
-                  }
+                  )}
                 </div>
               ))}
 

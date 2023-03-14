@@ -190,6 +190,7 @@ const TextInput = ({
             onChange={onChange}
             className={styleContact}
             InputProps={InputProps}
+            onBlur={onBlur}
             error={error}
             helperText={helperText}
             size={size}
@@ -219,6 +220,11 @@ const TextInput = ({
               name={name}
               value={value || []}
               onChange={onChange}
+              className={styleContact}
+              onBlur={onBlur}
+              error={error}
+              // helperText={helperText}
+              size={size}
               input={<OutlinedInput id="select-multiple-chip" label="Choose" />}
               renderValue={(selected) => (
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>

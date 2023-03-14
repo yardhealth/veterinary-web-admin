@@ -35,7 +35,6 @@ import AdminLayout from 'layouts/admin'
 import { Form, Formik } from 'formik'
 import { useMemo, useState } from 'react'
 import * as Yup from 'yup'
-import RoleSelecter from 'components/core/RoleSelecter'
 import AnimalSelecter from 'components/core/AnimalSelecter'
 import PhotoUpload from 'components/core/PhotoUpload'
 import { useFetch } from 'hooks'
@@ -89,8 +88,8 @@ const AddAppointment = () => {
         name: 'pet',
         label: 'Category Name *',
         placeholder: '',
-        styleContact: 'rounded-xl mb-5 bg-white ',
-        validationSchema: Yup.string().required('Category name is required'),
+        styleContact: 'rounded-xl mb-10 bg-white ',
+        validationSchema: Yup.string().required('Pet Category is required'),
         initialValue: '',
         type: 'select',
         icon: <Person />,
@@ -123,7 +122,7 @@ const AddAppointment = () => {
         label: 'Pet Name',
         name: 'name',
         type: 'text',
-        validationSchema: Yup.string().required('Name is required'),
+        validationSchema: Yup.string().required('Pet Name is required'),
         initialValue: '',
         icon: <BorderColor />,
         styleContact: 'rounded-lg mb-5',
@@ -138,7 +137,7 @@ const AddAppointment = () => {
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
         type: 'select',
-        validationSchema: Yup.string().required('Amount is required'),
+        validationSchema: Yup.string().required('Pet Gender is required'),
         initialValue: '',
         icon: <Transgender />,
         required: true,
@@ -235,7 +234,7 @@ const AddAppointment = () => {
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
         type: 'select',
-        validationSchema: Yup.string().required('Field is required'),
+        validationSchema: Yup.string().required('Vaccinated field is required'),
         initialValue: '',
         icon: <CurrencyRupee />,
         required: true,
@@ -257,9 +256,9 @@ const AddAppointment = () => {
         name: 'generalHealthIssues',
         label: 'General Health Issues *',
         placeholder: '',
-        styleContact: 'rounded-xl mb-5 bg-white ',
+        styleContact: 'rounded-xl bg-white ',
         validationSchema: Yup.array(Yup.string()).required(
-          'Category name is required'
+          'Please select any issues'
         ),
         initialValue: '',
         type: 'multi-select',
@@ -317,9 +316,9 @@ const AddAppointment = () => {
         name: 'digestiveProblems',
         label: 'Digestive Problems *',
         placeholder: '',
-        styleContact: 'rounded-xl mb-5 bg-white ',
+        styleContact: 'rounded-xl  bg-white ',
         validationSchema: Yup.array(Yup.string()).required(
-          'Category name is required'
+          'Please select any issues'
         ),
         initialValue: '',
         type: 'multi-select',
@@ -368,9 +367,9 @@ const AddAppointment = () => {
         name: 'skinProblems',
         label: 'Skin Problems *',
         placeholder: '',
-        styleContact: 'rounded-xl mb-5 bg-white ',
+        styleContact: 'rounded-xl bg-white ',
         validationSchema: Yup.array(Yup.string()).required(
-          'Category name is required'
+          'Please select any issues'
         ),
         initialValue: '',
         type: 'multi-select',
@@ -415,9 +414,9 @@ const AddAppointment = () => {
         name: 'eyeAndEarProblems',
         label: 'Eye and Ear Problems *',
         placeholder: '',
-        styleContact: 'rounded-xl mb-5 bg-white ',
+        styleContact: 'rounded-xl bg-white ',
         validationSchema: Yup.array(Yup.string()).required(
-          'Category name is required'
+          'Please select any issues'
         ),
         initialValue: '',
         type: 'multi-select',
@@ -474,9 +473,9 @@ const AddAppointment = () => {
         name: 'healthIssues',
         label: 'Other Problem',
         placeholder: '',
-        styleContact: 'rounded-xl mb-5 bg-white ',
+        styleContact: 'rounded-xl bg-white ',
         validationSchema: Yup.array(Yup.string()).required(
-          'Category name is required'
+          'Please select any issues'
         ),
         initialValue: '',
         type: 'multi-select',
@@ -534,7 +533,7 @@ const AddAppointment = () => {
         name: 'description',
         label: 'Description *',
         placeholder: '',
-        styleContact: 'rounded-lg mb-5',
+        styleContact: 'rounded-lg ',
         type: 'text',
         validationSchema: Yup.string().when('healthIssues', {
           is: 'Other',
@@ -578,7 +577,7 @@ const AddAppointment = () => {
       {
         key: '18',
         // placeholder: 'Enter your email',
-        name: 'consultationType',
+        name: 'consultationType1',
         label: 'House/Flat/Floor No. *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
@@ -595,7 +594,7 @@ const AddAppointment = () => {
       {
         key: '19',
         // placeholder: 'Enter your email',
-        name: 'consultationType',
+        name: 'consultationType2',
         label: 'Apartment/Road/Area *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
@@ -612,7 +611,7 @@ const AddAppointment = () => {
       {
         key: '20',
         // placeholder: 'Enter your email',
-        name: 'consultationType',
+        name: 'consultationType3',
         label: 'State *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
@@ -629,7 +628,7 @@ const AddAppointment = () => {
       {
         key: '21',
         // placeholder: 'Enter your email',
-        name: 'consultationType',
+        name: 'consultationType4',
         label: 'Zip Code *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
@@ -646,7 +645,7 @@ const AddAppointment = () => {
       {
         key: '22',
         // placeholder: 'Enter your email',
-        name: 'consultationType',
+        name: 'consultationType5',
         label: 'City *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
@@ -687,17 +686,17 @@ const AddAppointment = () => {
       //   icon: <CalendarMonth />,
       //   required: true,
       // },
-      {
-        key: '24',
-        name: 'time2',
-        label: 'City *',
-        validationSchema: Yup.string().required('City is required'),
-        styleContact: 'rounded-lg mb-5',
-        initialValue: '',
-        placeholder: 'City',
-        icon: <LocationCity />,
-        required: true,
-      },
+      // {
+      //   key: '24',
+      //   name: 'time2',
+      //   label: 'City *',
+      //   validationSchema: Yup.string().required('City is required'),
+      //   styleContact: 'rounded-lg mb-5',
+      //   initialValue: '',
+      //   placeholder: 'City',
+      //   icon: <LocationCity />,
+      //   required: true,
+      // },
       // {
       //   key: '1',
       //   // placeholder: 'Enter your name',
@@ -870,78 +869,251 @@ const AddAppointment = () => {
           {(formik) => (
             <Form>
               {console.log(formik.values)}
+              {console.log(formik.errors)}
+              {console.log(formik.touched)}
+
               {AddRecordExpenseSchema?.map((inputItem: any, index: any) => (
                 <div key={index}>
-                  {inputItem?.name === 'time2' ? (
-                    <div className="my-5 w-full">
-                      <AvailableSlot />
-                    </div>
-                  ) : inputItem?.name === 'photo' ? (
-                    <div className="w-full">
-                      <FormControl fullWidth>
-                        <PhotoUpload
-                          txtName="Upload Your Pet Photo"
-                          variant={'square'}
-                          value={image}
-                          onChange={(e: any) => {
-                            setImage(e)
-                            formik?.setFieldValue('photo', e?.target?.files[0])
-                          }}
-                          className={'mt-4 mb-5 !w-full !rounded-lg !bg-theme'}
-                          height={200}
-                          width={400}
-                        />
-                        {formik?.touched[inputItem.name] &&
-                          (formik?.errors[inputItem.name] as any) && (
-                            <FormHelperText className="!text-red-500">
-                              {formik?.touched[inputItem?.name] &&
-                                (formik?.errors[inputItem?.name] as any)}
-                            </FormHelperText>
+                  {
+                    // inputItem?.name === 'time2' ? (
+                    //   <div className="my-5 w-full">
+                    //     <AvailableSlot />
+                    //   </div>
+                    // )
+                    inputItem?.name === 'photo' ? (
+                      <div className="w-full">
+                        <FormControl fullWidth>
+                          <PhotoUpload
+                            txtName="Upload Your Pet Photo"
+                            variant={'square'}
+                            value={image}
+                            onChange={(e: any) => {
+                              setImage(e)
+                              formik?.setFieldValue(
+                                'photo',
+                                e?.target?.files[0]
+                              )
+                            }}
+                            className={
+                              'mt-4 mb-5 !w-full !rounded-lg !bg-theme'
+                            }
+                            height={200}
+                            width={400}
+                          />
+                          {formik?.touched[inputItem.name] &&
+                            (formik?.errors[inputItem.name] as any) && (
+                              <FormHelperText className="!text-red-500">
+                                {formik?.touched[inputItem?.name] &&
+                                  (formik?.errors[inputItem?.name] as any)}
+                              </FormHelperText>
+                            )}
+                        </FormControl>
+                      </div>
+                    ) : inputItem?.name === 'pet' ? (
+                      <div className=" w-full">
+                        <AnimalSelecter
+                          name="pet"
+                          options={inputItem.options}
+                          error={Boolean(
+                            formik?.touched?.pet && formik?.errors?.pet
                           )}
-                      </FormControl>
-                    </div>
-                  ) : inputItem?.name === 'pet' ? (
-                    <div className=" w-full py-4">
-                      <AnimalSelecter
-                        name="pet"
-                        options={inputItem.options}
-                        error={Boolean(
-                          formik?.touched?.pet && formik?.errors?.pet
-                        )}
-                        helperText={formik?.errors?.pet}
-                        value={formik?.values?.pet}
-                        onChange={formik?.handleChange}
-                        onBlur={formik?.handleBlur}
-                        styleContact={inputItem?.styleContact}
-                      />
-                    </div>
-                  ) : inputItem?.name === 'consultation' ? (
-                    <div className=" w-full py-4">
-                      <ConsultationTypeSelecter
-                        name="consultation"
-                        options={inputItem.options}
-                        error={Boolean(
-                          formik?.touched?.consultation &&
-                            formik?.errors?.consultation
-                        )}
-                        helperText={formik?.errors?.consultation}
-                        value={formik?.values?.consultation}
-                        onChange={formik?.handleChange}
-                        onBlur={formik?.handleBlur}
-                        styleContact={inputItem?.styleContact}
-                      />
-                    </div>
-                  ) : inputItem?.name === 'consultationType' ? (
-                    formik?.values?.consultation === 'Home' ? (
+                          helperText={formik?.errors?.pet}
+                          value={formik?.values?.pet}
+                          onChange={formik?.handleChange}
+                          onBlur={formik?.handleBlur}
+                          styleContact={inputItem?.styleContact}
+                        />
+                      </div>
+                    ) : inputItem?.name === 'consultation' ? (
                       <div className=" w-full py-4">
+                        <ConsultationTypeSelecter
+                          name="consultation"
+                          options={inputItem.options}
+                          error={Boolean(
+                            formik?.touched?.consultation &&
+                              formik?.errors?.consultation
+                          )}
+                          helperText={formik?.errors?.consultation}
+                          value={formik?.values?.consultation}
+                          onChange={formik?.handleChange}
+                          onBlur={formik?.handleBlur}
+                          styleContact={inputItem?.styleContact}
+                        />
+                      </div>
+                    ) : inputItem?.name === 'consultationType1' ? (
+                      formik?.values?.consultation === 'Home' ? (
+                        <div className=" w-full">
+                          <TextInput
+                            fullWidth
+                            key={index}
+                            name={inputItem?.name}
+                            title={inputItem?.label as any}
+                            // multiline={inputItem?.multiline}
+                            // rows={inputItem?.rows}
+                            type={inputItem.type as any}
+                            startIcon={inputItem?.icon}
+                            styleContact={inputItem?.styleContact}
+                            error={Boolean(
+                              formik?.touched[inputItem.name] &&
+                                formik?.errors[inputItem.name]
+                            )}
+                            helperText={
+                              formik?.touched[inputItem.name] &&
+                              (formik?.errors[inputItem.name] as any)
+                            }
+                            value={formik?.values[inputItem.name]}
+                            onChange={formik?.handleChange}
+                            onBlur={formik?.handleBlur}
+                          />
+                        </div>
+                      ) : null
+                    ) : inputItem?.name === 'consultationType2' ? (
+                      formik?.values?.consultation === 'Home' ? (
+                        <div className=" w-full">
+                          <TextInput
+                            fullWidth
+                            key={index}
+                            name={inputItem?.name}
+                            title={inputItem?.label as any}
+                            // multiline={inputItem?.multiline}
+                            // rows={inputItem?.rows}
+                            type={inputItem.type as any}
+                            startIcon={inputItem?.icon}
+                            styleContact={inputItem?.styleContact}
+                            error={Boolean(
+                              formik?.touched[inputItem.name] &&
+                                formik?.errors[inputItem.name]
+                            )}
+                            helperText={
+                              formik?.touched[inputItem.name] &&
+                              (formik?.errors[inputItem.name] as any)
+                            }
+                            value={formik?.values[inputItem.name]}
+                            onChange={formik?.handleChange}
+                            onBlur={formik?.handleBlur}
+                          />
+                        </div>
+                      ) : null
+                    ) : inputItem?.name === 'consultationType3' ? (
+                      formik?.values?.consultation === 'Home' ? (
+                        <div className=" w-full">
+                          <TextInput
+                            fullWidth
+                            key={index}
+                            name={inputItem?.name}
+                            title={inputItem?.label as any}
+                            // multiline={inputItem?.multiline}
+                            // rows={inputItem?.rows}
+                            type={inputItem.type as any}
+                            startIcon={inputItem?.icon}
+                            styleContact={inputItem?.styleContact}
+                            error={Boolean(
+                              formik?.touched[inputItem.name] &&
+                                formik?.errors[inputItem.name]
+                            )}
+                            helperText={
+                              formik?.touched[inputItem.name] &&
+                              (formik?.errors[inputItem.name] as any)
+                            }
+                            value={formik?.values[inputItem.name]}
+                            onChange={formik?.handleChange}
+                            onBlur={formik?.handleBlur}
+                          />
+                        </div>
+                      ) : null
+                    ) : inputItem?.name === 'consultationType4' ? (
+                      formik?.values?.consultation === 'Home' ? (
+                        <div className="w-full">
+                          <TextInput
+                            fullWidth
+                            key={index}
+                            name={inputItem?.name}
+                            title={inputItem?.label as any}
+                            // multiline={inputItem?.multiline}
+                            // rows={inputItem?.rows}
+                            type={inputItem.type as any}
+                            startIcon={inputItem?.icon}
+                            styleContact={inputItem?.styleContact}
+                            error={Boolean(
+                              formik?.touched[inputItem.name] &&
+                                formik?.errors[inputItem.name]
+                            )}
+                            helperText={
+                              formik?.touched[inputItem.name] &&
+                              (formik?.errors[inputItem.name] as any)
+                            }
+                            value={formik?.values[inputItem.name]}
+                            onChange={formik?.handleChange}
+                            onBlur={formik?.handleBlur}
+                          />
+                        </div>
+                      ) : null
+                    ) : inputItem?.name === 'consultationType5' ? (
+                      formik?.values?.consultation === 'Home' ? (
+                        <div className=" w-full">
+                          <TextInput
+                            fullWidth
+                            key={index}
+                            name={inputItem?.name}
+                            title={inputItem?.label as any}
+                            // multiline={inputItem?.multiline}
+                            // rows={inputItem?.rows}
+                            type={inputItem.type as any}
+                            startIcon={inputItem?.icon}
+                            styleContact={inputItem?.styleContact}
+                            error={Boolean(
+                              formik?.touched[inputItem.name] &&
+                                formik?.errors[inputItem.name]
+                            )}
+                            helperText={
+                              formik?.touched[inputItem.name] &&
+                              (formik?.errors[inputItem.name] as any)
+                            }
+                            value={formik?.values[inputItem.name]}
+                            onChange={formik?.handleChange}
+                            onBlur={formik?.handleBlur}
+                          />
+                        </div>
+                      ) : null
+                    ) : inputItem?.name === 'description' ? (
+                      formik?.values?.healthIssues?.length &&
+                      formik?.values?.healthIssues?.includes('Other') ? (
+                        <div className=" w-full">
+                          <TextInput
+                            fullWidth
+                            key={index}
+                            name={inputItem?.name}
+                            title={inputItem?.label as any}
+                            multiline={inputItem?.multiline}
+                            rows={inputItem?.rows}
+                            type={inputItem.type as any}
+                            // startIcon={inputItem?.icon}
+                            styleContact={inputItem?.styleContact}
+                            error={Boolean(
+                              formik?.touched[inputItem.name] &&
+                                formik?.errors[inputItem.name]
+                            )}
+                            helperText={
+                              formik?.touched[inputItem.name] &&
+                              (formik?.errors[inputItem.name] as any)
+                            }
+                            value={formik?.values[inputItem.name]}
+                            onChange={formik?.handleChange}
+                            onBlur={formik?.handleBlur}
+                          />
+                        </div>
+                      ) : null
+                    ) : (
+                      <div className={'w-full'}>
                         <TextInput
                           fullWidth
                           key={index}
                           name={inputItem?.name}
-                          title={inputItem?.label as any}
-                          // multiline={inputItem?.multiline}
-                          // rows={inputItem?.rows}
-                          type={inputItem.type as any}
+                          options={inputItem.options}
+                          title={inputItem?.label}
+                          multiline={inputItem?.multiline}
+                          rows={inputItem?.rows}
+                          type={inputItem?.type as any}
                           startIcon={inputItem?.icon}
                           styleContact={inputItem?.styleContact}
                           error={Boolean(
@@ -957,59 +1129,8 @@ const AddAppointment = () => {
                           onBlur={formik?.handleBlur}
                         />
                       </div>
-                    ) : null
-                  ) : inputItem?.name === 'description' ? (
-                    formik?.values?.healthIssues?.length &&
-                    formik?.values?.healthIssues?.includes('Other') ? (
-                      <div className=" w-full py-4">
-                        <TextInput
-                          fullWidth
-                          key={index}
-                          name={inputItem?.name}
-                          title={inputItem?.label as any}
-                          multiline={inputItem?.multiline}
-                          rows={inputItem?.rows}
-                          type={inputItem.type as any}
-                          // startIcon={inputItem?.icon}
-                          styleContact={inputItem?.styleContact}
-                          error={Boolean(
-                            formik?.touched[inputItem.name] &&
-                              formik?.errors[inputItem.name]
-                          )}
-                          helperText={
-                            formik?.touched[inputItem.name] &&
-                            (formik?.errors[inputItem.name] as any)
-                          }
-                          value={formik?.values[inputItem.name]}
-                          onChange={formik?.handleChange}
-                          onBlur={formik?.handleBlur}
-                        />
-                      </div>
-                    ) : null
-                  ) : (
-                    <div className={''}>
-                      <TextInput
-                        fullWidth
-                        key={index}
-                        name={inputItem?.name}
-                        options={inputItem.options}
-                        title={inputItem?.label}
-                        multiline={inputItem?.multiline}
-                        rows={inputItem?.rows}
-                        type={inputItem?.type as any}
-                        startIcon={inputItem?.icon}
-                        styleContact={inputItem?.styleContact}
-                        error={Boolean(
-                          formik?.touched[inputItem.name] &&
-                            formik?.errors[inputItem.name]
-                        )}
-                        helperText={formik?.errors[inputItem.name] as string}
-                        value={formik?.values[inputItem.name]}
-                        onChange={formik?.handleChange}
-                        onBlur={formik?.handleBlur}
-                      />
-                    </div>
-                  )}
+                    )
+                  }
                 </div>
               ))}
 

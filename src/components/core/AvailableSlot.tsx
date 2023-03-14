@@ -7,7 +7,7 @@ const AvailableSlot = () => {
   const intime = '10:00 Am'
   const outtime = '01:00 Pm'
   const [result, setResult] = useState<any>([])
-  console.log('Array', result)
+  // console.log('Array', result)
 
   function intervals(startString: any, endString: any) {
     const start = moment(startString, 'hh:mm a')
@@ -33,7 +33,7 @@ const AvailableSlot = () => {
   const eIntime = '02:00 Pm'
   const eOuttime = '05:00 Pm'
   const [result2, setResult2] = useState<any>([])
-  console.log('Array', result2)
+  // console.log('Array', result2)
 
   function eIntervals(startString: any, endString: any) {
     const start = moment(startString, 'hh:mm a')

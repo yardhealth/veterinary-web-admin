@@ -117,7 +117,10 @@ const AnimalSelecter = ({
                             formik?.touched[inputItem.name] &&
                               formik?.errors[inputItem.name]
                           )}
-                          helperText={formik?.errors[inputItem.name] as string}
+                          helperText={
+                            formik?.touched[inputItem.name] &&
+                            (formik?.errors[inputItem.name] as any)
+                          }
                           value={formik?.values[inputItem.name]}
                           onChange={formik?.handleChange}
                           onBlur={formik?.handleBlur}
@@ -166,7 +169,7 @@ const AnimalSelecter = ({
           onBlur={onBlur}
           value={value}
           id=""
-          className={`flex w-full gap-3 rounded-lg border  p-3 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 ${className}`}
+          className={`flex w-full gap-3 rounded-lg border  p-3 py-4 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 ${className}`}
         >
           <option value=""> Choose Pet </option>
           {options?.map((item: any, index: any) => (
