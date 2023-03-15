@@ -150,20 +150,20 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
         ],
       },
 
-      {
-        key: '5',
-        name: 'reason',
-        label: 'Reason *',
-        placeholder: '',
-        type: 'text',
-        // styleContact: "rounded-lg",
-        validationSchema: Yup.string().optional(),
-        initialValue: '',
-        icon: <Info />,
-        required: true,
-        multiline: true,
-        rows: 2,
-      },
+      // {
+      //   key: '5',
+      //   name: 'reason',
+      //   label: 'Reason *',
+      //   placeholder: '',
+      //   type: 'text',
+      //   // styleContact: "rounded-lg",
+      //   validationSchema: Yup.string().optional(),
+      //   initialValue: '',
+      //   icon: <Info />,
+      //   required: true,
+      //   multiline: true,
+      //   rows: 2,
+      // },
     ]
   }, [])
 
@@ -243,8 +243,8 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
                           name={inputItem?.name}
                           title={inputItem?.label}
                           options={inputItem.options}
-                          multiline={inputItem?.multiline}
-                          rows={inputItem?.rows}
+                          // multiline={inputItem?.multiline}
+                          // rows={inputItem?.rows}
                           type={inputItem?.type as any}
                           startIcon={inputItem?.icon}
                           // styleContact={inputItem?.styleContact}
@@ -271,8 +271,8 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
                           name={inputItem?.name}
                           title={inputItem?.label}
                           options={inputItem.options}
-                          multiline={inputItem?.multiline}
-                          rows={inputItem?.rows}
+                          // multiline={inputItem?.multiline}
+                          // rows={inputItem?.rows}
                           type={inputItem?.type as any}
                           startIcon={inputItem?.icon}
                           // styleContact={inputItem?.styleContact}

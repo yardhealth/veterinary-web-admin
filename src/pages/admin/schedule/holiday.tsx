@@ -94,16 +94,16 @@ const Holiday = () => {
                 // width: "2%",
               },
 
-              {
-                title: 'Reason',
-                field: 'reason',
-                searchable: true,
-                export: true,
-                emptyValue: '--',
-                //   hidden:true,
+              // {
+              //   title: 'Reason',
+              //   field: 'reason',
+              //   searchable: true,
+              //   export: true,
+              //   emptyValue: '--',
+              //   //   hidden:true,
 
-                filtering: false,
-              },
+              //   filtering: false,
+              // },
 
               {
                 title: 'Created At',

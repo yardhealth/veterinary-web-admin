@@ -60,10 +60,28 @@ const AddPrescription = () => {
         label: 'Owner Name *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
-        type: 'text',
+        type: 'select',
         validationSchema: Yup.string().required('Owner Name is required'),
         initialValue: '',
         icon: <BorderColor />,
+        options: [
+          {
+            label: 'Kate',
+            value: 'Kate',
+          },
+          {
+            label: 'James',
+            value: 'James',
+          },
+          {
+            label: 'Alex',
+            value: 'Alex',
+          },
+          {
+            label: 'Peter',
+            value: 'Peter',
+          },
+        ],
         required: true,
       },
       {
@@ -96,6 +114,26 @@ const AddPrescription = () => {
           {
             label: 'Bird',
             value: 'Bird',
+          },
+          {
+            label: 'Dairy',
+            value: 'Dairy',
+          },
+          {
+            label: 'Poultry',
+            value: 'Poultry',
+          },
+          {
+            label: 'Fish',
+            value: 'Fish',
+          },
+          {
+            label: 'Farm Animal',
+            value: 'Farm Animal',
+          },
+          {
+            label: 'Exotic Pet',
+            value: 'Exotic Pet',
           },
           ,
         ],

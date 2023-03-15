@@ -190,19 +190,19 @@ const EditScheduleDrawer = ({ open, onClose, mutate }: Props) => {
         icon: <HourglassBottom />,
         required: true,
       },
-      {
-        key: '7',
-        // placeholder: 'Enter your email',
-        name: 'slotGap',
-        label: 'Slot Gap *',
-        placeholder: '',
-        styleContact: 'rounded-lg',
-        type: 'number',
-        validationSchema: Yup.string().required('Slot Gap is required'),
-        initialValue: '',
-        icon: <BorderColor />,
-        required: true,
-      },
+      // {
+      //   key: '7',
+      //   // placeholder: 'Enter your email',
+      //   name: 'slotGap',
+      //   label: 'Slot Gap *',
+      //   placeholder: '',
+      //   styleContact: 'rounded-lg',
+      //   type: 'number',
+      //   validationSchema: Yup.string().required('Slot Gap is required'),
+      //   initialValue: '',
+      //   icon: <BorderColor />,
+      //   required: true,
+      // },
     ]
   }, [categories])
   const initialValues = AddScheduleSchema.reduce(

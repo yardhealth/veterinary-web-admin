@@ -1,5 +1,5 @@
 import AddCustomerDrawer from 'components/admin/drawer/AddCustomerDrawer'
-import { BorderColor, Delete, Visibility } from '@mui/icons-material'
+import { BorderColor, Delete, Info, Visibility } from '@mui/icons-material'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
 import { Avatar, Card, CardContent, Paper, Typography } from '@mui/material'
@@ -18,9 +18,28 @@ import EditUpcomingAppointmentDrawer from 'components/admin/drawer/EditUpcomingA
 import Status from 'components/core/Status'
 import EditScheduleDrawer from 'components/admin/drawer/EditScheduleDrawer'
 import EditPrescriptionDrawer from 'components/admin/drawer/EditPrescriptionDrawer'
+import Modal from '@mui/material/Modal'
 
-const AllPrescription = () => {
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  // height: 600,
+  bgcolor: 'background.paper',
+  // border: "2px solid #000",
+  borderRadius: '10px',
+  boxShadow: 24,
+  p: 4,
+}
+
+const PrescriptionHistory = () => {
   const router = useRouter()
+
+  const [openInfoModal, setOpenInfoModal] = useState(false)
+  const handleInfoOpen = () => setOpenInfoModal(true)
+  const handleInfoCloseModal = () => setOpenInfoModal(false)
 
   const [openEditPrescriptionDrawer, setOpenEditPrescriptionDrawer] =
     useState(false)
@@ -55,9 +74,50 @@ const AllPrescription = () => {
   ])
 
   return (
-    <AdminLayout title="All Prescription">
+    <AdminLayout title="Prescription History">
       <div className="grid grid-cols-12 content-between gap-6  px-5">
         <div className="!border-grey-500 !shadow-xl col-span-12 flex w-full flex-col justify-center gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-12">
+          <Modal
+            open={openInfoModal}
+            onClose={handleInfoCloseModal}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Card
+              sx={style}
+              className=" dashboard-card-shadow w-[30%] border-t-4 border-b-4 border-t-theme border-b-theme  !p-6"
+            >
+              <Typography gutterBottom align="left">
+                Owner Email :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
+                  user@gmail.com
+                </span>
+              </Typography>
+              <Typography gutterBottom align="left">
+                Prescription Note :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Lorem
+                  ipsum dolor sit amet consectetur adipisicing elit.
+                  Exercitationem, officia?
+                </span>
+              </Typography>
+            </Card>
+          </Modal>
           <EditPrescriptionDrawer
             open={openEditPrescriptionDrawer}
             onClose={() => setOpenEditPrescriptionDrawer(false)}
@@ -68,7 +128,7 @@ const AllPrescription = () => {
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
-            title={<HeadStyle name="All Prescription" />}
+            title={<HeadStyle name="Prescription History" />}
             options={{
               ...MuiTblOptions(),
               sorting: true,
@@ -118,24 +178,24 @@ const AllPrescription = () => {
                 filtering: false,
               },
 
-              {
-                title: 'Instruction',
-                field: 'instruction',
-                searchable: true,
+              // {
+              //   title: 'Instruction',
+              //   field: 'instruction',
+              //   searchable: true,
 
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
-              {
-                title: 'Time',
-                field: 'time',
-                searchable: true,
-                export: true,
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
+              //   emptyValue: '--',
+              //   //   hidden:true,
+              //   filtering: false,
+              // },
+              // {
+              //   title: 'Time',
+              //   field: 'time',
+              //   searchable: true,
+              //   export: true,
+              //   emptyValue: '--',
+              //   //   hidden:true,
+              //   filtering: false,
+              // },
               // {
               //   title: 'Prescription Note',
               //   field: 'prescriptionNote',
@@ -164,6 +224,22 @@ const AllPrescription = () => {
                 render: (row) => (
                   <>
                     <div className="flex">
+                      <Tooltip title="Info">
+                        <Avatar
+                          onClick={handleInfoOpen}
+                          variant="rounded"
+                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-blue-700 !p-0"
+                          sx={{
+                            mr: '.1vw',
+                            padding: '0px !important',
+                            backgroundColor: 'Highlight',
+                            cursor: 'pointer',
+                            color: '',
+                          }}
+                        >
+                          <Info sx={{ padding: '0px !important' }} />
+                        </Avatar>
+                      </Tooltip>
                       <Tooltip title="Edit">
                         <Avatar
                           onClick={() => setOpenEditPrescriptionDrawer(true)}
@@ -220,56 +296,56 @@ const AllPrescription = () => {
                 ),
               },
             ]}
-            detailPanel={[
-              {
-                tooltip: 'info',
-                icon: 'info',
-                openIcon: 'visibility',
-                render: ({ rowData }) => (
-                  <>
-                    <div
-                      style={{
-                        padding: '12px',
-                        margin: 'auto',
-                        backgroundColor: '#eef5f9',
-                      }}
-                    >
-                      <Card
-                        sx={{
-                          minWidth: 400,
-                          maxWidth: 450,
-                          transition: '0.3s',
-                          margin: 'auto',
-                          borderRadius: '10px',
-                          boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
-                          '&:hover': {
-                            boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
-                          },
-                        }}
-                      >
-                        <CardContent>
-                          <Typography gutterBottom align="left">
-                            Prescription Note :
-                            <span
-                              style={{
-                                color: 'rgb(30, 136, 229)',
-                                fontSize: '15px',
-                                wordBreak: 'break-word',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Exercitationem, officia?
-                            </span>
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </>
-                ),
-              },
-            ]}
+            // detailPanel={[
+            //   {
+            //     tooltip: 'info',
+            //     icon: 'info',
+            //     openIcon: 'visibility',
+            //     render: ({ rowData }) => (
+            //       <>
+            //         <div
+            //           style={{
+            //             padding: '12px',
+            //             margin: 'auto',
+            //             backgroundColor: '#eef5f9',
+            //           }}
+            //         >
+            //           <Card
+            //             sx={{
+            //               minWidth: 400,
+            //               maxWidth: 450,
+            //               transition: '0.3s',
+            //               margin: 'auto',
+            //               borderRadius: '10px',
+            //               boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
+            //               '&:hover': {
+            //                 boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
+            //               },
+            //             }}
+            //           >
+            //             <CardContent>
+            //               <Typography gutterBottom align="left">
+            //                 Prescription Note :
+            //                 <span
+            //                   style={{
+            //                     color: 'rgb(30, 136, 229)',
+            //                     fontSize: '15px',
+            //                     wordBreak: 'break-word',
+            //                     wordWrap: 'break-word',
+            //                   }}
+            //                 >
+            //                   {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
+            //                   Lorem ipsum dolor sit amet consectetur adipisicing
+            //                   elit. Exercitationem, officia?
+            //                 </span>
+            //               </Typography>
+            //             </CardContent>
+            //           </Card>
+            //         </div>
+            //       </>
+            //     ),
+            //   },
+            // ]}
             actions={[
               {
                 icon: 'add',
@@ -287,4 +363,4 @@ const AllPrescription = () => {
   )
 }
 
-export default AllPrescription
+export default PrescriptionHistory

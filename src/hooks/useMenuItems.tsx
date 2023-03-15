@@ -122,8 +122,8 @@ export default () => {
           },
           {
             key: '4.2',
-            route: '/admin/prescription/all-prescription',
-            title: 'All Prescription',
+            route: '/admin/prescription/prescription-history',
+            title: 'Prescription History',
             icon: <Receipt />,
           },
         ],

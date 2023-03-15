@@ -141,17 +141,17 @@ const AllSchedule = () => {
                 //   hidden:true,
                 filtering: false,
               },
-              {
-                title: 'Slot Gap(mins)',
-                field: 'slotGap',
-                searchable: true,
-                cellStyle: {
-                  textAlign: 'center',
-                },
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
+              // {
+              //   title: 'Slot Gap(mins)',
+              //   field: 'slotGap',
+              //   searchable: true,
+              //   cellStyle: {
+              //     textAlign: 'center',
+              //   },
+              //   emptyValue: '--',
+              //   //   hidden:true,
+              //   filtering: false,
+              // },
 
               {
                 title: 'Created At',
