@@ -230,6 +230,34 @@ const AllAppointments = () => {
               className=" dashboard-card-shadow w-[30%] border-t-4 border-b-4 border-t-theme border-b-theme  !p-6"
             >
               <Typography gutterBottom align="left">
+                Owner Email :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
+                  user@gmail.com
+                </span>
+              </Typography>
+              <Typography gutterBottom align="left">
+                Owner Contact No :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
+                  7412589542
+                </span>
+              </Typography>
+              <Typography gutterBottom align="left">
                 Pet Name :
                 <span
                   style={{
