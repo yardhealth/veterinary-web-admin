@@ -1,8 +1,15 @@
 import AddCustomerDrawer from 'components/admin/drawer/AddCustomerDrawer'
-import { BorderColor, Delete } from '@mui/icons-material'
+import { BorderColor, Check, Delete, Info } from '@mui/icons-material'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
-import { Avatar, Card, CardContent, Paper, Typography } from '@mui/material'
+import {
+  Avatar,
+  Card,
+  CardContent,
+  Modal,
+  Paper,
+  Typography,
+} from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
@@ -16,8 +23,26 @@ import Swal from 'sweetalert2'
 import { formatCurrency, getArrFromObj } from '@ashirbad/js-core'
 import EditUpcomingAppointmentDrawer from 'components/admin/drawer/EditUpcomingAppointmentDrawer'
 
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  // height: 600,
+  bgcolor: 'background.paper',
+  // border: "2px solid #000",
+  borderRadius: '10px',
+  boxShadow: 24,
+  p: 4,
+}
+
 const UpcomingAppointments = () => {
   const router = useRouter()
+
+  const [openInfoModal, setOpenInfoModal] = useState(false)
+  const handleInfoOpen = () => setOpenInfoModal(true)
+  const handleInfoCloseModal = () => setOpenInfoModal(false)
 
   const [openEditAppointmentDrawer, setOpenEditAppointmentDrawer] =
     useState(false)
@@ -38,11 +63,11 @@ const UpcomingAppointments = () => {
     }
   }
 
-  const [tabelData, settabelData] = useState([
+  const [tabelData, setTabelData] = useState([
     {
       sl: '1',
       ownerName: 'Kate',
-      animal: 'Dog',
+      pet: 'Dog',
       gender: 'male',
       name: 'Cooper',
       breed: 'German Shepherd',
@@ -60,6 +85,183 @@ const UpcomingAppointments = () => {
     <AdminLayout title="Upcoming Appointments">
       <div className="grid grid-cols-12 content-between gap-6  px-5">
         <div className="!border-grey-500 !shadow-xl col-span-12 flex w-full flex-col justify-center gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-12">
+          <Modal
+            open={openInfoModal}
+            onClose={handleInfoCloseModal}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Card
+              sx={style}
+              className=" dashboard-card-shadow w-[30%] border-t-4 border-b-4 border-t-theme border-b-theme  !p-6"
+            >
+              <Typography gutterBottom align="left">
+                Pet Name :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Cooper
+                </span>
+              </Typography>
+              <Typography gutterBottom align="left">
+                Gender :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Male
+                </span>
+              </Typography>
+              <Typography gutterBottom align="left">
+                Breed :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} German
+                  Shepard
+                </span>
+              </Typography>
+              <Typography gutterBottom align="left">
+                Age :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} 2
+                </span>
+              </Typography>
+              <Typography gutterBottom align="left">
+                Wt :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} 10kg
+                </span>
+              </Typography>
+              <Typography gutterBottom align="left">
+                Vaccinated :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Yes
+                </span>
+              </Typography>
+              <Typography gutterBottom align="left">
+                Aggression :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Middle
+                </span>
+              </Typography>
+              <Typography gutterBottom align="left">
+                Payment Method :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Cash
+                </span>
+              </Typography>
+
+              <Typography gutterBottom align="left">
+                State :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.state ? rowData.state : 'Not Provided'} */}{' '}
+                  Odisha
+                </span>
+              </Typography>
+              <Typography gutterBottom align="left">
+                City :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} BBSR
+                </span>
+              </Typography>
+              <Typography gutterBottom align="left">
+                Zip Code :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.pinCode
+                                ? rowData.pinCode
+                                : 'Not Provided'} */}{' '}
+                  752001
+                </span>
+              </Typography>
+              <Typography gutterBottom align="left">
+                Street Name :
+                <span
+                  style={{
+                    color: 'rgb(30, 136, 229)',
+                    fontSize: '15px',
+                    wordBreak: 'break-word',
+                    wordWrap: 'break-word',
+                  }}
+                >
+                  {/* {rowData?.streetName
+                                ? rowData.streetName
+                                : 'Not Provided'} */}{' '}
+                  Satyasai Enclave
+                </span>
+              </Typography>
+            </Card>
+          </Modal>
           {/* <EditUpcomingAppointmentDrawer
             open={openEditAppointmentDrawer}
             onClose={() => setOpenEditAppointmentDrawer(false)}
@@ -91,8 +293,8 @@ const UpcomingAppointments = () => {
                 // width: "2%",
               },
               {
-                title: 'Animal',
-                field: 'animal',
+                title: 'Pet',
+                field: 'pet',
                 editable: 'never',
 
                 emptyValue: '--',
@@ -100,44 +302,6 @@ const UpcomingAppointments = () => {
                 // width: "2%",
               },
 
-              {
-                title: 'Gender',
-                field: 'gender',
-                searchable: true,
-                export: true,
-                emptyValue: '--',
-                //   hidden:true,
-
-                filtering: false,
-              },
-
-              {
-                title: 'Name',
-                field: 'name',
-                searchable: true,
-
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
-              {
-                title: 'Breed',
-                field: 'breed',
-                searchable: true,
-                export: true,
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
-              {
-                title: 'Age',
-                field: 'age',
-                searchable: true,
-
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
               {
                 title: 'Health Issues',
                 field: 'healthIssues',
@@ -169,20 +333,22 @@ const UpcomingAppointments = () => {
                 title: 'Appointment Time',
                 field: 'appointmentTime',
                 searchable: true,
-
+                cellStyle: {
+                  textAlign: 'center',
+                },
                 emptyValue: '--',
                 //   hidden:true,
                 filtering: false,
               },
-              {
-                title: 'Payment Method',
-                field: 'paymentMethod',
-                searchable: true,
+              // {
+              //   title: 'Payment Method',
+              //   field: 'paymentMethod',
+              //   searchable: true,
 
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
+              //   emptyValue: '--',
+              //   //   hidden:true,
+              //   filtering: false,
+              // },
 
               {
                 title: 'Created At',
@@ -203,6 +369,38 @@ const UpcomingAppointments = () => {
                 render: (row) => (
                   <>
                     <div className="flex">
+                      <Tooltip title="Info">
+                        <Avatar
+                          onClick={handleInfoOpen}
+                          variant="rounded"
+                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-blue-700 !p-0"
+                          sx={{
+                            mr: '.1vw',
+                            padding: '0px !important',
+                            backgroundColor: 'Highlight',
+                            cursor: 'pointer',
+                            color: '',
+                          }}
+                        >
+                          <Info sx={{ padding: '0px !important' }} />
+                        </Avatar>
+                      </Tooltip>
+                      <Tooltip title="Completed">
+                        <Avatar
+                          // onClick={() => handleDelete(row?.id)}
+                          variant="rounded"
+                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-green-700 !p-0"
+                          sx={{
+                            mr: '0.1vw',
+                            padding: '0px !important',
+                            backgroundColor: 'Highlight',
+                            cursor: 'pointer',
+                            color: '',
+                          }}
+                        >
+                          <Check sx={{ padding: '0px !important' }} />
+                        </Avatar>
+                      </Tooltip>
                       <Tooltip title="Delete">
                         <Avatar
                           // onClick={() => handleDelete(row?.id)}
@@ -224,97 +422,97 @@ const UpcomingAppointments = () => {
                 ),
               },
             ]}
-            detailPanel={[
-              {
-                tooltip: 'info',
-                icon: 'info',
-                openIcon: 'visibility',
-                render: ({ rowData }) => (
-                  <>
-                    <div
-                      style={{
-                        padding: '12px',
-                        margin: 'auto',
-                        backgroundColor: '#eef5f9',
-                      }}
-                    >
-                      <Card
-                        sx={{
-                          minWidth: 400,
-                          maxWidth: 450,
-                          transition: '0.3s',
-                          margin: 'auto',
-                          borderRadius: '10px',
-                          boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
-                          '&:hover': {
-                            boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
-                          },
-                        }}
-                      >
-                        <CardContent>
-                          <Typography gutterBottom align="left">
-                            State :
-                            <span
-                              style={{
-                                color: 'rgb(30, 136, 229)',
-                                fontSize: '15px',
-                                wordBreak: 'break-word',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {/* {rowData?.state ? rowData.state : 'Not Provided'} */}
-                            </span>
-                          </Typography>
-                          <Typography gutterBottom align="left">
-                            City :
-                            <span
-                              style={{
-                                color: 'rgb(30, 136, 229)',
-                                fontSize: '15px',
-                                wordBreak: 'break-word',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-                            </span>
-                          </Typography>
-                          <Typography gutterBottom align="left">
-                            Zip Code :
-                            <span
-                              style={{
-                                color: 'rgb(30, 136, 229)',
-                                fontSize: '15px',
-                                wordBreak: 'break-word',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {/* {rowData?.pinCode
-                                ? rowData.pinCode
-                                : 'Not Provided'} */}
-                            </span>
-                          </Typography>
-                          <Typography gutterBottom align="left">
-                            Street Name :
-                            <span
-                              style={{
-                                color: 'rgb(30, 136, 229)',
-                                fontSize: '15px',
-                                wordBreak: 'break-word',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {/* {rowData?.streetName
-                                ? rowData.streetName
-                                : 'Not Provided'} */}
-                            </span>
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </>
-                ),
-              },
-            ]}
+            // detailPanel={[
+            //   {
+            //     tooltip: 'info',
+            //     icon: 'info',
+            //     openIcon: 'visibility',
+            //     render: ({ rowData }) => (
+            //       <>
+            //         <div
+            //           style={{
+            //             padding: '12px',
+            //             margin: 'auto',
+            //             backgroundColor: '#eef5f9',
+            //           }}
+            //         >
+            //           <Card
+            //             sx={{
+            //               minWidth: 400,
+            //               maxWidth: 450,
+            //               transition: '0.3s',
+            //               margin: 'auto',
+            //               borderRadius: '10px',
+            //               boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
+            //               '&:hover': {
+            //                 boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
+            //               },
+            //             }}
+            //           >
+            //             <CardContent>
+            //               <Typography gutterBottom align="left">
+            //                 State :
+            //                 <span
+            //                   style={{
+            //                     color: 'rgb(30, 136, 229)',
+            //                     fontSize: '15px',
+            //                     wordBreak: 'break-word',
+            //                     wordWrap: 'break-word',
+            //                   }}
+            //                 >
+            //                   {/* {rowData?.state ? rowData.state : 'Not Provided'} */}
+            //                 </span>
+            //               </Typography>
+            //               <Typography gutterBottom align="left">
+            //                 City :
+            //                 <span
+            //                   style={{
+            //                     color: 'rgb(30, 136, 229)',
+            //                     fontSize: '15px',
+            //                     wordBreak: 'break-word',
+            //                     wordWrap: 'break-word',
+            //                   }}
+            //                 >
+            //                   {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
+            //                 </span>
+            //               </Typography>
+            //               <Typography gutterBottom align="left">
+            //                 Zip Code :
+            //                 <span
+            //                   style={{
+            //                     color: 'rgb(30, 136, 229)',
+            //                     fontSize: '15px',
+            //                     wordBreak: 'break-word',
+            //                     wordWrap: 'break-word',
+            //                   }}
+            //                 >
+            //                   {/* {rowData?.pinCode
+            //                     ? rowData.pinCode
+            //                     : 'Not Provided'} */}
+            //                 </span>
+            //               </Typography>
+            //               <Typography gutterBottom align="left">
+            //                 Street Name :
+            //                 <span
+            //                   style={{
+            //                     color: 'rgb(30, 136, 229)',
+            //                     fontSize: '15px',
+            //                     wordBreak: 'break-word',
+            //                     wordWrap: 'break-word',
+            //                   }}
+            //                 >
+            //                   {/* {rowData?.streetName
+            //                     ? rowData.streetName
+            //                     : 'Not Provided'} */}
+            //                 </span>
+            //               </Typography>
+            //             </CardContent>
+            //           </Card>
+            //         </div>
+            //       </>
+            //     ),
+            //   },
+            // ]}
             actions={[
               {
                 icon: 'add',

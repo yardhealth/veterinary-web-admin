@@ -31,6 +31,7 @@ import {
   BorderColor,
   SettingsApplications,
   Upcoming,
+  EventBusy,
 } from '@mui/icons-material'
 import { useAppContext } from 'contexts'
 
@@ -74,6 +75,12 @@ export default () => {
             route: '/admin/appointments/completed-appointments',
             title: 'Completed Appointments',
             icon: <EventAvailable />,
+          },
+          {
+            key: '2.4',
+            route: '/admin/appointments/cancelled-appointment',
+            title: 'Cancelled Appointments',
+            icon: <EventBusy />,
           },
         ],
       },

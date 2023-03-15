@@ -44,6 +44,7 @@ import { database, storage } from 'configs'
 import Swal from 'sweetalert2'
 import ConsultationTypeSelecter from './ConsultationTypeSelecter'
 import AvailableSlot from 'components/core/AvailableSlot'
+import OwnerSelecter from './OwnerSelecter'
 
 const AddAppointment = () => {
   const [categories] = useFetch<CategoryType[]>(`/Categories`, {
@@ -63,10 +64,37 @@ const AddAppointment = () => {
         label: 'Owner Name *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
-        type: 'text',
+        type: 'select',
         validationSchema: Yup.string().required('Owner name is required'),
         initialValue: '',
         icon: <BorderColor />,
+        options: [
+          {
+            label: 'Male',
+            value: 'Male',
+          },
+          {
+            label: 'Female',
+            value: 'Female',
+          },
+
+          ,
+        ],
+        required: true,
+      },
+      {
+        key: '1',
+        // placeholder: 'Enter your email',
+        name: 'email',
+        label: 'Email *',
+        placeholder: '',
+        styleContact: 'rounded-lg mb-5',
+        type: 'text',
+        validationSchema: Yup.string()
+          .required('Email Required.')
+          .email('Enter valid email'),
+        initialValue: '',
+        icon: <Email />,
         required: true,
       },
       {
@@ -206,11 +234,11 @@ const AddAppointment = () => {
       {
         key: '8',
         name: 'wt',
-        label: 'Weight *',
+        label: 'Weight',
         placeholder: '',
         type: 'number',
         styleContact: 'rounded-lg mb-5',
-        validationSchema: Yup.string().required('Weight is required'),
+        validationSchema: Yup.string().optional(),
         initialValue: '',
         icon: <LineWeight />,
         required: true,
@@ -221,11 +249,11 @@ const AddAppointment = () => {
         key: '9',
         // placeholder: 'Enter your email',
         name: 'aggression',
-        label: 'Aggression *',
+        label: 'Aggression',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
         type: 'select',
-        validationSchema: Yup.string().required('Aggression is required'),
+        validationSchema: Yup.string().optional(),
         initialValue: '',
         icon: <CurrencyRupee />,
         required: true,
@@ -277,9 +305,7 @@ const AddAppointment = () => {
         label: 'General Health Issues *',
         placeholder: '',
         styleContact: 'rounded-xl bg-white ',
-        validationSchema: Yup.array(Yup.string()).required(
-          'Please select any issues'
-        ),
+        validationSchema: Yup.array(Yup.string()).optional(),
         initialValue: '',
         type: 'multi-select',
         icon: <Person />,
@@ -337,9 +363,7 @@ const AddAppointment = () => {
         label: 'Digestive Problems *',
         placeholder: '',
         styleContact: 'rounded-xl  bg-white ',
-        validationSchema: Yup.array(Yup.string()).required(
-          'Please select any issues'
-        ),
+        validationSchema: Yup.array(Yup.string()).optional(),
         initialValue: '',
         type: 'multi-select',
         icon: <Person />,
@@ -388,9 +412,7 @@ const AddAppointment = () => {
         label: 'Skin Problems *',
         placeholder: '',
         styleContact: 'rounded-xl bg-white ',
-        validationSchema: Yup.array(Yup.string()).required(
-          'Please select any issues'
-        ),
+        validationSchema: Yup.array(Yup.string()).optional(),
         initialValue: '',
         type: 'multi-select',
         icon: <Person />,
@@ -435,9 +457,7 @@ const AddAppointment = () => {
         label: 'Eye and Ear Problems *',
         placeholder: '',
         styleContact: 'rounded-xl bg-white ',
-        validationSchema: Yup.array(Yup.string()).required(
-          'Please select any issues'
-        ),
+        validationSchema: Yup.array(Yup.string()).optional(),
         initialValue: '',
         type: 'multi-select',
         icon: <Person />,
@@ -494,9 +514,7 @@ const AddAppointment = () => {
         label: 'Other Problem',
         placeholder: '',
         styleContact: 'rounded-xl bg-white ',
-        validationSchema: Yup.array(Yup.string()).required(
-          'Please select any issues'
-        ),
+        validationSchema: Yup.array(Yup.string()).optional(),
         initialValue: '',
         type: 'multi-select',
         icon: <Person />,
@@ -589,8 +607,8 @@ const AddAppointment = () => {
             value: 'Home',
           },
           {
-            label: 'Clinic Vist',
-            value: 'Clinic Vist',
+            label: 'Clinic Visit',
+            value: 'Clinic Visit',
           },
         ],
       },
@@ -761,6 +779,10 @@ const AddAppointment = () => {
         },
         options: [
           {
+            label: 'Cash',
+            value: 'Cash',
+          },
+          {
             label: 'Card',
             value: 'Card',
           },
@@ -921,6 +943,22 @@ const AddAppointment = () => {
                             </FormHelperText>
                           )}
                       </FormControl>
+                    </div>
+                  ) : inputItem?.name === 'ownerName' ? (
+                    <div className=" w-full pb-4">
+                      <OwnerSelecter
+                        name="ownerName"
+                        options={inputItem.options}
+                        error={Boolean(
+                          formik?.touched?.ownerName &&
+                            formik?.errors?.ownerName
+                        )}
+                        helperText={formik?.errors?.ownerName}
+                        value={formik?.values?.ownerName}
+                        onChange={formik?.handleChange}
+                        onBlur={formik?.handleBlur}
+                        styleContact={inputItem?.styleContact}
+                      />
                     </div>
                   ) : inputItem?.name === 'pet' ? (
                     <div className=" w-full pb-4">
