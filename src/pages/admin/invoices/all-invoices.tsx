@@ -1,29 +1,18 @@
-import AddCustomerDrawer from 'components/admin/drawer/AddCustomerDrawer'
-import {
-  BorderColor,
-  Delete,
-  ReceiptLong,
-  Visibility,
-} from '@mui/icons-material'
+import EditInvoiceDrawer from 'components/admin/drawer/EditInvoiceDrawer'
+import { BorderColor, Delete, ReceiptLong } from '@mui/icons-material'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
-import { Avatar, Card, CardContent, Paper, Typography } from '@mui/material'
+import { Avatar, Paper } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
-import AdminLayout from 'layouts/admin'
+import CustomerType from 'types/customer'
 import { useRouter } from 'next/router'
+import AdminLayout from 'layouts/admin'
 import { MuiTblOptions } from 'utils'
+import { database } from 'configs'
 import { useState } from 'react'
 import { useFetch } from 'hooks'
-import CustomerType from 'types/customer'
-import moment from 'moment'
-import { database } from 'configs'
 import Swal from 'sweetalert2'
-import { formatCurrency, getArrFromObj } from '@ashirbad/js-core'
-import EditUpcomingAppointmentDrawer from 'components/admin/drawer/EditUpcomingAppointmentDrawer'
-import Status from 'components/core/Status'
-import EditScheduleDrawer from 'components/admin/drawer/EditScheduleDrawer'
-import EditPrescriptionDrawer from 'components/admin/drawer/EditPrescriptionDrawer'
-import EditInvoiceDrawer from 'components/admin/drawer/EditInvoiceDrawer'
+import moment from 'moment'
 
 const AllInvoices = () => {
   const router = useRouter()

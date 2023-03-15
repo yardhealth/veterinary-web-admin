@@ -1,43 +1,22 @@
-import CustomerTypeSelecter from 'components/core/CustomerTypeSelecter'
-import CountrySelector from 'components/core/CountrySelector'
-import {
-  Container,
-  Drawer,
-  Typography,
-  FormControl,
-  FormHelperText,
-} from '@mui/material'
-import AddExpenseSchema from 'schemas/AddExpenseSchema'
-import TextInput from 'components/core/TextInput'
-import {
-  AccessTimeFilled,
-  Add,
-  BorderColor,
-  CalendarMonth,
-  CurrencyRupee,
-  Done,
-  HistoryToggleOff,
-  HourglassBottom,
-  Info,
-  MedicationLiquid,
-  Person,
-  Photo,
-  Receipt,
-  Timer,
-} from '@mui/icons-material'
-import { LoadingButton } from '@mui/lab'
-import { Form, Formik, FormikProps } from 'formik'
+import { Container, Drawer, Typography } from '@mui/material'
+import DrugInputField from '../prescription/DrugInputField'
 import { useEffect, useMemo, useState } from 'react'
-import * as Yup from 'yup'
+import { Form, Formik, FormikProps } from 'formik'
+import TextInput from 'components/core/TextInput'
 import { database, storage } from 'configs'
 import CustomerType from 'types/customer'
-import Swal from 'sweetalert2'
-import PhotoUpload from 'components/core/PhotoUpload'
-// import CategorySelecter from 'components/core/CategorySelecter'
 import CategoryType from 'types/category'
+import { LoadingButton } from '@mui/lab'
 import { useFetch } from 'hooks'
-import Weekdays from 'components/core/Weekdays'
-import DrugInputField from '../prescription/DrugInputField'
+import Swal from 'sweetalert2'
+import {
+  Add,
+  BorderColor,
+  Done,
+  MedicationLiquid,
+  Person,
+} from '@mui/icons-material'
+import * as Yup from 'yup'
 
 type Props = {
   open?: boolean | any

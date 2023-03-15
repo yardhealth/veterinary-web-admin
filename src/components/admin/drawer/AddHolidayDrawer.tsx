@@ -42,9 +42,9 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
         label: 'Select Day *',
         placeholder: '',
         styleContact: 'rounded-xl overflow-hidden bg-white ',
-        validationSchema: Yup.string().required('Day is required'),
+        validationSchema: Yup.date().required('Day is required'),
         initialValue: '',
-        type: 'multi-select',
+        type: 'date',
         icon: <Person />,
         required: true,
         contactField: {
@@ -53,41 +53,41 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
           md: 6,
           lg: 6,
         },
-        options: [
-          {
-            label: 'All',
-            value: 'All',
-          },
-          {
-            label: 'Mon',
-            value: 'Mon',
-          },
-          {
-            label: 'Tue',
-            value: 'Tue',
-          },
-          {
-            label: 'Wed',
-            value: 'Wed',
-          },
-          {
-            label: 'Thu',
-            value: 'Thu',
-          },
-          {
-            label: 'Fri',
-            value: 'Fri',
-          },
-          {
-            label: 'Sat',
-            value: 'Sat',
-          },
-          {
-            label: 'Sun',
-            value: 'Sun',
-          },
-          ,
-        ],
+        // options: [
+        //   {
+        //     label: 'All',
+        //     value: 'All',
+        //   },
+        //   {
+        //     label: 'Mon',
+        //     value: 'Mon',
+        //   },
+        //   {
+        //     label: 'Tue',
+        //     value: 'Tue',
+        //   },
+        //   {
+        //     label: 'Wed',
+        //     value: 'Wed',
+        //   },
+        //   {
+        //     label: 'Thu',
+        //     value: 'Thu',
+        //   },
+        //   {
+        //     label: 'Fri',
+        //     value: 'Fri',
+        //   },
+        //   {
+        //     label: 'Sat',
+        //     value: 'Sat',
+        //   },
+        //   {
+        //     label: 'Sun',
+        //     value: 'Sun',
+        //   },
+        //   ,
+        // ],
       },
 
       {
@@ -97,7 +97,7 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
         label: 'Select Slot *',
         placeholder: '',
         styleContact: 'rounded-lg',
-        type: 'multi-select',
+        type: 'select',
         validationSchema: Yup.string().required('Slot is required'),
         initialValue: '',
         icon: <Transgender />,
@@ -149,21 +149,6 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
           },
         ],
       },
-
-      // {
-      //   key: '5',
-      //   name: 'reason',
-      //   label: 'Reason *',
-      //   placeholder: '',
-      //   type: 'text',
-      //   // styleContact: "rounded-lg",
-      //   validationSchema: Yup.string().optional(),
-      //   initialValue: '',
-      //   icon: <Info />,
-      //   required: true,
-      //   multiline: true,
-      //   rows: 2,
-      // },
     ]
   }, [])
 
@@ -228,6 +213,9 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
           >
             {(formik) => (
               <Form>
+                {console.log(formik.values)}
+                {console.log(formik.errors)}
+                {console.log(formik.touched)}
                 {AddHolidaySchema?.map((inputItem, index) => (
                   <div key={index}>
                     {inputItem.name === 'slot' && 'day' ? (

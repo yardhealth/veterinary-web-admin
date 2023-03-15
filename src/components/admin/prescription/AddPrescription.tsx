@@ -1,45 +1,21 @@
-// import BedCategorySelecter from "components/BedCategorySelecter";
-import {
-  Card,
-  Container,
-  Typography,
-  Box,
-  FormControl,
-  FormHelperText,
-} from '@mui/material'
-// import AddPrescriptionSchema from 'schemas/AddPrescriptionSchema'
+import { Container, Typography } from '@mui/material'
 import TextInput from 'components/core/TextInput'
 import {
-  AccessTimeFilled,
   Add,
   BorderColor,
-  CalendarMonth,
-  CurrencyRupee,
   Done,
-  HistoryToggleOff,
-  HourglassBottom,
-  Info,
   MedicationLiquid,
   Person,
-  Pets,
-  Photo,
-  Receipt,
-  Timer,
 } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
-import AdminLayout from 'layouts/admin'
 import { Form, Formik, FormikProps } from 'formik'
 import { useMemo, useState } from 'react'
 import * as Yup from 'yup'
-import RoleSelecter from 'components/core/RoleSelecter'
-// import CategorySelecter from 'components/core/CategorySelecter'
-import PhotoUpload from 'components/core/PhotoUpload'
 import { useFetch } from 'hooks'
 import CategoryType from 'types/category'
 import CustomerType from 'types/customer'
 import { database, storage } from 'configs'
 import Swal from 'sweetalert2'
-import Weekdays from 'components/core/Weekdays'
 import DrugInputField from './DrugInputField'
 
 const AddPrescription = () => {

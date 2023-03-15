@@ -148,6 +148,13 @@ export default () => {
         ],
       },
       {
+        key: '9',
+        title: 'Pet Owner List',
+        icon: <Groups />,
+        route: '/admin/owner-list',
+      },
+
+      {
         key: '6',
         title: 'Config',
         icon: <SettingsApplications />,

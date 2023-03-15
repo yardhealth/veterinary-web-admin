@@ -1,11 +1,10 @@
-import AddPrescription from 'components/admin/prescription/AddPrescription'
 import { Card, Container, Typography, Box } from '@mui/material'
 import AddNewPatientSchemas from 'schemas/AddNewPatientSchemas'
+import AddInvoice from 'components/admin/invoices/AddInvoice'
 import AdminLayout from 'layouts/admin'
 import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import AddInvoice from 'components/admin/invoices/AddInvoice'
 
 interface TabPanelProps {
   children?: React.ReactNode

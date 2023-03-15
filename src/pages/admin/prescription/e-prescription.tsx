@@ -1,4 +1,4 @@
-import { Box, Card, Container, Paper, Tooltip, Typography } from '@mui/material'
+import { Box, Card, Container, Tooltip, Typography } from '@mui/material'
 import AddNewPatientSchemas from 'schemas/AddNewPatientSchemas'
 import { Download, Print } from '@mui/icons-material'
 import AdminLayout from 'layouts/admin'
