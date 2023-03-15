@@ -838,7 +838,7 @@ const EditUpcomingAppointmentDrawer = ({ open, onClose, mutate }: Props) => {
                   <div key={index}>
                     {inputItem?.name === 'time2' ? (
                       <div className="my-5 w-full">
-                        <AvailableSlot />
+                        <AvailableSlot className="md:grid-cols-5" />
                       </div>
                     ) : inputItem?.name === 'photo' ? (
                       <div className="w-full">

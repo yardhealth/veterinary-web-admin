@@ -32,7 +32,7 @@ const EPrescription = () => {
     {} as any
   )
 
-  const [tabelData, settabelData] = useState([
+  const [tabelData, setTabelData] = useState([
     {
       patientId: 'BS40',
       drug: 'Ketoconazole',
@@ -54,7 +54,7 @@ const EPrescription = () => {
         //   marginTop: '5vh',
         // }}
       >
-        <Card className="dashboard-card-shadow w-[80%] border-t-4 border-b-4 border-t-primary border-b-primary  !p-6">
+        <Card className="dashboard-card-shadow w-[80%] border-t-4 border-b-4 border-t-primary border-b-primary !p-6">
           <Box className="shadow-md mb-5 flex justify-between shadow-slate-200">
             <Typography
               align="left"
@@ -75,7 +75,7 @@ const EPrescription = () => {
               <img className="" src="/veterinaryLogo.png" alt="logo" />
             </Typography>
           </Box>
-          <Box className="flex h-20 items-center justify-center border border-gray-200 text-2xl font-bold">
+          <Box className="flex h-20 items-center justify-center border border-gray-200 text-2xl font-bold text-theme">
             Prescription
           </Box>
           <div className="my-5 grid grid-cols-12 gap-3">

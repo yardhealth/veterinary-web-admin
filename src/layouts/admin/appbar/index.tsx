@@ -66,7 +66,7 @@ export default function AppBar() {
                 </Link>
               </Badge>
             </Tooltip>
-            <Tooltip title="User">
+            {/* <Tooltip title="User">
               <Badge color="primary" variant="dot" invisible>
                 <Link href="/admin/users">
                   <a className="cursor-pointer rounded-lg bg-blue-100 p-2">
@@ -74,7 +74,7 @@ export default function AppBar() {
                   </a>
                 </Link>
               </Badge>
-            </Tooltip>
+            </Tooltip> */}
             <AccountMenu />
           </div>
         </div>

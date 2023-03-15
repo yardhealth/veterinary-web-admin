@@ -178,7 +178,7 @@ const Dashboard = () => {
         <InfoCards
           title="Total Income"
           iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
-          content={'120'}
+          content={'₹1,20,000/-'}
           titleClassName="text-black font-bold text-base"
           contentClassName="text-black"
           className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
@@ -207,7 +207,7 @@ const Dashboard = () => {
         <div className="!border-grey-500 !shadow-xl col-span-12  w-full gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-8">
           <ColumnChartUserDashboard
             type={'bar'}
-            title={'Past Income vs Expenxe Report'}
+            title={'Upcoming  vs Completed Appointment'}
             categories={[
               '2022',
               '2021',
@@ -219,11 +219,11 @@ const Dashboard = () => {
             ]}
             series={[
               {
-                name: 'Income',
+                name: 'Completed',
                 data: [44, 55, 57, 56, 61, 58, 63],
               },
               {
-                name: 'Expense',
+                name: 'Upcoming',
                 data: [76, 85, 101, 98, 87, 105, 91],
               },
             ]}

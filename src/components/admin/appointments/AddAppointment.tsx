@@ -113,6 +113,26 @@ const AddAppointment = () => {
             label: 'Bird',
             value: 'Bird',
           },
+          {
+            label: 'Dairy',
+            value: 'Dairy',
+          },
+          {
+            label: 'Poultry',
+            value: 'Poultry',
+          },
+          {
+            label: 'Fish',
+            value: 'Fish',
+          },
+          {
+            label: 'Farm Animal',
+            value: 'Farm Animal',
+          },
+          {
+            label: 'Exotic Pet',
+            value: 'Exotic Pet',
+          },
           ,
         ],
       },
@@ -876,7 +896,7 @@ const AddAppointment = () => {
                 <div key={index}>
                   {inputItem?.name === 'time2' ? (
                     <div className="my-5 w-full">
-                      <AvailableSlot />
+                      <AvailableSlot className="md:grid-cols-7" />
                     </div>
                   ) : inputItem?.name === 'photo' ? (
                     <div className="w-full">
@@ -903,7 +923,7 @@ const AddAppointment = () => {
                       </FormControl>
                     </div>
                   ) : inputItem?.name === 'pet' ? (
-                    <div className=" w-full">
+                    <div className=" w-full pb-4">
                       <AnimalSelecter
                         name="pet"
                         options={inputItem.options}

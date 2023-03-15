@@ -1,42 +1,24 @@
-import CustomerTypeSelecter from 'components/core/CustomerTypeSelecter'
-import CountrySelector from 'components/core/CountrySelector'
 import {
-  Container,
-  Drawer,
-  Typography,
-  FormControl,
-  FormHelperText,
-} from '@mui/material'
-import AddExpenseSchema from 'schemas/AddExpenseSchema'
-import TextInput from 'components/core/TextInput'
-import {
-  AccessTimeFilled,
   BorderColor,
-  CalendarMonth,
   CurrencyRupee,
   Done,
-  HistoryToggleOff,
-  HourglassBottom,
   Info,
   MedicationLiquid,
   Percent,
   Person,
-  Photo,
-  Receipt,
-  Timer,
 } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
+import { Container, Drawer, Typography } from '@mui/material'
+import TextInput from 'components/core/TextInput'
+import { database, storage } from 'configs'
 import { Form, Formik } from 'formik'
 import { useEffect, useMemo, useState } from 'react'
-import * as Yup from 'yup'
-import { database, storage } from 'configs'
-import CustomerType from 'types/customer'
 import Swal from 'sweetalert2'
-import PhotoUpload from 'components/core/PhotoUpload'
+import CustomerType from 'types/customer'
+import * as Yup from 'yup'
 // import CategorySelecter from 'components/core/CategorySelecter'
-import CategoryType from 'types/category'
 import { useFetch } from 'hooks'
-import Weekdays from 'components/core/Weekdays'
+import CategoryType from 'types/category'
 
 type Props = {
   open?: boolean | any
@@ -184,7 +166,6 @@ const EditInvoiceDrawer = ({ open, onClose, mutate }: Props) => {
           lg: 6,
         },
       },
-
       {
         key: '3',
         // placeholder: 'Enter your name',
