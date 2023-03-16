@@ -70,7 +70,7 @@ const ForgotPassword: NextPage = () => {
   const [showPassword, setShowPassword] = useState(false)
   return (
     <PublicLayout>
-      <main className="grid h-[100vh] place-content-center bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900">
+      <main className="grid h-[100vh] place-content-center bg-slate-200">
         <Formik
           initialValues={initialValues}
           validationSchema={Yup.object(validationSchema)}
@@ -79,7 +79,7 @@ const ForgotPassword: NextPage = () => {
           {(formik) => (
             <Form>
               <>
-                <Card className="w-[30vw]">
+                <Card className="w-[30vw] shadow-3xl shadow-gray-500">
                   <CardContent>
                     <div className="flex place-content-center py-1">
                       <img src={LOGO} alt="" className="w-52" />

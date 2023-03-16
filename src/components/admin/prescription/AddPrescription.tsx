@@ -1,5 +1,7 @@
 import { Container, Typography } from '@mui/material'
+import { Form, Formik, FormikProps } from 'formik'
 import TextInput from 'components/core/TextInput'
+import DrugInputField from './DrugInputField'
 import {
   Add,
   BorderColor,
@@ -8,7 +10,6 @@ import {
   Person,
 } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
-import { Form, Formik, FormikProps } from 'formik'
 import { useMemo, useState } from 'react'
 import * as Yup from 'yup'
 import { useFetch } from 'hooks'
@@ -16,7 +17,6 @@ import CategoryType from 'types/category'
 import CustomerType from 'types/customer'
 import { database, storage } from 'configs'
 import Swal from 'sweetalert2'
-import DrugInputField from './DrugInputField'
 
 const AddPrescription = () => {
   const [categories] = useFetch<CategoryType[]>(`/Categories`, {
