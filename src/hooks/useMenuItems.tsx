@@ -142,7 +142,7 @@ export default () => {
           },
           {
             key: '10.2',
-            route: '/admin/prescription/prescription-history',
+            route: '/admin/reports/view-all-reports',
             title: 'View All Reports',
             icon: <Science />,
           },
