@@ -14,6 +14,7 @@ import { useState } from 'react'
 import { useFetch } from 'hooks'
 import Swal from 'sweetalert2'
 import moment from 'moment'
+import EditOwnerListDrawer from 'components/admin/drawer/EditOwnerListDrawer'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -115,7 +116,7 @@ const OwnerList = () => {
               </Typography>
             </Card>
           </Modal>
-          <EditPrescriptionDrawer
+          <EditOwnerListDrawer
             open={openEditPrescriptionDrawer}
             onClose={() => setOpenEditPrescriptionDrawer(false)}
             // mutate={mutate}
@@ -307,16 +308,18 @@ const OwnerList = () => {
             //     ),
             //   },
             // ]}
-            actions={[
-              {
-                icon: 'add',
-                tooltip: 'Add Prescription',
-                isFreeAction: true,
-                onClick: () => {
-                  router.push('/admin/prescription/create-prescription')
-                },
-              },
-            ]}
+            actions={
+              [
+                // {
+                //   icon: 'add',
+                //   tooltip: 'Add Prescription',
+                //   isFreeAction: true,
+                //   onClick: () => {
+                //     router.push('/admin/prescription/create-prescription')
+                //   },
+                // },
+              ]
+            }
           />
         </div>
       </div>

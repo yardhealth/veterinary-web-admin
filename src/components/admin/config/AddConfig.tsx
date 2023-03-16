@@ -1,49 +1,21 @@
-// import BedCategorySelecter from "components/BedCategorySelecter";
+import { BorderColor, Done, Photo } from '@mui/icons-material'
+import PhotoUpload from 'components/core/PhotoUpload'
+import TextInput from 'components/core/TextInput'
+import { database, storage } from 'configs'
+import CategoryType from 'types/category'
+import CustomerType from 'types/customer'
+import { useMemo, useState } from 'react'
+import { LoadingButton } from '@mui/lab'
+import { Form, Formik } from 'formik'
+import { useFetch } from 'hooks'
+import Swal from 'sweetalert2'
 import {
-  Card,
   Container,
   Typography,
-  Box,
   FormControl,
   FormHelperText,
 } from '@mui/material'
-import AddRecordExpenseSchema from 'schemas/AddRecordExpenseSchema'
-import TextInput from 'components/core/TextInput'
-import {
-  AddRoad,
-  Apartment,
-  BorderColor,
-  CalendarMonth,
-  ContactPhone,
-  CurrencyRupee,
-  Done,
-  Email,
-  House,
-  Info,
-  LineWeight,
-  LocationCity,
-  LocationOn,
-  MergeType,
-  Person,
-  Photo,
-  PushPin,
-  Receipt,
-  Transgender,
-} from '@mui/icons-material'
-import { LoadingButton } from '@mui/lab'
-import AdminLayout from 'layouts/admin'
-import { Form, Formik } from 'formik'
-import { useMemo, useState } from 'react'
 import * as Yup from 'yup'
-import AnimalSelecter from 'components/core/AnimalSelecter'
-import PhotoUpload from 'components/core/PhotoUpload'
-import { useFetch } from 'hooks'
-import CategoryType from 'types/category'
-import CustomerType from 'types/customer'
-import { database, storage } from 'configs'
-import Swal from 'sweetalert2'
-// import ConsultationTypeSelecter from './ConsultationTypeSelecter'
-// import AvailableSlot from 'components/core/AvailableSlot'
 
 const AddConfig = () => {
   const [categories] = useFetch<CategoryType[]>(`/Categories`, {
