@@ -71,7 +71,7 @@ const OwnerList = () => {
   ])
 
   return (
-    <AdminLayout title="Prescription History">
+    <AdminLayout title="Pet Owner List">
       <div className="grid grid-cols-12 content-between gap-6  px-5">
         <div className="!border-grey-500 !shadow-xl col-span-12 flex w-full flex-col justify-center gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-12">
           <Modal
@@ -125,7 +125,7 @@ const OwnerList = () => {
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
-            title={<HeadStyle name="Prescription History" />}
+            title={<HeadStyle name="Pet Owner List" />}
             options={{
               ...MuiTblOptions(),
               sorting: true,
