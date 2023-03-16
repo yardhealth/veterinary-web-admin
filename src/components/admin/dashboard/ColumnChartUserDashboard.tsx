@@ -122,7 +122,7 @@ export default function ColumnChartUserDashboard({
             //     }
             //   }
           },
-          colors: ['#ff7717', '#5B50A1'],
+          colors: ['#ff7717', '#363c70'],
           // labels: ["Pending", "Verified"],
         }}
         series={options.series as any}

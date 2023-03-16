@@ -220,7 +220,7 @@ const EditUploadReportDrawer = ({ open, onClose, mutate }: Props) => {
             variant="h5"
             sx={{ marginBottom: 3 }}
           >
-            Edit Prescription
+            Edit Report
           </Typography>
           <Formik
             initialValues={initialValues}
