@@ -1,11 +1,20 @@
-import { Container, Typography } from '@mui/material'
+import {
+  Container,
+  FormControl,
+  FormHelperText,
+  Typography,
+} from '@mui/material'
 import TextInput from 'components/core/TextInput'
 import {
   Add,
   BorderColor,
   Done,
+  Email,
+  Info,
   MedicationLiquid,
   Person,
+  Phone,
+  Science,
 } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import { Form, Formik, FormikProps } from 'formik'
@@ -16,9 +25,9 @@ import CategoryType from 'types/category'
 import CustomerType from 'types/customer'
 import { database, storage } from 'configs'
 import Swal from 'sweetalert2'
-import DrugInputField from './DrugInputField'
+import PhotoUpload from 'components/core/PhotoUpload'
 
-const AddPrescription = () => {
+const AddReport = () => {
   const [categories] = useFetch<CategoryType[]>(`/Categories`, {
     needNested: false,
     needArray: true,
@@ -60,84 +69,18 @@ const AddPrescription = () => {
         ],
         required: true,
       },
+
       {
-        key: '3',
-        // placeholder: 'Enter your name',
-        name: 'pet',
-        label: 'Select Pet *',
-        placeholder: '',
-        styleContact: 'rounded-xl mb-5 bg-white ',
-        validationSchema: Yup.string().required('Pet is required'),
-        initialValue: '',
-        type: 'select',
-        icon: <Person />,
-        required: true,
-        contactField: {
-          xs: 12,
-          sm: 12,
-          md: 6,
-          lg: 6,
-        },
-        options: [
-          {
-            label: 'Dog',
-            value: 'Dog',
-          },
-          {
-            label: 'Cat',
-            value: 'Cat',
-          },
-          {
-            label: 'Bird',
-            value: 'Bird',
-          },
-          {
-            label: 'Dairy',
-            value: 'Dairy',
-          },
-          {
-            label: 'Poultry',
-            value: 'Poultry',
-          },
-          {
-            label: 'Fish',
-            value: 'Fish',
-          },
-          {
-            label: 'Farm Animal',
-            value: 'Farm Animal',
-          },
-          {
-            label: 'Exotic Pet',
-            value: 'Exotic Pet',
-          },
-          ,
-        ],
-      },
-      {
-        key: '5',
+        key: '8',
         // placeholder: 'Enter your email',
-        name: 'petName',
-        label: 'Pet Name *',
+        name: 'photo',
+        label: 'Upload Lab report *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
         type: 'text',
-        validationSchema: Yup.string().required('Pet Name is required'),
+        validationSchema: Yup.string().required('Lab report is required'),
         initialValue: '',
-        icon: <BorderColor />,
-        required: true,
-      },
-      {
-        key: '4',
-        // placeholder: 'Enter your email',
-        name: 'drugName',
-        label: 'Drug Name *',
-        placeholder: '',
-        styleContact: 'rounded-lg mb-5',
-        type: 'text',
-        validationSchema: Yup.array().required('Item Name is required'),
-        initialValue: [{ value: '', amount: '', key: '1' }],
-        icon: <MedicationLiquid />,
+        icon: <Science />,
         required: true,
       },
     ]
@@ -284,41 +227,32 @@ const AddPrescription = () => {
               {console.log(formik.errors)}
               {AddPrescriptionSchema?.map((inputItem: any, index: any) => (
                 <div key={index}>
-                  {inputItem?.name === 'drugName' ? (
-                    <div className=" w-full py-4">
-                      {formik.values[inputItem.name]?.length &&
-                        formik?.values[inputItem.name]?.map((item: any) => {
-                          return (
-                            <DrugInputField
-                              name="item"
-                              error={Boolean(
-                                formik?.touched?.drugName &&
-                                  formik?.errors?.drugName
-                              )}
-                              helperText={'This field is required.'}
-                              value={item.value}
-                              amount={item?.amount}
-                              onChange={(amount: any, value: any) =>
-                                handleFormikOnChange(
-                                  formik,
-                                  amount,
-                                  value,
-                                  item?.key
-                                )
-                              }
-                            />
-                          )
-                        })}
-
-                      <button
-                        onClick={() => handleClick(inputItem?.name, formik)}
-                        className="mt-5 flex items-center gap-1 rounded-md bg-theme px-4 py-2 text-sm text-white transition-all duration-300 ease-in-out hover:scale-105"
-                      >
-                        <Add className="!text-[1.3rem]" /> Add More
-                      </button>
+                  {inputItem?.name === 'photo' ? (
+                    <div className="w-full">
+                      <FormControl fullWidth>
+                        <PhotoUpload
+                          txtName="Upload Lab Report"
+                          variant={'square'}
+                          value={image}
+                          onChange={(e: any) => {
+                            setImage(e)
+                            formik?.setFieldValue('photo', e?.target?.files[0])
+                          }}
+                          className={'mt-4 mb-5 !w-full !rounded-lg !bg-theme'}
+                          height={200}
+                          width={400}
+                        />
+                        {formik?.touched[inputItem.name] &&
+                          (formik?.errors[inputItem.name] as any) && (
+                            <FormHelperText className="!text-red-500">
+                              {formik?.touched[inputItem?.name] &&
+                                (formik?.errors[inputItem?.name] as any)}
+                            </FormHelperText>
+                          )}
+                      </FormControl>
                     </div>
                   ) : (
-                    <div className={'py-4'}>
+                    <div className={'py-3'}>
                       <TextInput
                         fullWidth
                         key={index}
@@ -334,7 +268,10 @@ const AddPrescription = () => {
                           formik?.touched[inputItem.name] &&
                             formik?.errors[inputItem.name]
                         )}
-                        helperText={formik?.errors[inputItem.name] as string}
+                        helperText={
+                          formik?.touched[inputItem.name] &&
+                          (formik?.errors[inputItem.name] as any)
+                        }
                         value={formik?.values[inputItem.name]}
                         onChange={formik?.handleChange}
                         onBlur={formik?.handleBlur}
@@ -368,4 +305,4 @@ const AddPrescription = () => {
   )
 }
 
-export default AddPrescription
+export default AddReport

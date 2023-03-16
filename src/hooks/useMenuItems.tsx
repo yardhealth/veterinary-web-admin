@@ -32,6 +32,7 @@ import {
   SettingsApplications,
   Upcoming,
   EventBusy,
+  Science,
 } from '@mui/icons-material'
 import { useAppContext } from 'contexts'
 
@@ -125,6 +126,25 @@ export default () => {
             route: '/admin/prescription/prescription-history',
             title: 'Prescription History',
             icon: <Receipt />,
+          },
+        ],
+      },
+      {
+        key: '10',
+        title: 'Reports',
+        icon: <Receipt />,
+        submenus: [
+          {
+            key: '10.1',
+            route: '/admin/reports/upload-report',
+            title: 'Upload Report',
+            icon: <BorderColor />,
+          },
+          {
+            key: '10.2',
+            route: '/admin/prescription/prescription-history',
+            title: 'View All Reports',
+            icon: <Science />,
           },
         ],
       },

@@ -309,40 +309,7 @@ const EditOwnerListDrawer = ({ open, onClose, mutate }: Props) => {
                 {console.log(formik.errors)}
                 {EditOwnerListSchema?.map((inputItem: any, index: any) => (
                   <div key={index}>
-                    {inputItem?.name === 'drugName' ? (
-                      <div className=" w-full py-4">
-                        {formik.values[inputItem.name]?.length &&
-                          formik?.values[inputItem.name]?.map((item: any) => {
-                            return (
-                              <DrugInputField
-                                name="item"
-                                error={Boolean(
-                                  formik?.touched?.drugName &&
-                                    formik?.errors?.drugName
-                                )}
-                                helperText={'This field is required.'}
-                                value={item.value}
-                                amount={item?.amount}
-                                onChange={(amount: any, value: any) =>
-                                  handleFormikOnChange(
-                                    formik,
-                                    amount,
-                                    value,
-                                    item?.key
-                                  )
-                                }
-                              />
-                            )
-                          })}
-
-                        <button
-                          onClick={() => handleClick(inputItem?.name, formik)}
-                          className="mt-5 flex items-center gap-1 rounded-md bg-theme px-4 py-2 text-sm text-white transition-all duration-300 ease-in-out hover:scale-105"
-                        >
-                          <Add className="!text-[1.3rem]" /> Add More
-                        </button>
-                      </div>
-                    ) : (
+                    {
                       <div className={''}>
                         <TextInput
                           fullWidth
@@ -368,7 +335,7 @@ const EditOwnerListDrawer = ({ open, onClose, mutate }: Props) => {
                           onBlur={formik?.handleBlur}
                         />
                       </div>
-                    )}
+                    }
                   </div>
                 ))}
 
