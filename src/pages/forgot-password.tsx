@@ -141,7 +141,7 @@ const ForgotPassword: NextPage = () => {
                         disabled={formik.isSubmitting || !formik.isValid}
                         variant="contained"
                         color="primary"
-                        className="bg-primary"
+                        className="bg-primary hover:bg-theme"
                         size="large"
                         startIcon={
                           formik.isSubmitting ? (
