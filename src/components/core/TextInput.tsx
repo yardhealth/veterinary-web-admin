@@ -250,7 +250,7 @@ const TextInput = ({
     default:
       return (
         <div className={styleArea}>
-          <p className=" text-wider pb-2 font-medium">{title}</p>
+          <p className="text-wider pb-2 font-medium">{title}</p>
           <TextField
             fullWidth={fullWidth}
             placeholder={placeholder}

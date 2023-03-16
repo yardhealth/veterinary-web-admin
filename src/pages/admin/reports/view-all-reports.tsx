@@ -1,13 +1,5 @@
-import EditPrescriptionDrawer from 'components/admin/drawer/EditPrescriptionDrawer'
-import {
-  BorderColor,
-  Delete,
-  Download,
-  Info,
-  Receipt,
-  Visibility,
-} from '@mui/icons-material'
-import { Avatar, Box, Card, Paper, Typography } from '@mui/material'
+import EditUploadReportDrawer from 'components/admin/drawer/EditUploadReportDrawer'
+import { Avatar, Box, Paper } from '@mui/material'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
 import Tooltip from '@mui/material/Tooltip'
@@ -21,7 +13,13 @@ import { useState } from 'react'
 import { useFetch } from 'hooks'
 import Swal from 'sweetalert2'
 import moment from 'moment'
-import EditUploadReportDrawer from 'components/admin/drawer/EditUploadReportDrawer'
+import {
+  BorderColor,
+  Delete,
+  Download,
+  Receipt,
+  Visibility,
+} from '@mui/icons-material'
 
 const style = {
   position: 'absolute' as 'absolute',

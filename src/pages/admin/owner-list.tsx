@@ -1,5 +1,5 @@
-import EditPrescriptionDrawer from 'components/admin/drawer/EditPrescriptionDrawer'
-import { BorderColor, Delete, Info, Visibility } from '@mui/icons-material'
+import EditOwnerListDrawer from 'components/admin/drawer/EditOwnerListDrawer'
+import { BorderColor, Delete, Info } from '@mui/icons-material'
 import { Avatar, Card, Paper, Typography } from '@mui/material'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
@@ -14,7 +14,6 @@ import { useState } from 'react'
 import { useFetch } from 'hooks'
 import Swal from 'sweetalert2'
 import moment from 'moment'
-import EditOwnerListDrawer from 'components/admin/drawer/EditOwnerListDrawer'
 
 const style = {
   position: 'absolute' as 'absolute',

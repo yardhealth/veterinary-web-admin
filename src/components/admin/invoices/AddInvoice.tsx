@@ -1,47 +1,24 @@
-// import BedCategorySelecter from "components/BedCategorySelecter";
-import {
-  Card,
-  Container,
-  Typography,
-  Box,
-  FormControl,
-  FormHelperText,
-} from '@mui/material'
-// import AddInvoiceSchema from 'schemas/AddInvoiceSchema'
+import { Container, Typography } from '@mui/material'
+import { Form, Formik, FormikProps } from 'formik'
 import TextInput from 'components/core/TextInput'
+import BillInputField from './BillInputField'
+import { database, storage } from 'configs'
+import { useMemo, useState } from 'react'
+import CustomerType from 'types/customer'
+import CategoryType from 'types/category'
+import { LoadingButton } from '@mui/lab'
+import { useFetch } from 'hooks'
+import Swal from 'sweetalert2'
+import * as Yup from 'yup'
 import {
-  AccessTimeFilled,
   Add,
   BorderColor,
-  CalendarMonth,
   CurrencyRupee,
   Done,
-  HistoryToggleOff,
-  HourglassBottom,
-  Info,
   MedicationLiquid,
   Percent,
   Person,
-  Pets,
-  Photo,
-  Receipt,
-  Timer,
 } from '@mui/icons-material'
-import { LoadingButton } from '@mui/lab'
-import AdminLayout from 'layouts/admin'
-import { Form, Formik, FormikProps } from 'formik'
-import { useMemo, useState } from 'react'
-import * as Yup from 'yup'
-import RoleSelecter from 'components/core/RoleSelecter'
-// import CategorySelecter from 'components/core/CategorySelecter'
-import PhotoUpload from 'components/core/PhotoUpload'
-import { useFetch } from 'hooks'
-import CategoryType from 'types/category'
-import CustomerType from 'types/customer'
-import { database, storage } from 'configs'
-import Swal from 'sweetalert2'
-import Weekdays from 'components/core/Weekdays'
-import BillInputField from './BillInputField'
 
 const AddInvoice = () => {
   const [categories] = useFetch<CategoryType[]>(`/Categories`, {
@@ -61,9 +38,27 @@ const AddInvoice = () => {
         label: 'Owner Name *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
-        type: 'text',
+        type: 'select',
         validationSchema: Yup.string().required('Owner Name is required'),
         initialValue: '',
+        options: [
+          {
+            label: 'Kate',
+            value: 'Kate',
+          },
+          {
+            label: 'James',
+            value: 'James',
+          },
+          {
+            label: 'Alex',
+            value: 'Alex',
+          },
+          {
+            label: 'Peter',
+            value: 'Peter',
+          },
+        ],
         icon: <BorderColor />,
         required: true,
       },
@@ -116,19 +111,6 @@ const AddInvoice = () => {
         icon: <MedicationLiquid />,
         required: true,
       },
-      // {
-      //   key: '4',
-      //   // placeholder: 'Enter your email',
-      //   name: 'itemPrice',
-      //   label: 'Item Price *',
-      //   placeholder: '',
-      //   styleContact: 'rounded-lg mb-5',
-      //   type: 'number',
-      //   validationSchema: Yup.string().required('Item Price is required'),
-      //   initialValue: '',
-      //   icon: <MedicationLiquid />,
-      //   required: true,
-      // },
       {
         key: '5',
         // placeholder: 'Enter your email',
@@ -142,21 +124,6 @@ const AddInvoice = () => {
         icon: <BorderColor />,
         required: true,
       },
-      // {
-      //   key: '4',
-      //   // placeholder: 'Enter your email',
-      //   name: 'itemDescription',
-      //   label: 'Item Description *',
-      //   placeholder: '',
-      //   styleContact: 'rounded-lg mb-5',
-      //   type: 'text',
-      //   validationSchema: Yup.string().required('Item Description is required'),
-      //   initialValue: '',
-      //   icon: <Info />,
-      //   multiline: true,
-      //   rows: 2,
-      //   required: true,
-      // },
 
       {
         key: '3',
