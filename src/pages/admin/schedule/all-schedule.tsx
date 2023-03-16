@@ -82,7 +82,6 @@ const AllSchedule = () => {
                 field: 'day',
                 editable: 'never',
                 emptyValue: '--',
-                // width: "2%",
               },
               {
                 title: 'Start Time',
@@ -90,8 +89,6 @@ const AllSchedule = () => {
                 editable: 'never',
 
                 emptyValue: '--',
-
-                // width: "2%",
               },
 
               {
@@ -101,7 +98,6 @@ const AllSchedule = () => {
                 export: true,
                 emptyValue: '--',
                 //   hidden:true,
-
                 filtering: false,
               },
 
@@ -123,7 +119,6 @@ const AllSchedule = () => {
                 },
                 export: true,
                 emptyValue: '--',
-                //   hidden:true,
                 filtering: false,
               },
               {
@@ -134,20 +129,8 @@ const AllSchedule = () => {
                   textAlign: 'center',
                 },
                 emptyValue: '--',
-                //   hidden:true,
                 filtering: false,
               },
-              // {
-              //   title: 'Slot Gap(mins)',
-              //   field: 'slotGap',
-              //   searchable: true,
-              //   cellStyle: {
-              //     textAlign: 'center',
-              //   },
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
 
               {
                 title: 'Created At',
@@ -163,8 +146,6 @@ const AllSchedule = () => {
                   textAlign: 'right',
                 },
                 export: true,
-                // width: "18%",
-                // field: "pick",
                 render: (row) => (
                   <>
                     <div className="flex">

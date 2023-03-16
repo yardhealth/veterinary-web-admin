@@ -1,4 +1,4 @@
-import { BorderColor, Done, Photo } from '@mui/icons-material'
+import { BorderColor, Done, Person, Photo } from '@mui/icons-material'
 import PhotoUpload from 'components/core/PhotoUpload'
 import TextInput from 'components/core/TextInput'
 import { database, storage } from 'configs'
@@ -40,6 +40,35 @@ const AddConfig = () => {
         initialValue: '',
         icon: <BorderColor />,
         required: true,
+      },
+      {
+        key: '17',
+        // placeholder: 'Enter your name',
+        name: 'consultation',
+        label: 'Consultation Type *',
+        placeholder: '',
+        type: 'select',
+        styleContact: 'rounded-xl mb-5 bg-white ',
+        validationSchema: Yup.string().required('Customer Type is required'),
+        initialValue: '',
+        icon: <Person />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+        options: [
+          {
+            label: 'Home',
+            value: 'Home',
+          },
+          {
+            label: 'Clinic Visit',
+            value: 'Clinic Visit',
+          },
+        ],
       },
       {
         key: '1',

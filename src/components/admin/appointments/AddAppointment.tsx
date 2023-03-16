@@ -595,6 +595,7 @@ const AddAppointment = () => {
         // placeholder: 'Enter your name',
         name: 'consultation',
         label: 'Consultation Type *',
+        type: 'select',
         placeholder: '',
         styleContact: 'rounded-xl mb-5 bg-white ',
         validationSchema: Yup.string().required('Customer Type is required'),
