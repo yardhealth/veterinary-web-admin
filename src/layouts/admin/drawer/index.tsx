@@ -179,7 +179,7 @@ const Drawer = ({ open, onToggle }: DrawerType) => {
               onClick={handleLogout}
               startIcon={<ExitToApp />}
               color="error"
-              className="bg-[#ff7717]"
+              className="!bg-[#ff7717]"
             >
               Logout
             </Button>
