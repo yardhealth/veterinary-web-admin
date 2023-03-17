@@ -334,7 +334,10 @@ const AddPrescription = () => {
                           formik?.touched[inputItem.name] &&
                             formik?.errors[inputItem.name]
                         )}
-                        helperText={formik?.errors[inputItem.name] as string}
+                        helperText={
+                          formik?.touched[inputItem.name] &&
+                          (formik?.errors[inputItem.name] as any)
+                        }
                         value={formik?.values[inputItem.name]}
                         onChange={formik?.handleChange}
                         onBlur={formik?.handleBlur}

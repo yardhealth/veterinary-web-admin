@@ -42,7 +42,7 @@ const AnimalSelecter = ({
   error,
   helperText,
 }: any) => {
-  console.log(value, defaultValue)
+  // console.log(value, defaultValue)
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)

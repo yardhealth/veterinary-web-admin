@@ -71,10 +71,6 @@ const AddSchedule = () => {
         },
         options: [
           {
-            label: 'All',
-            value: 'All',
-          },
-          {
             label: 'Mon',
             value: 'Mon',
           },
@@ -356,7 +352,10 @@ const AddSchedule = () => {
                           formik?.touched[inputItem.name] &&
                             formik?.errors[inputItem.name]
                         )}
-                        helperText={formik?.errors[inputItem.name] as string}
+                        helperText={
+                          formik?.touched[inputItem.name] &&
+                          (formik?.errors[inputItem.name] as any)
+                        }
                         value={formik?.values[inputItem.name]}
                         onChange={formik?.handleChange}
                         onBlur={formik?.handleBlur}

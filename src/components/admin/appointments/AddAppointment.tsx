@@ -629,7 +629,7 @@ const AddAppointment = () => {
         type: 'text',
         validationSchema: Yup.string().when('consultation', {
           is: 'Home',
-          then: Yup.string().required('Field required'),
+          then: Yup.string().optional(),
           otherwise: Yup.string(),
         }),
         initialValue: '',
@@ -646,7 +646,7 @@ const AddAppointment = () => {
         type: 'text',
         validationSchema: Yup.string().when('consultation', {
           is: 'Home',
-          then: Yup.string().required('Field required'),
+          then: Yup.string().optional(),
           otherwise: Yup.string(),
         }),
         initialValue: '',
@@ -663,7 +663,7 @@ const AddAppointment = () => {
         type: 'text',
         validationSchema: Yup.string().when('consultation', {
           is: 'Home',
-          then: Yup.string().required('Field required'),
+          then: Yup.string().optional(),
           otherwise: Yup.string(),
         }),
         initialValue: '',
@@ -680,7 +680,7 @@ const AddAppointment = () => {
         type: 'number',
         validationSchema: Yup.string().when('consultation', {
           is: 'Home',
-          then: Yup.string().required('Field required'),
+          then: Yup.string().optional(),
           otherwise: Yup.string(),
         }),
         initialValue: '',
@@ -697,7 +697,7 @@ const AddAppointment = () => {
         type: 'text',
         validationSchema: Yup.string().when('consultation', {
           is: 'Home',
-          then: Yup.string().required('Field required'),
+          then: Yup.string().optional(),
           otherwise: Yup.string(),
         }),
         initialValue: '',
@@ -713,7 +713,7 @@ const AddAppointment = () => {
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
         type: 'date',
-        validationSchema: Yup.string().required('Appointment date is required'),
+        validationSchema: Yup.string().optional(),
         initialValue: '',
         icon: <CalendarMonth />,
         required: true,
@@ -735,7 +735,7 @@ const AddAppointment = () => {
         key: '24',
         name: 'time2',
         label: 'City *',
-        validationSchema: Yup.string().required('City is required'),
+        validationSchema: Yup.string().optional(),
         styleContact: 'rounded-lg mb-5',
         initialValue: '',
         placeholder: 'City',

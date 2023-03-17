@@ -14,7 +14,7 @@ const ConsultationTypeSelecter = ({
   error,
   helperText,
 }: any) => {
-  console.log(value, defaultValue)
+  // console.log(value, defaultValue)
   return (
     <FormControl fullWidth>
       <div className="flex flex-col gap-2">
