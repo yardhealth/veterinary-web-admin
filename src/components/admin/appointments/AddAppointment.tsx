@@ -1,4 +1,6 @@
 // import BedCategorySelecter from "components/BedCategorySelecter";
+import React, { useEffect } from 'react'
+
 import {
   Card,
   Container,
@@ -45,16 +47,16 @@ import Swal from 'sweetalert2'
 import ConsultationTypeSelecter from './ConsultationTypeSelecter'
 import AvailableSlot from 'components/core/AvailableSlot'
 import OwnerSelecter from './OwnerSelecter'
+import { useGET, useMutation } from 'hooks'
 
 const AddAppointment = () => {
-  const [categories] = useFetch<CategoryType[]>(`/Categories`, {
-    needNested: false,
-    needArray: true,
-  })
-  const [customers] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
+  const { data, mutate } = useGET<any[]>(`health-particular/getall`)
+  console.log(data)
+
+  // useEffect(() => {
+  //   mutate?.()
+  // }, [])
+
   const AddRecordExpenseSchema = useMemo(() => {
     return [
       {
@@ -322,45 +324,55 @@ const AddAppointment = () => {
           md: 6,
           lg: 6,
         },
-        options: [
-          {
-            label: 'General checkup',
-            value: 'General checkup',
-          },
-          {
-            label: 'Fever',
-            value: 'Fever',
-          },
-          {
-            label: 'Inactive',
-            value: 'Inactive',
-          },
-          {
-            label: 'Skin rash or allergy',
-            value: 'Skin rash or allergy',
-          },
-          {
-            label: 'Injury',
-            value: 'Injury',
-          },
-          {
-            label: 'Vaccination',
-            value: 'Vaccination',
-          },
-          {
-            label: 'Swelling',
-            value: 'Swelling',
-          },
-          {
-            label: 'Not eating food',
-            value: 'Not eating food',
-          },
-          {
-            label: 'Travel certificate',
-            value: 'Travel certificate',
-          },
-          ,
-        ],
+        // options:
+        // [
+        //   {
+        //     label: 'General checkup',
+        //     value: 'General checkup',
+        //   },
+        //   {
+        //     label: 'Fever',
+        //     value: 'Fever',
+        //   },
+        //   {
+        //     label: 'Inactive',
+        //     value: 'Inactive',
+        //   },
+        //   {
+        //     label: 'Skin rash or allergy',
+        //     value: 'Skin rash or allergy',
+        //   },
+        //   {
+        //     label: 'Injury',
+        //     value: 'Injury',
+        //   },
+        //   {
+        //     label: 'Vaccination',
+        //     value: 'Vaccination',
+        //   },
+        //   {
+        //     label: 'Swelling',
+        //     value: 'Swelling',
+        //   },
+        //   {
+        //     label: 'Not eating food',
+        //     value: 'Not eating food',
+        //   },
+        //   {
+        //     label: 'Travel certificate',
+        //     value: 'Travel certificate',
+        //   },
+        //   ,
+        // ],
+        options: data?.success?.data?.map((item, i) => {
+          console.log(item)
+          return (
+            item?.healthIssue === 'General Health Issues' && {
+              label: item?.healthParticulars,
+              value: item?.healthParticulars,
+            }
+          )
+        }),
       },
       {
         key: '12',
@@ -380,36 +392,45 @@ const AddAppointment = () => {
           md: 6,
           lg: 6,
         },
-        options: [
-          {
-            label: 'Weight loss',
-            value: 'Weight loss',
-          },
-          {
-            label: 'Diarrhea',
-            value: 'Diarrhea',
-          },
-          {
-            label: 'Vomiting',
-            value: 'Vomiting',
-          },
-          {
-            label: 'Constipation',
-            value: 'Constipation',
-          },
-          {
-            label: 'Bloated Stomach',
-            value: 'Bloated Stomach',
-          },
-          {
-            label: 'Blood in Vomit',
-            value: 'Blood in Vomit',
-          },
-          {
-            label: 'Blood in Stool',
-            value: 'Blood in Stool',
-          },
-        ],
+        // options: [
+        //   {
+        //     label: 'Weight loss',
+        //     value: 'Weight loss',
+        //   },
+        //   {
+        //     label: 'Diarrhea',
+        //     value: 'Diarrhea',
+        //   },
+        //   {
+        //     label: 'Vomiting',
+        //     value: 'Vomiting',
+        //   },
+        //   {
+        //     label: 'Constipation',
+        //     value: 'Constipation',
+        //   },
+        //   {
+        //     label: 'Bloated Stomach',
+        //     value: 'Bloated Stomach',
+        //   },
+        //   {
+        //     label: 'Blood in Vomit',
+        //     value: 'Blood in Vomit',
+        //   },
+        //   {
+        //     label: 'Blood in Stool',
+        //     value: 'Blood in Stool',
+        //   },
+        // ],
+        options: data?.success?.data?.map((item, i) => {
+          console.log(item)
+          return (
+            item?.healthIssue === 'Digestive Problems' && {
+              label: item?.healthParticulars,
+              value: item?.healthParticulars,
+            }
+          )
+        }),
       },
       {
         key: '13',
@@ -817,7 +838,7 @@ const AddAppointment = () => {
         // required: true,
       },
     ]
-  }, [categories])
+  }, [data?.success?.data?.length])
   const [articleValue, setArticleValue] = useState('')
   const [image, setImage] = useState<any>('')
   const [countryDetails, setCountryDetails] = useState({

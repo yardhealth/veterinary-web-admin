@@ -79,6 +79,9 @@ const ViewHealthIssues = () => {
       mutate?.()
     } catch (error) {}
   }
+  // useEffect(() => {
+  //   if (!openEditPrescriptionDrawer) mutate?.()
+  // }, [openEditPrescriptionDrawer])
 
   return (
     <AdminLayout title="View All Reports">

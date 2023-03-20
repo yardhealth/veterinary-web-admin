@@ -98,6 +98,7 @@ const AddHealthIssues = () => {
       const healthIssue = {
         ...success?.data,
       }
+      submitProps.resetForm()
       Swal.fire('Success', success.message, 'success')
 
       console.log(healthIssue)
