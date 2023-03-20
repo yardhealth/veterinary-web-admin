@@ -80,7 +80,7 @@ const ViewConsultationFee = () => {
   }
 
   return (
-    <AdminLayout title="View All Reports">
+    <AdminLayout title="View Consultation Fees">
       <div className="grid grid-cols-12 content-between gap-6  px-5">
         <div className="!border-grey-500 !shadow-xl col-span-12 flex w-full flex-col justify-center gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-12">
           <EditFeeDrawer
@@ -90,11 +90,15 @@ const ViewConsultationFee = () => {
             mutate={mutate}
           />
           <MaterialTable
-            data={data?.success?.data || []}
+            data={
+              data?.success?.data
+                ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+                : []
+            }
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
-            title={<HeadStyle name="View All Reports" />}
+            title={<HeadStyle name="View Consultation Fees" />}
             options={{
               ...MuiTblOptions(),
               sorting: true,

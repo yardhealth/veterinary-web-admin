@@ -90,7 +90,7 @@ const ConsultationFee = () => {
   })
 
   return (
-    <AdminLayout title="Create Appointment">
+    <AdminLayout title="Add Consultation Fees">
       <Container
         maxWidth="xl"
         // style={{
@@ -106,7 +106,7 @@ const ConsultationFee = () => {
             className="!mt-2 font-bold text-theme"
             sx={{ marginBottom: 3 }}
           >
-            Add Doctor
+            Add Consultation Fees
           </Typography>
           <AddConfig />
         </Card>

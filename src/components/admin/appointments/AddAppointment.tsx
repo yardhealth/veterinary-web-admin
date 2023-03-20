@@ -450,32 +450,41 @@ const AddAppointment = () => {
           md: 6,
           lg: 6,
         },
-        options: [
-          {
-            label: 'Hair loss',
-            value: 'Hair loss',
-          },
-          {
-            label: 'Allergies',
-            value: 'Allergies',
-          },
-          {
-            label: 'Skin Rashes',
-            value: 'Skin Rashes',
-          },
-          {
-            label: 'Skin Infection',
-            value: 'Skin Infection',
-          },
-          {
-            label: 'Ticks/Fleas',
-            value: 'Ticks/Fleas',
-          },
-          {
-            label: 'Itching and Self Biting',
-            value: 'Itching and Self Biting',
-          },
-        ],
+        // options: [
+        //   {
+        //     label: 'Hair loss',
+        //     value: 'Hair loss',
+        //   },
+        //   {
+        //     label: 'Allergies',
+        //     value: 'Allergies',
+        //   },
+        //   {
+        //     label: 'Skin Rashes',
+        //     value: 'Skin Rashes',
+        //   },
+        //   {
+        //     label: 'Skin Infection',
+        //     value: 'Skin Infection',
+        //   },
+        //   {
+        //     label: 'Ticks/Fleas',
+        //     value: 'Ticks/Fleas',
+        //   },
+        //   {
+        //     label: 'Itching and Self Biting',
+        //     value: 'Itching and Self Biting',
+        //   },
+        // ],
+        options: data?.success?.data?.map((item, i) => {
+          console.log(item)
+          return (
+            item?.healthIssue === 'Skin Problems' && {
+              label: item?.healthParticulars,
+              value: item?.healthParticulars,
+            }
+          )
+        }),
       },
       {
         key: '14',
