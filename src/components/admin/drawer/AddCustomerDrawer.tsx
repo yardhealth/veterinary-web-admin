@@ -8,7 +8,7 @@ import { LoadingButton } from '@mui/lab'
 import { Form, Formik } from 'formik'
 import { useState } from 'react'
 import * as Yup from 'yup'
-import { database } from 'configs'
+// import { database } from 'configs'
 import CustomerType from 'types/customer'
 import Swal from 'sweetalert2'
 
@@ -42,23 +42,23 @@ const AddCustomerDrawer = ({ open, onClose, mutate }: Props) => {
   )
   const [image, setImage] = useState<any>()
   const handleSend = async (values: any, submitProps: any) => {
-    try {
-      if (open?.id) {
-        database
-          .ref(`Customers/${open?.id}`)
-          .update({ ...values, updatedAt: new Date().toString() })
-      } else {
-        database
-          .ref(`Customers`)
-          .push({ ...values, createdAt: new Date().toString() })
-      }
-      onClose()
-      submitProps.resetForm()
-      Swal.fire('Success', 'Successfully added', 'success')
-    } catch (error: any) {
-      console.log(error)
-      Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
-    }
+    // try {
+    //   if (open?.id) {
+    //     database
+    //       .ref(`Customers/${open?.id}`)
+    //       .update({ ...values, updatedAt: new Date().toString() })
+    //   } else {
+    //     database
+    //       .ref(`Customers`)
+    //       .push({ ...values, createdAt: new Date().toString() })
+    //   }
+    //   onClose()
+    //   submitProps.resetForm()
+    //   Swal.fire('Success', 'Successfully added', 'success')
+    // } catch (error: any) {
+    //   console.log(error)
+    //   Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
+    // }
   }
   return (
     <>

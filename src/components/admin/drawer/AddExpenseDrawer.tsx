@@ -22,7 +22,7 @@ import { LoadingButton } from '@mui/lab'
 import { Form, Formik } from 'formik'
 import { useEffect, useMemo, useState } from 'react'
 import * as Yup from 'yup'
-import { database, storage } from 'configs'
+// import { database, storage } from 'configs'
 import CustomerType from 'types/customer'
 import Swal from 'sweetalert2'
 import PhotoUpload from 'components/core/PhotoUpload'
@@ -183,57 +183,57 @@ const AddExpenseDrawer = ({ open, onClose, mutate }: Props) => {
   const handleSend = async (values: any, submitProps: any) => {
     console.log(values)
     console.log(image)
-    try {
-      if (values?.photo && values?.photo != image) {
-        const fileRef = `Customers/${values?.customerName}/photoUrl`
-        const res = await storage.ref(fileRef).put(values?.photo)
-        const url = await res.ref.getDownloadURL()
+    // try {
+    //   if (values?.photo && values?.photo != image) {
+    //     const fileRef = `Customers/${values?.customerName}/photoUrl`
+    //     const res = await storage.ref(fileRef).put(values?.photo)
+    //     const url = await res.ref.getDownloadURL()
 
-        await database
-          .ref(`Customers/${values?.customerName}/Expenses/${open?.id}`)
-          .update({
-            date: values?.date,
-            amount: values?.amount,
-            category: values?.category,
-            customerName: values?.customerName,
-            notes: values?.notes,
-            invoiceNumber: values?.invoiceNumber,
-            documentUrl: url,
-            updatedAt: new Date().toString(),
-          })
-        await database.ref(`Expenses/${open?.id}`).update({
-          date: values?.date,
-          amount: values?.amount,
-          category: values?.category,
-          customerName: values?.customerName,
-          notes: values?.notes,
-          invoiceNumber: values?.invoiceNumber,
-          documentUrl: url,
-          updatedAt: new Date().toString(),
-        })
-        onClose()
-        Swal.fire('Success', 'Successfully Updated', 'success')
-        submitProps.resetForm()
-      } else {
-        await database
-          .ref(`Customers/${values?.customerName}/Expenses/${open?.id}`)
-          .update({
-            ...values,
-            createdAt: new Date().toString(),
-          })
-        await database.ref(`Expenses/${open?.id}`).update({
-          ...values,
-          updatedAt: new Date().toString(),
-        })
-        onClose()
-        Swal.fire('Success', 'Successfully Updated', 'success')
-        submitProps.resetForm()
-      }
-    } catch (error) {
-      console.log(error)
-      Swal.fire('Error', 'Something Went Wrong', 'error')
-      submitProps.setSubmitting(false)
-    }
+    //     await database
+    //       .ref(`Customers/${values?.customerName}/Expenses/${open?.id}`)
+    //       .update({
+    //         date: values?.date,
+    //         amount: values?.amount,
+    //         category: values?.category,
+    //         customerName: values?.customerName,
+    //         notes: values?.notes,
+    //         invoiceNumber: values?.invoiceNumber,
+    //         documentUrl: url,
+    //         updatedAt: new Date().toString(),
+    //       })
+    //     await database.ref(`Expenses/${open?.id}`).update({
+    //       date: values?.date,
+    //       amount: values?.amount,
+    //       category: values?.category,
+    //       customerName: values?.customerName,
+    //       notes: values?.notes,
+    //       invoiceNumber: values?.invoiceNumber,
+    //       documentUrl: url,
+    //       updatedAt: new Date().toString(),
+    //     })
+    //     onClose()
+    //     Swal.fire('Success', 'Successfully Updated', 'success')
+    //     submitProps.resetForm()
+    //   } else {
+    //     await database
+    //       .ref(`Customers/${values?.customerName}/Expenses/${open?.id}`)
+    //       .update({
+    //         ...values,
+    //         createdAt: new Date().toString(),
+    //       })
+    //     await database.ref(`Expenses/${open?.id}`).update({
+    //       ...values,
+    //       updatedAt: new Date().toString(),
+    //     })
+    //     onClose()
+    //     Swal.fire('Success', 'Successfully Updated', 'success')
+    //     submitProps.resetForm()
+    //   }
+    // } catch (error) {
+    //   console.log(error)
+    //   Swal.fire('Error', 'Something Went Wrong', 'error')
+    //   submitProps.setSubmitting(false)
+    // }
   }
   return (
     <>

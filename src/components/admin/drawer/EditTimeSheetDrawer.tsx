@@ -7,7 +7,7 @@ import { LoadingButton } from '@mui/lab'
 import { Form, Formik } from 'formik'
 import { useState } from 'react'
 import * as Yup from 'yup'
-import { database } from 'configs'
+// import { database } from 'configs'
 import Swal from 'sweetalert2'
 import { useFetch } from 'hooks'
 import { useMemo } from 'react'
@@ -143,17 +143,17 @@ const EditTimeSheetDrawer = ({ open, onClose, mutate }: Props) => {
   const [image, setImage] = useState<any>()
   const handleSend = async (values: any, submitProps: any) => {
     console.log(values)
-    try {
-      database
-        .ref(`TimeSheets/${open?.id}`)
-        .update({ ...values, updatedAt: new Date().toString() })
-      onClose()
-      submitProps.resetForm()
-      Swal.fire('Success', 'Successfully added', 'success')
-    } catch (error: any) {
-      console.log(error)
-      Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
-    }
+    // try {
+    //   database
+    //     .ref(`TimeSheets/${open?.id}`)
+    //     .update({ ...values, updatedAt: new Date().toString() })
+    //   onClose()
+    //   submitProps.resetForm()
+    //   Swal.fire('Success', 'Successfully added', 'success')
+    // } catch (error: any) {
+    //   console.log(error)
+    //   Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
+    // }
   }
   return (
     <>

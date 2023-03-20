@@ -24,14 +24,14 @@ export default async function handler(
           password: body.password,
         })
         const UserResponse: Partial<User> = {
-          displayName: body.displayName,
+          // displayName: body.displayName,
           email: body.email,
           password: body.password,
-          uid: response.uid,
-          isBlocked: false,
+          // uid: response.uid,
+          // isBlocked: false,
           role: body?.role ?? 'user',
-          updatedAt: new Date().toString(),
-          createdAt: new Date().toString(),
+          // updatedAt: new Date().toString(),
+          // createdAt: new Date().toString(),
         }
         const { dbRef, additionalData = {} } = body
         if (dbRef)
@@ -86,7 +86,7 @@ export default async function handler(
           await admin.database().ref(`/${body?.dbRef}/${body.uid}`).remove()
         res.status(200).json({
           message: 'User deleted successfully',
-          User: { uid: body.uid },
+          // User: { uid: body.uid },
         })
       } catch (error) {
         res.status(500).json({ error: error as Error })

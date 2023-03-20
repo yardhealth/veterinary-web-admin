@@ -38,26 +38,26 @@ export default () => {
   const { user } = useAppContext()
 
   const handleChangePassword = async (values: any, submitProps: any) => {
-    try {
-      const response = await fetch('/api/user/update', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          uid: user?.uid,
-          displayName: user?.displayName,
-          email: user?.email,
-          password: values.newPassword,
-        }),
-      })
-      const result = await response.json()
-      if (response.status !== 200)
-        return Swal.fire('Error', `${result?.message}`, 'error')
-      Swal.fire('Success!', 'Your Password Changed Successfully', 'success')
-    } catch (error) {
-      submitProps.setSubmitting(false)
-      Swal.fire('Error', `Something went wrong please try again`, 'error')
-      console.log(error)
-    }
+    // try {
+    //   const response = await fetch('/api/user/update', {
+    //     method: 'PUT',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({
+    //       uid: user?.uid,
+    //       displayName: user?.displayName,
+    //       email: user?.email,
+    //       password: values.newPassword,
+    //     }),
+    //   })
+    //   const result = await response.json()
+    //   if (response.status !== 200)
+    //     return Swal.fire('Error', `${result?.message}`, 'error')
+    //   Swal.fire('Success!', 'Your Password Changed Successfully', 'success')
+    // } catch (error) {
+    //   submitProps.setSubmitting(false)
+    //   Swal.fire('Error', `Something went wrong please try again`, 'error')
+    //   console.log(error)
+    // }
   }
   const initialValues = ChangePasswordSchema.reduce(
     (accumulator, currentValue) => {

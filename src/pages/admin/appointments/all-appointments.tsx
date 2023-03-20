@@ -28,7 +28,7 @@ import { useMemo, useState } from 'react'
 import { useFetch } from 'hooks'
 import CustomerType from 'types/customer'
 import moment from 'moment'
-import { database } from 'configs'
+// import { database } from 'configs'
 import Swal from 'sweetalert2'
 import { formatCurrency, getArrFromObj } from '@ashirbad/js-core'
 import EditUpcomingAppointmentDrawer from 'components/admin/drawer/EditUpcomingAppointmentDrawer'
@@ -73,13 +73,13 @@ const AllAppointments = () => {
   // console.log(data)
   console.log(openEditAppointmentDrawer)
   const handleDelete = (row: CustomerType) => {
-    try {
-      database.ref(`Customers/${row?.id}`).remove()
-      Swal.fire('Success', 'Successfully Deleted', 'success')
-    } catch (error: any) {
-      console.log(error)
-      Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
-    }
+    // try {
+    //   database.ref(`Customers/${row?.id}`).remove()
+    //   Swal.fire('Success', 'Successfully Deleted', 'success')
+    // } catch (error: any) {
+    //   console.log(error)
+    //   Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
+    // }
   }
 
   const AddHolidaySchema = useMemo(() => {
@@ -181,17 +181,17 @@ const AllAppointments = () => {
 
   const handleSend = async (values: any, submitProps: any) => {
     console.log(values)
-    try {
-      database
-        .ref(`Items`)
-        .push({ ...values, createdAt: new Date().toString() })
-      // onClose()
-      submitProps.resetForm()
-      Swal.fire('Success', 'Successfully added', 'success')
-    } catch (error: any) {
-      console.log(error)
-      Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
-    }
+    // try {
+    //   database
+    //     .ref(`Items`)
+    //     .push({ ...values, createdAt: new Date().toString() })
+    //   // onClose()
+    //   submitProps.resetForm()
+    //   Swal.fire('Success', 'Successfully added', 'success')
+    // } catch (error: any) {
+    //   console.log(error)
+    //   Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
+    // }
   }
 
   const [tabelData, settabelData] = useState([

@@ -27,30 +27,30 @@ export default () => {
   const { user } = useAppContext()
 
   const handleChangeEmail = async (values: any, submitProps: any) => {
-    try {
-      const response = await fetch('/api/user/update', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          uid: user?.uid,
-          displayName: user?.displayName,
-          email: values?.newEmail,
-          password: user?.password,
-        }),
-      })
-      const result = await response.json()
-      if (response.status !== 200)
-        return Swal.fire('Error', `${result?.message}`, 'error')
-      Swal.fire(
-        'Success!',
-        'Your email has been changed successfully',
-        'success'
-      )
-    } catch (error) {
-      submitProps.setSubmitting(false)
-      Swal.fire('Error', 'Some Error Occured', 'error')
-      console.log(error)
-    }
+    // try {
+    //   const response = await fetch('/api/user/update', {
+    //     method: 'PUT',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({
+    //       uid: user?.uid,
+    //       displayName: user?.displayName,
+    //       email: values?.newEmail,
+    //       password: user?.password,
+    //     }),
+    //   })
+    //   const result = await response.json()
+    //   if (response.status !== 200)
+    //     return Swal.fire('Error', `${result?.message}`, 'error')
+    //   Swal.fire(
+    //     'Success!',
+    //     'Your email has been changed successfully',
+    //     'success'
+    //   )
+    // } catch (error) {
+    //   submitProps.setSubmitting(false)
+    //   Swal.fire('Error', 'Some Error Occured', 'error')
+    //   console.log(error)
+    // }
   }
   const initialValues = UpdateEmailSchema.reduce(
     (accumulator, currentValue) => {

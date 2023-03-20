@@ -10,7 +10,7 @@ import ReceiptIcon from '@mui/icons-material/Receipt'
 import CustomerTypeSelecter from 'components/core/CustomerTypeSelecter'
 import TypeSelecter from 'components/core/TypeSelecter'
 import UnitSelecter from 'components/core/UnitSelecter'
-import { database } from 'configs'
+// import { database } from 'configs'
 import Swal from 'sweetalert2'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
@@ -283,20 +283,20 @@ const EditPaymentDrawer = ({ open, onClose, mutate }: Props) => {
   )
 
   const handleSend = async (values: any, submitProps: any) => {
-    try {
-      database
-        .ref(`Payments/${open?.id}`)
-        .update({ ...values, updatedAt: new Date().toString() })
-      database
-        .ref(`Customers/${open?.user}/Payments/${open?.id}`)
-        .update({ ...values, updatedAt: new Date().toString() })
-      onClose()
-      submitProps.resetForm()
-      Swal.fire('Success', 'Successfully added', 'success')
-    } catch (error: any) {
-      console.log(error)
-      Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
-    }
+    // try {
+    //   database
+    //     .ref(`Payments/${open?.id}`)
+    //     .update({ ...values, updatedAt: new Date().toString() })
+    //   database
+    //     .ref(`Customers/${open?.user}/Payments/${open?.id}`)
+    //     .update({ ...values, updatedAt: new Date().toString() })
+    //   onClose()
+    //   submitProps.resetForm()
+    //   Swal.fire('Success', 'Successfully added', 'success')
+    // } catch (error: any) {
+    //   console.log(error)
+    //   Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
+    // }
   }
   return (
     <>

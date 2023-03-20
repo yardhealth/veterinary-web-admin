@@ -14,7 +14,7 @@ import { useFetch } from 'hooks'
 import ItemType from 'types/item'
 import { formatCurrency } from '@ashirbad/js-core'
 import Swal from 'sweetalert2'
-import { database } from 'configs'
+// import { database } from 'configs'
 
 const Items = () => {
   const router = useRouter()
@@ -33,24 +33,24 @@ const Items = () => {
   })
   // console.log(data)
   const onRowDelete = async (oldData: ItemType) => {
-    try {
-      database.ref(`Items/${oldData?.id}`).remove()
-      Swal.fire('Success', 'Successfully Deleted', 'success')
-    } catch (error: any) {
-      console.log(error)
-      Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
-    }
+    // try {
+    //   database.ref(`Items/${oldData?.id}`).remove()
+    //   Swal.fire('Success', 'Successfully Deleted', 'success')
+    // } catch (error: any) {
+    //   console.log(error)
+    //   Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
+    // }
   }
   const onRowUpdate = async (newData: ItemType, oldData: ItemType) => {
-    try {
-      database
-        .ref(`Items/${oldData?.id}`)
-        .update({ ...newData, updatedAt: new Date().toString() })
-      Swal.fire('Success', 'Successfully Deleted', 'success')
-    } catch (error) {
-      console.log(error)
-      Swal.fire('Error', `Something Went Wrong`, 'error')
-    }
+    // try {
+    //   database
+    //     .ref(`Items/${oldData?.id}`)
+    //     .update({ ...newData, updatedAt: new Date().toString() })
+    //   Swal.fire('Success', 'Successfully Deleted', 'success')
+    // } catch (error) {
+    //   console.log(error)
+    //   Swal.fire('Error', `Something Went Wrong`, 'error')
+    // }
   }
   return (
     <AdminLayout title="Items">

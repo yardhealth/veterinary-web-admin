@@ -34,7 +34,7 @@ import PhotoUpload from 'components/core/PhotoUpload'
 import { useFetch } from 'hooks'
 import CategoryType from 'types/category'
 import CustomerType from 'types/customer'
-import { database, storage } from 'configs'
+// import { database, storage } from 'configs'
 import Swal from 'sweetalert2'
 import Weekdays from 'components/core/Weekdays'
 
@@ -216,54 +216,54 @@ const AddSchedule = () => {
 
     const finalStartDate = startDate
     const finalEndDate = endDate
-    try {
-      if (values?.photo) {
-        const fileRef = `Customers/${values?.customerName}/photoUrl`
-        const res = await storage.ref(fileRef).put(values?.photo)
-        const url = await res.ref.getDownloadURL()
-        const ID = Date.now()
-        await database
-          .ref(`Customers/${values?.customerName}/Expenses/${ID}`)
-          .update({
-            date: values?.date,
-            amount: values?.amount,
-            category: values?.category,
-            customerName: values?.customerName,
-            notes: values?.notes,
-            invoiceNumber: values?.invoiceNumber,
-            documentUrl: url,
-            createdAt: new Date().toString(),
-          })
-        await database.ref(`Expenses/${ID}`).update({
-          date: values?.date,
-          amount: values?.amount,
-          category: values?.category,
-          customerName: values?.customerName,
-          notes: values?.notes,
-          invoiceNumber: values?.invoiceNumber,
-          documentUrl: url,
-          createdAt: new Date().toString(),
-        })
-        setImage('')
-        Swal.fire('Success', 'Successfully Addded', 'success')
-        submitProps.resetForm()
-      } else {
-        await database.ref(`Customers/${values?.customerName}/Expenses`).push({
-          ...values,
-          createdAt: new Date().toString(),
-        })
-        await database.ref(`Expenses`).push({
-          ...values,
-          createdAt: new Date().toString(),
-        })
-        Swal.fire('Success', 'Successfully Addded', 'success')
-        submitProps.resetForm()
-      }
-    } catch (error) {
-      console.log(error)
-      Swal.fire('Error', 'Something Went Wrong', 'error')
-      submitProps.setSubmitting(false)
-    }
+    // try {
+    //   if (values?.photo) {
+    //     const fileRef = `Customers/${values?.customerName}/photoUrl`
+    //     const res = await storage.ref(fileRef).put(values?.photo)
+    //     const url = await res.ref.getDownloadURL()
+    //     const ID = Date.now()
+    //     await database
+    //       .ref(`Customers/${values?.customerName}/Expenses/${ID}`)
+    //       .update({
+    //         date: values?.date,
+    //         amount: values?.amount,
+    //         category: values?.category,
+    //         customerName: values?.customerName,
+    //         notes: values?.notes,
+    //         invoiceNumber: values?.invoiceNumber,
+    //         documentUrl: url,
+    //         createdAt: new Date().toString(),
+    //       })
+    //     await database.ref(`Expenses/${ID}`).update({
+    //       date: values?.date,
+    //       amount: values?.amount,
+    //       category: values?.category,
+    //       customerName: values?.customerName,
+    //       notes: values?.notes,
+    //       invoiceNumber: values?.invoiceNumber,
+    //       documentUrl: url,
+    //       createdAt: new Date().toString(),
+    //     })
+    //     setImage('')
+    //     Swal.fire('Success', 'Successfully Addded', 'success')
+    //     submitProps.resetForm()
+    //   } else {
+    //     await database.ref(`Customers/${values?.customerName}/Expenses`).push({
+    //       ...values,
+    //       createdAt: new Date().toString(),
+    //     })
+    //     await database.ref(`Expenses`).push({
+    //       ...values,
+    //       createdAt: new Date().toString(),
+    //     })
+    //     Swal.fire('Success', 'Successfully Addded', 'success')
+    //     submitProps.resetForm()
+    //   }
+    // } catch (error) {
+    //   console.log(error)
+    //   Swal.fire('Error', 'Something Went Wrong', 'error')
+    //   submitProps.setSubmitting(false)
+    // }
   }
   const initialValues = AddScheduleSchema.reduce(
     (accumulator, currentValue) => {
