@@ -22,7 +22,7 @@ import * as Yup from 'yup'
 import CustomerTypeSelecter from 'components/core/CustomerTypeSelecter'
 import TypeSelecter from 'components/core/TypeSelecter'
 import UnitSelecter from 'components/core/UnitSelecter'
-import { database } from 'configs'
+// import { database } from 'configs'
 import Swal from 'sweetalert2'
 
 type Props = {
@@ -168,17 +168,6 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
   const [image, setImage] = useState<any>()
   const handleSend = async (values: any, submitProps: any) => {
     console.log(values)
-    try {
-      database
-        .ref(`Items`)
-        .push({ ...values, createdAt: new Date().toString() })
-      onClose()
-      submitProps.resetForm()
-      Swal.fire('Success', 'Successfully added', 'success')
-    } catch (error: any) {
-      console.log(error)
-      Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
-    }
   }
   return (
     <>

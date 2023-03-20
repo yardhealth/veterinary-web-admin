@@ -35,12 +35,13 @@ import {
   Science,
 } from '@mui/icons-material'
 import { useAppContext } from 'contexts'
+import useAuth from './useAuth'
 
 export default () => {
-  const { user } = useAppContext()
+  const { user } = useAuth()
 
   if (!user) return []
-  if (user?.role === 'admin')
+  if (user?.role === 'ADMIN')
     return [
       {
         key: '1',
@@ -175,10 +176,35 @@ export default () => {
       },
 
       {
-        key: '6',
+        key: '101',
         title: 'Config',
         icon: <SettingsApplications />,
-        route: '/admin/config',
+        submenus: [
+          {
+            key: '10.1',
+            route: '/admin/config/consultation-fee',
+            title: 'Consultation Fee',
+            icon: <BorderColor />,
+          },
+          {
+            key: '10.2',
+            route: '/admin/config/view-consultation-fee',
+            title: 'View Consultation Fee',
+            icon: <ReceiptLong />,
+          },
+          {
+            key: '10.3',
+            route: '/admin/config/add-new-health-issues',
+            title: 'Add New Health Issues',
+            icon: <ReceiptLong />,
+          },
+          {
+            key: '10.4',
+            route: '/admin/config/view-health-issues',
+            title: 'View Health Issues',
+            icon: <ReceiptLong />,
+          },
+        ],
       },
 
       {

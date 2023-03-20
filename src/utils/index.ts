@@ -1,5 +1,7 @@
 import { Options } from '@material-table/core'
 import { ExportCsv, ExportPdf, IColum } from '@material-table/exporters'
+import { BASE_URL } from 'configs'
+import { useState } from 'react'
 
 export const MuiTblOptions = () => {
   const options: Options<any> = {
@@ -29,6 +31,50 @@ export const MuiTblOptions = () => {
     ],
   }
   return options
+}
+
+export const useChange = () => {
+  const [isChanging, setIsChanging] = useState(false)
+  const change = async (
+    path: string,
+    options?: {
+      method?: 'POST' | 'PUT' | 'DELETE'
+      body?: any
+      BASE_URL?: string
+      isFormData?: boolean
+    }
+  ) => {
+    try {
+      const url = options?.BASE_URL || BASE_URL
+      setIsChanging(true)
+      const method = options?.method || 'POST'
+      const body = options?.body
+        ? options?.isFormData
+          ? options?.body
+          : JSON.stringify(options.body)
+        : `{}`
+      const token = JSON.parse(localStorage.getItem('user') || `{}`)?.token
+      const headers: HeadersInit = options?.isFormData
+        ? {}
+        : { 'Content-Type': 'application/json' }
+      if (token) headers.Authorization = `Bearer ${token}`
+      const response = await fetch(`${url}/${path}`, {
+        method,
+        headers,
+        body,
+      })
+      const status = response.status
+      const results = await response.json()
+      setIsChanging(false)
+      return { results, status }
+    } catch (error) {
+      setIsChanging(false)
+      throw new Error(
+        error instanceof Error ? error.message : 'Something went wrong'
+      )
+    }
+  }
+  return { change, isChanging }
 }
 
 export const COUNTRIES = [

@@ -1,4 +1,10 @@
-import { Container, Drawer, Typography } from '@mui/material'
+import {
+  Container,
+  Drawer,
+  FormControl,
+  FormHelperText,
+  Typography,
+} from '@mui/material'
 import DrugInputField from '../prescription/DrugInputField'
 import { useEffect, useMemo, useState } from 'react'
 import { Form, Formik, FormikProps } from 'formik'
@@ -9,106 +15,46 @@ import CategoryType from 'types/category'
 import { LoadingButton } from '@mui/lab'
 import { useFetch } from 'hooks'
 import Swal from 'sweetalert2'
+import { useGET, useMutation } from 'hooks'
 import {
   Add,
   BorderColor,
-  Call,
-  ContactMail,
   Done,
-  Email,
   MedicationLiquid,
   Person,
+  Science,
 } from '@mui/icons-material'
 import * as Yup from 'yup'
+import PhotoUpload from 'components/core/PhotoUpload'
+import { BASE_URL } from 'configs'
 
 type Props = {
   open?: boolean | any
   onClose: () => void
   setRealtime?: (value: boolean) => void
   mutate?: any
+  activeData?: any
 }
 
-const EditOwnerListDrawer = ({ open, onClose, mutate }: Props) => {
-  console.log(open)
-  const [categories] = useFetch<CategoryType[]>(`/Categories`, {
-    needNested: false,
-    needArray: true,
-  })
-  const [customers] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
-  const EditOwnerListSchema = useMemo(() => {
+const EditHealthIssuesDrawer = ({
+  open,
+  onClose,
+  mutate,
+  activeData,
+}: Props) => {
+  // const { isMutating, trigger } = useMutation(`payment/create`)
+  const AddPrescriptionSchema = useMemo(() => {
     return [
       {
-        key: '2',
-        // placeholder: 'Enter your email',
-        name: 'ownerName',
-        label: 'Owner Name *',
-        placeholder: '',
-        styleContact: 'rounded-lg mb-5',
-        type: 'select',
-        validationSchema: Yup.string().required('Owner Name is required'),
-        initialValue: '',
-        icon: <BorderColor />,
-        options: [
-          {
-            label: 'Kate',
-            value: 'Kate',
-          },
-          {
-            label: 'James',
-            value: 'James',
-          },
-          {
-            label: 'Alex',
-            value: 'Alex',
-          },
-          {
-            label: 'Peter',
-            value: 'Peter',
-          },
-        ],
-        required: true,
-      },
-      {
-        key: '5',
-        // placeholder: 'Enter your email',
-        name: 'email',
-        label: 'Email *',
-        placeholder: '',
-        styleContact: 'rounded-lg mb-5',
-        type: 'text',
-        validationSchema: Yup.string()
-          .required('Email Required.')
-          .email('Enter valid email'),
-        initialValue: '',
-        icon: <Email />,
-        required: true,
-      },
-      {
-        key: '5',
-        // placeholder: 'Enter your email',
-        name: 'contactNo',
-        label: 'Contact No *',
-        placeholder: '',
-        styleContact: 'rounded-lg mb-5',
-        type: 'number',
-        validationSchema: Yup.number().required('Email Required.'),
-        initialValue: '',
-        icon: <Call />,
-        required: true,
-      },
-      {
-        key: '3',
+        key: '17',
         // placeholder: 'Enter your name',
-        name: 'pet',
-        label: 'Select Pet *',
+        name: 'healthIssue',
+        label: 'Select Issues *',
         placeholder: '',
-        styleContact: 'rounded-xl mb-5 bg-white ',
-        validationSchema: Yup.string().required('Pet is required'),
-        initialValue: '',
         type: 'select',
+        styleContact: 'rounded-xl mb-5 bg-white ',
+        validationSchema: Yup.string().required('Select this field'),
+        initialValue: activeData?.healthIssue,
         icon: <Person />,
         required: true,
         contactField: {
@@ -119,63 +65,46 @@ const EditOwnerListDrawer = ({ open, onClose, mutate }: Props) => {
         },
         options: [
           {
-            label: 'Dog',
-            value: 'Dog',
+            label: 'General Health Issues',
+            value: 'General Health Issues',
           },
           {
-            label: 'Cat',
-            value: 'Cat',
+            label: 'Digestive Problems',
+            value: 'Digestive Problems',
           },
           {
-            label: 'Bird',
-            value: 'Bird',
+            label: 'Skin Problems',
+            value: 'Skin Problems',
           },
           {
-            label: 'Dairy',
-            value: 'Dairy',
+            label: 'Eye and Ear Problems',
+            value: 'Eye and Ear Problems',
           },
-          {
-            label: 'Poultry',
-            value: 'Poultry',
-          },
-          {
-            label: 'Fish',
-            value: 'Fish',
-          },
-          {
-            label: 'Farm Animal',
-            value: 'Farm Animal',
-          },
-          {
-            label: 'Exotic Pet',
-            value: 'Exotic Pet',
-          },
-          ,
         ],
       },
       {
-        key: '5',
+        key: '1',
         // placeholder: 'Enter your email',
-        name: 'petName',
-        label: 'Pet Name *',
+        name: 'healthParticulars',
+        label: 'Add New Health issues *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
         type: 'text',
-        validationSchema: Yup.string().required('Pet Name is required'),
-        initialValue: '',
+        validationSchema: Yup.string().required('fill this field'),
+        initialValue: activeData?.healthParticulars,
         icon: <BorderColor />,
         required: true,
       },
     ]
-  }, [categories])
-  const initialValues = EditOwnerListSchema.reduce(
+  }, [activeData])
+  const initialValues = AddPrescriptionSchema.reduce(
     (accumulator, currentValue) => {
       accumulator[currentValue.name] = currentValue.initialValue
       return accumulator
     },
     {} as any
   )
-  const validationSchema = EditOwnerListSchema?.reduce(
+  const validationSchema = AddPrescriptionSchema?.reduce(
     (accumulator, currentValue) => {
       accumulator[currentValue.name] = currentValue.validationSchema
       return accumulator
@@ -220,16 +149,50 @@ const EditOwnerListDrawer = ({ open, onClose, mutate }: Props) => {
       )
     } catch (error) {}
   }
+  const { trigger, isMutating } = useMutation(
+    `health-particular/update/${activeData?._id}`,
+    { method: 'PUT' }
+  )
+
+  const handleSend = async (values: any, submitProps: any) => {
+    try {
+      // console.log(activeData)
+      // const accessToken = window?.localStorage?.getItem('ACCESS_TOKEN')
+      // const res = await fetch(
+      //   `${BASE_URL}/health-particular/update/${activeData._id}`,
+      //   {
+      //     method: 'PUT',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       Authorization: `Bearer ${accessToken}`,
+      //     },
+      //     body: JSON.stringify(values),
+      //   }
+      // )
+      // const data = await res.json()
+      const response = await trigger(values)
+      if (!response?.success)
+        throw new Error(response?.error?.message || 'Something went wrong')
+      Swal.fire('Updated Successfully', response?.success?.message, 'success')
+      mutate?.()
+      submitProps.resetForm()
+      onClose()
+    } catch (error) {
+      submitProps.setSubmitting(false)
+    }
+  }
 
   const [image, setImage] = useState<any>(open?.documentUrl)
   useEffect(() => {
     setImage(open?.documentUrl)
   }, [open?.documentUrl])
 
-  const handleSend = async (values: any, submitProps: any) => {
-    console.log(values)
-    console.log(image)
-  }
+  // const handleSend = async (values: any, submitProps: any) => {
+  //   console.log(values)
+  // }
+
+  // { example: JSON.stringify({amount:values?.amount || activeData?.amount})}
+  console.log(activeData)
   return (
     <>
       <Drawer anchor="right" open={open} onClose={() => onClose && onClose()}>
@@ -245,7 +208,7 @@ const EditOwnerListDrawer = ({ open, onClose, mutate }: Props) => {
             variant="h5"
             sx={{ marginBottom: 3 }}
           >
-            Edit Pet Owner
+            Edit Report
           </Typography>
           <Formik
             initialValues={initialValues}
@@ -256,10 +219,39 @@ const EditOwnerListDrawer = ({ open, onClose, mutate }: Props) => {
               <Form>
                 {/* <Weekdays /> */}
                 {console.log(formik.errors)}
-                {EditOwnerListSchema?.map((inputItem: any, index: any) => (
+                {AddPrescriptionSchema?.map((inputItem: any, index: any) => (
                   <div key={index}>
-                    {
-                      <div className={''}>
+                    {inputItem?.name === 'photo' ? (
+                      <div className="w-full">
+                        <FormControl fullWidth>
+                          <PhotoUpload
+                            txtName="Upload Lab Report"
+                            variant={'square'}
+                            value={image}
+                            onChange={(e: any) => {
+                              setImage(e)
+                              formik?.setFieldValue(
+                                'photo',
+                                e?.target?.files[0]
+                              )
+                            }}
+                            className={
+                              'mt-4 mb-5 !w-full !rounded-lg !bg-theme'
+                            }
+                            height={200}
+                            width={400}
+                          />
+                          {formik?.touched[inputItem.name] &&
+                            (formik?.errors[inputItem.name] as any) && (
+                              <FormHelperText className="!text-red-500">
+                                {formik?.touched[inputItem?.name] &&
+                                  (formik?.errors[inputItem?.name] as any)}
+                              </FormHelperText>
+                            )}
+                        </FormControl>
+                      </div>
+                    ) : (
+                      <div className={'py-3'}>
                         <TextInput
                           fullWidth
                           key={index}
@@ -284,7 +276,7 @@ const EditOwnerListDrawer = ({ open, onClose, mutate }: Props) => {
                           onBlur={formik?.handleBlur}
                         />
                       </div>
-                    }
+                    )}
                   </div>
                 ))}
 
@@ -295,8 +287,10 @@ const EditOwnerListDrawer = ({ open, onClose, mutate }: Props) => {
                       variant="contained"
                       type="submit"
                       fullWidth
-                      disabled={formik.isSubmitting || !formik.isValid}
-                      loading={formik.isSubmitting}
+                      disabled={
+                        formik.isSubmitting || !formik.isValid || isMutating
+                      }
+                      loading={formik.isSubmitting || isMutating}
                       loadingPosition="start"
                       startIcon={<Done />}
                     >
@@ -313,4 +307,4 @@ const EditOwnerListDrawer = ({ open, onClose, mutate }: Props) => {
   )
 }
 
-export default EditOwnerListDrawer
+export default EditHealthIssuesDrawer

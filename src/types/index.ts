@@ -16,21 +16,21 @@ export type AppContextProviderType = {
     | undefined
 }
 
-export type UserRole = 'admin' | 'user'
+export type UserRole = 'ADMIN' | 'USER'
 
 export type User = {
-  uid: string
-  displayName: string
-  phoneNumber: string
+  _id: string
+  password?: string
+  name: string
   email: string
-  password: string
-  photoURL: string
-  createdAt: string
-  updatedAt: string
-  isBlocked: boolean
-  photoRef: string
+  avatar?: string
+  avatarPath?: string
+  country: string
+  phoneNumber: string
+  city: string
+  signaturePath: string
+  signature: string
   role: UserRole
-  isOnline: boolean
 }
 
 export type Support = {

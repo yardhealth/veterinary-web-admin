@@ -11,12 +11,12 @@ import { NotificationType } from 'types'
 import AccountMenu from './AccountMenu'
 export default function AppBar() {
   const { user } = useAppContext()
-  const [notifications] = useFetch<NotificationType[]>(
-    `notifications/${user?.uid}`,
-    {
-      filter: (notification: NotificationType) => !notification.isRead,
-    }
-  )
+  // const [notifications] = useFetch<NotificationType[]>(
+  //   `notifications/${user?.uid}`,
+  //   {
+  //     filter: (notification: NotificationType) => !notification.isRead,
+  //   }
+  // )
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -58,7 +58,7 @@ export default function AppBar() {
               </Badge>
             </Tooltip> */}
             <Tooltip title="Notification">
-              <Badge badgeContent={notifications?.length || 0} color="warning">
+              <Badge badgeContent={0} color="warning">
                 <Link href="/admin/notifications">
                   <a className="cursor-pointer rounded-lg bg-amber-100 p-2">
                     <ICONS.Notification className="h-6 w-6 text-amber-700" />

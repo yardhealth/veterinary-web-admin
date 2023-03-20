@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from 'react'
 import { getArrFromNestedSnap, getArrFromSnap } from '@ashirbad/js-core'
 import useIsMounted from './useIsMounted'
-import { database } from 'configs'
+// import { database } from 'configs'
 
 type Options = {
   needArray?: boolean
@@ -53,12 +53,12 @@ export default function useFetch<T>(path: string, options?: Options) {
   const isMounted = useIsMounted()
 
   useEffect(() => {
-    database.ref(path).on('value', (snap) => {
-      let type: 'needArray' | 'needNested' | 'filter' | 'raw' = 'raw'
-      if (needNested) type = 'needNested'
-      if (!needNested && needArray) type = 'needArray'
-      isMounted.current && dispatch({ type, payload: { snap } })
-    })
+    // database.ref(path).on('value', (snap) => {
+    //   let type: 'needArray' | 'needNested' | 'filter' | 'raw' = 'raw'
+    //   if (needNested) type = 'needNested'
+    //   if (!needNested && needArray) type = 'needArray'
+    //   isMounted.current && dispatch({ type, payload: { snap } })
+    // })
   }, [isMounted, needArray, needNested, path])
   type ReturnType = [T, boolean]
   const returnType: ReturnType = [

@@ -9,12 +9,13 @@ import DrugInputField from '../prescription/DrugInputField'
 import { useEffect, useMemo, useState } from 'react'
 import { Form, Formik, FormikProps } from 'formik'
 import TextInput from 'components/core/TextInput'
-import { database, storage } from 'configs'
+// import { database, storage } from 'configs'
 import CustomerType from 'types/customer'
 import CategoryType from 'types/category'
 import { LoadingButton } from '@mui/lab'
 import { useFetch } from 'hooks'
 import Swal from 'sweetalert2'
+import { useGET, useMutation } from 'hooks'
 import {
   Add,
   BorderColor,
@@ -31,67 +32,58 @@ type Props = {
   onClose: () => void
   setRealtime?: (value: boolean) => void
   mutate?: any
+  activeData?: any
 }
 
-const EditUploadReportDrawer = ({ open, onClose, mutate }: Props) => {
-  console.log(open)
-  const [categories] = useFetch<CategoryType[]>(`/Categories`, {
-    needNested: false,
-    needArray: true,
-  })
-  const [customers] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
+const EditFeeDrawer = ({ open, onClose, mutate, activeData }: Props) => {
+  // const { isMutating, trigger } = useMutation(`payment/create`)
   const AddPrescriptionSchema = useMemo(() => {
     return [
       {
-        key: '2',
-        // placeholder: 'Enter your email',
-        name: 'ownerName',
-        label: 'Owner Name *',
+        key: '17',
+        // placeholder: 'Enter your name',
+        name: 'label',
+        label: 'Consultation Type *',
         placeholder: '',
-        styleContact: 'rounded-lg mb-5',
         type: 'select',
-        validationSchema: Yup.string().required('Owner Name is required'),
-        initialValue: '',
-        icon: <BorderColor />,
+        styleContact: 'rounded-xl mb-5 bg-white ',
+        validationSchema: Yup.string().required('Customer Type is required'),
+        initialValue: activeData?.label,
+        icon: <Person />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
         options: [
           {
-            label: 'Kate',
-            value: 'Kate',
+            label: 'Home',
+            value: 'Home',
           },
           {
-            label: 'James',
-            value: 'James',
-          },
-          {
-            label: 'Alex',
-            value: 'Alex',
-          },
-          {
-            label: 'Peter',
-            value: 'Peter',
+            label: 'Clinic Visit',
+            value: 'Clinic Visit',
           },
         ],
-        required: true,
       },
 
       {
-        key: '8',
+        key: '1',
         // placeholder: 'Enter your email',
-        name: 'photo',
-        label: 'Upload Lab report *',
+        name: 'amount',
+        label: 'Service Charge *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
-        type: 'text',
-        validationSchema: Yup.string().required('Lab report is required'),
-        initialValue: '',
-        icon: <Science />,
+        type: 'number',
+        validationSchema: Yup.string().required('Service Charge is required'),
+        initialValue: activeData?.amount,
+        icon: <BorderColor />,
         required: true,
       },
     ]
-  }, [categories])
+  }, [activeData])
   const initialValues = AddPrescriptionSchema.reduce(
     (accumulator, currentValue) => {
       accumulator[currentValue.name] = currentValue.initialValue
@@ -145,66 +137,47 @@ const EditUploadReportDrawer = ({ open, onClose, mutate }: Props) => {
     } catch (error) {}
   }
 
+  const { trigger, isMutating } = useMutation(`payment/create`)
+
+  const handleSend = async (values: any, submitProps: any) => {
+    try {
+      // console.log(activeData)
+      // const accessToken = window?.localStorage?.getItem('ACCESS_TOKEN')
+      // const res = await fetch(
+      //   `${BASE_URL}/health-particular/update/${activeData._id}`,
+      //   {
+      //     method: 'PUT',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       Authorization: `Bearer ${accessToken}`,
+      //     },
+      //     body: JSON.stringify(values),
+      //   }
+      // )
+      // const data = await res.json()
+      const response = await trigger(values)
+      if (!response?.success)
+        throw new Error(response?.error?.message || 'Something went wrong')
+      Swal.fire('Updated Successfully', response?.success?.message, 'success')
+      mutate?.()
+      submitProps.resetForm()
+      onClose()
+    } catch (error) {
+      submitProps.setSubmitting(false)
+    }
+  }
+
   const [image, setImage] = useState<any>(open?.documentUrl)
   useEffect(() => {
     setImage(open?.documentUrl)
   }, [open?.documentUrl])
 
-  const handleSend = async (values: any, submitProps: any) => {
-    console.log(values)
-    console.log(image)
-    try {
-      if (values?.photo && values?.photo != image) {
-        const fileRef = `Customers/${values?.customerName}/photoUrl`
-        const res = await storage.ref(fileRef).put(values?.photo)
-        const url = await res.ref.getDownloadURL()
+  // const handleSend = async (values: any, submitProps: any) => {
+  //   console.log(values)
+  // }
 
-        await database
-          .ref(`Customers/${values?.customerName}/Expenses/${open?.id}`)
-          .update({
-            date: values?.date,
-            amount: values?.amount,
-            category: values?.category,
-            customerName: values?.customerName,
-            notes: values?.notes,
-            invoiceNumber: values?.invoiceNumber,
-            documentUrl: url,
-            updatedAt: new Date().toString(),
-          })
-        await database.ref(`Expenses/${open?.id}`).update({
-          date: values?.date,
-          amount: values?.amount,
-          category: values?.category,
-          customerName: values?.customerName,
-          notes: values?.notes,
-          invoiceNumber: values?.invoiceNumber,
-          documentUrl: url,
-          updatedAt: new Date().toString(),
-        })
-        onClose()
-        Swal.fire('Success', 'Successfully Updated', 'success')
-        submitProps.resetForm()
-      } else {
-        await database
-          .ref(`Customers/${values?.customerName}/Expenses/${open?.id}`)
-          .update({
-            ...values,
-            createdAt: new Date().toString(),
-          })
-        await database.ref(`Expenses/${open?.id}`).update({
-          ...values,
-          updatedAt: new Date().toString(),
-        })
-        onClose()
-        Swal.fire('Success', 'Successfully Updated', 'success')
-        submitProps.resetForm()
-      }
-    } catch (error) {
-      console.log(error)
-      Swal.fire('Error', 'Something Went Wrong', 'error')
-      submitProps.setSubmitting(false)
-    }
-  }
+  // { example: JSON.stringify({amount:values?.amount || activeData?.amount})}
+  console.log(activeData)
   return (
     <>
       <Drawer anchor="right" open={open} onClose={() => onClose && onClose()}>
@@ -317,4 +290,4 @@ const EditUploadReportDrawer = ({ open, onClose, mutate }: Props) => {
   )
 }
 
-export default EditUploadReportDrawer
+export default EditFeeDrawer

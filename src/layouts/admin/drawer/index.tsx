@@ -25,7 +25,8 @@ import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
 import { useMenuItems } from 'hooks'
 import { useAppContext } from 'contexts'
-import { auth } from 'configs'
+import useAuth from 'hooks/useAuth'
+// import { auth } from 'configs'
 
 type DrawerType = {
   onToggle?: () => void
@@ -34,6 +35,7 @@ type DrawerType = {
 
 const Drawer = ({ open, onToggle }: DrawerType) => {
   const router = useRouter()
+  const { setUser } = useAuth()
   const handleLogout = async () => {
     try {
       const { value } = await Swal.fire({
@@ -47,15 +49,19 @@ const Drawer = ({ open, onToggle }: DrawerType) => {
         cancelButtonText: 'No, cancel!',
       })
       if (!value) return
-      await auth.signOut()
-      return router.replace('/')
+      localStorage.clear()
+      router.replace('/login')
+      setUser({})
+      return
+      // await auth.signOut()
     } catch (error) {
       console.log(error)
     }
   }
   const [selectedSubMenu, setSelectedSubMenu] = useState('')
   const MenuItems = useMenuItems()
-  const { user } = useAppContext()
+  const { user } = useAuth()
+  console.log(user)
   return (
     <>
       <CustomDrawer variant="permanent" open={open}>
@@ -170,7 +176,7 @@ const Drawer = ({ open, onToggle }: DrawerType) => {
         </List>
         <Box hidden={!open} sx={{ textAlign: 'center' }}>
           <Typography className="my-1">
-            {'Hi'} {user?.displayName},
+            {'Hi'} {user?.name},
           </Typography>
           <Typography variant="caption">{''}</Typography>
           <div className="py-5">

@@ -17,8 +17,8 @@ import {
 } from '@mui/material'
 import * as Yup from 'yup'
 
-const AddConfig = () => {
-  const { isMutating, trigger } = useMutation(`payment/create`)
+const AddHealthIssues = () => {
+  const { isMutating, trigger } = useMutation(`health-particular/create`)
   const [categories] = useFetch<CategoryType[]>(`/Categories`, {
     needNested: false,
     needArray: true,
@@ -32,12 +32,12 @@ const AddConfig = () => {
       {
         key: '17',
         // placeholder: 'Enter your name',
-        name: 'label',
-        label: 'Consultation Type *',
+        name: 'healthIssue',
+        label: 'Select Issues *',
         placeholder: '',
         type: 'select',
         styleContact: 'rounded-xl mb-5 bg-white ',
-        validationSchema: Yup.string().required('Customer Type is required'),
+        validationSchema: Yup.string().required('Select this field'),
         initialValue: '',
         icon: <Person />,
         required: true,
@@ -49,24 +49,32 @@ const AddConfig = () => {
         },
         options: [
           {
-            label: 'Home',
-            value: 'Home',
+            label: 'General Health Issues',
+            value: 'General Health Issues',
           },
           {
-            label: 'Clinic Visit',
-            value: 'Clinic Visit',
+            label: 'Digestive Problems',
+            value: 'Digestive Problems',
+          },
+          {
+            label: 'Skin Problems',
+            value: 'Skin Problems',
+          },
+          {
+            label: 'Eye and Ear Problems',
+            value: 'Eye and Ear Problems',
           },
         ],
       },
       {
         key: '1',
         // placeholder: 'Enter your email',
-        name: 'amount',
-        label: 'Service Charge *',
+        name: 'healthParticulars',
+        label: 'Add New Health issues *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
-        type: 'number',
-        validationSchema: Yup.string().required('Service Charge is required'),
+        type: 'text',
+        validationSchema: Yup.string().required('fill this field'),
         initialValue: '',
         icon: <BorderColor />,
         required: true,
@@ -87,12 +95,12 @@ const AddConfig = () => {
       const { error, success } = await trigger(values)
       if (error) return Swal.fire('Error', error.message, 'error')
 
-      const payment = {
+      const healthIssue = {
         ...success?.data,
       }
       Swal.fire('Success', success.message, 'success')
 
-      console.log(payment)
+      console.log(healthIssue)
 
       return
     } catch (error) {
@@ -148,66 +156,7 @@ const AddConfig = () => {
 
               {AddRecordExpenseSchema?.map((inputItem: any, index: any) => (
                 <div key={index} className="w-full">
-                  {inputItem?.name === 'photo' ? (
-                    <div className="">
-                      <FormControl
-                        fullWidth
-                        className="flex w-full items-center justify-center"
-                      >
-                        <PhotoUpload
-                          txtName="Upload Your Profile Photo"
-                          variant={'square'}
-                          value={image}
-                          onChange={(e: any) => {
-                            setImage(e)
-                            formik?.setFieldValue('photo', e?.target?.files[0])
-                          }}
-                          className={
-                            'mt-4 mb-5 flex !w-1/2 !rounded-lg !bg-theme'
-                          }
-                          height={200}
-                          width={40}
-                        />
-                        {formik?.touched[inputItem.name] &&
-                          (formik?.errors[inputItem.name] as any) && (
-                            <FormHelperText className="!text-red-500">
-                              {formik?.touched[inputItem?.name] &&
-                                (formik?.errors[inputItem?.name] as any)}
-                            </FormHelperText>
-                          )}
-                      </FormControl>
-                    </div>
-                  ) : inputItem?.name === 'signature' ? (
-                    <div className="w-full">
-                      <FormControl
-                        fullWidth
-                        className="flex w-full items-center justify-center"
-                      >
-                        <PhotoUpload
-                          txtName="Upload Your Signature"
-                          variant={'square'}
-                          value={sign}
-                          onChange={(e: any) => {
-                            setSign(e)
-                            formik?.setFieldValue(
-                              'signature',
-                              e?.target?.files[0]
-                            )
-                          }}
-                          className={'mt-4 mb-5 !w-1/2 !rounded-lg !bg-theme'}
-                          height={200}
-                          width={40}
-                        />
-                        {formik?.touched[inputItem.name] &&
-                          (formik?.errors[inputItem.name] as any) && (
-                            <FormHelperText className="!text-red-500">
-                              {formik?.touched[inputItem?.name] &&
-                                (formik?.errors[inputItem?.name] as any)}
-                            </FormHelperText>
-                          )}
-                      </FormControl>
-                    </div>
-                  ) : (
+                  {
                     <div className={'w-full'}>
                       <TextInput
                         fullWidth
@@ -233,7 +182,7 @@ const AddConfig = () => {
                         onBlur={formik?.handleBlur}
                       />
                     </div>
-                  )}
+                  }
                 </div>
               ))}
 
@@ -261,4 +210,4 @@ const AddConfig = () => {
   )
 }
 
-export default AddConfig
+export default AddHealthIssues

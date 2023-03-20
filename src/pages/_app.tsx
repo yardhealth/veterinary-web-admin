@@ -10,9 +10,11 @@ Router.events.on('routeChangeComplete', nProgress.done)
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AppContextProvider>
-      <Component {...pageProps} />
-    </AppContextProvider>
+    <>
+      <AppContextProvider>
+        <Component {...pageProps} />
+      </AppContextProvider>
+    </>
   )
 }
 

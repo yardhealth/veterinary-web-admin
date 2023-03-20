@@ -1,25 +1,18 @@
 import EditUploadReportDrawer from 'components/admin/drawer/EditFeeDrawer'
-import { Avatar, Box, Paper } from '@mui/material'
+import { Avatar, Paper } from '@mui/material'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
 import Tooltip from '@mui/material/Tooltip'
-import CustomerType from 'types/customer'
 import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
-import Modal from '@mui/material/Modal'
-import { MuiTblOptions } from 'utils'
-// import { database } from 'configs'
+import { BorderColor, Delete } from '@mui/icons-material'
+import { MuiTblOptions, useChange } from 'utils'
 import { useState } from 'react'
-import { useFetch } from 'hooks'
+import { useGET, useMutation } from 'hooks'
 import Swal from 'sweetalert2'
 import moment from 'moment'
-import {
-  BorderColor,
-  Delete,
-  Download,
-  Receipt,
-  Visibility,
-} from '@mui/icons-material'
+import EditFeeDrawer from 'components/admin/drawer/EditFeeDrawer'
+import { BASE_URL } from 'configs'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -38,9 +31,9 @@ const style = {
   flexGap: '4px',
 }
 
-const ViewAllReports = () => {
+const ViewConsultationFee = () => {
   const router = useRouter()
-
+  const [activeData, setActiveData] = useState<any>()
   const [openInfoModal, setOpenInfoModal] = useState(false)
   const handleInfoOpen = () => setOpenInfoModal(true)
   const handleInfoCloseModal = () => setOpenInfoModal(false)
@@ -48,68 +41,56 @@ const ViewAllReports = () => {
   const [openEditPrescriptionDrawer, setOpenEditPrescriptionDrawer] =
     useState(false)
 
-  const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
+  // const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
+  //   needNested: false,
+  //   needArray: true,
+  // })
   // console.log(data)
   console.log(openEditPrescriptionDrawer)
+  const { data, mutate } = useGET<any[]>(`payment/getall`)
+  console.log(data)
 
   const [tabelData, setTabelData] = useState([
     {
       sl: '1',
-      ownerName: 'Kate',
-      pet: 'Dog',
-      petName: 'Cooper',
-      drugName: 'Ketoconazole',
-      instruction: 'once a day',
-      time: 'After meal',
-      prescriptionNote: 'Lorem ipsum dolor sit.',
+      consultationType: 'Home',
+      serviceCharge: '1000',
     },
   ])
+  const handleClick = (Data: any) => {
+    setOpenEditPrescriptionDrawer(true)
+    setActiveData(Data)
+  }
+
+  const handleDelete = async (id: string) => {
+    try {
+      const accessToken = window?.localStorage?.getItem('ACCESS_TOKEN')
+      const res = await fetch(`${BASE_URL}/payment/delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      const data = await res.json()
+      if (res.status !== 200) throw new Error(data.message)
+      Swal.fire('Deleted Successfully', 'Deleted', 'success')
+      mutate?.()
+    } catch (error) {}
+  }
 
   return (
     <AdminLayout title="View All Reports">
       <div className="grid grid-cols-12 content-between gap-6  px-5">
         <div className="!border-grey-500 !shadow-xl col-span-12 flex w-full flex-col justify-center gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-12">
-          <Modal
-            open={openInfoModal}
-            onClose={handleInfoCloseModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box className="gap-3" sx={style}>
-              <div className="flex w-32 cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-gray-400 p-3">
-                <img src="/file.png" alt="" />
-                <div className="flex items-center justify-center gap-2">
-                  <Tooltip title="View">
-                    <Visibility />
-                  </Tooltip>
-                  <Tooltip title="Download">
-                    <Download />
-                  </Tooltip>
-                </div>
-              </div>
-              <div className="flex w-32 cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-gray-400 p-3">
-                <img src="/file.png" alt="" />
-                <div className="flex items-center justify-center gap-2">
-                  <Tooltip title="View">
-                    <Visibility />
-                  </Tooltip>
-                  <Tooltip title="Download">
-                    <Download />
-                  </Tooltip>
-                </div>
-              </div>
-            </Box>
-          </Modal>
-          <EditUploadReportDrawer
+          <EditFeeDrawer
             open={openEditPrescriptionDrawer}
             onClose={() => setOpenEditPrescriptionDrawer(false)}
-            // mutate={mutate}
+            activeData={activeData}
+            mutate={mutate}
           />
           <MaterialTable
-            data={tabelData}
+            data={data?.success?.data || []}
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
@@ -127,8 +108,15 @@ const ViewAllReports = () => {
                 filtering: false,
               },
               {
-                title: 'Owner Name',
-                field: 'ownerName',
+                title: 'Consultation Type',
+                field: 'label',
+                editable: 'never',
+                emptyValue: '--',
+                // width: "2%",
+              },
+              {
+                title: 'Service Charge',
+                field: 'amount',
                 editable: 'never',
                 emptyValue: '--',
                 // width: "2%",
@@ -153,7 +141,7 @@ const ViewAllReports = () => {
                 render: (row) => (
                   <>
                     <div className="flex">
-                      <Tooltip title="View Reports">
+                      {/* <Tooltip title="View Reports">
                         <Avatar
                           onClick={handleInfoOpen}
                           variant="rounded"
@@ -168,10 +156,10 @@ const ViewAllReports = () => {
                         >
                           <Receipt sx={{ padding: '0px !important' }} />
                         </Avatar>
-                      </Tooltip>
+                      </Tooltip> */}
                       <Tooltip title="Edit">
                         <Avatar
-                          onClick={() => setOpenEditPrescriptionDrawer(true)}
+                          onClick={() => handleClick(row)}
                           variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-theme !p-0"
                           sx={{
@@ -187,7 +175,7 @@ const ViewAllReports = () => {
                       </Tooltip>
                       <Tooltip title="Delete">
                         <Avatar
-                          // onClick={() => handleDelete(row?.id)}
+                          onClick={() => handleDelete(row?._id)}
                           variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-red-700 !p-0"
                           sx={{
@@ -225,4 +213,4 @@ const ViewAllReports = () => {
   )
 }
 
-export default ViewAllReports
+export default ViewConsultationFee

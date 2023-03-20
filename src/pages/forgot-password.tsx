@@ -10,7 +10,7 @@ import {
   TextFieldProps,
 } from '@mui/material'
 import { LOGO } from 'assets'
-import { auth, database } from 'configs'
+// import { auth, database } from 'configs'
 import { Formik, Form, Field } from 'formik'
 import { PublicLayout } from 'layouts'
 import type { NextPage } from 'next'
@@ -25,14 +25,14 @@ import ForgotPasswordSchema from 'schemas/ForgotPasswordSchema'
 const ForgotPassword: NextPage = () => {
   const handleLogin = async (values: any, submitProps: any) => {
     console.log(values)
-    try {
-      await auth.sendPasswordResetEmail(values.email)
-      Swal.fire('success', 'Password Reset Link Sent to your Mail', 'success')
-      submitProps.resetForm()
-    } catch (err) {
-      console.log(err)
-      Swal.fire('Error', `Something Went Wrong`, 'error')
-    }
+    // try {
+    //   await auth.sendPasswordResetEmail(values.email)
+    //   Swal.fire('success', 'Password Reset Link Sent to your Mail', 'success')
+    //   submitProps.resetForm()
+    // } catch (err) {
+    //   console.log(err)
+    //   Swal.fire('Error', `Something Went Wrong`, 'error')
+    // }
     // try {
     //   const { user } = await auth.signInWithEmailAndPassword(
     //     values.email,
@@ -70,7 +70,7 @@ const ForgotPassword: NextPage = () => {
   const [showPassword, setShowPassword] = useState(false)
   return (
     <PublicLayout>
-      <main className="grid h-[100vh] place-content-center bg-slate-200">
+      <main className="grid h-[100vh] place-content-center bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900">
         <Formik
           initialValues={initialValues}
           validationSchema={Yup.object(validationSchema)}
@@ -79,7 +79,7 @@ const ForgotPassword: NextPage = () => {
           {(formik) => (
             <Form>
               <>
-                <Card className="w-[30vw] shadow-3xl shadow-gray-500">
+                <Card className="w-[30vw]">
                   <CardContent>
                     <div className="flex place-content-center py-1">
                       <img src={LOGO} alt="" className="w-52" />
@@ -141,7 +141,7 @@ const ForgotPassword: NextPage = () => {
                         disabled={formik.isSubmitting || !formik.isValid}
                         variant="contained"
                         color="primary"
-                        className="bg-primary hover:bg-theme"
+                        className="bg-primary"
                         size="large"
                         startIcon={
                           formik.isSubmitting ? (

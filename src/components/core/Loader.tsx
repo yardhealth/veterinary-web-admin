@@ -6,7 +6,7 @@ type Props = {
 const Loader = ({ visible }: Props) => {
   return (
     <div
-      className={`absolute z-[2002] flex h-full w-full items-center justify-center bg-white ${
+      className={`fixed left-0 top-0 z-[2002] flex h-full w-full items-center justify-center bg-white ${
         visible ? 'block' : 'hidden'
       }`}
     >

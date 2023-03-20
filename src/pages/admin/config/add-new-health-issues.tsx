@@ -9,6 +9,7 @@ import RecordExpense from 'components/admin/appointments/AddAppointment'
 import RecordMilage from 'components/admin/appointments/RecordMilage'
 import AddAppointment from 'components/admin/appointments/AddAppointment'
 import AddConfig from 'components/admin/config/AddConfig'
+import AddHealthIssues from 'components/admin/config/AddHealthIssues'
 interface TabPanelProps {
   children?: React.ReactNode
   index?: number
@@ -42,7 +43,7 @@ function a11yProps(index: number) {
   }
 }
 
-const Config = () => {
+const AddNewHealthIssues = () => {
   const [value, setValue] = React.useState(0)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -90,7 +91,7 @@ const Config = () => {
   })
 
   return (
-    <AdminLayout title="Create Appointment">
+    <AdminLayout title="New Health Issue">
       <Container
         maxWidth="xl"
         // style={{
@@ -106,13 +107,13 @@ const Config = () => {
             className="!mt-2 font-bold text-theme"
             sx={{ marginBottom: 3 }}
           >
-            Add Doctor
+            Add New Health Issues
           </Typography>
-          <AddConfig />
+          <AddHealthIssues />
         </Card>
       </Container>
     </AdminLayout>
   )
 }
 
-export default Config
+export default AddNewHealthIssues

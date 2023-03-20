@@ -1,17 +1,7 @@
-import { FaStethoscope } from 'react-icons/fa'
 import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import {
-  PermContactCalendar,
-  CurrencyRupee,
-  LocalHotel,
-  Medication,
-  Apartment,
-  Article,
-  Science,
-  AirlineSeatFlat,
-} from '@mui/icons-material'
+
 import InfoCards from 'components/core/InfoCards'
 import Avatar from '@mui/material/Avatar'
 import {
@@ -26,7 +16,6 @@ import {
 } from 'assets/static-icon'
 import ColumnChartUserDashboard from 'components/admin/dashboard/ColumnChartUserDashboard'
 import RegisteredPetDetails from 'components/admin/dashboard/RegisteredPetDetails'
-// import ViewDetailsBtn from "components/core/ViewDetailsBtn";
 
 const Dashboard = () => {
   const router = useRouter()

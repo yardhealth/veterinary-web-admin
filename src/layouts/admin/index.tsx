@@ -4,6 +4,8 @@ import { useAppContext } from 'contexts'
 import { useEffect, useState } from 'react'
 import Drawer from './drawer'
 import AppBar from './appbar'
+import useAuth from 'hooks/useAuth'
+import { Loader } from 'components/core'
 type Props = {
   title?: string
   children: JSX.Element
@@ -14,14 +16,16 @@ export default function AdminLayout({
   children = <></>,
   className = 'bg-gradient-to-r from-slate-50 via-stone-50 to-zinc-50',
 }: Props) {
-  const { user } = useAppContext()
+  const { user, isUserLoading } = useAuth()
   const { push } = useRouter()
   useEffect(() => {
     ;(() => {
-      if (!user) return
+      console.log(isUserLoading, user?._id, user?.role)
+      if (isUserLoading) return
+      if (!user?._id) return push('/login')
       if (!user?.role) return push('/login')
     })()
-  }, [user])
+  }, [user, isUserLoading])
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
@@ -38,6 +42,7 @@ export default function AdminLayout({
         }`}
       >
         <AppBar />
+        <Loader visible={isUserLoading || (!isUserLoading && !user?._id)} />
         {children}
       </main>
     </>

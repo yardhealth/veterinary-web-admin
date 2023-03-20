@@ -9,7 +9,7 @@ import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
 import Modal from '@mui/material/Modal'
 import { MuiTblOptions } from 'utils'
-import { database } from 'configs'
+// import { database } from 'configs'
 import { useState } from 'react'
 import { useFetch } from 'hooks'
 import Swal from 'sweetalert2'
@@ -45,15 +45,7 @@ const PrescriptionHistory = () => {
   })
   // console.log(data)
   console.log(openEditPrescriptionDrawer)
-  const handleDelete = (row: CustomerType) => {
-    try {
-      database.ref(`Customers/${row?.id}`).remove()
-      Swal.fire('Success', 'Successfully Deleted', 'success')
-    } catch (error: any) {
-      console.log(error)
-      Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
-    }
-  }
+  const handleDelete = (row: CustomerType) => {}
 
   const [tabelData, settabelData] = useState([
     {

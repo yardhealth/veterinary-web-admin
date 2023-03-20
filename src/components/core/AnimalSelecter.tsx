@@ -11,7 +11,7 @@ import AddNewCategorySchema from 'schemas/AddNewCategorySchema'
 import TextInput from 'components/core/TextInput'
 import { LoadingButton } from '@mui/lab'
 import { Done } from '@mui/icons-material'
-import { database } from 'configs'
+// import { database } from 'configs'
 import Swal from 'sweetalert2'
 
 const style = {
@@ -48,18 +48,7 @@ const AnimalSelecter = ({
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
-  const handleSend = async (values: any, submitProps: any) => {
-    try {
-      database
-        .ref('Categories')
-        .push({ ...values, createdAt: new Date().toString() })
-      setOpen(false)
-      Swal.fire('Success', 'Successfully Category Addded', 'success')
-    } catch (err) {
-      console.log(err)
-      Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
-    }
-  }
+  const handleSend = async (values: any, submitProps: any) => {}
   const initialValues = AddNewCategorySchema.reduce(
     (accumulator, currentValue) => {
       accumulator[currentValue.name] = currentValue.initialValue

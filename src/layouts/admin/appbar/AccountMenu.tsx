@@ -1,15 +1,17 @@
 import { Logout } from '@mui/icons-material'
 import { Avatar, Divider, ListItemIcon, Menu, MenuItem } from '@mui/material'
 import { ICONS } from 'assets'
-import { auth } from 'configs'
+// import { auth } from 'configs'
 import { useAppContext } from 'contexts'
+import useAuth from 'hooks/useAuth'
 import { useRouter } from 'next/router'
 import { MouseEvent, useState } from 'react'
 import Swal from 'sweetalert2'
 const bgcolor = `#${Math.random().toString().slice(2, 8)}`
 export default function AccountMenu() {
-  const { user } = useAppContext()
+  const { user } = useAuth()
   const router = useRouter()
+  const { setUser } = useAuth()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const handleLogout = async () => {
     try {
@@ -24,8 +26,10 @@ export default function AccountMenu() {
         cancelButtonText: 'No, cancel!',
       })
       if (!value) return
-      await auth.signOut()
-      return router.replace('/')
+      // await auth.signOut()
+      localStorage.clear()
+      router.replace('/login')
+      setUser({})
     } catch (error) {
       console.log(error)
     }
@@ -39,11 +43,11 @@ export default function AccountMenu() {
           setAnchorEl(event.currentTarget)
         }
       >
-        <Avatar className="border" src={user?.photoURL} sx={{ bgcolor }}>
-          {user?.displayName?.[0]}
+        <Avatar className="border" src={user?.avatar} sx={{ bgcolor }}>
+          {user?.name?.[0]}
         </Avatar>
         <div className="hidden text-left lg:block">
-          <h4 className="text-sm">{user?.displayName}</h4>
+          <h4 className="text-sm">{user?.name}</h4>
           <p className="text-xs text-gray-600">{user?.email}</p>
         </div>
       </button>

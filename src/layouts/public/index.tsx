@@ -15,7 +15,7 @@ export default function PublicLayout({
   useEffect(() => {
     ;(() => {
       if (!user) return
-      if (user?.role === 'admin') return push('/admin')
+      if (user?.role === 'ADMIN') return push('/admin')
     })()
   }, [user])
   return (

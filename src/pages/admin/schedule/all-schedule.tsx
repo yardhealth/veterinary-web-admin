@@ -11,7 +11,7 @@ import { MuiTblOptions } from 'utils'
 import { useState } from 'react'
 import { useFetch } from 'hooks'
 import moment from 'moment'
-import { database } from 'configs'
+// import { database } from 'configs'
 import Swal from 'sweetalert2'
 
 const AllSchedule = () => {
@@ -26,15 +26,6 @@ const AllSchedule = () => {
   })
   // console.log(data)
   console.log(openEditAppointmentDrawer)
-  const handleDelete = (row: CustomerType) => {
-    try {
-      database.ref(`Customers/${row?.id}`).remove()
-      Swal.fire('Success', 'Successfully Deleted', 'success')
-    } catch (error: any) {
-      console.log(error)
-      Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
-    }
-  }
 
   const [tabelData, settabelData] = useState([
     {
