@@ -71,7 +71,7 @@ const Login = () => {
       <div className="flex h-full w-full items-center justify-center">
         <div className="flex flex-col items-center rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
           <div>
-            <div className="mx-auto w-24 md:w-28">
+            <div className="mx-auto w-24 md:w-64">
               <Link href="/">
                 <img
                   className="w-full object-contain"

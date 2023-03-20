@@ -364,15 +364,14 @@ const AddAppointment = () => {
         //   },
         //   ,
         // ],
-        options: data?.success?.data?.map((item, i) => {
-          console.log(item)
-          return (
-            item?.healthIssue === 'General Health Issues' && {
+        options: data?.success?.data
+          ?.filter((item) => item?.healthIssue === 'General Health Issues')
+          .map((item, i) => {
+            return {
               label: item?.healthParticulars,
               value: item?.healthParticulars,
             }
-          )
-        }),
+          }),
       },
       {
         key: '12',
@@ -422,15 +421,15 @@ const AddAppointment = () => {
         //     value: 'Blood in Stool',
         //   },
         // ],
-        options: data?.success?.data?.map((item, i) => {
-          console.log(item)
-          return (
-            item?.healthIssue === 'Digestive Problems' && {
+        options: data?.success?.data
+          ?.filter((item) => item?.healthIssue === 'Digestive Problems')
+          .map((item, i) => {
+            console.log(item)
+            return {
               label: item?.healthParticulars,
               value: item?.healthParticulars,
             }
-          )
-        }),
+          }),
       },
       {
         key: '13',
@@ -476,15 +475,15 @@ const AddAppointment = () => {
         //     value: 'Itching and Self Biting',
         //   },
         // ],
-        options: data?.success?.data?.map((item, i) => {
-          console.log(item)
-          return (
-            item?.healthIssue === 'Skin Problems' && {
+        options: data?.success?.data
+          ?.filter((item) => item.healthIssue === 'Skin Problems')
+          .map((item, i) => {
+            console.log(item)
+            return {
               label: item?.healthParticulars,
               value: item?.healthParticulars,
             }
-          )
-        }),
+          }),
       },
       {
         key: '14',
