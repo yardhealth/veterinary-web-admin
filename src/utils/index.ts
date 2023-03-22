@@ -2,7 +2,12 @@ import { Options } from '@material-table/core'
 import { ExportCsv, ExportPdf, IColum } from '@material-table/exporters'
 import { BASE_URL } from 'configs'
 import { useState } from 'react'
-
+export const padTo2Digits = (num: any) => {
+  return String(num).padStart(2, '0')
+}
+export const getHoursAndMinutes = (date = new Date()) => {
+  return padTo2Digits(date.getHours()) + ':' + padTo2Digits(date.getMinutes())
+}
 export const MuiTblOptions = () => {
   const options: Options<any> = {
     headerStyle: {

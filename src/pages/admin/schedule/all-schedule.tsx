@@ -9,23 +9,25 @@ import { useRouter } from 'next/router'
 import AdminLayout from 'layouts/admin'
 import { MuiTblOptions } from 'utils'
 import { useState } from 'react'
-import { useFetch } from 'hooks'
+import { useFetch, useGET } from 'hooks'
 import moment from 'moment'
 // import { database } from 'configs'
 import Swal from 'sweetalert2'
 
 const AllSchedule = () => {
   const router = useRouter()
+  const [activeData, setActiveData] = useState<any>()
 
-  const [openEditAppointmentDrawer, setOpenEditAppointmentDrawer] =
+  const [openEditPrescriptionDrawer, setOpenEditPrescriptionDrawer] =
     useState(false)
 
-  const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
+  const { data, mutate, isLoading } = useGET<any[]>(
+    `slot-management/get-slot-management`
+  )
+  console.log(data)
+
   // console.log(data)
-  console.log(openEditAppointmentDrawer)
+  console.log(openEditPrescriptionDrawer)
 
   const [tabelData, settabelData] = useState([
     {
@@ -41,17 +43,29 @@ const AllSchedule = () => {
     },
   ])
 
+  const handleClick = (Data: any) => {
+    setOpenEditPrescriptionDrawer(true)
+    setActiveData(Data)
+  }
+
   return (
     <AdminLayout title="All Schedules">
       <div className="grid grid-cols-12 content-between gap-6  px-5">
         <div className="!border-grey-500 !shadow-xl col-span-12 flex w-full flex-col justify-center gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-12">
-          <EditScheduleDrawer
-            open={openEditAppointmentDrawer}
-            onClose={() => setOpenEditAppointmentDrawer(false)}
-            // mutate={mutate}
-          />
+          {activeData?._id && (
+            <EditScheduleDrawer
+              open={openEditPrescriptionDrawer}
+              onClose={() => setOpenEditPrescriptionDrawer(false)}
+              activeData={activeData}
+              mutate={mutate}
+            />
+          )}
           <MaterialTable
-            data={tabelData}
+            data={
+              data?.success?.data
+                ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+                : []
+            }
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
@@ -73,54 +87,70 @@ const AllSchedule = () => {
                 field: 'day',
                 editable: 'never',
                 emptyValue: '--',
+                render(data, type) {
+                  return moment(data.day).format('dddd')
+                },
               },
               {
                 title: 'Start Time',
-                field: 'startTime',
+                field: 'startTimeSlot',
                 editable: 'never',
-
                 emptyValue: '--',
+                render(data, type) {
+                  return moment(data.startTimeSlot).format('LT')
+                },
               },
 
               {
                 title: 'End Time',
-                field: 'endTime',
+                field: 'endTimeSlot',
                 searchable: true,
                 export: true,
                 emptyValue: '--',
                 //   hidden:true,
                 filtering: false,
-              },
-
-              {
-                title: 'Break Time',
-                field: 'breakTime',
-                searchable: true,
-
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
-              {
-                title: 'Interval Period',
-                field: 'intervalPeriod',
-                searchable: true,
-                cellStyle: {
-                  textAlign: 'center',
+                render(data, type) {
+                  return moment(data.endTimeSlot).format('LT')
                 },
-                export: true,
-                emptyValue: '--',
-                filtering: false,
               },
+
+              {
+                title: 'Break Start Time',
+                field: 'breakStartTime',
+                searchable: true,
+
+                emptyValue: '--',
+                //   hidden:true,
+                filtering: false,
+                render(data, type) {
+                  return moment(data.breakStartTime).format('LT')
+                },
+              },
+              {
+                title: 'Break End Time',
+                field: 'breakEndTime',
+                searchable: true,
+
+                emptyValue: '--',
+                //   hidden:true,
+                filtering: false,
+                render(data, type) {
+                  return moment(data.breakEndTime).format('LT')
+                },
+              },
+
               {
                 title: 'Slot Duration(mins)',
-                field: 'slotDuration',
+                field: 'slotDurations',
                 searchable: true,
                 cellStyle: {
                   textAlign: 'center',
                 },
                 emptyValue: '--',
                 filtering: false,
+                // render(data, type) {
+                //   return moment(data.breakStartTime).format('llll')
+                // },
               },
 
               {
@@ -142,7 +172,8 @@ const AllSchedule = () => {
                     <div className="flex">
                       <Tooltip title="Edit">
                         <Avatar
-                          onClick={() => setOpenEditAppointmentDrawer(true)}
+                          // onClick={() => setOpenEditPrescriptionDrawer(true)}
+                          onClick={() => handleClick(row)}
                           variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-theme !p-0"
                           sx={{
@@ -154,22 +185,6 @@ const AllSchedule = () => {
                           }}
                         >
                           <BorderColor sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip>
-                      <Tooltip title="Delete">
-                        <Avatar
-                          // onClick={() => handleDelete(row?.id)}
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-red-700 !p-0"
-                          sx={{
-                            mr: '0.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <Delete sx={{ padding: '0px !important' }} />
                         </Avatar>
                       </Tooltip>
                     </div>

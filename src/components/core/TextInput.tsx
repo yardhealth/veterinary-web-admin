@@ -35,7 +35,6 @@ type Props = {
   fullWidth?: boolean
   placeholder?: string
   name?: string
-  disabled?: boolean
   options?: any
   title?: string
   id?: string
@@ -53,6 +52,8 @@ type Props = {
   rows?: number
   size?: 'small' | 'medium'
   multiple?: boolean
+  date?: boolean
+  disabled?: boolean
 }
 
 const TextInput = ({
@@ -65,7 +66,7 @@ const TextInput = ({
   fullWidth,
   placeholder,
   name,
-  disabled,
+  disabled = false,
   InputProps,
   title,
   id,
@@ -82,6 +83,7 @@ const TextInput = ({
   multiline,
   size,
   multiple = false,
+  date = false,
 }: Props) => {
   switch (type) {
     case 'text':
@@ -89,6 +91,7 @@ const TextInput = ({
         <div className={styleArea}>
           <p className=" text-wider pb-2 font-medium">{title}</p>
           <TextField
+            disabled={disabled}
             fullWidth={fullWidth}
             placeholder={placeholder}
             name={name}
@@ -116,6 +119,7 @@ const TextInput = ({
         <div className={styleArea}>
           <p className=" text-wider pb-2 font-medium">{title}</p>
           <TextField
+            disabled={disabled}
             fullWidth={fullWidth}
             placeholder={placeholder}
             name={name}
@@ -144,6 +148,7 @@ const TextInput = ({
         <div className={styleArea}>
           <p className=" text-wider pb-2 font-medium">{title}</p>
           <TextField
+            disabled={disabled}
             fullWidth={fullWidth}
             type="date"
             name={name}
@@ -158,7 +163,6 @@ const TextInput = ({
             }}
             value={value}
             onChange={onChange}
-            disabled={disabled}
             onBlur={onBlur}
             error={error}
             helperText={helperText}
@@ -182,6 +186,7 @@ const TextInput = ({
           <p className="text-wider pb-2 font-medium">{title}</p>
 
           <TextField
+            disabled={disabled}
             fullWidth={fullWidth}
             id={id}
             select={true}
@@ -228,8 +233,20 @@ const TextInput = ({
               input={<OutlinedInput id="select-multiple-chip" label="Choose" />}
               renderValue={(selected) => (
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                  {selected?.map((value: any) => (
-                    <Chip key={value} label={value} />
+                  {selected?.map((value: any, label: any) => (
+                    <div>
+                      {/* {console.log(new Date(value))} */}
+                      <Chip
+                        key={value}
+                        label={
+                          date
+                            ? new Date(value).toLocaleDateString('en-US', {
+                                weekday: 'long',
+                              })
+                            : value
+                        }
+                      />
+                    </div>
                   ))}
                 </Box>
               )}
@@ -252,6 +269,7 @@ const TextInput = ({
         <div className={styleArea}>
           <p className="text-wider pb-2 font-medium">{title}</p>
           <TextField
+            disabled={disabled}
             fullWidth={fullWidth}
             placeholder={placeholder}
             name={name}

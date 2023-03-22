@@ -33,17 +33,19 @@ import Swal from 'sweetalert2'
 import PhotoUpload from 'components/core/PhotoUpload'
 // import CategorySelecter from 'components/core/CategorySelecter'
 import CategoryType from 'types/category'
-import { useFetch } from 'hooks'
+import { useFetch, useMutation } from 'hooks'
 import Weekdays from 'components/core/Weekdays'
+import { getHoursAndMinutes } from 'utils'
 
 type Props = {
   open?: boolean | any
   onClose: () => void
   setRealtime?: (value: boolean) => void
   mutate?: any
+  activeData?: any
 }
 
-const EditScheduleDrawer = ({ open, onClose, mutate }: Props) => {
+const EditScheduleDrawer = ({ open, onClose, mutate, activeData }: Props) => {
   console.log(open)
   const [categories] = useFetch<CategoryType[]>(`/Categories`, {
     needNested: false,
@@ -55,79 +57,10 @@ const EditScheduleDrawer = ({ open, onClose, mutate }: Props) => {
   })
   const AddScheduleSchema = useMemo(() => {
     return [
-      // {
-      //   key: '1',
-      //   // placeholder: 'Enter your email',
-      //   name: 'date',
-      //   label: 'Date *',
-      //   placeholder: '',
-      //   styleContact: 'rounded-lg',
-      //   type: 'date',
-      //   validationSchema: Yup.string().required('Date is required'),
-      //   initialValue: '',
-      //   icon: <CalendarMonth />,
-      //   required: true,
-      // },
-      {
-        key: '11',
-        // placeholder: 'Enter your name',
-        name: 'day',
-        label: 'Select Day *',
-        placeholder: '',
-        styleContact: 'rounded-xl bg-white ',
-        validationSchema: Yup.array(Yup.string()).required(
-          'Category name is required'
-        ),
-        initialValue: '',
-        type: 'multi-select',
-        icon: <Person />,
-        required: true,
-        contactField: {
-          xs: 12,
-          sm: 12,
-          md: 6,
-          lg: 6,
-        },
-        options: [
-          {
-            label: 'All',
-            value: 'All',
-          },
-          {
-            label: 'Mon',
-            value: 'Mon',
-          },
-          {
-            label: 'Tue',
-            value: 'Tue',
-          },
-          {
-            label: 'Wed',
-            value: 'Wed',
-          },
-          {
-            label: 'Thur',
-            value: 'Thur',
-          },
-          {
-            label: 'Fri',
-            value: 'Fri',
-          },
-          {
-            label: 'Sat',
-            value: 'Sat',
-          },
-          {
-            label: 'Sun',
-            value: 'Sun',
-          },
-          ,
-        ],
-      },
       {
         key: '2',
         // placeholder: 'Enter your email',
-        name: 'startTime',
+        name: 'startTimeSlot',
         label: 'Start Time *',
         placeholder: '',
         styleContact: 'rounded-lg',
@@ -140,7 +73,7 @@ const EditScheduleDrawer = ({ open, onClose, mutate }: Props) => {
       {
         key: '3',
         // placeholder: 'Enter your email',
-        name: 'endTime',
+        name: 'endTimeSlot',
         label: 'End Time *',
         placeholder: '',
         styleContact: 'rounded-lg',
@@ -153,8 +86,21 @@ const EditScheduleDrawer = ({ open, onClose, mutate }: Props) => {
       {
         key: '4',
         // placeholder: 'Enter your email',
-        name: 'breakTime',
-        label: 'Break Time *',
+        name: 'breakStartTime',
+        label: 'Break Start Time *',
+        placeholder: '',
+        styleContact: 'rounded-lg',
+        type: 'time',
+        validationSchema: Yup.string().required('Break time is required'),
+        initialValue: '',
+        icon: <HistoryToggleOff />,
+        required: true,
+      },
+      {
+        key: '4',
+        // placeholder: 'Enter your email',
+        name: 'breakEndTime',
+        label: 'Break End Time *',
         placeholder: '',
         styleContact: 'rounded-lg',
         type: 'time',
@@ -165,22 +111,9 @@ const EditScheduleDrawer = ({ open, onClose, mutate }: Props) => {
       },
 
       {
-        key: '6',
-        // placeholder: 'Enter your email',
-        name: 'intervalPeriod',
-        label: 'Interval Period *',
-        placeholder: '',
-        styleContact: 'rounded-lg',
-        type: 'number',
-        validationSchema: Yup.string().required('Interval Period is required'),
-        initialValue: '',
-        icon: <Timer />,
-        required: true,
-      },
-      {
         key: '7',
         // placeholder: 'Enter your email',
-        name: 'slotDuration',
+        name: 'slotDurations',
         label: 'Slot Duration *',
         placeholder: '',
         styleContact: 'rounded-lg',
@@ -190,21 +123,8 @@ const EditScheduleDrawer = ({ open, onClose, mutate }: Props) => {
         icon: <HourglassBottom />,
         required: true,
       },
-      // {
-      //   key: '7',
-      //   // placeholder: 'Enter your email',
-      //   name: 'slotGap',
-      //   label: 'Slot Gap *',
-      //   placeholder: '',
-      //   styleContact: 'rounded-lg',
-      //   type: 'number',
-      //   validationSchema: Yup.string().required('Slot Gap is required'),
-      //   initialValue: '',
-      //   icon: <BorderColor />,
-      //   required: true,
-      // },
     ]
-  }, [categories])
+  }, [activeData])
   const initialValues = AddScheduleSchema.reduce(
     (accumulator, currentValue) => {
       accumulator[currentValue.name] = currentValue.initialValue
@@ -227,57 +147,6 @@ const EditScheduleDrawer = ({ open, onClose, mutate }: Props) => {
   const handleSend = async (values: any, submitProps: any) => {
     console.log(values)
     console.log(image)
-    // try {
-    //   if (values?.photo && values?.photo != image) {
-    //     const fileRef = `Customers/${values?.customerName}/photoUrl`
-    //     const res = await storage.ref(fileRef).put(values?.photo)
-    //     const url = await res.ref.getDownloadURL()
-
-    //     await database
-    //       .ref(`Customers/${values?.customerName}/Expenses/${open?.id}`)
-    //       .update({
-    //         date: values?.date,
-    //         amount: values?.amount,
-    //         category: values?.category,
-    //         customerName: values?.customerName,
-    //         notes: values?.notes,
-    //         invoiceNumber: values?.invoiceNumber,
-    //         documentUrl: url,
-    //         updatedAt: new Date().toString(),
-    //       })
-    //     await database.ref(`Expenses/${open?.id}`).update({
-    //       date: values?.date,
-    //       amount: values?.amount,
-    //       category: values?.category,
-    //       customerName: values?.customerName,
-    //       notes: values?.notes,
-    //       invoiceNumber: values?.invoiceNumber,
-    //       documentUrl: url,
-    //       updatedAt: new Date().toString(),
-    //     })
-    //     onClose()
-    //     Swal.fire('Success', 'Successfully Updated', 'success')
-    //     submitProps.resetForm()
-    //   } else {
-    //     await database
-    //       .ref(`Customers/${values?.customerName}/Expenses/${open?.id}`)
-    //       .update({
-    //         ...values,
-    //         createdAt: new Date().toString(),
-    //       })
-    //     await database.ref(`Expenses/${open?.id}`).update({
-    //       ...values,
-    //       updatedAt: new Date().toString(),
-    //     })
-    //     onClose()
-    //     Swal.fire('Success', 'Successfully Updated', 'success')
-    //     submitProps.resetForm()
-    //   }
-    // } catch (error) {
-    //   console.log(error)
-    //   Swal.fire('Error', 'Something Went Wrong', 'error')
-    //   submitProps.setSubmitting(false)
-    // }
   }
   return (
     <>
@@ -297,7 +166,27 @@ const EditScheduleDrawer = ({ open, onClose, mutate }: Props) => {
             Edit Schedule
           </Typography>
           <Formik
-            initialValues={initialValues}
+            enableReinitialize
+            initialValues={
+              activeData?._id
+                ? {
+                    startTimeSlot: getHoursAndMinutes(
+                      new Date(activeData?.startTimeSlot)
+                    ),
+                    endTimeSlot: getHoursAndMinutes(
+                      new Date(activeData?.endTimeSlot)
+                    ),
+                    breakStartTime: getHoursAndMinutes(
+                      new Date(activeData?.breakStartTime)
+                    ),
+                    breakEndTime: getHoursAndMinutes(
+                      new Date(activeData?.breakEndTime)
+                    ),
+
+                    slotDurations: activeData?.slotDurations,
+                  }
+                : initialValues
+            }
             validationSchema={Yup.object(validationSchema)}
             onSubmit={handleSend}
           >

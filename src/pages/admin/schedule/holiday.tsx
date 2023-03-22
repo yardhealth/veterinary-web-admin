@@ -8,15 +8,11 @@ import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
 import { MuiTblOptions } from 'utils'
 import { useState } from 'react'
-import { useFetch } from 'hooks'
+import { useFetch, useGET } from 'hooks'
 import CustomerType from 'types/customer'
 import moment from 'moment'
 // import { database } from 'configs'
 import Swal from 'sweetalert2'
-import { formatCurrency, getArrFromObj } from '@ashirbad/js-core'
-import EditUpcomingAppointmentDrawer from 'components/admin/drawer/EditUpcomingAppointmentDrawer'
-import Status from 'components/core/Status'
-import EditScheduleDrawer from 'components/admin/drawer/EditScheduleDrawer'
 import AddHolidayDrawer from 'components/admin/drawer/AddHolidayDrawer'
 
 const Holiday = () => {
@@ -24,21 +20,12 @@ const Holiday = () => {
 
   const [openAddHolidayDrawer, setOpeAddHolidayDrawer] = useState(false)
 
-  const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
   // console.log(data)
   console.log(openAddHolidayDrawer)
-  const handleDelete = (row: CustomerType) => {
-    // try {
-    //   database.ref(`Customers/${row?.id}`).remove()
-    //   Swal.fire('Success', 'Successfully Deleted', 'success')
-    // } catch (error: any) {
-    //   console.log(error)
-    //   Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
-    // }
-  }
+  const handleDelete = (row: CustomerType) => {}
+
+  const { data, mutate } = useGET<any[]>(`holiday/getall`)
+  console.log(data)
 
   const [tabelData, settabelData] = useState([
     {
@@ -57,10 +44,14 @@ const Holiday = () => {
           <AddHolidayDrawer
             open={openAddHolidayDrawer}
             onClose={() => setOpeAddHolidayDrawer(false)}
-            // mutate={mutate}
+            mutate={mutate}
           />
           <MaterialTable
-            data={tabelData}
+            data={
+              data?.success?.data
+                ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+                : []
+            }
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
@@ -79,31 +70,37 @@ const Holiday = () => {
               },
               {
                 title: 'Day',
-                field: 'day',
+                field: 'holidayDate',
                 editable: 'never',
                 emptyValue: '--',
+                // width: "2%",
+                render(data, type) {
+                  return moment(data.holidayDate).format('LL')
+                },
+              },
+              {
+                title: 'Slot Start Time',
+                field: 'holidayStartTime',
+                editable: 'never',
+
+                emptyValue: '--',
+                render(data, type) {
+                  return moment(data.holidayStartTime).format('LT')
+                },
                 // width: "2%",
               },
               {
-                title: 'Slot',
-                field: 'slot',
+                title: 'Slot End Time',
+                field: 'holidayEndTime',
                 editable: 'never',
 
                 emptyValue: '--',
+                render(data, type) {
+                  return moment(data.holidayEndTime).format('LT')
+                },
 
                 // width: "2%",
               },
-
-              // {
-              //   title: 'Reason',
-              //   field: 'reason',
-              //   searchable: true,
-              //   export: true,
-              //   emptyValue: '--',
-              //   //   hidden:true,
-
-              //   filtering: false,
-              // },
 
               {
                 title: 'Created At',
@@ -124,7 +121,7 @@ const Holiday = () => {
                 render: (row) => (
                   <>
                     <div className="flex">
-                      <Tooltip title="Edit">
+                      <Tooltip title="Edit Holiday">
                         <Avatar
                           onClick={() => setOpeAddHolidayDrawer(true)}
                           variant="rounded"
@@ -164,7 +161,7 @@ const Holiday = () => {
             actions={[
               {
                 icon: 'add',
-                tooltip: 'Add Schedule',
+                tooltip: 'Add Holiday',
                 isFreeAction: true,
                 onClick: () => {
                   setOpeAddHolidayDrawer(true)
