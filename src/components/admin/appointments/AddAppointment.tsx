@@ -54,8 +54,8 @@ const AddAppointment = () => {
     useGET<any[]>(`user/get-user-pet`)
   console.log(userData)
 
-  const { data: singleData, mutate: singleMutate } = useGET<any[]>(``)
-  console.log(singleData)
+  // const { data: singleData, mutate: singleMutate } = useGET<any[]>(``)
+  // console.log(singleData)
 
   // useEffect(() => {
   //   mutate?.()

@@ -80,7 +80,11 @@ const OwnerSelecter = ({
     ]
   }, [])
 
-  const handleSend = async (values: any, submitProps: any) => {}
+  const handleSend = async (values: any, submitProps: any) => {
+    console.log(values)
+    submitProps.resetForm()
+    Swal.fire('Success', 'successfully Saved', 'success')
+  }
   const initialValues = AddNewOwnerSchema.reduce(
     (accumulator, currentValue) => {
       accumulator[currentValue.name] = currentValue.initialValue
