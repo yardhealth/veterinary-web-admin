@@ -27,7 +27,7 @@ export const useMutation = <T>(
     const accessToken = window?.localStorage?.getItem('ACCESS_TOKEN')
     return useSWRMutation(
       `${BASE_URL}/${path}`,
-      async (url: RequestInfo | URL, { arg }: any) =>
+      async (url: string, { arg }: any) =>
         fetch(url, {
           method,
           body: JSON.stringify(arg),
@@ -40,7 +40,7 @@ export const useMutation = <T>(
   }
   return useSWRMutation(
     `${BASE_URL}/${path}`,
-    async (url: RequestInfo | URL, { arg }: any) =>
+    async (url: string, { arg }: any) =>
       fetch(url, {
         method,
         body: JSON.stringify(arg),

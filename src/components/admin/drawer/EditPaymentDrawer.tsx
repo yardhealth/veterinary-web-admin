@@ -370,7 +370,7 @@ const EditPaymentDrawer = ({ open, onClose, mutate }: Props) => {
                         isOptionEqualToValue={(option, value) =>
                           option?.value === value?.value
                         }
-                        onBlur={() => formik.setFieldTouched(items.name, true)}
+                        // onBlur={() => formik.setFieldTouched(items.name, true)}
                         onChange={(e, value) =>
                           formik?.setFieldValue(items.name, value?.value)
                         }
