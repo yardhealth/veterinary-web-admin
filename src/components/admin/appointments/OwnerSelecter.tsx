@@ -70,7 +70,9 @@ const OwnerSelecter = ({
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
         type: 'text',
-        validationSchema: Yup.string().required('Owner Email is required'),
+        validationSchema: Yup.string()
+          .email('Please enter valid email id')
+          .required('Owner Email is required'),
         initialValue: '',
         icon: <EmailOutlined />,
         required: true,
@@ -102,8 +104,8 @@ const OwnerSelecter = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box className="flex  flex-col" sx={style}>
-          <h1 className="mb-4 text-xl font-bold text-theme">Add New Owner</h1>
+        <Box className="flex flex-col" sx={style}>
+          <h1 className=" text-xl font-bold text-theme">Add New Owner</h1>
 
           <Formik
             initialValues={initialValues}
@@ -171,8 +173,7 @@ const OwnerSelecter = ({
         </Box>
       </Modal>
       <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between pt-3 font-bold text-theme">
-          Choose Owner *
+        <div className="flex items-center justify-end pt-3 font-bold text-theme">
           <p
             className="cursor-pointer pr-10 text-sm font-semibold text-theme"
             // onClick={() => router.push(`/panel/admin/patient/add-patient`)}
@@ -181,27 +182,6 @@ const OwnerSelecter = ({
             Add New Owner +
           </p>
         </div>
-        <input
-          // defaultValue={defaultValue}
-          name={name}
-          onChange={onChange}
-          onBlur={onBlur}
-          value={value}
-          id=""
-          className={`flex w-full gap-3 rounded-lg border  p-3 py-4 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 ${className}`}
-        />
-        {/* <option value=""> Choose Owner </option>
-          {options?.map((item: any, index: any) => (
-            <option key={index} value={item.value}>
-              {item.label}
-            </option>
-          ))}
-        </select> */}
-        {error ? (
-          <FormHelperText className="!text-red-600">
-            {helperText}
-          </FormHelperText>
-        ) : null}
       </div>
     </FormControl>
   )

@@ -20,7 +20,7 @@ export default function AdminLayout({
   const { push } = useRouter()
   useEffect(() => {
     ;(() => {
-      console.log(isUserLoading, user?._id, user?.role)
+      // console.log(isUserLoading, user?._id, user?.role)
       if (isUserLoading) return
       if (!user?._id) return push('/login')
       if (!user?.role) return push('/login')

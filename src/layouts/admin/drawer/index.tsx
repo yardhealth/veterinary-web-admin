@@ -61,7 +61,7 @@ const Drawer = ({ open, onToggle }: DrawerType) => {
   const [selectedSubMenu, setSelectedSubMenu] = useState('')
   const MenuItems = useMenuItems()
   const { user } = useAuth()
-  console.log(user)
+  // console.log(user)
   return (
     <>
       <CustomDrawer variant="permanent" open={open}>

@@ -54,6 +54,9 @@ const AddAppointment = () => {
     useGET<any[]>(`user/get-user-pet`)
   console.log(userData)
 
+  const { data: singleData, mutate: singleMutate } = useGET<any[]>(``)
+  console.log(singleData)
+
   // useEffect(() => {
   //   mutate?.()
   // }, [])
@@ -71,31 +74,14 @@ const AddAppointment = () => {
         validationSchema: Yup.string().required('Owner name is required'),
         initialValue: '',
         icon: <BorderColor />,
-        // options: [
-        //   {
-        //     label: 'Kate',
-        //     value: 'Kate',
-        //   },
-        //   {
-        //     label: 'James',
-        //     value: 'James',
-        //   },
-        //   {
-        //     label: 'Alex',
-        //     value: 'Alex',
-        //   },
-        //   {
-        //     label: 'Peter',
-        //     value: 'Peter',
-        //   },
-        // ],
 
-        // options: userData?.success?.data?.map((item, i) => {
-        //   return {
-        //     label: item?.name,
-        //     value: item?.name,
-        //   }
-        // }),
+        options: userData?.success?.data?.map((item, i) => {
+          return {
+            label: item?.name,
+            value: item?._id,
+            key: item?.name,
+          }
+        }),
         required: true,
       },
       {
@@ -185,11 +171,25 @@ const AddAppointment = () => {
         key: '4',
         label: 'Pet Name',
         name: 'name',
-        type: 'text',
+        type: 'select',
         validationSchema: Yup.string().required('Pet Name is required'),
         initialValue: '',
         icon: <BorderColor />,
         styleContact: 'rounded-lg mb-5',
+        options: [
+          {
+            label: 'Cooper',
+            value: 'Cooper',
+          },
+          {
+            label: 'Alex',
+            value: 'Alex',
+          },
+          {
+            label: 'Pluto',
+            value: 'Pluto',
+          },
+        ],
         required: true,
       },
 
@@ -659,7 +659,7 @@ const AddAppointment = () => {
       {
         key: '18',
         // placeholder: 'Enter your email',
-        name: 'consultationType1',
+        name: 'address1',
         label: 'House/Flat/Floor No. *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
@@ -676,7 +676,7 @@ const AddAppointment = () => {
       {
         key: '19',
         // placeholder: 'Enter your email',
-        name: 'consultationType2',
+        name: 'address2',
         label: 'Apartment/Road/Area *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
@@ -693,7 +693,7 @@ const AddAppointment = () => {
       {
         key: '20',
         // placeholder: 'Enter your email',
-        name: 'consultationType3',
+        name: 'address3',
         label: 'State *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
@@ -710,7 +710,7 @@ const AddAppointment = () => {
       {
         key: '21',
         // placeholder: 'Enter your email',
-        name: 'consultationType4',
+        name: 'address4',
         label: 'Zip Code *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
@@ -757,7 +757,7 @@ const AddAppointment = () => {
       },
       {
         key: '24',
-        name: 'time2',
+        name: 'slot',
         label: 'City *',
         validationSchema: Yup.string().optional(),
         styleContact: 'rounded-lg mb-5',
@@ -887,6 +887,7 @@ const AddAppointment = () => {
       </Typography>
 
       <div className="m-auto w-[50vw]">
+        <OwnerSelecter />
         <Formik
           initialValues={initialValues}
           validationSchema={Yup.object(validationSchema)}
@@ -900,7 +901,7 @@ const AddAppointment = () => {
 
               {AddRecordExpenseSchema?.map((inputItem: any, index: any) => (
                 <div key={index}>
-                  {inputItem?.name === 'time2' ? (
+                  {inputItem?.name === 'slot' ? (
                     <div className="my-5 w-full">
                       <AvailableSlot className="md:grid-cols-4" />
                     </div>
@@ -949,6 +950,14 @@ const AddAppointment = () => {
                         isOptionEqualToValue={(option, value) =>
                           option?.value === value?.value
                         }
+                        error={Boolean(
+                          formik?.touched[inputItem?.name] &&
+                            formik?.errors[inputItem?.name]
+                        )}
+                        helperText={
+                          formik?.touched[inputItem?.name] &&
+                          (formik?.errors[inputItem?.name] as any)
+                        }
                         options={inputItem?.options}
                         noOptionText={
                           <div className="flex w-full flex-col gap-2">
@@ -991,7 +1000,7 @@ const AddAppointment = () => {
                         styleContact={inputItem?.styleContact}
                       />
                     </div>
-                  ) : inputItem?.name === 'consultationType1' ? (
+                  ) : inputItem?.name === 'address1' ? (
                     formik?.values?.consultation === 'Home' ? (
                       <div className=" w-full">
                         <TextInput
@@ -1018,7 +1027,7 @@ const AddAppointment = () => {
                         />
                       </div>
                     ) : null
-                  ) : inputItem?.name === 'consultationType2' ? (
+                  ) : inputItem?.name === 'address2' ? (
                     formik?.values?.consultation === 'Home' ? (
                       <div className=" w-full">
                         <TextInput
@@ -1045,7 +1054,7 @@ const AddAppointment = () => {
                         />
                       </div>
                     ) : null
-                  ) : inputItem?.name === 'consultationType3' ? (
+                  ) : inputItem?.name === 'address3' ? (
                     formik?.values?.consultation === 'Home' ? (
                       <div className=" w-full">
                         <TextInput
@@ -1072,7 +1081,7 @@ const AddAppointment = () => {
                         />
                       </div>
                     ) : null
-                  ) : inputItem?.name === 'consultationType4' ? (
+                  ) : inputItem?.name === 'address4' ? (
                     formik?.values?.consultation === 'Home' ? (
                       <div className="w-full">
                         <TextInput
