@@ -9,7 +9,7 @@ import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import TextInput from 'components/core/TextInput'
 import { LoadingButton } from '@mui/lab'
-import { BorderColor, Done } from '@mui/icons-material'
+import { BorderColor, Done, EmailOutlined } from '@mui/icons-material'
 // import { database } from 'configs'
 import Swal from 'sweetalert2'
 
@@ -60,6 +60,19 @@ const OwnerSelecter = ({
         validationSchema: Yup.string().required('Owner name is required'),
         initialValue: '',
         icon: <BorderColor />,
+        required: true,
+      },
+      {
+        key: '1',
+        // placeholder: 'Enter your email',
+        name: 'ownerEmail',
+        label: 'Owner Email *',
+        placeholder: '',
+        styleContact: 'rounded-lg mb-5',
+        type: 'text',
+        validationSchema: Yup.string().required('Owner Email is required'),
+        initialValue: '',
+        icon: <EmailOutlined />,
         required: true,
       },
     ]
@@ -168,7 +181,7 @@ const OwnerSelecter = ({
             Add New Owner +
           </p>
         </div>
-        <select
+        <input
           // defaultValue={defaultValue}
           name={name}
           onChange={onChange}
@@ -176,14 +189,14 @@ const OwnerSelecter = ({
           value={value}
           id=""
           className={`flex w-full gap-3 rounded-lg border  p-3 py-4 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 ${className}`}
-        >
-          <option value=""> Choose Owner </option>
+        />
+        {/* <option value=""> Choose Owner </option>
           {options?.map((item: any, index: any) => (
             <option key={index} value={item.value}>
               {item.label}
             </option>
           ))}
-        </select>
+        </select> */}
         {error ? (
           <FormHelperText className="!text-red-600">
             {helperText}

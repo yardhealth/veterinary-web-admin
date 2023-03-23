@@ -39,19 +39,20 @@ import { useMemo, useState } from 'react'
 import * as Yup from 'yup'
 import AnimalSelecter from 'components/core/AnimalSelecter'
 import PhotoUpload from 'components/core/PhotoUpload'
-import { useFetch } from 'hooks'
-import CategoryType from 'types/category'
-import CustomerType from 'types/customer'
-// import { database, storage } from 'configs'
 import Swal from 'sweetalert2'
 import ConsultationTypeSelecter from './ConsultationTypeSelecter'
 import AvailableSlot from 'components/core/AvailableSlot'
 import OwnerSelecter from './OwnerSelecter'
 import { useGET, useMutation } from 'hooks'
+import { AdminAutocomplete } from 'components/core'
 
 const AddAppointment = () => {
   const { data, mutate } = useGET<any[]>(`health-particular/getall`)
-  console.log(data)
+
+  // console.log(data)
+  const { data: userData, mutate: userMutate } =
+    useGET<any[]>(`user/get-user-pet`)
+  console.log(userData)
 
   // useEffect(() => {
   //   mutate?.()
@@ -66,28 +67,35 @@ const AddAppointment = () => {
         label: 'Owner Name *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
-        type: 'select',
+        type: 'autocomplete',
         validationSchema: Yup.string().required('Owner name is required'),
         initialValue: '',
         icon: <BorderColor />,
-        options: [
-          {
-            label: 'Kate',
-            value: 'Kate',
-          },
-          {
-            label: 'James',
-            value: 'James',
-          },
-          {
-            label: 'Alex',
-            value: 'Alex',
-          },
-          {
-            label: 'Peter',
-            value: 'Peter',
-          },
-        ],
+        // options: [
+        //   {
+        //     label: 'Kate',
+        //     value: 'Kate',
+        //   },
+        //   {
+        //     label: 'James',
+        //     value: 'James',
+        //   },
+        //   {
+        //     label: 'Alex',
+        //     value: 'Alex',
+        //   },
+        //   {
+        //     label: 'Peter',
+        //     value: 'Peter',
+        //   },
+        // ],
+
+        // options: userData?.success?.data?.map((item, i) => {
+        //   return {
+        //     label: item?.name,
+        //     value: item?.name,
+        //   }
+        // }),
         required: true,
       },
       {
@@ -122,10 +130,10 @@ const AddAppointment = () => {
         key: '3',
         // placeholder: 'Enter your name',
         name: 'pet',
-        label: 'Category Name *',
+        label: 'Choose Pet *',
         placeholder: '',
         styleContact: 'rounded-xl mb-10 bg-white ',
-        validationSchema: Yup.string().required('Pet Category is required'),
+        validationSchema: Yup.string().required('field is required'),
         initialValue: '',
         type: 'select',
         icon: <Person />,
@@ -424,7 +432,7 @@ const AddAppointment = () => {
         options: data?.success?.data
           ?.filter((item) => item?.healthIssue === 'Digestive Problems')
           .map((item, i) => {
-            console.log(item)
+            // console.log(item)
             return {
               label: item?.healthParticulars,
               value: item?.healthParticulars,
@@ -478,7 +486,7 @@ const AddAppointment = () => {
         options: data?.success?.data
           ?.filter((item) => item.healthIssue === 'Skin Problems')
           .map((item, i) => {
-            console.log(item)
+            // console.log(item)
             return {
               label: item?.healthParticulars,
               value: item?.healthParticulars,
@@ -747,19 +755,6 @@ const AddAppointment = () => {
         icon: <CalendarMonth />,
         required: true,
       },
-      // {
-      //   key: '1',
-      //   // placeholder: 'Enter your email',
-      //   name: 'time',
-      //   label: 'Select Appointment Time *',
-      //   placeholder: '',
-      //   styleContact: 'rounded-lg mb-5',
-      //   type: 'time',
-      //   validationSchema: Yup.string().required('Appointment time is required'),
-      //   initialValue: '',
-      //   icon: <CalendarMonth />,
-      //   required: true,
-      // },
       {
         key: '24',
         name: 'time2',
@@ -846,7 +841,7 @@ const AddAppointment = () => {
         // required: true,
       },
     ]
-  }, [data?.success?.data?.length])
+  }, [data?.success?.data?.length, userData?.success?.data?.length])
   const [articleValue, setArticleValue] = useState('')
   const [image, setImage] = useState<any>('')
   const [countryDetails, setCountryDetails] = useState({
@@ -854,6 +849,8 @@ const AddAppointment = () => {
     label: 'India',
     phone: '91',
   })
+
+  const [date, setDate] = useState()
 
   const handleSend = async (values: any, submitProps: any) => {}
   const initialValues = AddRecordExpenseSchema.reduce(
@@ -905,7 +902,7 @@ const AddAppointment = () => {
                 <div key={index}>
                   {inputItem?.name === 'time2' ? (
                     <div className="my-5 w-full">
-                      <AvailableSlot className="md:grid-cols-7" />
+                      <AvailableSlot className="md:grid-cols-4" />
                     </div>
                   ) : inputItem?.name === 'photo' ? (
                     <div className="w-full">
@@ -933,7 +930,7 @@ const AddAppointment = () => {
                     </div>
                   ) : inputItem?.name === 'ownerName' ? (
                     <div className=" w-full pb-4">
-                      <OwnerSelecter
+                      {/* <OwnerSelecter
                         name="ownerName"
                         options={inputItem.options}
                         error={Boolean(
@@ -945,6 +942,22 @@ const AddAppointment = () => {
                         onChange={formik?.handleChange}
                         onBlur={formik?.handleBlur}
                         styleContact={inputItem?.styleContact}
+                      /> */}
+                      <AdminAutocomplete
+                        size={'medium'}
+                        label={inputItem?.label}
+                        isOptionEqualToValue={(option, value) =>
+                          option?.value === value?.value
+                        }
+                        options={inputItem?.options}
+                        noOptionText={
+                          <div className="flex w-full flex-col gap-2">
+                            <small className="tracking-wide">
+                              No options found
+                            </small>
+                            {/* <divclassName="font-medium tracking-wide text-xs hover:bg-theme/90 transition-all duration-300 ease-in-out scale-100 hover:scale-95 text-white bg-theme px-2 py-1 rounded-md shadow-lg  w-fit cursor-pointer"                        onClick={() =>                          router.push("/panel/admin/batch/create")                        }                      >                        Add New {item?.label.slice(0, -1)}                      </divclassName=> */}
+                          </div>
+                        }
                       />
                     </div>
                   ) : inputItem?.name === 'pet' ? (

@@ -1,6 +1,5 @@
 import { Autocomplete, CircularProgress, TextField } from '@mui/material'
-import { FocusEvent, Fragment, useState } from 'react'
-
+import { Fragment, useState } from 'react'
 type Props = {
   onChange?: (event: any, value: any) => void
   value?: any
@@ -10,15 +9,12 @@ type Props = {
   label?: string
   labelClass?: string
   isOptionEqualToValue?: (option: any, value: any) => boolean
-  name?: string
+  error?: boolean
+  helperText?: string
   size: 'small' | 'medium'
   className?: string
   textClassName?: string
-  onBlur?: (e: FocusEvent<any, Element>) => void
-  error?: boolean
-  helperText?: string
 }
-
 const AdminAutocomplete = ({
   onChange,
   value,
@@ -31,24 +27,24 @@ const AdminAutocomplete = ({
   error,
   helperText,
   size,
-  name,
   className,
   textClassName,
-  onBlur,
 }: Props) => {
   const [open, setOpen] = useState(false)
-
   return (
     <div className="flex w-full flex-col gap-2">
+      {' '}
       {label && (
-        <p className={`text-wider font-medium  ${className}`}>{label}</p>
-      )}
+        <p className={`text-wider font-medium text-theme ${className}`}>
+          {' '}
+          {label}{' '}
+        </p>
+      )}{' '}
       <Autocomplete
         size={size}
         id="asynchronous-autocomplete"
         open={open}
         fullWidth
-        onBlur={onBlur}
         onOpen={() => {
           setOpen(true)
         }}
@@ -68,8 +64,8 @@ const AdminAutocomplete = ({
         loading={loading}
         renderInput={(params) => (
           <>
+            {' '}
             <TextField
-              name={name}
               className={textClassName}
               error={error}
               helperText={helperText}
@@ -79,19 +75,19 @@ const AdminAutocomplete = ({
                 ...params.InputProps,
                 endAdornment: (
                   <Fragment>
+                    {' '}
                     {loading ? (
                       <CircularProgress color="inherit" size={20} />
-                    ) : null}
-                    {params.InputProps.endAdornment}
+                    ) : null}{' '}
+                    {params.InputProps.endAdornment}{' '}
                   </Fragment>
                 ),
               }}
-            />
+            />{' '}
           </>
         )}
-      />
+      />{' '}
     </div>
   )
 }
-
 export default AdminAutocomplete
