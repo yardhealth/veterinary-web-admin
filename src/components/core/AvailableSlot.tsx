@@ -9,7 +9,7 @@ const AvailableSlot = ({ className = '' }) => {
   const router = useRouter()
   const [date, setDate] = useState()
   const { data, mutate, isLoading } = useGET<any[]>(
-    `slot/get?date=2023-03-25T11:14:43.696Z`
+    `slot/get?date=2023-03-26T11:14:43.696Z`
   )
   // console.log(data)
 

@@ -24,3 +24,4 @@
 // export default app
 
 export const BASE_URL = `https://veterinary.gorillayard.com/api/v1`
+// export const BASE_URL = `http://192.168.29.117:8080/api/v1`

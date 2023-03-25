@@ -171,22 +171,6 @@ const AddSchedule = () => {
         icon: <HourglassBottom />,
         required: true,
       },
-      // {
-      //   key: '7',
-      //   // placeholder: 'Enter your email',
-      //   name: 'slotGap',
-      //   label: 'Slot Gap(mins) *',
-      //   placeholder: '',
-      //   styleContact: 'rounded-lg mb-5',
-      //   type: 'number',
-      //   validationSchema: Yup.number()
-      //     .min(1)
-      //     .max(60)
-      //     .required('Slot Gap is required'),
-      //   initialValue: '',
-      //   icon: <BorderColor />,
-      //   required: true,
-      // },
     ]
   }, [data?.success?.data?.length])
   const [articleValue, setArticleValue] = useState('')

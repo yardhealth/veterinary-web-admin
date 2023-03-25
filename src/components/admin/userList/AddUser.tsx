@@ -1,4 +1,11 @@
-import { BorderColor, Done, Person, Photo } from '@mui/icons-material'
+import {
+  BorderColor,
+  Done,
+  EmailOutlined,
+  Person,
+  Phone,
+  Photo,
+} from '@mui/icons-material'
 import PhotoUpload from 'components/core/PhotoUpload'
 import TextInput from 'components/core/TextInput'
 // import { database, storage } from 'configs'
@@ -17,8 +24,10 @@ import {
 } from '@mui/material'
 import * as Yup from 'yup'
 
-const AddConfig = () => {
-  const { isMutating, trigger } = useMutation(`payment/create`)
+const AddUser = () => {
+  const { isMutating, trigger } = useMutation(
+    `appointment-booked-by-admin/admin-add-user`
+  )
 
   // const [customers] = useFetch<CustomerType[]>(`/Customers`, {
   //   needNested: false,
@@ -27,69 +36,64 @@ const AddConfig = () => {
   const AddRecordExpenseSchema = useMemo(() => {
     return [
       {
-        key: '17',
-        // placeholder: 'Enter your name',
-        name: 'label',
-        label: 'Consultation Type *',
-        placeholder: '',
-        type: 'select',
-        styleContact: 'rounded-xl mb-5 bg-white ',
-        validationSchema: Yup.string().required('Customer Type is required'),
-        initialValue: '',
-        icon: <Person />,
-        required: true,
-        contactField: {
-          xs: 12,
-          sm: 12,
-          md: 6,
-          lg: 6,
-        },
-        options: [
-          {
-            label: 'Home',
-            value: 'Home',
-          },
-          {
-            label: 'Clinic Visit',
-            value: 'Clinic Visit',
-          },
-        ],
-      },
-      {
-        key: '1',
+        key: '12',
         // placeholder: 'Enter your email',
-        name: 'amount',
-        label: 'Service Charge *',
+        name: 'name',
+        label: 'Owner Name *',
         placeholder: '',
-        styleContact: 'rounded-lg mb-5',
-        type: 'number',
-        validationSchema: Yup.string().required('Service Charge is required'),
+        styleContact: 'rounded-lg mb-10',
+        type: 'text',
+        validationSchema: Yup.string().required('Owner Name is required'),
         initialValue: '',
         icon: <BorderColor />,
+        required: true,
+      },
+      {
+        key: '13',
+        // placeholder: 'Enter your email',
+        name: 'email',
+        label: 'Email *',
+        placeholder: '',
+        styleContact: 'rounded-lg mb-10',
+        type: 'text',
+        validationSchema: Yup.string()
+          .email('Please enter a valid email address')
+          .required('Owner Name is required'),
+        initialValue: '',
+        icon: <EmailOutlined />,
+        required: true,
+      },
+      {
+        key: '14',
+        // placeholder: 'Enter your email',
+        name: 'contactNumber',
+        label: 'Contact No *',
+        placeholder: '',
+        styleContact: 'rounded-lg mb-10',
+        type: 'number',
+        validationSchema: Yup.string().required('Owner Name is required'),
+        initialValue: '',
+        icon: <Phone />,
         required: true,
       },
     ]
   }, [])
   const [articleValue, setArticleValue] = useState('')
   const [image, setImage] = useState<any>('')
-  const [sign, setSign] = useState<any>('')
-  const [countryDetails, setCountryDetails] = useState({
-    code: 'IN',
-    label: 'India',
-    phone: '91',
-  })
 
   const handleSend = async (values: any, submitProps: any) => {
+    console.log(values)
     try {
       const { error, success } = await trigger(values)
       if (error) return Swal.fire('Error', error.message, 'error')
 
-      const payment = {
+      const addUser = {
         ...success?.data,
       }
+      submitProps.resetForm()
       Swal.fire('Success', success.message, 'success')
 
-      console.log(payment)
+      console.log(addUser)
 
       return
     } catch (error) {
@@ -138,74 +142,15 @@ const AddConfig = () => {
           onSubmit={handleSend}
         >
           {(formik) => (
-            <Form className="m-auto w-full">
+            <Form className="m-auto">
               {console.log(formik.values)}
               {console.log(formik.errors)}
               {console.log(formik.touched)}
 
               {AddRecordExpenseSchema?.map((inputItem: any, index: any) => (
                 <div key={index} className="w-full">
-                  {inputItem?.name === 'photo' ? (
-                    <div className="">
-                      <FormControl
-                        fullWidth
-                        className="flex w-full items-center justify-center"
-                      >
-                        <PhotoUpload
-                          txtName="Upload Your Profile Photo"
-                          variant={'square'}
-                          value={image}
-                          onChange={(e: any) => {
-                            setImage(e)
-                            formik?.setFieldValue('photo', e?.target?.files[0])
-                          }}
-                          className={
-                            'mt-4 mb-5 flex !w-1/2 !rounded-lg !bg-theme'
-                          }
-                          height={200}
-                          width={40}
-                        />
-                        {formik?.touched[inputItem.name] &&
-                          (formik?.errors[inputItem.name] as any) && (
-                            <FormHelperText className="!text-red-500">
-                              {formik?.touched[inputItem?.name] &&
-                                (formik?.errors[inputItem?.name] as any)}
-                            </FormHelperText>
-                          )}
-                      </FormControl>
-                    </div>
-                  ) : inputItem?.name === 'signature' ? (
-                    <div className="w-full">
-                      <FormControl
-                        fullWidth
-                        className="flex w-full items-center justify-center"
-                      >
-                        <PhotoUpload
-                          txtName="Upload Your Signature"
-                          variant={'square'}
-                          value={sign}
-                          onChange={(e: any) => {
-                            setSign(e)
-                            formik?.setFieldValue(
-                              'signature',
-                              e?.target?.files[0]
-                            )
-                          }}
-                          className={'mt-4 mb-5 !w-1/2 !rounded-lg !bg-theme'}
-                          height={200}
-                          width={40}
-                        />
-                        {formik?.touched[inputItem.name] &&
-                          (formik?.errors[inputItem.name] as any) && (
-                            <FormHelperText className="!text-red-500">
-                              {formik?.touched[inputItem?.name] &&
-                                (formik?.errors[inputItem?.name] as any)}
-                            </FormHelperText>
-                          )}
-                      </FormControl>
-                    </div>
-                  ) : (
-                    <div className={'w-full'}>
+                  {
+                    <div className={''}>
                       <TextInput
                         fullWidth
                         key={index}
@@ -230,7 +175,7 @@ const AddConfig = () => {
                         onBlur={formik?.handleBlur}
                       />
                     </div>
-                  )}
+                  }
                 </div>
               ))}
 
@@ -258,4 +203,4 @@ const AddConfig = () => {
   )
 }
 
-export default AddConfig
+export default AddUser

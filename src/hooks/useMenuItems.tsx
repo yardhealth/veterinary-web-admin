@@ -172,7 +172,26 @@ export default () => {
         key: '9',
         title: 'Pet Owner List',
         icon: <Groups />,
-        route: '/admin/owner-list',
+        submenus: [
+          {
+            key: '9.1',
+            route: '/admin/userList/create-user',
+            title: 'Create User',
+            icon: <BorderColor />,
+          },
+          {
+            key: '9.1',
+            route: '/admin/userList/owner-list',
+            title: 'Owner List',
+            icon: <BorderColor />,
+          },
+          {
+            key: '9.3',
+            route: '/admin/userList/create-pet',
+            title: 'Add Pet',
+            icon: <BorderColor />,
+          },
+        ],
       },
 
       {
@@ -204,6 +223,12 @@ export default () => {
             title: 'View Health Issues',
             icon: <ReceiptLong />,
           },
+          // {
+          //   key: '10.5cdc',
+          //   route: '/admin/config/add-animal',
+          //   title: 'Add New Pet',
+          //   icon: <ReceiptLong />,
+          // },
         ],
       },
 

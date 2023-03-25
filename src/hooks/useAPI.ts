@@ -19,7 +19,7 @@ export const useGET = <T>(path: string) => {
 
 export const useMutation = <T>(
   path: string,
-  options?: { method: 'POST' | 'PUT' | 'DELETE' }
+  options?: { method: 'POST' | 'PUT' | 'DELETE' | 'PATCH' }
 ) => {
   const method = options?.method || 'POST'
 

@@ -17,9 +17,12 @@ import {
 } from '@mui/material'
 import * as Yup from 'yup'
 
-const AddConfig = () => {
-  const { isMutating, trigger } = useMutation(`payment/create`)
-
+const AddAnimal = () => {
+  const { isMutating, trigger } = useMutation(`health-particular/create`)
+  const [categories] = useFetch<CategoryType[]>(`/Categories`, {
+    needNested: false,
+    needArray: true,
+  })
   // const [customers] = useFetch<CustomerType[]>(`/Customers`, {
   //   needNested: false,
   //   needArray: true,
@@ -27,49 +30,20 @@ const AddConfig = () => {
   const AddRecordExpenseSchema = useMemo(() => {
     return [
       {
-        key: '17',
-        // placeholder: 'Enter your name',
-        name: 'label',
-        label: 'Consultation Type *',
-        placeholder: '',
-        type: 'select',
-        styleContact: 'rounded-xl mb-5 bg-white ',
-        validationSchema: Yup.string().required('Customer Type is required'),
-        initialValue: '',
-        icon: <Person />,
-        required: true,
-        contactField: {
-          xs: 12,
-          sm: 12,
-          md: 6,
-          lg: 6,
-        },
-        options: [
-          {
-            label: 'Home',
-            value: 'Home',
-          },
-          {
-            label: 'Clinic Visit',
-            value: 'Clinic Visit',
-          },
-        ],
-      },
-      {
-        key: '1',
+        key: '12',
         // placeholder: 'Enter your email',
-        name: 'amount',
-        label: 'Service Charge *',
+        name: 'animalName',
+        label: 'Add Pet Category *',
         placeholder: '',
-        styleContact: 'rounded-lg mb-5',
-        type: 'number',
-        validationSchema: Yup.string().required('Service Charge is required'),
+        styleContact: 'rounded-lg mb-10',
+        type: 'text',
+        validationSchema: Yup.string().required('Add Pet Category is required'),
         initialValue: '',
         icon: <BorderColor />,
         required: true,
       },
     ]
-  }, [])
+  }, [categories])
   const [articleValue, setArticleValue] = useState('')
   const [image, setImage] = useState<any>('')
   const [sign, setSign] = useState<any>('')
@@ -84,12 +58,13 @@ const AddConfig = () => {
       const { error, success } = await trigger(values)
       if (error) return Swal.fire('Error', error.message, 'error')
 
-      const payment = {
+      const healthIssue = {
         ...success?.data,
       }
+      submitProps.resetForm()
       Swal.fire('Success', success.message, 'success')
 
-      console.log(payment)
+      console.log(healthIssue)
 
       return
     } catch (error) {
@@ -145,66 +120,7 @@ const AddConfig = () => {
 
               {AddRecordExpenseSchema?.map((inputItem: any, index: any) => (
                 <div key={index} className="w-full">
-                  {inputItem?.name === 'photo' ? (
-                    <div className="">
-                      <FormControl
-                        fullWidth
-                        className="flex w-full items-center justify-center"
-                      >
-                        <PhotoUpload
-                          txtName="Upload Your Profile Photo"
-                          variant={'square'}
-                          value={image}
-                          onChange={(e: any) => {
-                            setImage(e)
-                            formik?.setFieldValue('photo', e?.target?.files[0])
-                          }}
-                          className={
-                            'mt-4 mb-5 flex !w-1/2 !rounded-lg !bg-theme'
-                          }
-                          height={200}
-                          width={40}
-                        />
-                        {formik?.touched[inputItem.name] &&
-                          (formik?.errors[inputItem.name] as any) && (
-                            <FormHelperText className="!text-red-500">
-                              {formik?.touched[inputItem?.name] &&
-                                (formik?.errors[inputItem?.name] as any)}
-                            </FormHelperText>
-                          )}
-                      </FormControl>
-                    </div>
-                  ) : inputItem?.name === 'signature' ? (
-                    <div className="w-full">
-                      <FormControl
-                        fullWidth
-                        className="flex w-full items-center justify-center"
-                      >
-                        <PhotoUpload
-                          txtName="Upload Your Signature"
-                          variant={'square'}
-                          value={sign}
-                          onChange={(e: any) => {
-                            setSign(e)
-                            formik?.setFieldValue(
-                              'signature',
-                              e?.target?.files[0]
-                            )
-                          }}
-                          className={'mt-4 mb-5 !w-1/2 !rounded-lg !bg-theme'}
-                          height={200}
-                          width={40}
-                        />
-                        {formik?.touched[inputItem.name] &&
-                          (formik?.errors[inputItem.name] as any) && (
-                            <FormHelperText className="!text-red-500">
-                              {formik?.touched[inputItem?.name] &&
-                                (formik?.errors[inputItem?.name] as any)}
-                            </FormHelperText>
-                          )}
-                      </FormControl>
-                    </div>
-                  ) : (
+                  {
                     <div className={'w-full'}>
                       <TextInput
                         fullWidth
@@ -230,7 +146,7 @@ const AddConfig = () => {
                         onBlur={formik?.handleBlur}
                       />
                     </div>
-                  )}
+                  }
                 </div>
               ))}
 
@@ -258,4 +174,4 @@ const AddConfig = () => {
   )
 }
 
-export default AddConfig
+export default AddAnimal
