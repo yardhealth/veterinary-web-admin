@@ -99,7 +99,7 @@ const UpcomingAppointments = () => {
           >
             <Card
               sx={style}
-              className=" dashboard-card-shadow w-[30%] border-t-4 border-b-4 border-t-theme border-b-theme  !p-6"
+              className=" dashboard-card-shadow w-[30%] border-t-4 border-b-4 border-t-theme border-b-theme !p-6"
             >
               <Typography gutterBottom align="left">
                 Owner Email :
@@ -112,7 +112,7 @@ const UpcomingAppointments = () => {
                   }}
                 >
                   {` `}
-                  {petDetails.user.email}
+                  {petDetails?.user?.email}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -125,8 +125,8 @@ const UpcomingAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
-                  7412589542
+                  {` `}
+                  {petDetails?.user?.phoneNumber}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -139,7 +139,8 @@ const UpcomingAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Cooper
+                  {` `}
+                  {petDetails?.pet?.petName}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -152,7 +153,8 @@ const UpcomingAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Male
+                  {` `}
+                  {petDetails?.pet?.gender}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -165,8 +167,8 @@ const UpcomingAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} German
-                  Shepard
+                  {` `}
+                  {petDetails?.pet?.breed}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -179,7 +181,8 @@ const UpcomingAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} 2
+                  {` `}
+                  {petDetails?.pet?.age}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -192,7 +195,8 @@ const UpcomingAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} 10kg
+                  {` `}
+                  {petDetails?.pet?.weight}kg
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -205,7 +209,8 @@ const UpcomingAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Yes
+                  {` `}
+                  {petDetails?.pet?.vaccinated}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -218,7 +223,8 @@ const UpcomingAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Middle
+                  {` `}
+                  {petDetails?.pet?.aggression}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -231,67 +237,8 @@ const UpcomingAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Cash
-                </span>
-              </Typography>
-
-              <Typography gutterBottom align="left">
-                State :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.state ? rowData.state : 'Not Provided'} */}{' '}
-                  Odisha
-                </span>
-              </Typography>
-              <Typography gutterBottom align="left">
-                City :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} BBSR
-                </span>
-              </Typography>
-              <Typography gutterBottom align="left">
-                Zip Code :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.pinCode
-                                ? rowData.pinCode
-                                : 'Not Provided'} */}{' '}
-                  752001
-                </span>
-              </Typography>
-              <Typography gutterBottom align="left">
-                Street Name :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.streetName
-                                ? rowData.streetName
-                                : 'Not Provided'} */}{' '}
-                  Satyasai Enclave
+                  {` `}
+                  {petDetails?.paymentMethod}
                 </span>
               </Typography>
             </Card>
@@ -331,13 +278,7 @@ const UpcomingAppointments = () => {
                 render: ({ user }) => user.name,
                 // width: "2%",
               },
-              {
-                title: 'Payment Method',
-                field: 'paymentMethod',
-                editable: 'never',
-                emptyValue: '--',
-                // width: "2%",
-              },
+
               {
                 title: 'Pet Name',
                 field: 'pet',
@@ -366,26 +307,52 @@ const UpcomingAppointments = () => {
                 render: ({ pet }) => pet.consultation,
                 filtering: false,
               },
-              // {
-              //   title: 'Appointment Date',
-              //   field: 'appointmentDate',
-              //   searchable: true,
-
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
-              // {
-              //   title: 'Appointment Time',
-              //   field: 'appointmentTime',
-              //   searchable: true,
-              //   cellStyle: {
-              //     textAlign: 'center',
-              //   },
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
+              {
+                title: 'Appointment Date',
+                field: 'appointDate',
+                searchable: true,
+                render(data, type) {
+                  return moment(data.appointDate).format('MMM Do YY')
+                },
+                emptyValue: '--',
+                //   hidden:true,
+                filtering: false,
+              },
+              {
+                title: 'Appointment Start Time',
+                field: 'appointStartTime',
+                searchable: true,
+                cellStyle: {
+                  textAlign: 'center',
+                },
+                render(data, type) {
+                  return moment(data.appointStartTime).format('LT')
+                },
+                emptyValue: '--',
+                //   hidden:true,
+                filtering: false,
+              },
+              {
+                title: 'Appointment End Time',
+                field: 'appointEndTime',
+                searchable: true,
+                cellStyle: {
+                  textAlign: 'center',
+                },
+                render(data, type) {
+                  return moment(data.appointEndTime).format('LT')
+                },
+                emptyValue: '--',
+                //   hidden:true,
+                filtering: false,
+              },
+              {
+                title: 'Payment Method',
+                field: 'paymentMethod',
+                editable: 'never',
+                emptyValue: '--',
+                // width: "2%",
+              },
               // {
               //   title: 'Payment Method',
               //   field: 'paymentMethod',
@@ -445,22 +412,6 @@ const UpcomingAppointments = () => {
                           }}
                         >
                           <Check sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip>
-                      <Tooltip title="Delete">
-                        <Avatar
-                          // onClick={() => handleDelete(row?.id)}
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-red-700 !p-0"
-                          sx={{
-                            mr: '0.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <Delete sx={{ padding: '0px !important' }} />
                         </Avatar>
                       </Tooltip>
                     </div>
