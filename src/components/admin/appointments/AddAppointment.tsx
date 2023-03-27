@@ -713,19 +713,6 @@ const AddAppointment = () => {
           },
         ],
       },
-
-      {
-        key: '26',
-        name: 'photo',
-        label: 'Photo',
-        type: 'file',
-        placeholder: '',
-        styleContact: 'rounded-lg mb-5',
-        validationSchema: Yup.string().required('file is required'),
-        initialValue: '',
-        icon: <Photo />,
-        // required: true,
-      },
     ]
   }, [
     data?.success?.data?.length,
@@ -797,30 +784,6 @@ const AddAppointment = () => {
                   {inputItem?.name === 'slot' ? (
                     <div className="my-5 w-full">
                       <AvailableSlot className="md:grid-cols-4" />
-                    </div>
-                  ) : inputItem?.name === 'photo' ? (
-                    <div className="w-full">
-                      <FormControl fullWidth>
-                        <PhotoUpload
-                          txtName="Upload Your Pet Photo"
-                          variant={'square'}
-                          value={image}
-                          onChange={(e: any) => {
-                            setImage(e)
-                            formik?.setFieldValue('photo', e?.target?.files[0])
-                          }}
-                          className={'mt-4 mb-5 !w-full !rounded-lg !bg-theme'}
-                          height={200}
-                          width={400}
-                        />
-                        {formik?.touched[inputItem.name] &&
-                          (formik?.errors[inputItem.name] as any) && (
-                            <FormHelperText className="!text-red-500">
-                              {formik?.touched[inputItem?.name] &&
-                                (formik?.errors[inputItem?.name] as any)}
-                            </FormHelperText>
-                          )}
-                      </FormControl>
                     </div>
                   ) : inputItem?.type === 'autocomplete' ? (
                     <div className=" w-full pb-4">

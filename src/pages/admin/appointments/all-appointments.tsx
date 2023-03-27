@@ -25,7 +25,7 @@ import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
 import { MuiTblOptions } from 'utils'
 import { useMemo, useState } from 'react'
-import { useFetch } from 'hooks'
+import { useFetch, useGET } from 'hooks'
 import CustomerType from 'types/customer'
 import moment from 'moment'
 // import { database } from 'configs'
@@ -66,12 +66,12 @@ const AllAppointments = () => {
   const [openEditAppointmentDrawer, setOpenEditAppointmentDrawer] =
     useState(false)
 
-  const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
   // console.log(data)
   console.log(openEditAppointmentDrawer)
+  const { data, mutate } = useGET<any[]>(
+    `appointment-booked-by-admin/appointment-status?status=PENDING`
+  )
+  console.log(data)
   const handleDelete = (row: CustomerType) => {
     // try {
     //   database.ref(`Customers/${row?.id}`).remove()

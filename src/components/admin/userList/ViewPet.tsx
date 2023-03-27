@@ -31,7 +31,7 @@ const ViewPet = ({ rowData }: any) => {
   console.log(rowData)
   const router = useRouter()
   const [activeData, setActiveData] = useState<any>()
-
+  const [activeName, setActiveName] = useState<any>()
   const [openEditPetDrawer, setOpenEditPetDrawer] = useState(false)
   const [bookAppointmentDrawer, setBookAppointmentDrawer] = useState(false)
   const [addPetDrawer, setAddPetDrawer] = useState(false)
@@ -110,14 +110,13 @@ const ViewPet = ({ rowData }: any) => {
             _id={rowData?._id}
           />
 
-          {activeData?._id && (
-            <BookAppointmentDrawer
-              open={bookAppointmentDrawer}
-              onClose={() => setBookAppointmentDrawer(false)}
-              activeData={activeData}
-              mutate={mutate}
-            />
-          )}
+          <BookAppointmentDrawer
+            open={bookAppointmentDrawer}
+            onClose={() => setBookAppointmentDrawer(false)}
+            activeData={activeData}
+            mutate={mutate}
+          />
+
           <MaterialTable
             data={
               data?.success?.data
@@ -208,9 +207,7 @@ const ViewPet = ({ rowData }: any) => {
                     <div className="flex">
                       <Tooltip title="Book Appointment">
                         <button
-                          // onClick={() => setOpenEditPetDrawer(true)}
                           onClick={() => handleAppointment(row)}
-                          // variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer rounded-md !bg-primary px-3 text-sm text-white"
                         >
                           Book Appointment

@@ -15,7 +15,7 @@ import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
 import { MuiTblOptions } from 'utils'
 import { useState } from 'react'
-import { useFetch } from 'hooks'
+import { useFetch, useGET } from 'hooks'
 import CustomerType from 'types/customer'
 import moment from 'moment'
 // import { database } from 'configs'
@@ -39,20 +39,26 @@ const style = {
 
 const UpcomingAppointments = () => {
   const router = useRouter()
+  const [petDetails, setPetDetails] = useState<any>()
 
   const [openInfoModal, setOpenInfoModal] = useState(false)
-  const handleInfoOpen = () => setOpenInfoModal(true)
+  const handleInfoOpen = (data: any) => {
+    setOpenInfoModal(true)
+    setPetDetails(data)
+  }
   const handleInfoCloseModal = () => setOpenInfoModal(false)
 
   const [openEditAppointmentDrawer, setOpenEditAppointmentDrawer] =
     useState(false)
 
-  const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
   // console.log(data)
   console.log(openEditAppointmentDrawer)
+
+  const { data, mutate } = useGET<any[]>(
+    `appointment-booked-by-admin/appointment-status?status=CONFIRM`
+  )
+  console.log(petDetails)
+
   const handleDelete = (row: CustomerType) => {
     // try {
     //   database.ref(`Customers/${row?.id}`).remove()
@@ -105,8 +111,8 @@ const UpcomingAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
-                  user@gmail.com
+                  {` `}
+                  {petDetails.user.email}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -296,7 +302,11 @@ const UpcomingAppointments = () => {
             // mutate={mutate}
           /> */}
           <MaterialTable
-            data={tabelData}
+            data={
+              data?.success?.data
+                ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+                : []
+            }
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
@@ -315,59 +325,67 @@ const UpcomingAppointments = () => {
               },
               {
                 title: 'Owner Name',
-                field: 'ownerName',
+                field: 'user',
+                editable: 'never',
+                emptyValue: '--',
+                render: ({ user }) => user.name,
+                // width: "2%",
+              },
+              {
+                title: 'Payment Method',
+                field: 'paymentMethod',
                 editable: 'never',
                 emptyValue: '--',
                 // width: "2%",
               },
               {
-                title: 'Pet',
+                title: 'Pet Name',
                 field: 'pet',
                 editable: 'never',
-
                 emptyValue: '--',
+                render: ({ pet }) => pet.petName,
 
                 // width: "2%",
               },
 
-              {
-                title: 'Health Issues',
-                field: 'healthIssues',
-                searchable: true,
+              // {
+              //   title: 'Health Issues',
+              //   field: 'healthIssues',
+              //   searchable: true,
 
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
+              //   emptyValue: '--',
+              //   //   hidden:true,
+              //   filtering: false,
+              // },
               {
                 title: 'Consultation Type',
-                field: 'consultationType',
+                field: 'consultation',
                 searchable: true,
 
                 emptyValue: '--',
-                //   hidden:true,
+                render: ({ pet }) => pet.consultation,
                 filtering: false,
               },
-              {
-                title: 'Appointment Date',
-                field: 'appointmentDate',
-                searchable: true,
+              // {
+              //   title: 'Appointment Date',
+              //   field: 'appointmentDate',
+              //   searchable: true,
 
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
-              {
-                title: 'Appointment Time',
-                field: 'appointmentTime',
-                searchable: true,
-                cellStyle: {
-                  textAlign: 'center',
-                },
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
+              //   emptyValue: '--',
+              //   //   hidden:true,
+              //   filtering: false,
+              // },
+              // {
+              //   title: 'Appointment Time',
+              //   field: 'appointmentTime',
+              //   searchable: true,
+              //   cellStyle: {
+              //     textAlign: 'center',
+              //   },
+              //   emptyValue: '--',
+              //   //   hidden:true,
+              //   filtering: false,
+              // },
               // {
               //   title: 'Payment Method',
               //   field: 'paymentMethod',
@@ -399,7 +417,7 @@ const UpcomingAppointments = () => {
                     <div className="flex">
                       <Tooltip title="Info">
                         <Avatar
-                          onClick={handleInfoOpen}
+                          onClick={() => handleInfoOpen(row)}
                           variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-blue-700 !p-0"
                           sx={{

@@ -2,22 +2,28 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import moment from 'moment'
 import { useGET } from 'hooks'
+import Swal from 'sweetalert2'
 type Props = {
   className?: string
+  date?: any
+  onClick?: (arg: any) => void
+  value?: string
 }
-const AvailableSlot = ({ className = '' }) => {
+const AvailableSlot = ({ className = '', date, onClick, value }: Props) => {
   const router = useRouter()
-  const [date, setDate] = useState()
+  if (new Date(date) <= new Date()) {
+    Swal.fire('Please select a future date')
+    date = ''
+  }
+
   const { data, mutate, isLoading } = useGET<any[]>(
-    `slot/get?date=2023-03-27T11:14:43.696Z&timeSection=EVENING`
+    `slot/get?date=${new Date(date)}&timeSection=EVENING`
   )
   const {
     data: data2,
     mutate: mutate2,
     isLoading: isLoading2,
-  } = useGET<any[]>(
-    `slot/get?date=2023-03-27T11:14:43.696Z&timeSection=MORNING`
-  )
+  } = useGET<any[]>(`slot/get?date=${new Date(date)}&timeSection=MORNING`)
   // console.log(data)
 
   // const intime = '10:00 Am'
@@ -87,8 +93,14 @@ const AvailableSlot = ({ className = '' }) => {
                 return (
                   <>
                     <div
-                      className={`w-full cursor-pointer rounded-md border border-theme p-2 text-theme transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#ff7717] hover:text-white`}
+                      className={`w-full cursor-pointer rounded-md border border-theme p-2 text-theme transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#ff7717] hover:text-white ${
+                        value?.split('@')[0] === item?.start &&
+                        value?.split('@')[1] === item?.end
+                          ? '!bg-[#ff7717]'
+                          : 'bg-transparent '
+                      } `}
                       key={index}
+                      onClick={() => onClick?.(`${item?.start}@${item?.end}`)}
                     >
                       <p
                         className=""
@@ -114,8 +126,14 @@ const AvailableSlot = ({ className = '' }) => {
               ?.map((item: any, index: any) => {
                 return (
                   <div
-                    className={`w-full cursor-pointer rounded-md border border-theme p-2 text-theme transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#ff7717] hover:text-white`}
+                    className={`w-full cursor-pointer rounded-md border border-theme p-2 text-theme transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#ff7717] hover:text-white ${
+                      value?.split('@')[0] === item?.start &&
+                      value?.split('@')[1] === item?.end
+                        ? '!bg-[#ff7717]'
+                        : 'bg-transparent '
+                    } `}
                     key={index}
+                    onClick={() => onClick?.(`${item?.start}@${item?.end}`)}
                   >
                     <p
                       className=""

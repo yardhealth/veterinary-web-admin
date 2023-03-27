@@ -1,5 +1,6 @@
 import CustomerTypeSelecter from 'components/core/CustomerTypeSelecter'
 import CountrySelector from 'components/core/CountrySelector'
+import moment from 'moment'
 import {
   Container,
   Drawer,
@@ -49,11 +50,18 @@ type Props = {
 }
 
 const BookAppointmentDrawer = ({ open, onClose, activeData }: Props) => {
-  console.log(open)
-
+  console.log(activeData)
+  const [appointmentDate, setAppointmentDate] = useState<any>()
   const { data, mutate } = useGET<any[]>(`health-particular/getall`)
 
-  const AddScheduleSchema = useMemo(() => {
+  const {
+    data: feeData,
+    mutate: feeMutate,
+    isLoading,
+  } = useGET<any[]>(`payment/getall`)
+  console.log(feeData)
+
+  const BookAppointmentSchema = useMemo(() => {
     return [
       {
         key: '11',
@@ -200,7 +208,7 @@ const BookAppointmentDrawer = ({ open, onClose, activeData }: Props) => {
       {
         key: '15',
         // placeholder: 'Enter your name',
-        name: 'healthIssues',
+        name: 'other',
         label: 'Other Problem',
         placeholder: '',
         styleContact: 'rounded-xl bg-white ',
@@ -292,22 +300,18 @@ const BookAppointmentDrawer = ({ open, onClose, activeData }: Props) => {
           md: 6,
           lg: 6,
         },
-        options: [
-          {
-            label: 'Home',
-            value: 'Home',
-          },
-          {
-            label: 'Clinic Visit',
-            value: 'Clinic Visit',
-          },
-        ],
+        options: feeData?.success?.data.map((item, i) => {
+          return {
+            label: item?.label,
+            value: item?._id,
+          }
+        }),
       },
 
       {
         key: '23',
         // placeholder: 'Enter your email',
-        name: 'appointDate',
+        name: 'appointmentDate',
         label: 'Select Appointment Date *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
@@ -349,45 +353,25 @@ const BookAppointmentDrawer = ({ open, onClose, activeData }: Props) => {
         options: [
           {
             label: 'Cash',
-            value: 'Cash',
+            value: 'CASH',
           },
-          {
-            label: 'Card',
-            value: 'Card',
-          },
+
           {
             label: 'UPI',
-            value: 'UPI',
-          },
-          {
-            label: 'Others',
-            value: 'Others',
+            value: 'ONLINE',
           },
         ],
       },
-
-      {
-        key: '26',
-        name: 'petImage',
-        label: 'Photo',
-        type: 'file',
-        placeholder: '',
-        styleContact: 'rounded-lg mb-5',
-        validationSchema: Yup.string().required('file is required'),
-        initialValue: '',
-        icon: <Photo />,
-        // required: true,
-      },
     ]
   }, [activeData])
-  const initialValues = AddScheduleSchema.reduce(
+  const initialValues = BookAppointmentSchema.reduce(
     (accumulator, currentValue) => {
       accumulator[currentValue.name] = currentValue.initialValue
       return accumulator
     },
     {} as any
   )
-  const validationSchema = AddScheduleSchema?.reduce(
+  const validationSchema = BookAppointmentSchema?.reduce(
     (accumulator, currentValue) => {
       accumulator[currentValue.name] = currentValue.validationSchema
       return accumulator
@@ -405,8 +389,66 @@ const BookAppointmentDrawer = ({ open, onClose, activeData }: Props) => {
 
   const handleSend = async (values: any, submitProps: any) => {
     console.log(values)
+
+    let wholeData: {
+      healthIssue: string
+      healthIssueParticular: string
+    }[] = []
+
+    if (values?.digestiveProblems) {
+      values?.digestiveProblem?.forEach((element: string) => {
+        wholeData.push({
+          healthIssue: 'digestiveProblems',
+          healthIssueParticular: element,
+        })
+      })
+    }
+    if (values?.eyeAndEarProblems) {
+      values?.eyeAndEarProblems?.forEach((element: string) => {
+        wholeData.push({
+          healthIssue: 'eyeAndEarProblems',
+          healthIssueParticular: element,
+        })
+      })
+    }
+    if (values?.generalHealthIssues) {
+      values?.generalHealthIssues?.forEach((element: string) => {
+        wholeData.push({
+          healthIssue: 'eyeAndEarProblems',
+          healthIssueParticular: element,
+        })
+      })
+    }
+    if (values?.skinProblems) {
+      values?.skinProblems?.forEach((element: string) => {
+        wholeData.push({
+          healthIssue: 'skinProblems',
+          healthIssueParticular: element,
+        })
+      })
+    }
+    if (values?.other) {
+      values?.other?.forEach((element: string) => {
+        wholeData.push({
+          healthIssue: 'other',
+          healthIssueParticular: element,
+        })
+      })
+    }
+    const newObject: any = {
+      petId: activeData._id,
+      userId: activeData.user,
+      wholeData: wholeData,
+      consultation: values.consultation,
+      appointDate: new Date(values.appointmentDate).toISOString(),
+      appointStartTime: moment(values?.slot?.split('@')[0]).format('HH:mm'),
+      appointEndTime: moment(values?.slot?.split('@')[1]).format('HH:mm'),
+      paymentMethod: values.paymentMethod,
+    }
+    console.log(newObject)
+
     try {
-      const { error, success } = await trigger(values)
+      const { error, success } = await trigger(newObject)
       if (error) return Swal.fire('Error', error.message, 'error')
 
       const addAppointment = {
@@ -439,7 +481,10 @@ const BookAppointmentDrawer = ({ open, onClose, activeData }: Props) => {
             variant="h5"
             sx={{ marginBottom: 3 }}
           >
-            Book Appointment
+            Book Appointment For{' '}
+            <span className="font-semibold text-theme">
+              {activeData?.petName}
+            </span>
           </Typography>
           <Formik
             enableReinitialize
@@ -451,165 +496,20 @@ const BookAppointmentDrawer = ({ open, onClose, activeData }: Props) => {
               <Form>
                 {/* <Weekdays /> */}
                 {console.log(formik.errors)}
-                {AddScheduleSchema?.map((inputItem: any, index: any) => (
+                {console.log(formik.values)}
+                {BookAppointmentSchema?.map((inputItem: any, index: any) => (
                   <div key={index}>
                     {inputItem?.name === 'slot' ? (
                       <div className="my-5 w-full">
-                        <AvailableSlot className="md:grid-cols-4" />
-                      </div>
-                    ) : inputItem?.name === 'photo' ? (
-                      <div className="w-full">
-                        <FormControl fullWidth>
-                          <PhotoUpload
-                            txtName="Upload Your Pet Photo"
-                            variant={'square'}
-                            value={image}
-                            onChange={(e: any) => {
-                              setImage(e)
-                              formik?.setFieldValue(
-                                'photo',
-                                e?.target?.files[0]
-                              )
-                            }}
-                            className={
-                              'mt-4 mb-5 !w-full !rounded-lg !bg-theme'
-                            }
-                            height={200}
-                            width={400}
-                          />
-                          {formik?.touched[inputItem.name] &&
-                            (formik?.errors[inputItem.name] as any) && (
-                              <FormHelperText className="!text-red-500">
-                                {formik?.touched[inputItem?.name] &&
-                                  (formik?.errors[inputItem?.name] as any)}
-                              </FormHelperText>
-                            )}
-                        </FormControl>
-                      </div>
-                    ) : inputItem?.name === 'consultation' ? (
-                      <div className=" w-full py-4">
-                        <ConsultationTypeSelecter
-                          name="consultation"
-                          options={inputItem.options}
-                          error={Boolean(
-                            formik?.touched?.consultation &&
-                              formik?.errors?.consultation
-                          )}
-                          helperText={formik?.errors?.consultation}
-                          value={formik?.values?.consultation}
-                          onChange={formik?.handleChange}
-                          onBlur={formik?.handleBlur}
-                          styleContact={inputItem?.styleContact}
+                        <AvailableSlot
+                          className="md:grid-cols-4"
+                          date={formik.values.appointmentDate}
+                          onClick={(value) =>
+                            formik?.setFieldValue('slot', value)
+                          }
+                          value={formik?.values?.slot}
                         />
                       </div>
-                    ) : inputItem?.name === 'address1' ? (
-                      formik?.values?.consultation === 'Home' ? (
-                        <div className=" w-full">
-                          <TextInput
-                            fullWidth
-                            key={index}
-                            name={inputItem?.name}
-                            title={inputItem?.label as any}
-                            // multiline={inputItem?.multiline}
-                            // rows={inputItem?.rows}
-                            type={inputItem.type as any}
-                            startIcon={inputItem?.icon}
-                            styleContact={inputItem?.styleContact}
-                            error={Boolean(
-                              formik?.touched[inputItem.name] &&
-                                formik?.errors[inputItem.name]
-                            )}
-                            helperText={
-                              formik?.touched[inputItem.name] &&
-                              (formik?.errors[inputItem.name] as any)
-                            }
-                            value={formik?.values[inputItem.name]}
-                            onChange={formik?.handleChange}
-                            onBlur={formik?.handleBlur}
-                          />
-                        </div>
-                      ) : null
-                    ) : inputItem?.name === 'address2' ? (
-                      formik?.values?.consultation === 'Home' ? (
-                        <div className=" w-full">
-                          <TextInput
-                            fullWidth
-                            key={index}
-                            name={inputItem?.name}
-                            title={inputItem?.label as any}
-                            // multiline={inputItem?.multiline}
-                            // rows={inputItem?.rows}
-                            type={inputItem.type as any}
-                            startIcon={inputItem?.icon}
-                            styleContact={inputItem?.styleContact}
-                            error={Boolean(
-                              formik?.touched[inputItem.name] &&
-                                formik?.errors[inputItem.name]
-                            )}
-                            helperText={
-                              formik?.touched[inputItem.name] &&
-                              (formik?.errors[inputItem.name] as any)
-                            }
-                            value={formik?.values[inputItem.name]}
-                            onChange={formik?.handleChange}
-                            onBlur={formik?.handleBlur}
-                          />
-                        </div>
-                      ) : null
-                    ) : inputItem?.name === 'address3' ? (
-                      formik?.values?.consultation === 'Home' ? (
-                        <div className=" w-full">
-                          <TextInput
-                            fullWidth
-                            key={index}
-                            name={inputItem?.name}
-                            title={inputItem?.label as any}
-                            // multiline={inputItem?.multiline}
-                            // rows={inputItem?.rows}
-                            type={inputItem.type as any}
-                            startIcon={inputItem?.icon}
-                            styleContact={inputItem?.styleContact}
-                            error={Boolean(
-                              formik?.touched[inputItem.name] &&
-                                formik?.errors[inputItem.name]
-                            )}
-                            helperText={
-                              formik?.touched[inputItem.name] &&
-                              (formik?.errors[inputItem.name] as any)
-                            }
-                            value={formik?.values[inputItem.name]}
-                            onChange={formik?.handleChange}
-                            onBlur={formik?.handleBlur}
-                          />
-                        </div>
-                      ) : null
-                    ) : inputItem?.name === 'address4' ? (
-                      formik?.values?.consultation === 'Home' ? (
-                        <div className="w-full">
-                          <TextInput
-                            fullWidth
-                            key={index}
-                            name={inputItem?.name}
-                            title={inputItem?.label as any}
-                            // multiline={inputItem?.multiline}
-                            // rows={inputItem?.rows}
-                            type={inputItem.type as any}
-                            startIcon={inputItem?.icon}
-                            styleContact={inputItem?.styleContact}
-                            error={Boolean(
-                              formik?.touched[inputItem.name] &&
-                                formik?.errors[inputItem.name]
-                            )}
-                            helperText={
-                              formik?.touched[inputItem.name] &&
-                              (formik?.errors[inputItem.name] as any)
-                            }
-                            value={formik?.values[inputItem.name]}
-                            onChange={formik?.handleChange}
-                            onBlur={formik?.handleBlur}
-                          />
-                        </div>
-                      ) : null
                     ) : inputItem?.name === 'consultationType5' ? (
                       formik?.values?.consultation === 'Home' ? (
                         <div className=" w-full">
@@ -667,6 +567,7 @@ const BookAppointmentDrawer = ({ open, onClose, activeData }: Props) => {
                       ) : null
                     ) : (
                       <div className={'w-full'}>
+                        {setAppointmentDate(formik?.values?.appointmentDate)}
                         <TextInput
                           fullWidth
                           key={index}
@@ -690,6 +591,7 @@ const BookAppointmentDrawer = ({ open, onClose, activeData }: Props) => {
                           onChange={formik?.handleChange}
                           onBlur={formik?.handleBlur}
                         />
+                        {console.log(formik.values.appointmentDate)}
                       </div>
                     )}
                   </div>
