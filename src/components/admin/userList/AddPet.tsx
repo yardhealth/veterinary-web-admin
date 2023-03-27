@@ -27,7 +27,7 @@ import * as Yup from 'yup'
 
 const AddPet = () => {
   const { isMutating, trigger } = useMutation(
-    `appointment-booked-by-admin/admin-add-user`
+    `appointment-booked-by-admin/admin-add-pet`
   )
 
   // const [customers] = useFetch<CustomerType[]>(`/Customers`, {
@@ -39,7 +39,7 @@ const AddPet = () => {
       {
         key: '12',
         // placeholder: 'Enter your email',
-        name: '',
+        name: 'petCategory',
         label: 'Pet Category *',
         placeholder: '',
         styleContact: 'rounded-lg mb-4',
@@ -52,7 +52,7 @@ const AddPet = () => {
       {
         key: '13',
         // placeholder: 'Enter your email',
-        name: '',
+        name: 'petName',
         label: 'Pet Name *',
         placeholder: '',
         styleContact: 'rounded-lg mb-4',

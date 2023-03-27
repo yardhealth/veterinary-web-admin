@@ -9,7 +9,14 @@ const AvailableSlot = ({ className = '' }) => {
   const router = useRouter()
   const [date, setDate] = useState()
   const { data, mutate, isLoading } = useGET<any[]>(
-    `slot/get?date=2023-03-26T11:14:43.696Z`
+    `slot/get?date=2023-03-27T11:14:43.696Z&timeSection=EVENING`
+  )
+  const {
+    data: data2,
+    mutate: mutate2,
+    isLoading: isLoading2,
+  } = useGET<any[]>(
+    `slot/get?date=2023-03-27T11:14:43.696Z&timeSection=MORNING`
   )
   // console.log(data)
 
@@ -74,7 +81,7 @@ const AvailableSlot = ({ className = '' }) => {
           <div
             className={`grid grid-cols-3 justify-items-center gap-x-2 gap-y-2 ${className}`}
           >
-            {data?.success?.data
+            {data2?.success?.data
               ?.filter((item) => item.breakStartTime > item.start)
               ?.map((item: any, index: any) => {
                 return (

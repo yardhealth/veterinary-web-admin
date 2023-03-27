@@ -1,5 +1,5 @@
 import EditScheduleDrawer from 'components/admin/drawer/EditScheduleDrawer'
-import { BorderColor, Delete } from '@mui/icons-material'
+import { Add, AddCircle, BorderColor, Delete } from '@mui/icons-material'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
 import {
@@ -20,23 +20,29 @@ import { useFetch, useGET, useMutation } from 'hooks'
 import moment from 'moment'
 // import { database } from 'configs'
 import Swal from 'sweetalert2'
-import EditOwnerDrawer from 'components/admin/drawer/EditOwnerDrawer'
+import EditPetDrawer from 'components/admin/drawer/EditPetDrawer'
 import { BASE_URL } from 'configs'
 import Modal from '@mui/material/Modal'
 import AddPet from './AddPet'
+import BookAppointmentDrawer from '../drawer/BookAppointmentDrawer'
+import AddPetDrawer from '../drawer/AddPetDrawer'
 
-const ViewPet = () => {
+const ViewPet = ({ rowData }: any) => {
+  console.log(rowData)
   const router = useRouter()
   const [activeData, setActiveData] = useState<any>()
 
-  const [openEditPrescriptionDrawer, setOpenEditPrescriptionDrawer] =
-    useState(false)
+  const [openEditPetDrawer, setOpenEditPetDrawer] = useState(false)
+  const [bookAppointmentDrawer, setBookAppointmentDrawer] = useState(false)
+  const [addPetDrawer, setAddPetDrawer] = useState(false)
 
-  const { data, mutate, isLoading } = useGET<any[]>(`user/getall?role=USER`)
+  const { data, mutate, isLoading } = useGET<any[]>(
+    `appointment-booked-by-admin/admin-get-pet?userId=${rowData._id}`
+  )
   console.log(data)
 
   // console.log(data)
-  console.log(openEditPrescriptionDrawer)
+  console.log(openEditPetDrawer)
 
   const [tabelData, settabelData] = useState([
     {
@@ -57,20 +63,27 @@ const ViewPet = () => {
   const handleClose = () => setOpen(false)
 
   const handleClick = (Data: any) => {
-    setOpenEditPrescriptionDrawer(true)
+    setOpenEditPetDrawer(true)
+    setActiveData(Data)
+  }
+  const handleAppointment = (Data: any) => {
+    setBookAppointmentDrawer(true)
     setActiveData(Data)
   }
 
   const handleDelete = async (id: string) => {
     try {
       const accessToken = window?.localStorage?.getItem('ACCESS_TOKEN')
-      const res = await fetch(`${BASE_URL}/user/delete/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
+      const res = await fetch(
+        `${BASE_URL}/appointment-booked-by-admin/admin-delete-pet/${id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
       const data = await res.json()
       if (res.status !== 200) throw new Error(data.message)
       Swal.fire('Deleted Successfully', 'Deleted', 'success')
@@ -82,10 +95,25 @@ const ViewPet = () => {
     <>
       <div className="grid grid-cols-12 content-between gap-6  px-5">
         <div className="!border-grey-500 !shadow-xl col-span-12 flex w-full flex-col justify-center gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-12">
+          <EditPetDrawer
+            open={openEditPetDrawer}
+            onClose={() => setOpenEditPetDrawer(false)}
+            activeData={activeData}
+            mutate={mutate}
+          />
+
+          <AddPetDrawer
+            open={addPetDrawer}
+            onClose={() => setAddPetDrawer(false)}
+            activeData={activeData}
+            mutate={mutate}
+            _id={rowData?._id}
+          />
+
           {activeData?._id && (
-            <EditOwnerDrawer
-              open={openEditPrescriptionDrawer}
-              onClose={() => setOpenEditPrescriptionDrawer(false)}
+            <BookAppointmentDrawer
+              open={bookAppointmentDrawer}
+              onClose={() => setBookAppointmentDrawer(false)}
               activeData={activeData}
               mutate={mutate}
             />
@@ -144,7 +172,7 @@ const ViewPet = () => {
               },
               {
                 title: 'Wt (kg)',
-                field: 'breed',
+                field: 'weight',
                 editable: 'never',
                 emptyValue: '--',
               },
@@ -180,8 +208,8 @@ const ViewPet = () => {
                     <div className="flex">
                       <Tooltip title="Book Appointment">
                         <button
-                          // onClick={() => setOpenEditPrescriptionDrawer(true)}
-                          onClick={() => handleClick(row)}
+                          // onClick={() => setOpenEditPetDrawer(true)}
+                          onClick={() => handleAppointment(row)}
                           // variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer rounded-md !bg-primary px-3 text-sm text-white"
                         >
@@ -190,7 +218,7 @@ const ViewPet = () => {
                       </Tooltip>
                       <Tooltip title="Edit">
                         <Avatar
-                          // onClick={() => setOpenEditPrescriptionDrawer(true)}
+                          // onClick={() => setOpenEditPetDrawer(true)}
                           onClick={() => handleClick(row)}
                           variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-theme !p-0"
@@ -231,9 +259,7 @@ const ViewPet = () => {
                 icon: 'add',
                 tooltip: 'Add New Pet',
                 isFreeAction: true,
-                onClick: () => {
-                  router.push('/admin/userList/create-pet')
-                },
+                onClick: () => setAddPetDrawer(true),
               },
             ]}
           />

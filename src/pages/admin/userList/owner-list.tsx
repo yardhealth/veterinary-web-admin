@@ -43,6 +43,8 @@ const OwnerList = () => {
       createdAt: 'March 2, 2023 3:57 PM',
     },
   ])
+  const [userId, setUserId] = useState()
+  console.log(userId)
 
   const handleClick = (Data: any) => {
     setOpenEditPrescriptionDrawer(true)
@@ -87,7 +89,7 @@ const OwnerList = () => {
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
-            title={<HeadStyle name="All Users" />}
+            title={<HeadStyle name="All Owners" />}
             options={{
               ...MuiTblOptions(),
               sorting: true,
@@ -191,7 +193,7 @@ const OwnerList = () => {
                         backgroundColor: '#eef5f9',
                       }}
                     >
-                      <ViewPet />
+                      <ViewPet rowData={rowData} />
                     </div>
                   </>
                 ),

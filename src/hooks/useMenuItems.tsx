@@ -183,14 +183,14 @@ export default () => {
             key: '9.1',
             route: '/admin/userList/owner-list',
             title: 'Owner List',
-            icon: <BorderColor />,
+            icon: <Groups />,
           },
-          {
-            key: '9.3',
-            route: '/admin/userList/create-pet',
-            title: 'Add Pet',
-            icon: <BorderColor />,
-          },
+          // {
+          //   key: '9.3',
+          //   route: '/admin/userList/create-pet',
+          //   title: 'Add Pet',
+          //   icon: <BorderColor />,
+          // },
         ],
       },
 
