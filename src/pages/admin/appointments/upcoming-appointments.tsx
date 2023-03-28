@@ -15,13 +15,11 @@ import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
 import { MuiTblOptions } from 'utils'
 import { useState } from 'react'
-import { useFetch, useGET } from 'hooks'
+import { useFetch, useGET, useMutation } from 'hooks'
 import CustomerType from 'types/customer'
 import moment from 'moment'
 // import { database } from 'configs'
 import Swal from 'sweetalert2'
-import { formatCurrency, getArrFromObj } from '@ashirbad/js-core'
-import EditUpcomingAppointmentDrawer from 'components/admin/drawer/EditUpcomingAppointmentDrawer'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -57,35 +55,54 @@ const UpcomingAppointments = () => {
   const { data, mutate } = useGET<any[]>(
     `appointment-booked-by-admin/appointment-status?status=CONFIRM`
   )
+  console.log(data)
   console.log(petDetails)
 
-  const handleDelete = (row: CustomerType) => {
-    // try {
-    //   database.ref(`Customers/${row?.id}`).remove()
-    //   Swal.fire('Success', 'Successfully Deleted', 'success')
-    // } catch (error: any) {
-    //   console.log(error)
-    //   Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
-    // }
+  const [appointmentId, setAppointmentId] = useState<any>('')
+  const { isMutating, trigger } = useMutation(
+    appointmentId && `appointment/update-status/${appointmentId}`,
+    { method: 'PATCH' }
+  )
+
+  const handleSend = async () => {
+    const newObject: any = {
+      status: 'COMPLETED',
+    }
+    console.log(newObject)
+
+    try {
+      const { error, success } = await trigger(newObject)
+      if (error) return Swal.fire('Error', error.message, 'error')
+
+      const status = {
+        ...success?.data,
+      }
+
+      Swal.fire('Success', success.message, 'success')
+      mutate()
+      console.log(status)
+
+      return
+    } catch (error) {}
   }
 
-  const [tabelData, setTabelData] = useState([
-    {
-      sl: '1',
-      ownerName: 'Kate',
-      pet: 'Dog',
-      gender: 'male',
-      name: 'Cooper',
-      breed: 'German Shepherd',
-      age: '3',
-      healthIssues: 'Injury',
-      consultationType: 'Clinic',
-      appointmentDate: '20-03-2022',
-      appointmentTime: '15:20',
-      paymentMethod: 'cash',
-      createdAt: 'March 2, 2023 3:57 PM',
-    },
-  ])
+  // const [tabelData, setTabelData] = useState([
+  //   {
+  //     sl: '1',
+  //     ownerName: 'Kate',
+  //     pet: 'Dog',
+  //     gender: 'male',
+  //     name: 'Cooper',
+  //     breed: 'German Shepherd',
+  //     age: '3',
+  //     healthIssues: 'Injury',
+  //     consultationType: 'Clinic',
+  //     appointmentDate: '20-03-2022',
+  //     appointmentTime: '15:20',
+  //     paymentMethod: 'cash',
+  //     createdAt: 'March 2, 2023 3:57 PM',
+  //   },
+  // ])
 
   return (
     <AdminLayout title="Upcoming Appointments">
@@ -99,7 +116,7 @@ const UpcomingAppointments = () => {
           >
             <Card
               sx={style}
-              className=" dashboard-card-shadow w-[30%] border-t-4 border-b-4 border-t-theme border-b-theme !p-6"
+              className="dashboard-card-shadow w-[30%] border-t-4 border-b-4 border-t-theme border-b-theme !p-6"
             >
               <Typography gutterBottom align="left">
                 Owner Email :
@@ -243,11 +260,7 @@ const UpcomingAppointments = () => {
               </Typography>
             </Card>
           </Modal>
-          {/* <EditUpcomingAppointmentDrawer
-            open={openEditAppointmentDrawer}
-            onClose={() => setOpenEditAppointmentDrawer(false)}
-            // mutate={mutate}
-          /> */}
+
           <MaterialTable
             data={
               data?.success?.data
@@ -289,22 +302,30 @@ const UpcomingAppointments = () => {
                 // width: "2%",
               },
 
-              // {
-              //   title: 'Health Issues',
-              //   field: 'healthIssues',
-              //   searchable: true,
+              {
+                title: 'Health Issues',
+                field: 'health',
+                searchable: true,
 
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
+                emptyValue: '--',
+                render: ({ health }) => (
+                  <>
+                    {health
+                      .map((item: any) => {
+                        return item.healthIssueParticular
+                      })
+                      .join(', ')}
+                  </>
+                ),
+                filtering: false,
+              },
               {
                 title: 'Consultation Type',
                 field: 'consultation',
                 searchable: true,
 
                 emptyValue: '--',
-                render: ({ pet }) => pet.consultation,
+                render: ({ consultation }) => consultation.label,
                 filtering: false,
               },
               {
@@ -381,6 +402,7 @@ const UpcomingAppointments = () => {
                 // field: "pick",
                 render: (row) => (
                   <>
+                    {console.log(row._id)}
                     <div className="flex">
                       <Tooltip title="Info">
                         <Avatar
@@ -400,7 +422,19 @@ const UpcomingAppointments = () => {
                       </Tooltip>
                       <Tooltip title="Completed">
                         <Avatar
-                          // onClick={() => handleDelete(row?.id)}
+                          onClick={() => {
+                            setAppointmentId(row._id)
+                            Swal.fire({
+                              text: 'Do you want to Continue?',
+                              icon: 'question',
+                              showCancelButton: true,
+                            }).then((result) => {
+                              if (result.value) {
+                                handleSend()
+                              }
+                            })
+                            //
+                          }}
                           variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-green-700 !p-0"
                           sx={{

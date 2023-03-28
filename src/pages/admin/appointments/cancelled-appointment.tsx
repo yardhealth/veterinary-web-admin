@@ -15,7 +15,7 @@ import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
 import { MuiTblOptions } from 'utils'
 import { useState } from 'react'
-import { useFetch } from 'hooks'
+import { useFetch, useGET } from 'hooks'
 import CustomerType from 'types/customer'
 import moment from 'moment'
 // import { database } from 'configs'
@@ -39,18 +39,22 @@ const style = {
 
 const CancelledAppointments = () => {
   const router = useRouter()
+  const [petDetails, setPetDetails] = useState<any>()
 
   const [openInfoModal, setOpenInfoModal] = useState(false)
-  const handleInfoOpen = () => setOpenInfoModal(true)
+  const handleInfoOpen = (data: any) => {
+    setOpenInfoModal(true)
+    setPetDetails(data)
+  }
   const handleInfoCloseModal = () => setOpenInfoModal(false)
 
   const [openEditAppointmentDrawer, setOpenEditAppointmentDrawer] =
     useState(false)
 
-  const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
+  const { data, mutate } = useGET<any[]>(
+    `appointment-booked-by-admin/appointment-status?status=CANCEL`
+  )
+  console.log(data)
   // console.log(data)
   console.log(openEditAppointmentDrawer)
   const handleDelete = (row: CustomerType) => {
@@ -296,7 +300,12 @@ const CancelledAppointments = () => {
             // mutate={mutate}
           /> */}
           <MaterialTable
-            data={tabelData}
+            data={
+              tabelData
+              // data?.success?.data
+              //   ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+              //   : []
+            }
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
@@ -315,9 +324,10 @@ const CancelledAppointments = () => {
               },
               {
                 title: 'Owner Name',
-                field: 'ownerName',
+                field: 'user',
                 editable: 'never',
                 emptyValue: '--',
+                // render: ({ user }) => user.name,
                 // width: "2%",
               },
               {
@@ -326,22 +336,32 @@ const CancelledAppointments = () => {
                 editable: 'never',
 
                 emptyValue: '--',
+                // render: ({ pet }) => pet.petName,
 
                 // width: "2%",
               },
 
               {
                 title: 'Health Issues',
-                field: 'healthIssues',
+                field: 'health',
                 searchable: true,
 
                 emptyValue: '--',
+                // render: ({ health }) => (
+                //   <>
+                //     {health
+                //       .map((item: any) => {
+                //         return item.healthIssueParticular
+                //       })
+                //       .join(', ')}
+                //   </>
+                // ),
                 //   hidden:true,
                 filtering: false,
               },
               {
                 title: 'Consultation Type',
-                field: 'consultationType',
+                field: 'consultation',
                 searchable: true,
 
                 emptyValue: '--',
@@ -359,24 +379,53 @@ const CancelledAppointments = () => {
               },
               {
                 title: 'Appointment Time',
-                field: 'appointmentTime',
+                field: 'appointDate',
                 searchable: true,
                 cellStyle: {
                   textAlign: 'center',
                 },
                 emptyValue: '--',
+                // render(data, type) {
+                //   return moment(data.appointDate).format('MMM Do YY')
+                // },
                 //   hidden:true,
                 filtering: false,
               },
-              // {
-              //   title: 'Payment Method',
-              //   field: 'paymentMethod',
-              //   searchable: true,
-
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
+              {
+                title: 'Appointment Start Time',
+                field: 'appointStartTime',
+                searchable: true,
+                cellStyle: {
+                  textAlign: 'center',
+                },
+                // render(data, type) {
+                //   return moment(data.appointStartTime).format('LT')
+                // },
+                emptyValue: '--',
+                //   hidden:true,
+                filtering: false,
+              },
+              {
+                title: 'Appointment End Time',
+                field: 'appointEndTime',
+                searchable: true,
+                cellStyle: {
+                  textAlign: 'center',
+                },
+                // render(data, type) {
+                //   return moment(data.appointEndTime).format('LT')
+                // },
+                emptyValue: '--',
+                //   hidden:true,
+                filtering: false,
+              },
+              {
+                title: 'Payment Method',
+                field: 'paymentMethod',
+                editable: 'never',
+                emptyValue: '--',
+                // width: "2%",
+              },
 
               {
                 title: 'Created At',
@@ -399,7 +448,7 @@ const CancelledAppointments = () => {
                     <div className="flex">
                       <Tooltip title="Info">
                         <Avatar
-                          onClick={handleInfoOpen}
+                          onClick={() => handleInfoOpen(row)}
                           variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-blue-700 !p-0"
                           sx={{

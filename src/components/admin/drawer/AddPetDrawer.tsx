@@ -197,6 +197,18 @@ const AddPetDrawer = ({ open, onClose, mutate, activeData, _id }: Props) => {
           ,
         ],
       },
+      {
+        key: '6',
+        name: 'petImage',
+        label: 'Pet Image',
+        type: 'file',
+        placeholder: '',
+        styleContact: 'rounded-lg',
+        validationSchema: Yup.string().required('file is required'),
+        initialValue: '',
+        icon: <Photo />,
+        required: true,
+      },
     ]
   }, [activeData])
   const initialValues = AddScheduleSchema.reduce(
@@ -219,13 +231,28 @@ const AddPetDrawer = ({ open, onClose, mutate, activeData, _id }: Props) => {
   }, [open?.documentUrl])
 
   const { isMutating, trigger } = useMutation(
-    `appointment-booked-by-admin/admin-add-pet`
+    `appointment-booked-by-admin/admin-add-pet`,
+    {
+      isFormData: true,
+    }
   )
 
   const handleSend = async (values: any, submitProps: any) => {
     console.log(values)
     try {
-      const { error, success } = await trigger({ ...values, userId: _id })
+      const formData = new FormData()
+
+      formData.append('petImage', values?.petImage)
+      formData.append('userId', _id)
+      formData.append('petCategory', values?.petCategory)
+      formData.append('petName', values?.petName)
+      formData.append('gender', values?.gender)
+      formData.append('breed', values?.breed)
+      formData.append('age', values?.age)
+      formData.append('aggression', values?.aggression)
+      formData.append('vaccinated', values?.vaccinated)
+
+      const { error, success } = await trigger(formData as any)
       if (error) return Swal.fire('Error', error.message, 'error')
 
       const addPet = {
@@ -272,7 +299,39 @@ const AddPetDrawer = ({ open, onClose, mutate, activeData, _id }: Props) => {
                 {console.log(formik.errors)}
                 {AddScheduleSchema?.map((inputItem: any, index: any) => (
                   <div key={index}>
-                    {
+                    {inputItem?.name === 'petImage' ? (
+                      <div className="">
+                        <FormControl
+                          fullWidth
+                          className="flex w-full items-center justify-center"
+                        >
+                          <PhotoUpload
+                            txtName="Upload Your Profile Photo"
+                            variant={'square'}
+                            value={image}
+                            onChange={(e: any) => {
+                              setImage(e)
+                              formik?.setFieldValue(
+                                'petImage',
+                                e?.target?.files[0]
+                              )
+                            }}
+                            className={
+                              'mt-4 mb-5 flex !w-1/2 !rounded-lg !bg-theme'
+                            }
+                            height={200}
+                            width={40}
+                          />
+                          {formik?.touched[inputItem.name] &&
+                            (formik?.errors[inputItem.name] as any) && (
+                              <FormHelperText className="!text-red-500">
+                                {formik?.touched[inputItem?.name] &&
+                                  (formik?.errors[inputItem?.name] as any)}
+                              </FormHelperText>
+                            )}
+                        </FormControl>
+                      </div>
+                    ) : (
                       // )
                       <div className={'py-3'}>
                         <TextInput
@@ -299,7 +358,7 @@ const AddPetDrawer = ({ open, onClose, mutate, activeData, _id }: Props) => {
                           onBlur={formik?.handleBlur}
                         />
                       </div>
-                    }
+                    )}
                   </div>
                 ))}
 

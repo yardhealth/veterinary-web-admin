@@ -44,20 +44,6 @@ const ViewPet = ({ rowData }: any) => {
   // console.log(data)
   console.log(openEditPetDrawer)
 
-  const [tabelData, settabelData] = useState([
-    {
-      sl: '1',
-      day: 'mon',
-      startTime: '10:00',
-      endTime: '18:00',
-      breakTime: '13:00',
-      intervalPeriod: '1 hr',
-      slotDuration: '15',
-      slotGap: '5',
-      createdAt: 'March 2, 2023 3:57 PM',
-    },
-  ])
-
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -184,6 +170,19 @@ const ViewPet = ({ rowData }: any) => {
               {
                 title: 'Vaccinated',
                 field: 'vaccinated',
+                editable: 'never',
+                emptyValue: '--',
+              },
+              {
+                title: 'Pet Image',
+                field: 'petImage',
+                render: ({ petImage }) => {
+                  return (
+                    <div>
+                      <img className="rounded-md" src={petImage} alt="" />
+                    </div>
+                  )
+                },
                 editable: 'never',
                 emptyValue: '--',
               },

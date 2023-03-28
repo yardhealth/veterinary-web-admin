@@ -19,23 +19,32 @@ export const useGET = <T>(path: string) => {
 
 export const useMutation = <T>(
   path: string,
-  options?: { method: 'POST' | 'PUT' | 'DELETE' | 'PATCH' }
+  options?: {
+    method?: 'POST' | 'PUT' | 'DELETE' | 'PATCH'
+    isFormData?: boolean
+  }
 ) => {
   const method = options?.method || 'POST'
+  const isFormData = options?.isFormData
 
   if (typeof window !== 'undefined') {
     const accessToken = window?.localStorage?.getItem('ACCESS_TOKEN')
     return useSWRMutation(
       `${BASE_URL}/${path}`,
-      async (url: string, { arg }: any) =>
-        fetch(url, {
+      async (url: string, { arg }: any) => {
+        let headers: any = {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        }
+
+        isFormData && delete headers['Content-Type']
+
+        return fetch(url, {
           method,
-          body: JSON.stringify(arg),
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`,
-          },
+          body: isFormData ? arg : JSON.stringify(arg),
+          headers: headers,
         }).then((_) => _.json())
+      }
     )
   }
   return useSWRMutation(

@@ -15,13 +15,9 @@ import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
 import { MuiTblOptions } from 'utils'
 import { useState } from 'react'
-import { useFetch } from 'hooks'
+import { useFetch, useGET } from 'hooks'
 import CustomerType from 'types/customer'
 import moment from 'moment'
-// import { database } from 'configs'
-import Swal from 'sweetalert2'
-import { formatCurrency, getArrFromObj } from '@ashirbad/js-core'
-import EditUpcomingAppointmentDrawer from 'components/admin/drawer/EditUpcomingAppointmentDrawer'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -39,29 +35,25 @@ const style = {
 
 const CompletedAppointments = () => {
   const router = useRouter()
+  const [petDetails, setPetDetails] = useState<any>()
 
   const [openInfoModal, setOpenInfoModal] = useState(false)
-  const handleInfoOpen = () => setOpenInfoModal(true)
+  const handleInfoOpen = (data: any) => {
+    setOpenInfoModal(true)
+    setPetDetails(data)
+  }
+  console.log(petDetails)
   const handleInfoCloseModal = () => setOpenInfoModal(false)
 
   const [openEditAppointmentDrawer, setOpenEditAppointmentDrawer] =
     useState(false)
 
-  const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
-  // console.log(data)
+  const { data, mutate } = useGET<any[]>(
+    `appointment-booked-by-admin/appointment-status?status=COMPLETED`
+  )
+  console.log(data)
+
   console.log(openEditAppointmentDrawer)
-  const handleDelete = (row: CustomerType) => {
-    // try {
-    //   database.ref(`Customers/${row?.id}`).remove()
-    //   Swal.fire('Success', 'Successfully Deleted', 'success')
-    // } catch (error: any) {
-    //   console.log(error)
-    //   Swal.fire('Error', error?.message || 'Something Went Wrong', 'error')
-    // }
-  }
 
   const [tabelData, setTabelData] = useState([
     {
@@ -106,7 +98,7 @@ const CompletedAppointments = () => {
                   }}
                 >
                   {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
-                  user@gmail.com
+                  {petDetails?.user?.email}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -119,8 +111,8 @@ const CompletedAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
-                  7412589542
+                  {` `}
+                  {petDetails?.user?.phoneNumber}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -133,7 +125,7 @@ const CompletedAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Cooper
+                  {` `} {petDetails?.pet?.petName}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -146,7 +138,8 @@ const CompletedAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Male
+                  {` `}
+                  {petDetails?.pet?.gender}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -159,8 +152,8 @@ const CompletedAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} German
-                  Shepard
+                  {` `}
+                  {petDetails?.pet?.breed}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -173,7 +166,8 @@ const CompletedAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} 2
+                  {` `}
+                  {petDetails?.pet?.age}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -186,7 +180,8 @@ const CompletedAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} 10kg
+                  {` `}
+                  {petDetails?.pet?.weight}kg
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -199,7 +194,8 @@ const CompletedAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Yes
+                  {` `}
+                  {petDetails?.pet?.vaccinated}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -212,7 +208,8 @@ const CompletedAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Middle
+                  {` `}
+                  {petDetails?.pet?.aggression}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -225,67 +222,8 @@ const CompletedAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Cash
-                </span>
-              </Typography>
-
-              <Typography gutterBottom align="left">
-                State :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.state ? rowData.state : 'Not Provided'} */}{' '}
-                  Odisha
-                </span>
-              </Typography>
-              <Typography gutterBottom align="left">
-                City :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} BBSR
-                </span>
-              </Typography>
-              <Typography gutterBottom align="left">
-                Zip Code :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.pinCode
-                                ? rowData.pinCode
-                                : 'Not Provided'} */}{' '}
-                  752001
-                </span>
-              </Typography>
-              <Typography gutterBottom align="left">
-                Street Name :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.streetName
-                                ? rowData.streetName
-                                : 'Not Provided'} */}{' '}
-                  Satyasai Enclave
+                  {` `}
+                  {petDetails?.paymentMethod}
                 </span>
               </Typography>
             </Card>
@@ -296,7 +234,11 @@ const CompletedAppointments = () => {
             // mutate={mutate}
           /> */}
           <MaterialTable
-            data={tabelData}
+            data={
+              data?.success?.data
+                ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+                : []
+            }
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
@@ -315,9 +257,10 @@ const CompletedAppointments = () => {
               },
               {
                 title: 'Owner Name',
-                field: 'ownerName',
+                field: 'user',
                 editable: 'never',
                 emptyValue: '--',
+                render: ({ user }) => user.name,
                 // width: "2%",
               },
               {
@@ -326,43 +269,62 @@ const CompletedAppointments = () => {
                 editable: 'never',
 
                 emptyValue: '--',
-
+                render: ({ pet }) => pet.petName,
                 // width: "2%",
               },
 
-              {
-                title: 'Health Issues',
-                field: 'healthIssues',
-                searchable: true,
+              // {
+              //   title: 'Health Issues',
+              //   field: 'healthIssues',
+              //   searchable: true,
 
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
+              //   emptyValue: '--',
+              //   //   hidden:true,
+              //   filtering: false,
+              // },
               {
                 title: 'Consultation Type',
-                field: 'consultationType',
+                field: 'pet',
                 searchable: true,
-
+                render: ({ pet }) => pet.consultation,
                 emptyValue: '--',
                 //   hidden:true,
                 filtering: false,
               },
               {
                 title: 'Appointment Date',
-                field: 'appointmentDate',
+                field: 'appointDate',
                 searchable: true,
-
+                render(data, type) {
+                  return moment(data.appointDate).format('MMM Do YY')
+                },
                 emptyValue: '--',
                 //   hidden:true,
                 filtering: false,
               },
               {
-                title: 'Appointment Time',
-                field: 'appointmentTime',
+                title: 'Appointment Start Time',
+                field: 'appointStartTime',
                 searchable: true,
                 cellStyle: {
                   textAlign: 'center',
+                },
+                render(data, type) {
+                  return moment(data.appointStartTime).format('LT')
+                },
+                emptyValue: '--',
+                //   hidden:true,
+                filtering: false,
+              },
+              {
+                title: 'Appointment End Time',
+                field: 'appointEndTime',
+                searchable: true,
+                cellStyle: {
+                  textAlign: 'center',
+                },
+                render(data, type) {
+                  return moment(data.appointEndTime).format('LT')
                 },
                 emptyValue: '--',
                 //   hidden:true,
@@ -399,7 +361,7 @@ const CompletedAppointments = () => {
                     <div className="flex">
                       <Tooltip title="Info">
                         <Avatar
-                          onClick={handleInfoOpen}
+                          onClick={() => handleInfoOpen(row)}
                           variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-blue-700 !p-0"
                           sx={{

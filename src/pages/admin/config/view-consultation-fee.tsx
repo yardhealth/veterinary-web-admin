@@ -92,7 +92,7 @@ const ViewConsultationFee = () => {
           <MaterialTable
             data={
               data?.success?.data
-                ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+                ? data?.success?.data?.map((_, i: any) => ({ ..._, sl: i + 1 }))
                 : []
             }
             components={{
