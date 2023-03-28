@@ -97,7 +97,7 @@ const CancelledAppointments = () => {
           >
             <Card
               sx={style}
-              className=" dashboard-card-shadow w-[30%] border-t-4 border-b-4 border-t-theme border-b-theme  !p-6"
+              className="dashboard-card-shadow w-[30%] border-t-4 border-b-4 border-t-theme border-b-theme !p-6"
             >
               <Typography gutterBottom align="left">
                 Owner Email :
@@ -109,8 +109,8 @@ const CancelledAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
-                  user@gmail.com
+                  {` `}
+                  {petDetails?.user?.email}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -123,8 +123,8 @@ const CancelledAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
-                  7412589542
+                  {` `}
+                  {petDetails?.user?.phoneNumber}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -137,7 +137,8 @@ const CancelledAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Cooper
+                  {` `}
+                  {petDetails?.pet?.petName}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -150,7 +151,8 @@ const CancelledAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Male
+                  {` `}
+                  {petDetails?.pet?.gender}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -163,8 +165,8 @@ const CancelledAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} German
-                  Shepard
+                  {` `}
+                  {petDetails?.pet?.breed}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -177,7 +179,8 @@ const CancelledAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} 2
+                  {` `}
+                  {petDetails?.pet?.age}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -190,7 +193,8 @@ const CancelledAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} 10kg
+                  {` `}
+                  {petDetails?.pet?.weight}kg
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -203,7 +207,8 @@ const CancelledAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Yes
+                  {` `}
+                  {petDetails?.pet?.vaccinated}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -216,7 +221,8 @@ const CancelledAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Middle
+                  {` `}
+                  {petDetails?.pet?.aggression}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -229,67 +235,8 @@ const CancelledAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Cash
-                </span>
-              </Typography>
-
-              <Typography gutterBottom align="left">
-                State :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.state ? rowData.state : 'Not Provided'} */}{' '}
-                  Odisha
-                </span>
-              </Typography>
-              <Typography gutterBottom align="left">
-                City :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} BBSR
-                </span>
-              </Typography>
-              <Typography gutterBottom align="left">
-                Zip Code :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.pinCode
-                                ? rowData.pinCode
-                                : 'Not Provided'} */}{' '}
-                  752001
-                </span>
-              </Typography>
-              <Typography gutterBottom align="left">
-                Street Name :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.streetName
-                                ? rowData.streetName
-                                : 'Not Provided'} */}{' '}
-                  Satyasai Enclave
+                  {` `}
+                  {petDetails?.paymentMethod}
                 </span>
               </Typography>
             </Card>
@@ -301,10 +248,10 @@ const CancelledAppointments = () => {
           /> */}
           <MaterialTable
             data={
-              tabelData
-              // data?.success?.data
-              //   ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
-              //   : []
+              // tabelData
+              data?.success?.data
+                ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+                : []
             }
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
@@ -327,7 +274,7 @@ const CancelledAppointments = () => {
                 field: 'user',
                 editable: 'never',
                 emptyValue: '--',
-                // render: ({ user }) => user.name,
+                render: ({ user }) => user.name,
                 // width: "2%",
               },
               {
@@ -336,7 +283,7 @@ const CancelledAppointments = () => {
                 editable: 'never',
 
                 emptyValue: '--',
-                // render: ({ pet }) => pet.petName,
+                render: ({ pet }) => pet.petName,
 
                 // width: "2%",
               },
@@ -347,15 +294,15 @@ const CancelledAppointments = () => {
                 searchable: true,
 
                 emptyValue: '--',
-                // render: ({ health }) => (
-                //   <>
-                //     {health
-                //       .map((item: any) => {
-                //         return item.healthIssueParticular
-                //       })
-                //       .join(', ')}
-                //   </>
-                // ),
+                render: ({ health }) => (
+                  <>
+                    {health
+                      .map((item: any) => {
+                        return item.healthIssueParticular
+                      })
+                      .join(', ')}
+                  </>
+                ),
                 //   hidden:true,
                 filtering: false,
               },
@@ -365,18 +312,11 @@ const CancelledAppointments = () => {
                 searchable: true,
 
                 emptyValue: '--',
+                render: ({ consultation }) => consultation.label,
                 //   hidden:true,
                 filtering: false,
               },
-              {
-                title: 'Appointment Date',
-                field: 'appointmentDate',
-                searchable: true,
 
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
               {
                 title: 'Appointment Time',
                 field: 'appointDate',
@@ -385,9 +325,9 @@ const CancelledAppointments = () => {
                   textAlign: 'center',
                 },
                 emptyValue: '--',
-                // render(data, type) {
-                //   return moment(data.appointDate).format('MMM Do YY')
-                // },
+                render(data, type) {
+                  return moment(data.appointDate).format('MMM Do YY')
+                },
                 //   hidden:true,
                 filtering: false,
               },
@@ -398,9 +338,9 @@ const CancelledAppointments = () => {
                 cellStyle: {
                   textAlign: 'center',
                 },
-                // render(data, type) {
-                //   return moment(data.appointStartTime).format('LT')
-                // },
+                render(data, type) {
+                  return moment(data.appointStartTime).format('LT')
+                },
                 emptyValue: '--',
                 //   hidden:true,
                 filtering: false,
@@ -412,9 +352,9 @@ const CancelledAppointments = () => {
                 cellStyle: {
                   textAlign: 'center',
                 },
-                // render(data, type) {
-                //   return moment(data.appointEndTime).format('LT')
-                // },
+                render(data, type) {
+                  return moment(data.appointEndTime).format('LT')
+                },
                 emptyValue: '--',
                 //   hidden:true,
                 filtering: false,
@@ -462,7 +402,7 @@ const CancelledAppointments = () => {
                           <Info sx={{ padding: '0px !important' }} />
                         </Avatar>
                       </Tooltip>
-                      <Tooltip title="Delete">
+                      {/* <Tooltip title="Delete">
                         <Avatar
                           // onClick={() => handleDelete(row?.id)}
                           variant="rounded"
@@ -477,113 +417,24 @@ const CancelledAppointments = () => {
                         >
                           <Delete sx={{ padding: '0px !important' }} />
                         </Avatar>
-                      </Tooltip>
+                      </Tooltip> */}
                     </div>
                   </>
                 ),
               },
             ]}
-            // detailPanel={[
-            //   {
-            //     tooltip: 'info',
-            //     icon: 'info',
-            //     openIcon: 'visibility',
-            //     render: ({ rowData }) => (
-            //       <>
-            //         <div
-            //           style={{
-            //             padding: '12px',
-            //             margin: 'auto',
-            //             backgroundColor: '#eef5f9',
-            //           }}
-            //         >
-            //           <Card
-            //             sx={{
-            //               minWidth: 400,
-            //               maxWidth: 450,
-            //               transition: '0.3s',
-            //               margin: 'auto',
-            //               borderRadius: '10px',
-            //               boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
-            //               '&:hover': {
-            //                 boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
-            //               },
-            //             }}
-            //           >
-            //             <CardContent>
-            //               <Typography gutterBottom align="left">
-            //                 State :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.state ? rowData.state : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //               <Typography gutterBottom align="left">
-            //                 City :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //               <Typography gutterBottom align="left">
-            //                 Zip Code :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.pinCode
-            //                     ? rowData.pinCode
-            //                     : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //               <Typography gutterBottom align="left">
-            //                 Street Name :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.streetName
-            //                     ? rowData.streetName
-            //                     : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //             </CardContent>
-            //           </Card>
-            //         </div>
-            //       </>
-            //     ),
-            //   },
-            // ]}
-            actions={[
-              {
-                icon: 'add',
-                tooltip: 'Add Appointments',
-                isFreeAction: true,
-                onClick: () => {
-                  router.push('/admin/appointments/create-appointments')
-                },
-              },
-            ]}
+            actions={
+              [
+                // {
+                //   icon: 'add',
+                //   tooltip: 'Add Appointments',
+                //   isFreeAction: true,
+                //   onClick: () => {
+                //     router.push('/admin/appointments/create-appointments')
+                //   },
+                // },
+              ]
+            }
           />
         </div>
       </div>

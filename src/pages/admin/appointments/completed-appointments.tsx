@@ -273,22 +273,30 @@ const CompletedAppointments = () => {
                 // width: "2%",
               },
 
-              // {
-              //   title: 'Health Issues',
-              //   field: 'healthIssues',
-              //   searchable: true,
+              {
+                title: 'Health Issues',
+                field: 'health',
+                searchable: true,
 
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
+                emptyValue: '--',
+                render: ({ health }) => (
+                  <>
+                    {health
+                      .map((item: any) => {
+                        return item.healthIssueParticular
+                      })
+                      .join(', ')}
+                  </>
+                ),
+                filtering: false,
+              },
               {
                 title: 'Consultation Type',
-                field: 'pet',
+                field: 'consultation',
                 searchable: true,
-                render: ({ pet }) => pet.consultation,
+
                 emptyValue: '--',
-                //   hidden:true,
+                render: ({ consultation }) => consultation.label,
                 filtering: false,
               },
               {
@@ -330,15 +338,13 @@ const CompletedAppointments = () => {
                 //   hidden:true,
                 filtering: false,
               },
-              // {
-              //   title: 'Payment Method',
-              //   field: 'paymentMethod',
-              //   searchable: true,
-
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
+              {
+                title: 'Payment Method',
+                field: 'paymentMethod',
+                editable: 'never',
+                emptyValue: '--',
+                // width: "2%",
+              },
 
               {
                 title: 'Created At',

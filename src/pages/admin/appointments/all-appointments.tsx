@@ -139,7 +139,7 @@ const AllAppointments = () => {
           >
             <Card
               sx={style}
-              className=" dashboard-card-shadow w-[30%] border-t-4 border-b-4 border-t-theme border-b-theme  !p-6"
+              className="dashboard-card-shadow w-[30%] border-t-4 border-b-4 border-t-theme border-b-theme !p-6"
             >
               <Typography gutterBottom align="left">
                 Owner Email :
@@ -179,7 +179,8 @@ const AllAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Cooper
+                  {` `}
+                  {petDetails?.pet?.petName}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -192,7 +193,8 @@ const AllAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Male
+                  {` `}
+                  {petDetails?.pet?.gender}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -205,8 +207,8 @@ const AllAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} German
-                  Shepard
+                  {` `}
+                  {petDetails?.pet?.breed}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -219,7 +221,8 @@ const AllAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} 2
+                  {` `}
+                  {petDetails?.pet?.age}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -232,7 +235,8 @@ const AllAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} 10kg
+                  {` `}
+                  {petDetails?.pet?.weight}kg
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -245,7 +249,8 @@ const AllAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Yes
+                  {` `}
+                  {petDetails?.pet?.vaccinated}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -258,7 +263,8 @@ const AllAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Middle
+                  {` `}
+                  {petDetails?.pet?.aggression}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -271,67 +277,8 @@ const AllAppointments = () => {
                     wordWrap: 'break-word',
                   }}
                 >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Cash
-                </span>
-              </Typography>
-
-              <Typography gutterBottom align="left">
-                State :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.state ? rowData.state : 'Not Provided'} */}{' '}
-                  Odisha
-                </span>
-              </Typography>
-              <Typography gutterBottom align="left">
-                City :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} BBSR
-                </span>
-              </Typography>
-              <Typography gutterBottom align="left">
-                Zip Code :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.pinCode
-                                ? rowData.pinCode
-                                : 'Not Provided'} */}{' '}
-                  752001
-                </span>
-              </Typography>
-              <Typography gutterBottom align="left">
-                Street Name :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.streetName
-                                ? rowData.streetName
-                                : 'Not Provided'} */}{' '}
-                  Satyasai Enclave
+                  {` `}
+                  {petDetails?.paymentMethod}
                 </span>
               </Typography>
             </Card>
@@ -400,7 +347,7 @@ const AllAppointments = () => {
                 searchable: true,
 
                 emptyValue: '--',
-                render: ({ pet }) => pet.consultation,
+                render: ({ consultation }) => consultation.label,
                 filtering: false,
               },
               {
@@ -561,16 +508,18 @@ const AllAppointments = () => {
                 ),
               },
             ]}
-            actions={[
-              {
-                icon: 'add',
-                tooltip: 'Add Appointments',
-                isFreeAction: true,
-                onClick: () => {
-                  router.push('/admin/appointments/create-appointments')
-                },
-              },
-            ]}
+            actions={
+              [
+                // {
+                //   icon: 'add',
+                //   tooltip: 'Add Appointments',
+                //   isFreeAction: true,
+                //   onClick: () => {
+                //     router.push('/admin/appointments/create-appointments')
+                //   },
+                // },
+              ]
+            }
           />
         </div>
       </div>
