@@ -249,6 +249,7 @@ const AddPetDrawer = ({ open, onClose, mutate, activeData, _id }: Props) => {
       formData.append('gender', values?.gender)
       formData.append('breed', values?.breed)
       formData.append('age', values?.age)
+      formData.append('weight', values?.weight)
       formData.append('aggression', values?.aggression)
       formData.append('vaccinated', values?.vaccinated)
 
