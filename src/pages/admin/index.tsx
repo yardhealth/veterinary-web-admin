@@ -46,15 +46,15 @@ const Dashboard = () => {
   const { data: petCategory, mutate: pet } = useGET<any[]>(
     `dashboard/pet-category`
   )
-  console.log(petCategory)
+  // console.log(petCategory)
 
   const { data: yearUpcoming, mutate: yearUp } = useGET<any[]>(
-    `dashboard/total-income`
+    `dashboard/appointment-year-upcoming`
   )
   console.log(yearUpcoming)
 
   const { data: yearCompleted, mutate: yearComp } = useGET<any[]>(
-    `dashboard/total-income`
+    `dashboard/appointment-year-Completed`
   )
   console.log(yearCompleted)
 
@@ -126,23 +126,25 @@ const Dashboard = () => {
           <ColumnChartUserDashboard
             type={'bar'}
             title={'Upcoming  vs Completed Appointment'}
-            categories={[
-              '2022',
-              '2021',
-              '2020',
-              '2019',
-              '2018',
-              '2017',
-              '2016',
-            ]}
+            categories={
+              yearUpcoming?.success?.data?.map((item) => {
+                return item?._id
+              }) || []
+            }
             series={[
               {
                 name: 'Completed',
-                data: [44, 55, 57, 56, 61, 58, 63],
+                data:
+                  yearUpcoming?.success?.data?.map((item) => {
+                    return item?.Upcoming
+                  }) || [],
               },
               {
                 name: 'Upcoming',
-                data: [76, 85, 101, 98, 87, 105, 91],
+                data:
+                  yearCompleted?.success?.data?.map((item) => {
+                    return item?.Completed
+                  }) || [],
               },
             ]}
             className={'col-span-12   flex  flex-col gap-10 '}
@@ -150,8 +152,16 @@ const Dashboard = () => {
         </div>
         <div className="col-span-12 gap-2 md:col-span-12 lg:col-span-4">
           <RegisteredPetDetails
-            pieLabel={['Dogs', 'Cats', 'Cows', 'Birds', 'Other']}
-            pieSeries={[5000, 4590, 2422, 5922, 1522]}
+            pieLabel={
+              petCategory?.success?.data?.map((item) => {
+                return item?._id
+              }) || []
+            }
+            pieSeries={
+              petCategory?.success?.data?.map((item) => {
+                return item?.total
+              }) || []
+            }
             title={'Registered Pet Details'}
             className={
               'shadow-lg col-span-12  flex flex-col items-center gap-4 rounded-xl border bg-white p-6 md:col-span-12 lg:col-span-5'

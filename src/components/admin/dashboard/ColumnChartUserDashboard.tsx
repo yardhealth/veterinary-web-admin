@@ -35,7 +35,7 @@ export default function ColumnChartUserDashboard({
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: '55%',
+          columnWidth: '15%',
           endingShape: 'rounded',
         },
       },
@@ -92,7 +92,7 @@ export default function ColumnChartUserDashboard({
           plotOptions: {
             bar: {
               horizontal: false,
-              columnWidth: '55%',
+              columnWidth: '15%',
               //   endingShape: "rounded",
             },
           },
