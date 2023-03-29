@@ -16,6 +16,7 @@ import {
 } from 'assets/static-icon'
 import ColumnChartUserDashboard from 'components/admin/dashboard/ColumnChartUserDashboard'
 import RegisteredPetDetails from 'components/admin/dashboard/RegisteredPetDetails'
+import { useGET } from 'hooks'
 
 const Dashboard = () => {
   const router = useRouter()
@@ -26,56 +27,36 @@ const Dashboard = () => {
     animationData: '',
   })
 
-  const [tabelData, settabelData] = useState([
-    {
-      sl: '1',
-      name: 'Raj',
-      phone: '65758',
-      email: 'swainsangeeta88@gmail.com',
-      status: 'Pending',
-      // view: <ViewDetailsBtn title={"View Details"} />,
-    },
-    {
-      sl: '2',
-      name: 'Sarat',
-      phone: '65758',
-      email: 'swainsangeeta88@gmail.com',
-      status: 'Pending',
-      // view: <ViewDetailsBtn title={"View Details"} />,
-    },
-    {
-      sl: '3',
-      name: 'priti',
-      phone: '65758',
-      email: 'swainsangeeta88@gmail.com',
-      status: 'Settled',
-      // view: <ViewDetailsBtn title={"View Details"} />,
-    },
-    {
-      sl: '4',
-      name: 'vikash',
-      phone: '65758',
-      email: 'swainsangeeta88@gmail.com',
-      status: 'Settled',
-      // view: <ViewDetailsBtn title={"View Details"} />,
-    },
-    {
-      sl: '5',
-      name: 'ssa',
-      phone: '65758',
-      email: 'swainsangeeta88@gmail.com',
-      status: 'Settled',
-      // view: <ViewDetailsBtn title={"View Details"} />,
-    },
-    {
-      sl: '6',
-      name: 'ssa',
-      phone: '65758',
-      email: 'swainsangeeta88@gmail.com',
-      status: 'Settled',
-      // view: <ViewDetailsBtn title={"View Details"} />,
-    },
-  ])
+  const { data: upcomingAppointment, mutate: upcoming } = useGET<any[]>(
+    `dashboard/upcoming-appointment`
+  )
+
+  const { data: completedAppointment, mutate: completed } = useGET<any[]>(
+    `dashboard/completed-appointment`
+  )
+
+  const { data: totalClients, mutate: clients } = useGET<any[]>(
+    `dashboard/total-clients`
+  )
+
+  const { data: totalIncome, mutate: income } = useGET<any[]>(
+    `dashboard/total-income`
+  )
+
+  const { data: petCategory, mutate: pet } = useGET<any[]>(
+    `dashboard/pet-category`
+  )
+  console.log(petCategory)
+
+  const { data: yearUpcoming, mutate: yearUp } = useGET<any[]>(
+    `dashboard/total-income`
+  )
+  console.log(yearUpcoming)
+
+  const { data: yearCompleted, mutate: yearComp } = useGET<any[]>(
+    `dashboard/total-income`
+  )
+  console.log(yearCompleted)
 
   return (
     <AdminLayout title="Admin Dashboard">
@@ -83,7 +64,7 @@ const Dashboard = () => {
         <InfoCards
           title="Upcoming Appointments"
           iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
-          content={'170'}
+          content={`${upcomingAppointment?.success?.data}`}
           titleClassName="text-black font-bold text-base"
           contentClassName="text-black"
           className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
@@ -97,7 +78,7 @@ const Dashboard = () => {
         <InfoCards
           title="Completed Appointments"
           iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
-          content={'80'}
+          content={`${completedAppointment?.success?.data}`}
           titleClassName="text-black font-bold text-base"
           contentClassName="text-black"
           className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
@@ -111,7 +92,7 @@ const Dashboard = () => {
         <InfoCards
           title="Total Clients"
           iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
-          content={'40'}
+          content={`${totalClients?.success?.data}`}
           titleClassName="text-slate-600 font-bold text-base"
           contentClassName="text-black font-bold"
           className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
@@ -119,55 +100,17 @@ const Dashboard = () => {
             // <FaStethoscope className="h-7 w-7 rounded-md text-[#ff7717]  group-hover:text-white" />
             <Avatar variant="rounded" src={TotalClients.src} />
           }
-          clickableRoute="/panel/admin/doctor/doctor-dashboard"
+          clickableRoute="/admin/userList/owner-list"
         />
-        {/* <InfoCards
-          title="Total Staffs"
-          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
-          content={'150'}
-          titleClassName="text-black font-bold text-base"
-          contentClassName="text-black"
-          className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
-          icon={
-            // <Build className="text-white h-7 w-7 rounded-md group-hover:text-white " />
-            // <LocalHotel className=" h-7 w-7 rounded-md text-[#ff7717] group-hover:text-white " />
-            <Avatar variant="rounded" src={TotalStaffs.src} />
-          }
-          clickableRoute="/panel/admin/patient/patient-dashboard"
-        /> */}
-        {/* <InfoCards
-          title="Total Rooms"
-          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
-          content={'10'}
-          titleClassName="text-black font-bold text-base"
-          contentClassName="text-black"
-          className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
-          icon={
-            // <Build className="text-white h-7 w-7 rounded-md group-hover:text-white " />
-            // <Apartment className="h-7 w-7 rounded-md text-[#ff7717] group-hover:text-white " />
-            <Avatar variant="rounded" src={TotalStaffs.src} />
-          }
-          clickableRoute="/panel/admin/clinics/clinic-dashboard"
-        /> */}
 
-        {/* <InfoCards
-          title="Reports"
-          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
-          content={'180'}
-          titleClassName="text-black font-bold text-base"
-          contentClassName="text-black"
-          className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
-          icon={
-            // <Build className="text-white h-7 w-7 rounded-md group-hover:text-white " />
-            // <AirlineSeatFlat className="h-7 w-7 rounded-md text-[#ff7717]  group-hover:text-white" />
-            <Avatar variant="rounded" src={Reports.src} />
-          }
-          clickableRoute="/panel/admin/bed/bed-dashboard"
-        /> */}
         <InfoCards
           title="Total Income"
           iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
-          content={'₹1,20,000/-'}
+          content={`${
+            totalIncome?.success?.data === undefined
+              ? '₹1,20,000/-'
+              : totalIncome?.success?.data
+          }`}
           titleClassName="text-black font-bold text-base"
           contentClassName="text-black"
           className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
@@ -178,20 +121,6 @@ const Dashboard = () => {
           }
           clickableRoute="/panel/admin/lab/all-lab-test"
         />
-        {/* <InfoCards
-          title="Total Expense"
-          iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
-          content={'10'}
-          titleClassName="text-black font-bold text-base"
-          contentClassName="text-black"
-          className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"
-          icon={
-            // <Build className="text-white h-7 w-7 rounded-md group-hover:text-white " />
-            // <CurrencyRupee className="h-7 w-7 rounded-md text-[#ff7717]  group-hover:text-white" />
-            <Avatar variant="rounded" src={TotalExpense.src} />
-          }
-          clickableRoute="/panel/admin/financial-activity/financial-dashboard"
-        /> */}
 
         <div className="!border-grey-500 !shadow-xl col-span-12  w-full gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-8">
           <ColumnChartUserDashboard
@@ -228,97 +157,6 @@ const Dashboard = () => {
               'shadow-lg col-span-12  flex flex-col items-center gap-4 rounded-xl border bg-white p-6 md:col-span-12 lg:col-span-5'
             }
           />
-        </div>
-        {/* <div className="col-span-12 pt-9 w-full flex flex-col justify-center  gap-5 md:col-span-12 lg:col-span-4 !border-grey-500 rounded-xl !shadow-xl">
-					<IncomeVsExpence text="Repairs Report" type="pie" />
-				</div> */}
-
-        <div className="!border-grey-500 !shadow-xl col-span-12 flex w-full flex-col  justify-center gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-12">
-          {/* <MaterialTable
-						data={tabelData}
-						components={{
-							Container: (props) => <Paper {...props} elevation={5} />,
-						}}
-						title={<HeadStyle name="Patients" />}
-						// isLoading={isValidating || loading}
-						// data={customers?.map((customer: any, i: number) => {
-						//   return {
-						//     ...customer,
-						//     sl: i + 1,
-
-						//     timestamp: customer?.createdAt
-						//       ? dayjs(customer?.createdAt).format("LLL")
-						//       : "Not available",
-						//     lastLoginTime: customer?.lastLogin
-						//       ? dayjs(customer?.lastLogin).format("lll")
-						//       : "Not Login Yet",
-						//   };
-						// })}
-						// options={{ ...MuiTblOptions(), selection: true }}
-						columns={[
-							{
-								title: "#",
-								field: "sl",
-								editable: "never",
-								width: "2%",
-							},
-							{
-								title: "Name",
-								tooltip: "Name",
-								searchable: true,
-								field: "name",
-							},
-
-							{
-								title: "Phone",
-								field: "phone",
-								searchable: true,
-								export: true,
-								emptyValue: "Not Provided",
-								//   hidden:true,
-							},
-
-							{
-								title: "Email",
-								field: "email",
-							},
-							{
-								title: "Payment Status",
-								field: "status",
-							},
-							{
-								title: "View Details",
-								field: "view",
-								emptyValue: "Not Login Yet",
-								// render: ({ lastLogin }: any) => lastLogin,
-								// ? dayjs(new Date(lastLogin)).format("lll")
-								// : "Not Login Yet",
-							},
-						]}
-						// actions={[
-						// 	{
-						// 		icon: "send",
-						// 		tooltip: "Send Notification",
-						// 		onClick: (evt, data: any) => {
-						// 			// data?.length > 1
-						// 			// 	? Swal.fire({
-						// 			// 			text: "Please select only one customer to send notification",
-						// 			// 			icon: "warning",
-						// 			// 			confirmButtonText: "Ok",
-						// 			// 	  })
-						// 			// 	: setSelectedUsers(data[0]);
-						// 		},
-						// 	},
-						// 	{
-						// 		icon: "refresh",
-						// 		tooltip: "Refresh Data",
-						// 		isFreeAction: true,
-						// 		onClick() {
-						// 			// mutate();
-						// 		},
-						// 	},
-						// ]}
-					/> */}
         </div>
       </div>
     </AdminLayout>
