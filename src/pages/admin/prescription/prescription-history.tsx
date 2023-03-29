@@ -11,7 +11,7 @@ import Modal from '@mui/material/Modal'
 import { MuiTblOptions } from 'utils'
 // import { database } from 'configs'
 import { useState } from 'react'
-import { useFetch } from 'hooks'
+import { useFetch, useGET } from 'hooks'
 import Swal from 'sweetalert2'
 import moment from 'moment'
 
@@ -39,10 +39,8 @@ const PrescriptionHistory = () => {
   const [openEditPrescriptionDrawer, setOpenEditPrescriptionDrawer] =
     useState(false)
 
-  const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
+  const { data, mutate } = useGET<any[]>(`prescription/get-prescription`)
+  console.log(data)
   // console.log(data)
   console.log(openEditPrescriptionDrawer)
   const handleDelete = (row: CustomerType) => {}
@@ -111,7 +109,11 @@ const PrescriptionHistory = () => {
             // mutate={mutate}
           />
           <MaterialTable
-            data={tabelData}
+            data={
+              data?.success?.data
+                ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+                : []
+            }
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
@@ -130,14 +132,21 @@ const PrescriptionHistory = () => {
               },
               {
                 title: 'Owner Name',
-                field: 'ownerName',
+                field: 'userName',
                 editable: 'never',
                 emptyValue: '--',
                 // width: "2%",
               },
               {
-                title: 'Pet',
-                field: 'pet',
+                title: 'Email',
+                field: 'userMail',
+                editable: 'never',
+                emptyValue: '--',
+                // width: "2%",
+              },
+              {
+                title: 'Pet Category',
+                field: 'petCategory',
                 editable: 'never',
 
                 emptyValue: '--',
@@ -165,32 +174,14 @@ const PrescriptionHistory = () => {
                 filtering: false,
               },
 
-              // {
-              //   title: 'Instruction',
-              //   field: 'instruction',
-              //   searchable: true,
-
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
-              // {
-              //   title: 'Time',
-              //   field: 'time',
-              //   searchable: true,
-              //   export: true,
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
-              // {
-              //   title: 'Prescription Note',
-              //   field: 'prescriptionNote',
-              //   searchable: true,
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
+              {
+                title: 'Prescription Note',
+                field: 'prescriptionNote',
+                searchable: true,
+                emptyValue: '--',
+                //   hidden:true,
+                filtering: false,
+              },
 
               {
                 title: 'Created At',
@@ -200,88 +191,88 @@ const PrescriptionHistory = () => {
                 render: ({ createdAt }: any) =>
                   moment(new Date(createdAt)).format('lll'),
               },
-              {
-                title: 'Actions',
-                cellStyle: {
-                  textAlign: 'right',
-                },
-                export: true,
-                // width: "18%",
-                // field: "pick",
-                render: (row) => (
-                  <>
-                    <div className="flex">
-                      <Tooltip title="Info">
-                        <Avatar
-                          onClick={handleInfoOpen}
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-blue-700 !p-0"
-                          sx={{
-                            mr: '.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <Info sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip>
-                      <Tooltip title="Edit">
-                        <Avatar
-                          onClick={() => setOpenEditPrescriptionDrawer(true)}
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-theme !p-0"
-                          sx={{
-                            mr: '.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <BorderColor sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip>
-                      <Tooltip title="Delete">
-                        <Avatar
-                          // onClick={() => handleDelete(row?.id)}
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-red-700 !p-0"
-                          sx={{
-                            mr: '0.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <Delete sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip>
-                      <Tooltip title="View Prescription">
-                        <Avatar
-                          // onClick={() => handleDelete(row?.id)}
-                          onClick={() =>
-                            router.push(`/admin/prescription/e-prescription`)
-                          }
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-primary !p-0"
-                          sx={{
-                            mr: '0.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <Visibility sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip>
-                    </div>
-                  </>
-                ),
-              },
+              // {
+              //   title: 'Actions',
+              //   cellStyle: {
+              //     textAlign: 'right',
+              //   },
+              //   export: true,
+              //   // width: "18%",
+              //   // field: "pick",
+              //   render: (row) => (
+              //     <>
+              //       <div className="flex">
+              //         <Tooltip title="Info">
+              //           <Avatar
+              //             onClick={handleInfoOpen}
+              //             variant="rounded"
+              //             className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-blue-700 !p-0"
+              //             sx={{
+              //               mr: '.1vw',
+              //               padding: '0px !important',
+              //               backgroundColor: 'Highlight',
+              //               cursor: 'pointer',
+              //               color: '',
+              //             }}
+              //           >
+              //             <Info sx={{ padding: '0px !important' }} />
+              //           </Avatar>
+              //         </Tooltip>
+              //         <Tooltip title="Edit">
+              //           <Avatar
+              //             onClick={() => setOpenEditPrescriptionDrawer(true)}
+              //             variant="rounded"
+              //             className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-theme !p-0"
+              //             sx={{
+              //               mr: '.1vw',
+              //               padding: '0px !important',
+              //               backgroundColor: 'Highlight',
+              //               cursor: 'pointer',
+              //               color: '',
+              //             }}
+              //           >
+              //             <BorderColor sx={{ padding: '0px !important' }} />
+              //           </Avatar>
+              //         </Tooltip>
+              //         <Tooltip title="Delete">
+              //           <Avatar
+              //             // onClick={() => handleDelete(row?.id)}
+              //             variant="rounded"
+              //             className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-red-700 !p-0"
+              //             sx={{
+              //               mr: '0.1vw',
+              //               padding: '0px !important',
+              //               backgroundColor: 'Highlight',
+              //               cursor: 'pointer',
+              //               color: '',
+              //             }}
+              //           >
+              //             <Delete sx={{ padding: '0px !important' }} />
+              //           </Avatar>
+              //         </Tooltip>
+              //         <Tooltip title="View Prescription">
+              //           <Avatar
+              //             // onClick={() => handleDelete(row?.id)}
+              //             onClick={() =>
+              //               router.push(`/admin/prescription/e-prescription`)
+              //             }
+              //             variant="rounded"
+              //             className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-primary !p-0"
+              //             sx={{
+              //               mr: '0.1vw',
+              //               padding: '0px !important',
+              //               backgroundColor: 'Highlight',
+              //               cursor: 'pointer',
+              //               color: '',
+              //             }}
+              //           >
+              //             <Visibility sx={{ padding: '0px !important' }} />
+              //           </Avatar>
+              //         </Tooltip>
+              //       </div>
+              //     </>
+              //   ),
+              // },
             ]}
             // detailPanel={[
             //   {
@@ -333,16 +324,18 @@ const PrescriptionHistory = () => {
             //     ),
             //   },
             // ]}
-            actions={[
-              {
-                icon: 'add',
-                tooltip: 'Add Prescription',
-                isFreeAction: true,
-                onClick: () => {
-                  router.push('/admin/prescription/create-prescription')
-                },
-              },
-            ]}
+            actions={
+              [
+                // {
+                //   icon: 'add',
+                //   tooltip: 'Add Prescription',
+                //   isFreeAction: true,
+                //   onClick: () => {
+                //     router.push('/admin/prescription/create-prescription')
+                //   },
+                // },
+              ]
+            }
           />
         </div>
       </div>
