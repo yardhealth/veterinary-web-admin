@@ -260,6 +260,7 @@ const CompletedAppointments = () => {
                 field: 'user',
                 editable: 'never',
                 emptyValue: '--',
+                searchable: true,
                 render: ({ user }) => user.name,
                 // width: "2%",
               },
@@ -267,7 +268,7 @@ const CompletedAppointments = () => {
                 title: 'Pet',
                 field: 'pet',
                 editable: 'never',
-
+                searchable: true,
                 emptyValue: '--',
                 render: ({ pet }) => pet.petName,
                 // width: "2%",

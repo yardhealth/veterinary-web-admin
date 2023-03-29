@@ -5,126 +5,107 @@ import DrugInputField from './DrugInputField'
 import {
   Add,
   BorderColor,
+  ContactPhone,
   Done,
+  Email,
   MedicationLiquid,
   Person,
 } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import { useMemo, useState } from 'react'
 import * as Yup from 'yup'
-import { useFetch } from 'hooks'
+import { useFetch, useGET, useMutation } from 'hooks'
 import CategoryType from 'types/category'
 import CustomerType from 'types/customer'
 // import { database, storage } from 'configs'
 import Swal from 'sweetalert2'
+import { AdminAutocomplete } from 'components/core'
 
 const AddPrescription = () => {
-  const [categories] = useFetch<CategoryType[]>(`/Categories`, {
-    needNested: false,
-    needArray: true,
-  })
-  const [customers] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
+  const [userdata, setUserdata] = useState<any>({})
+  console.log(userdata)
+  const { data: userData, mutate: userMutate } =
+    useGET<any[]>(`user/getallUsers`)
+  console.log(userData)
+
+  // const[petDetails, setPetDetails] = useState<any>({})
+  const { data: singleUser, mutate: userGet } = useGET<any[]>(
+    `prescription/get-pet-details?userId=${userdata?._id}`
+  )
+
+  console.log(singleUser)
+
   const AddPrescriptionSchema = useMemo(() => {
+    console.log('running')
     return [
       {
-        key: '2',
+        key: '1',
         // placeholder: 'Enter your email',
         name: 'ownerName',
         label: 'Owner Name *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
-        type: 'select',
-        validationSchema: Yup.string().required('Owner Name is required'),
+        type: 'autocomplete',
+        validationSchema: Yup.string().required('Owner name is required'),
         initialValue: '',
         icon: <BorderColor />,
-        options: [
-          {
-            label: 'Kate',
-            value: 'Kate',
-          },
-          {
-            label: 'James',
-            value: 'James',
-          },
-          {
-            label: 'Alex',
-            value: 'Alex',
-          },
-          {
-            label: 'Peter',
-            value: 'Peter',
-          },
-        ],
+
+        options: userData?.success?.data?.map((item, i) => {
+          return {
+            data: item,
+            label: `${item?.name} (${item?.email})`,
+            value: item?._id,
+            key: item?.name,
+          }
+        }),
         required: true,
       },
       {
-        key: '3',
-        // placeholder: 'Enter your name',
-        name: 'pet',
-        label: 'Select Pet *',
-        placeholder: '',
-        styleContact: 'rounded-xl mb-5 bg-white ',
-        validationSchema: Yup.string().required('Pet is required'),
-        initialValue: '',
-        type: 'select',
-        icon: <Person />,
-        required: true,
-        contactField: {
-          xs: 12,
-          sm: 12,
-          md: 6,
-          lg: 6,
-        },
-        options: [
-          {
-            label: 'Dog',
-            value: 'Dog',
-          },
-          {
-            label: 'Cat',
-            value: 'Cat',
-          },
-          {
-            label: 'Bird',
-            value: 'Bird',
-          },
-          {
-            label: 'Dairy',
-            value: 'Dairy',
-          },
-          {
-            label: 'Poultry',
-            value: 'Poultry',
-          },
-          {
-            label: 'Fish',
-            value: 'Fish',
-          },
-          {
-            label: 'Farm Animal',
-            value: 'Farm Animal',
-          },
-          {
-            label: 'Exotic Pet',
-            value: 'Exotic Pet',
-          },
-          ,
-        ],
-      },
-      {
-        key: '5',
+        key: '1',
         // placeholder: 'Enter your email',
-        name: 'petName',
-        label: 'Pet Name *',
+        name: 'email',
+        label: 'Email *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
         type: 'text',
+        validationSchema: Yup.string()
+          .required('Email Required.')
+          .email('Enter valid email'),
+        initialValue: '',
+        icon: <Email />,
+        required: true,
+      },
+      {
+        key: '2',
+        // placeholder: 'Enter your email',
+        name: 'phoneNumber',
+        label: 'Contact Number *',
+        placeholder: '',
+        styleContact: 'rounded-lg mb-5',
+        type: 'number',
+        validationSchema: Yup.string().required('Contact number is required'),
+        initialValue: '',
+        icon: <ContactPhone />,
+        required: true,
+      },
+
+      {
+        key: '4',
+        label: 'Pet Name',
+        name: 'petName',
+        type: 'autocomplete',
         validationSchema: Yup.string().required('Pet Name is required'),
         initialValue: '',
         icon: <BorderColor />,
+        styleContact: 'rounded-lg mb-5',
+
+        options: singleUser?.success?.data?.map((item, i) => {
+          return {
+            label: `${item?.petName} (${item?.petCategory})`,
+            value: item?._id,
+            key: item?._id,
+          }
+        }),
         required: true,
       },
       {
@@ -141,17 +122,57 @@ const AddPrescription = () => {
         required: true,
       },
     ]
-  }, [categories])
-  const [articleValue, setArticleValue] = useState('')
-  const [image, setImage] = useState<any>('')
-  const [countryDetails, setCountryDetails] = useState({
-    code: 'IN',
-    label: 'India',
-    phone: '91',
-  })
+  }, [userData?.success?.data?.length, singleUser])
 
+  const { isMutating, trigger } = useMutation(`prescription/create`)
   const handleSend = async (values: any, submitProps: any) => {
     console.log(values)
+
+    const petDetails = singleUser?.success?.data?.find(
+      (petDetail) => petDetail?._id === values?.petName
+    )
+    console.log(petDetails)
+    // let wholeData: {
+    //   drugName: string
+    //   prescriptionNote: string
+    // }[] = []
+
+    const drugData = values.drugName.map((item: any) => {
+      return {
+        drugName: `${item.value}`,
+        prescriptionNote: `${item.amount}`,
+      }
+    })
+    // console.log(values.drugName)
+    const newObject: any = {
+      wholeData: drugData,
+      userName: userdata?.name,
+      petName: petDetails?.petName,
+      petId: petDetails?._id,
+      userId: userdata?._id,
+      petCategory: petDetails?.petCategory,
+      userMail: userdata?.email,
+    }
+    console.log(newObject)
+
+    try {
+      const { error, success } = await trigger(newObject)
+      if (error) return Swal.fire('Error', error.message, 'error')
+
+      const addPrescription = {
+        ...success?.data,
+      }
+      submitProps.resetForm()
+      Swal.fire('Success', success.message, 'success')
+
+      console.log(addPrescription)
+
+      return
+    } catch (error) {
+      submitProps.setSubmitting(false)
+      Swal.fire('Error', 'Something went wrong', 'error')
+      console.log(error)
+    }
   }
   const initialValues = AddPrescriptionSchema.reduce(
     (accumulator, currentValue) => {
@@ -226,7 +247,13 @@ const AddPrescription = () => {
 
       <div className="m-auto w-[50vw]">
         <Formik
-          initialValues={initialValues}
+          enableReinitialize
+          initialValues={{
+            ...initialValues,
+            email: userdata?.email,
+            phoneNumber: userdata?.phoneNumber,
+            ownerName: userdata?._id,
+          }}
           validationSchema={Yup.object(validationSchema)}
           onSubmit={handleSend}
         >
@@ -234,9 +261,42 @@ const AddPrescription = () => {
             <Form>
               {/* <Weekdays /> */}
               {console.log(formik.errors)}
+              {console.log(formik.values)}
               {AddPrescriptionSchema?.map((inputItem: any, index: any) => (
                 <div key={index}>
-                  {inputItem?.name === 'drugName' ? (
+                  {inputItem?.type === 'autocomplete' ? (
+                    <div className=" w-full pb-4">
+                      <AdminAutocomplete
+                        size={'medium'}
+                        label={inputItem?.label}
+                        isOptionEqualToValue={(option, value) =>
+                          option?.value === value?.value
+                        }
+                        error={Boolean(
+                          formik?.touched[inputItem?.name] &&
+                            formik?.errors[inputItem?.name]
+                        )}
+                        helperText={
+                          formik?.touched[inputItem?.name] &&
+                          (formik?.errors[inputItem?.name] as any)
+                        }
+                        onChange={(e, value) => {
+                          console.log(value?.value, inputItem?.name)
+                          formik?.setFieldValue(inputItem?.name, value?.value)
+                          inputItem?.name === 'ownerName' &&
+                            setUserdata(value?.data)
+                        }}
+                        options={inputItem?.options}
+                        noOptionText={
+                          <div className="flex w-full flex-col gap-2">
+                            <small className="tracking-wide">
+                              No options found
+                            </small>
+                          </div>
+                        }
+                      />
+                    </div>
+                  ) : inputItem?.name === 'drugName' ? (
                     <div className=" w-full py-4">
                       {formik.values[inputItem.name]?.length &&
                         formik?.values[inputItem.name]?.map((item: any) => {
@@ -264,6 +324,7 @@ const AddPrescription = () => {
 
                       <button
                         onClick={() => handleClick(inputItem?.name, formik)}
+                        type="button"
                         className="mt-5 flex items-center gap-1 rounded-md bg-theme px-4 py-2 text-sm text-white transition-all duration-300 ease-in-out hover:scale-105"
                       >
                         <Add className="!text-[1.3rem]" /> Add More
