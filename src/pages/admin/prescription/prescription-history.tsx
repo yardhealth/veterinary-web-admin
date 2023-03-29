@@ -1,18 +1,14 @@
 import EditPrescriptionDrawer from 'components/admin/drawer/EditPrescriptionDrawer'
-import { BorderColor, Delete, Info, Visibility } from '@mui/icons-material'
-import { Avatar, Card, Paper, Typography } from '@mui/material'
+import { Card, Paper, Typography } from '@mui/material'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
-import Tooltip from '@mui/material/Tooltip'
 import CustomerType from 'types/customer'
 import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
 import Modal from '@mui/material/Modal'
 import { MuiTblOptions } from 'utils'
-// import { database } from 'configs'
 import { useState } from 'react'
-import { useFetch, useGET } from 'hooks'
-import Swal from 'sweetalert2'
+import { useGET } from 'hooks'
 import moment from 'moment'
 
 const style = {
@@ -62,47 +58,6 @@ const PrescriptionHistory = () => {
     <AdminLayout title="Prescription History">
       <div className="grid grid-cols-12 content-between gap-6  px-5">
         <div className="!border-grey-500 !shadow-xl col-span-12 flex w-full flex-col justify-center gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-12">
-          <Modal
-            open={openInfoModal}
-            onClose={handleInfoCloseModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Card
-              sx={style}
-              className=" dashboard-card-shadow w-[30%] border-t-4 border-b-4 border-t-theme border-b-theme  !p-6"
-            >
-              <Typography gutterBottom align="left">
-                Owner Email :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
-                  user@gmail.com
-                </span>
-              </Typography>
-              <Typography gutterBottom align="left">
-                Prescription Note :
-                <span
-                  style={{
-                    color: 'rgb(30, 136, 229)',
-                    fontSize: '15px',
-                    wordBreak: 'break-word',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  {/* {rowData?.city ? rowData.city : 'Not Provided'} */} Lorem
-                  ipsum dolor sit amet consectetur adipisicing elit.
-                  Exercitationem, officia?
-                </span>
-              </Typography>
-            </Card>
-          </Modal>
           <EditPrescriptionDrawer
             open={openEditPrescriptionDrawer}
             onClose={() => setOpenEditPrescriptionDrawer(false)}

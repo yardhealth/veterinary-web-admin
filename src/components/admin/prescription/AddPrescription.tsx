@@ -1,7 +1,12 @@
 import { Container, Typography } from '@mui/material'
+import { AdminAutocomplete } from 'components/core'
 import { Form, Formik, FormikProps } from 'formik'
 import TextInput from 'components/core/TextInput'
 import DrugInputField from './DrugInputField'
+import { useGET, useMutation } from 'hooks'
+import { useMemo, useState } from 'react'
+import { LoadingButton } from '@mui/lab'
+import Swal from 'sweetalert2'
 import {
   Add,
   BorderColor,
@@ -9,17 +14,8 @@ import {
   Done,
   Email,
   MedicationLiquid,
-  Person,
 } from '@mui/icons-material'
-import { LoadingButton } from '@mui/lab'
-import { useMemo, useState } from 'react'
 import * as Yup from 'yup'
-import { useFetch, useGET, useMutation } from 'hooks'
-import CategoryType from 'types/category'
-import CustomerType from 'types/customer'
-// import { database, storage } from 'configs'
-import Swal from 'sweetalert2'
-import { AdminAutocomplete } from 'components/core'
 
 const AddPrescription = () => {
   const [userdata, setUserdata] = useState<any>({})
@@ -28,15 +24,11 @@ const AddPrescription = () => {
     useGET<any[]>(`user/getallUsers`)
   console.log(userData)
 
-  // const[petDetails, setPetDetails] = useState<any>({})
   const { data: singleUser, mutate: userGet } = useGET<any[]>(
     `prescription/get-pet-details?userId=${userdata?._id}`
   )
 
-  console.log(singleUser)
-
   const AddPrescriptionSchema = useMemo(() => {
-    console.log('running')
     return [
       {
         key: '1',
@@ -132,18 +124,13 @@ const AddPrescription = () => {
       (petDetail) => petDetail?._id === values?.petName
     )
     console.log(petDetails)
-    // let wholeData: {
-    //   drugName: string
-    //   prescriptionNote: string
-    // }[] = []
-
     const drugData = values.drugName.map((item: any) => {
       return {
         drugName: `${item.value}`,
         prescriptionNote: `${item.amount}`,
       }
     })
-    // console.log(values.drugName)
+
     const newObject: any = {
       wholeData: drugData,
       userName: userdata?.name,

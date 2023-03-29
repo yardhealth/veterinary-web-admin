@@ -1,22 +1,17 @@
 import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-
-import InfoCards from 'components/core/InfoCards'
-import Avatar from '@mui/material/Avatar'
-import {
-  CompletedAppointments,
-  DepartmentIcon,
-  Reports,
-  TotalClients,
-  TotalExpense,
-  TotalIncome,
-  TotalStaffs,
-  UpcomingAppointments,
-} from 'assets/static-icon'
 import ColumnChartUserDashboard from 'components/admin/dashboard/ColumnChartUserDashboard'
 import RegisteredPetDetails from 'components/admin/dashboard/RegisteredPetDetails'
+import InfoCards from 'components/core/InfoCards'
+import Avatar from '@mui/material/Avatar'
 import { useGET } from 'hooks'
+import {
+  CompletedAppointments,
+  TotalClients,
+  TotalIncome,
+  UpcomingAppointments,
+} from 'assets/static-icon'
 
 const Dashboard = () => {
   const router = useRouter()
@@ -46,7 +41,6 @@ const Dashboard = () => {
   const { data: petCategory, mutate: pet } = useGET<any[]>(
     `dashboard/pet-category`
   )
-  // console.log(petCategory)
 
   const { data: yearUpcoming, mutate: yearUp } = useGET<any[]>(
     `dashboard/appointment-year-upcoming`
@@ -56,7 +50,6 @@ const Dashboard = () => {
   const { data: yearCompleted, mutate: yearComp } = useGET<any[]>(
     `dashboard/appointment-year-Completed`
   )
-  console.log(yearCompleted)
 
   return (
     <AdminLayout title="Admin Dashboard">
