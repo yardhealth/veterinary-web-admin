@@ -27,6 +27,9 @@ const AddPrescription = () => {
   const { data: singleUser, mutate: userGet } = useGET<any[]>(
     `prescription/get-pet-details?userId=${userdata?._id}`
   )
+  console.log(singleUser)
+
+  // const [appointmentId, setAppointmentId] = useState<any>({})
 
   const AddPrescriptionSchema = useMemo(() => {
     return [
@@ -93,9 +96,9 @@ const AddPrescription = () => {
 
         options: singleUser?.success?.data?.map((item, i) => {
           return {
-            label: `${item?.petName} (${item?.petCategory})`,
-            value: item?._id,
-            key: item?._id,
+            label: `${item?.pet?.petName} (${item?.pet?.petCategory})`,
+            value: item?.pet?._id,
+            key: item?.pet?._id,
           }
         }),
         required: true,
@@ -121,9 +124,10 @@ const AddPrescription = () => {
     console.log(values)
 
     const petDetails = singleUser?.success?.data?.find(
-      (petDetail) => petDetail?._id === values?.petName
+      (petDetail) => petDetail?.pet?._id === values?.petName
     )
     console.log(petDetails)
+
     const drugData = values.drugName.map((item: any) => {
       return {
         drugName: `${item.value}`,
@@ -134,10 +138,11 @@ const AddPrescription = () => {
     const newObject: any = {
       wholeData: drugData,
       userName: userdata?.name,
-      petName: petDetails?.petName,
-      petId: petDetails?._id,
+      appointmentId: petDetails?._id,
+      petName: petDetails?.pet?.petName,
+      petId: petDetails?.pet?._id,
       userId: userdata?._id,
-      petCategory: petDetails?.petCategory,
+      petCategory: petDetails?.pet?.petCategory,
       userMail: userdata?.email,
     }
     console.log(newObject)

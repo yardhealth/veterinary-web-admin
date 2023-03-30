@@ -22,6 +22,7 @@
     "firebase-admin": "^11.0.0",
     "formik": "^2.2.9",
     "kill-port": "^2.0.1",
+    "lottie-react": "^2.4.0",
     "moment": "^2.29.3",
     "next": "latest",
     "nprogress": "^0.2.0",

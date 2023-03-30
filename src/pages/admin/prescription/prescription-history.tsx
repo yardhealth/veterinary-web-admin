@@ -10,6 +10,8 @@ import { MuiTblOptions } from 'utils'
 import { useState } from 'react'
 import { useGET } from 'hooks'
 import moment from 'moment'
+import Lottie from 'lottie-react'
+import pdfAnimation from '../../../animation/pdf.json'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -119,23 +121,21 @@ const PrescriptionHistory = () => {
               },
 
               {
-                title: 'Drug Name',
-                field: 'drugName',
-                searchable: true,
-                export: true,
+                title: 'Prescription Link',
+                field: 'pdf',
+                editable: 'never',
+                render: ({ pdf }) => {
+                  return (
+                    <div>
+                      <a target="_blank" href={pdf}>
+                        <img className="w-20" src="/pdf.png" alt="" />
+                      </a>
+                    </div>
+                  )
+                },
                 emptyValue: '--',
-                //   hidden:true,
 
-                filtering: false,
-              },
-
-              {
-                title: 'Prescription Note',
-                field: 'prescriptionNote',
-                searchable: true,
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
+                // width: "2%",
               },
 
               {

@@ -7,94 +7,103 @@ import { useMemo, useState } from 'react'
 import CustomerType from 'types/customer'
 import CategoryType from 'types/category'
 import { LoadingButton } from '@mui/lab'
-import { useFetch } from 'hooks'
+import { useFetch, useGET } from 'hooks'
 import Swal from 'sweetalert2'
 import * as Yup from 'yup'
 import {
   Add,
   BorderColor,
+  ContactPhone,
   CurrencyRupee,
   Done,
+  Email,
   MedicationLiquid,
   Percent,
   Person,
 } from '@mui/icons-material'
+import { AdminAutocomplete } from 'components/core'
 
 const AddInvoice = () => {
-  const [categories] = useFetch<CategoryType[]>(`/Categories`, {
-    needNested: false,
-    needArray: true,
-  })
-  const [customers] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
+  const [userdata, setUserdata] = useState<any>({})
+  console.log(userdata)
+  const { data: userData, mutate: userMutate } =
+    useGET<any[]>(`user/getallUsers`)
+  console.log(userData)
+
+  const { data: singleUser, mutate: userGet } = useGET<any[]>(
+    `prescription/get-pet-details?userId=${userdata?._id}`
+  )
+
   const AddInvoiceSchema = useMemo(() => {
     return [
       {
-        key: '2',
+        key: '1',
         // placeholder: 'Enter your email',
         name: 'ownerName',
         label: 'Owner Name *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
-        type: 'select',
-        validationSchema: Yup.string().required('Owner Name is required'),
+        type: 'autocomplete',
+        validationSchema: Yup.string().required('Owner name is required'),
         initialValue: '',
-        options: [
-          {
-            label: 'Kate',
-            value: 'Kate',
-          },
-          {
-            label: 'James',
-            value: 'James',
-          },
-          {
-            label: 'Alex',
-            value: 'Alex',
-          },
-          {
-            label: 'Peter',
-            value: 'Peter',
-          },
-        ],
         icon: <BorderColor />,
+
+        options: userData?.success?.data?.map((item, i) => {
+          return {
+            data: item,
+            label: `${item?.name} (${item?.email})`,
+            value: item?._id,
+            key: item?.name,
+          }
+        }),
         required: true,
       },
       {
-        key: '3',
-        // placeholder: 'Enter your name',
-        name: 'pet',
-        label: 'Select Pet *',
+        key: '1',
+        // placeholder: 'Enter your email',
+        name: 'email',
+        label: 'Email *',
         placeholder: '',
-        styleContact: 'rounded-xl bg-white mb-5 ',
-        validationSchema: Yup.string().required('Pet is required'),
+        styleContact: 'rounded-lg mb-5',
+        type: 'text',
+        validationSchema: Yup.string()
+          .required('Email Required.')
+          .email('Enter valid email'),
         initialValue: '',
-        type: 'select',
-        icon: <Person />,
+        icon: <Email />,
         required: true,
-        contactField: {
-          xs: 12,
-          sm: 12,
-          md: 6,
-          lg: 6,
-        },
-        options: [
-          {
-            label: 'Dog',
-            value: 'Dog',
-          },
-          {
-            label: 'Cat',
-            value: 'Cat',
-          },
-          {
-            label: 'Bird',
-            value: 'Bird',
-          },
-          ,
-        ],
+      },
+      {
+        key: '2',
+        // placeholder: 'Enter your email',
+        name: 'phoneNumber',
+        label: 'Contact Number *',
+        placeholder: '',
+        styleContact: 'rounded-lg mb-5',
+        type: 'number',
+        validationSchema: Yup.string().required('Contact number is required'),
+        initialValue: '',
+        icon: <ContactPhone />,
+        required: true,
+      },
+      {
+        key: '4',
+        label: 'Pet Name',
+        name: 'petName',
+        type: 'autocomplete',
+        validationSchema: Yup.string().required('Pet Name is required'),
+        initialValue: '',
+        icon: <BorderColor />,
+        styleContact: 'rounded-lg mb-5',
+
+        options: singleUser?.success?.data?.map((item, i) => {
+          return {
+            label: `${item?.pet?.petName} (${item?.pet?.petCategory})`,
+            value: item?.pet?._id,
+            key: item?.pet?._id,
+          }
+        }),
+        required: true,
       },
 
       {
@@ -128,11 +137,11 @@ const AddInvoice = () => {
       {
         key: '3',
         // placeholder: 'Enter your name',
-        name: 'suTotal',
+        name: 'subTotal',
         label: 'Sub Total *',
         placeholder: '',
         styleContact: 'rounded-xl bg-white mb-5',
-        validationSchema: Yup.string().required('Sub Total is required'),
+        validationSchema: Yup.string().optional(),
         initialValue: '',
         type: 'number',
         icon: <CurrencyRupee />,
@@ -171,26 +180,7 @@ const AddInvoice = () => {
         label: 'Gross Total *',
         placeholder: '',
         styleContact: 'rounded-xl bg-white mb-5',
-        validationSchema: Yup.string().required('Gross Total is required'),
-        initialValue: '',
-        type: 'number',
-        icon: <CurrencyRupee />,
-        required: true,
-        contactField: {
-          xs: 12,
-          sm: 12,
-          md: 6,
-          lg: 6,
-        },
-      },
-      {
-        key: '3',
-        // placeholder: 'Enter your name',
-        name: 'depositedAmount',
-        label: 'Deposited Amount *',
-        placeholder: '',
-        styleContact: 'rounded-xl bg-white mb-5',
-        validationSchema: Yup.string().required('Deposited Amount is required'),
+        validationSchema: Yup.string().optional(),
         initialValue: '',
         type: 'number',
         icon: <CurrencyRupee />,
@@ -203,65 +193,20 @@ const AddInvoice = () => {
         },
       },
     ]
-  }, [categories])
-  const [articleValue, setArticleValue] = useState('')
-  const [image, setImage] = useState<any>('')
-  const [countryDetails, setCountryDetails] = useState({
-    code: 'IN',
-    label: 'India',
-    phone: '91',
-  })
+  }, [userData?.success?.data?.length, singleUser])
 
   const handleSend = async (values: any, submitProps: any) => {
     console.log(values)
-    // try {
-    //   if (values?.photo) {
-    //     const fileRef = `Customers/${values?.customerName}/photoUrl`
-    //     const res = await storage.ref(fileRef).put(values?.photo)
-    //     const url = await res.ref.getDownloadURL()
-    //     const ID = Date.now()
-    //     await database
-    //       .ref(`Customers/${values?.customerName}/Expenses/${ID}`)
-    //       .update({
-    //         date: values?.date,
-    //         amount: values?.amount,
-    //         category: values?.category,
-    //         customerName: values?.customerName,
-    //         notes: values?.notes,
-    //         invoiceNumber: values?.invoiceNumber,
-    //         documentUrl: url,
-    //         createdAt: new Date().toString(),
-    //       })
-    //     await database.ref(`Expenses/${ID}`).update({
-    //       date: values?.date,
-    //       amount: values?.amount,
-    //       category: values?.category,
-    //       customerName: values?.customerName,
-    //       notes: values?.notes,
-    //       invoiceNumber: values?.invoiceNumber,
-    //       documentUrl: url,
-    //       createdAt: new Date().toString(),
-    //     })
-    //     setImage('')
-    //     Swal.fire('Success', 'Successfully Added', 'success')
-    //     submitProps.resetForm()
-    //   } else {
-    //     await database.ref(`Customers/${values?.customerName}/Expenses`).push({
-    //       ...values,
-    //       createdAt: new Date().toString(),
-    //     })
-    //     await database.ref(`Expenses`).push({
-    //       ...values,
-    //       createdAt: new Date().toString(),
-    //     })
-    //     Swal.fire('Success', 'Successfully Added', 'success')
-    //     submitProps.resetForm()
-    //   }
-    // } catch (error) {
-    //   console.log(error)
-    //   Swal.fire('Error', 'Something Went Wrong', 'error')
-    //   submitProps.setSubmitting(false)
-    // }
+
+    try {
+      submitProps.resetForm()
+
+      return
+    } catch (error) {
+      submitProps.setSubmitting(false)
+      Swal.fire('Error', 'Something went wrong', 'error')
+      console.log(error)
+    }
   }
   const initialValues = AddInvoiceSchema.reduce((accumulator, currentValue) => {
     accumulator[currentValue.name] = currentValue.initialValue
@@ -310,6 +255,80 @@ const AddInvoice = () => {
           return item
         })
       )
+      formik?.setFieldValue(
+        'subTotal',
+        formik?.values?.item
+          ?.map((item: any) => {
+            if (item.key === key) {
+              return {
+                ...item,
+                value,
+                amount,
+              }
+            }
+            return item
+          })
+          ?.reduce(
+            (accumulator: any, currentValue: any) =>
+              accumulator + Number(currentValue?.amount),
+            0
+          )
+      )
+
+      formik?.setFieldValue(
+        'grossTotal',
+        formik?.values?.discount
+          ? formik?.values?.item
+              ?.map((item: any) => {
+                if (item.key === key) {
+                  return {
+                    ...item,
+                    value,
+                    amount,
+                  }
+                }
+                return item
+              })
+              ?.reduce(
+                (accumulator: any, currentValue: any) =>
+                  accumulator + Number(currentValue?.amount),
+                0
+              ) -
+              (formik?.values?.item
+                ?.map((item: any) => {
+                  if (item.key === key) {
+                    return {
+                      ...item,
+                      value,
+                      amount,
+                    }
+                  }
+                  return item
+                })
+                ?.reduce(
+                  (accumulator: any, currentValue: any) =>
+                    accumulator + Number(currentValue?.amount),
+                  0
+                ) *
+                formik?.values?.discount) /
+                100
+          : formik?.values?.item
+              ?.map((item: any) => {
+                if (item.key === key) {
+                  return {
+                    ...item,
+                    value,
+                    amount,
+                  }
+                }
+                return item
+              })
+              ?.reduce(
+                (accumulator: any, currentValue: any) =>
+                  accumulator + Number(currentValue?.amount),
+                0
+              )
+      )
     } catch (error) {}
   }
 
@@ -333,17 +352,57 @@ const AddInvoice = () => {
 
       <div className="m-auto w-[50vw]">
         <Formik
-          initialValues={initialValues}
+          enableReinitialize
+          initialValues={{
+            ...initialValues,
+            email: userdata?.email,
+            phoneNumber: userdata?.phoneNumber,
+            ownerName: userdata?._id,
+          }}
           validationSchema={Yup.object(validationSchema)}
           onSubmit={handleSend}
         >
           {(formik) => (
             <Form className="">
               {/* <Weekdays /> */}
-              {console.log(formik)}
+              {/* {console.log(formik)} */}
+              {console.log(formik.errors)}
+              {console.log(formik.values)}
               {AddInvoiceSchema?.map((inputItem: any, index: any) => (
                 <div key={index}>
-                  {inputItem?.name === 'item' ? (
+                  {inputItem?.type === 'autocomplete' ? (
+                    <div className=" w-full pb-4">
+                      <AdminAutocomplete
+                        size={'medium'}
+                        label={inputItem?.label}
+                        isOptionEqualToValue={(option, value) =>
+                          option?.value === value?.value
+                        }
+                        error={Boolean(
+                          formik?.touched[inputItem?.name] &&
+                            formik?.errors[inputItem?.name]
+                        )}
+                        helperText={
+                          formik?.touched[inputItem?.name] &&
+                          (formik?.errors[inputItem?.name] as any)
+                        }
+                        onChange={(e, value) => {
+                          console.log(value?.value, inputItem?.name)
+                          formik?.setFieldValue(inputItem?.name, value?.value)
+                          inputItem?.name === 'ownerName' &&
+                            setUserdata(value?.data)
+                        }}
+                        options={inputItem?.options}
+                        noOptionText={
+                          <div className="flex w-full flex-col gap-2">
+                            <small className="tracking-wide">
+                              No options found
+                            </small>
+                          </div>
+                        }
+                      />
+                    </div>
+                  ) : inputItem?.name === 'item' ? (
                     <div className=" w-full py-4">
                       {formik.values[inputItem.name]?.length &&
                         formik?.values[inputItem.name]?.map((item: any) => {
@@ -370,6 +429,7 @@ const AddInvoice = () => {
 
                       <button
                         onClick={() => handleClick(inputItem?.name, formik)}
+                        type="button"
                         className="mt-5 flex items-center gap-1 rounded-md bg-theme px-4 py-2 text-sm text-white transition-all duration-300 ease-in-out hover:scale-105"
                       >
                         <Add className="!text-[1.3rem]" /> Add More
@@ -397,7 +457,25 @@ const AddInvoice = () => {
                           (formik?.errors[inputItem.name] as any)
                         }
                         value={formik?.values[inputItem.name]}
-                        onChange={formik?.handleChange}
+                        // onChange={formik?.handleChange}
+                        onChange={(e: any) => {
+                          console.log(e.target.value, inputItem?.name)
+
+                          if (inputItem?.name === 'discount') {
+                            formik?.setFieldValue(
+                              inputItem?.name,
+                              e.target.value
+                            )
+                            formik?.setFieldValue(
+                              'grossTotal',
+                              formik?.values?.subTotal -
+                                (formik?.values?.subTotal * e.target.value) /
+                                  100
+                            )
+                          } else {
+                            formik?.handleChange
+                          }
+                        }}
                         onBlur={formik?.handleBlur}
                       />
                     </div>

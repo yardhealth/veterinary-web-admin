@@ -21,25 +21,6 @@ const BillInputField = ({
   const [isBlur, setIsBlur] = useState(false)
   const [isAmountBlur, setIsAmountBlur] = useState(false)
 
-  // const handleClick = () => {
-  // 	setInputs([...inputs, { value: "", amount: "" }]);
-  // };
-
-  // const handleClick = () => {
-  //   setInputs([...inputs, { value: '', amount: '' }])
-  // }
-
-  // const handleNameChange = (index: any, e: any) => {
-  //   const values = [...inputs]
-  //   values[index].value = e.target.value
-  //   setInputs(values)
-  // }
-  // const handleAmtChange = (index: any, e: any) => {
-  //   const values = [...inputs]
-  //   values[index].amount = e.target.value
-  //   setInputs(values)
-  // }
-
   console.log(isBlur)
   console.log(!value)
 
