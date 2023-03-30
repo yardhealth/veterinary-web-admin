@@ -86,12 +86,12 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={() => router.push('/admin/edit-profile')}>
+        {/* <MenuItem onClick={() => router.push('/admin/edit-profile')}>
           <ListItemIcon>
             <ICONS.Edit className="h-5 w-5" />
           </ListItemIcon>
           {'Edit Profile'}
-        </MenuItem>
+        </MenuItem> */}
         <Divider />
 
         <MenuItem onClick={() => handleLogout()}>

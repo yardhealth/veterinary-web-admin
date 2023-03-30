@@ -72,13 +72,11 @@ const Login = () => {
         <div className="flex flex-col items-center rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
           <div>
             <div className="mx-auto w-24 md:w-64">
-              <Link href="/">
-                <img
-                  className="w-full object-contain"
-                  src="/veterinaryLogo.png"
-                  alt=""
-                />
-              </Link>
+              <img
+                className="w-full object-contain"
+                src="/veterinaryLogo.png"
+                alt=""
+              />
             </div>
             <Formik
               initialValues={initialValues}

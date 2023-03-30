@@ -47,14 +47,7 @@ type Props = {
 
 const EditScheduleDrawer = ({ open, onClose, mutate, activeData }: Props) => {
   console.log(open)
-  const [categories] = useFetch<CategoryType[]>(`/Categories`, {
-    needNested: false,
-    needArray: true,
-  })
-  const [customers] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
+
   const AddScheduleSchema = useMemo(() => {
     return [
       {
@@ -144,9 +137,23 @@ const EditScheduleDrawer = ({ open, onClose, mutate, activeData }: Props) => {
     setImage(open?.documentUrl)
   }, [open?.documentUrl])
 
+  const { trigger, isMutating } = useMutation(
+    `slot-management/update-slot-management/${activeData?._id}`,
+    { method: 'PATCH' }
+  )
   const handleSend = async (values: any, submitProps: any) => {
-    console.log(values)
-    console.log(image)
+    try {
+      console.log(values)
+      const response = await trigger(values)
+      if (!response?.success)
+        throw new Error(response?.error?.message || 'Something went wrong')
+      Swal.fire('Updated Successfully', response?.success?.message, 'success')
+      mutate?.()
+      submitProps.resetForm()
+      onClose()
+    } catch (error) {
+      submitProps.setSubmitting(false)
+    }
   }
   return (
     <>

@@ -296,16 +296,18 @@ const AllSchedule = () => {
             //     ),
             //   },
             // ]}
-            actions={[
-              {
-                icon: 'add',
-                tooltip: 'Add Schedule',
-                isFreeAction: true,
-                onClick: () => {
-                  router.push('/admin/schedule/create-schedule')
-                },
-              },
-            ]}
+            actions={
+              [
+                // {
+                //   icon: 'add',
+                //   tooltip: 'Add Schedule',
+                //   isFreeAction: true,
+                //   onClick: () => {
+                //     router.push('/admin/schedule/create-schedule')
+                //   },
+                // },
+              ]
+            }
           />
         </div>
       </div>

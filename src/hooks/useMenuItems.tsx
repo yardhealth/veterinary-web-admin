@@ -54,12 +54,12 @@ export default () => {
         title: 'Appointments',
         icon: <CalendarMonth />,
         submenus: [
-          {
-            key: '2.1',
-            route: '/admin/appointments/create-appointments',
-            title: 'Create Appointment',
-            icon: <Add />,
-          },
+          // {
+          //   key: '2.1',
+          //   route: '/admin/appointments/create-appointments',
+          //   title: 'Create Appointment',
+          //   icon: <Add />,
+          // },
           {
             key: '2.2',
             route: '/admin/appointments/all-appointments',
@@ -130,25 +130,25 @@ export default () => {
           },
         ],
       },
-      {
-        key: '10',
-        title: 'Reports',
-        icon: <Receipt />,
-        submenus: [
-          {
-            key: '10.1',
-            route: '/admin/reports/upload-report',
-            title: 'Upload Report',
-            icon: <BorderColor />,
-          },
-          {
-            key: '10.2',
-            route: '/admin/reports/view-all-reports',
-            title: 'View All Reports',
-            icon: <Science />,
-          },
-        ],
-      },
+      // {
+      //   key: '10',
+      //   title: 'Reports',
+      //   icon: <Receipt />,
+      //   submenus: [
+      //     {
+      //       key: '10.1',
+      //       route: '/admin/reports/upload-report',
+      //       title: 'Upload Report',
+      //       icon: <BorderColor />,
+      //     },
+      //     {
+      //       key: '10.2',
+      //       route: '/admin/reports/view-all-reports',
+      //       title: 'View All Reports',
+      //       icon: <Science />,
+      //     },
+      //   ],
+      // },
       {
         key: '5',
         title: 'Invoices',
@@ -232,12 +232,12 @@ export default () => {
         ],
       },
 
-      {
-        key: '7',
-        title: 'Support',
-        icon: <BusinessCenter />,
-        route: '/admin/support',
-      },
+      // {
+      //   key: '7',
+      //   title: 'Support',
+      //   icon: <BusinessCenter />,
+      //   route: '/admin/support',
+      // },
       // {
       //   key: '4',
       //   title: 'Sales',

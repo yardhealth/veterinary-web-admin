@@ -7,7 +7,7 @@ import { useMemo, useState } from 'react'
 import CustomerType from 'types/customer'
 import CategoryType from 'types/category'
 import { LoadingButton } from '@mui/lab'
-import { useFetch, useGET } from 'hooks'
+import { useFetch, useGET, useMutation } from 'hooks'
 import Swal from 'sweetalert2'
 import * as Yup from 'yup'
 import {
@@ -120,19 +120,6 @@ const AddInvoice = () => {
         icon: <MedicationLiquid />,
         required: true,
       },
-      {
-        key: '5',
-        // placeholder: 'Enter your email',
-        name: 'petName',
-        label: 'Pet Name *',
-        placeholder: '',
-        styleContact: 'rounded-lg mb-5',
-        type: 'text',
-        validationSchema: Yup.string().required('Pet Name is required'),
-        initialValue: '',
-        icon: <BorderColor />,
-        required: true,
-      },
 
       {
         key: '3',
@@ -195,11 +182,48 @@ const AddInvoice = () => {
     ]
   }, [userData?.success?.data?.length, singleUser])
 
+  const { isMutating, trigger } = useMutation(`invoice/create`)
   const handleSend = async (values: any, submitProps: any) => {
     console.log(values)
 
+    const petDetails = singleUser?.success?.data?.find(
+      (petDetail) => petDetail?.pet?._id === values?.petName
+    )
+    console.log(petDetails?.pet?.petName)
+
+    const invoiceData = values.item.map((item: any) => {
+      return {
+        itemName: `${item.value}`,
+        itemAmount: `${item.amount}`,
+      }
+    })
+
+    const newObject: any = {
+      wholeData: invoiceData,
+      userName: userdata?.name,
+      appointmentId: petDetails?._id,
+      petName: petDetails?.pet?.petName,
+      pet: petDetails?.pet?._id,
+      user: userdata?._id,
+      petCategory: petDetails?.pet?.petCategory,
+      // userMail: userdata?.email,
+      subTotal: values?.subTotal,
+      discount: Number(values?.discount),
+      grossTotal: values?.grossTotal,
+    }
+    console.log(newObject)
+
     try {
+      const { error, success } = await trigger(newObject)
+      if (error) return Swal.fire('Error', error.message, 'error')
+
+      const addInvoice = {
+        ...success?.data,
+      }
       submitProps.resetForm()
+      Swal.fire('Success', success.message, 'success')
+
+      console.log(addInvoice)
 
       return
     } catch (error) {

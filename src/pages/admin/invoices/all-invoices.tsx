@@ -10,7 +10,7 @@ import AdminLayout from 'layouts/admin'
 import { MuiTblOptions } from 'utils'
 // import { database } from 'configs'
 import { useState } from 'react'
-import { useFetch } from 'hooks'
+import { useFetch, useGET } from 'hooks'
 import Swal from 'sweetalert2'
 import moment from 'moment'
 
@@ -20,11 +20,11 @@ const AllInvoices = () => {
   const [openEditPrescriptionDrawer, setOpenEditPrescriptionDrawer] =
     useState(false)
 
-  const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
   // console.log(data)
+
+  const { data, mutate } = useGET<any[]>(`invoice/getall`)
+  console.log(data)
+
   console.log(openEditPrescriptionDrawer)
   const handleDelete = (row: CustomerType) => {
     // try {
@@ -61,7 +61,11 @@ const AllInvoices = () => {
             // mutate={mutate}
           />
           <MaterialTable
-            data={tabelData}
+            data={
+              data?.success?.data
+                ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+                : []
+            }
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
@@ -80,14 +84,14 @@ const AllInvoices = () => {
               },
               {
                 title: 'Owner Name',
-                field: 'ownerName',
+                field: 'userName',
                 editable: 'never',
                 emptyValue: '--',
                 // width: "2%",
               },
               {
                 title: 'Pet',
-                field: 'pet',
+                field: 'petCategory',
                 editable: 'never',
 
                 emptyValue: '--',
@@ -105,50 +109,21 @@ const AllInvoices = () => {
               },
 
               {
-                title: 'Item Name',
-                field: 'itemName',
-                searchable: true,
-                export: true,
+                title: 'Invoice Link',
+                field: 'pdf',
+                editable: 'never',
+                render: ({ pdf }) => {
+                  return (
+                    <div>
+                      <a target="_blank" href={pdf}>
+                        <img className="w-20" src="/pdf.png" alt="" />
+                      </a>
+                    </div>
+                  )
+                },
                 emptyValue: '--',
-                //   hidden:true,
 
-                filtering: false,
-              },
-
-              // {
-              //   title: 'Item Description',
-              //   field: 'itemDescription',
-              //   searchable: true,
-
-              //   emptyValue: '--',
-              //   //   hidden:true,
-              //   filtering: false,
-              // },
-              {
-                title: 'Sub Total',
-                field: 'subTotal',
-                searchable: true,
-                export: true,
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
-              {
-                title: 'Gross Total',
-                field: 'grossTotal',
-                searchable: true,
-                export: true,
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
-              },
-              {
-                title: 'Deposited Amount',
-                field: 'depositedAmount',
-                searchable: true,
-                emptyValue: '--',
-                //   hidden:true,
-                filtering: false,
+                // width: "2%",
               },
 
               {
@@ -159,72 +134,72 @@ const AllInvoices = () => {
                 render: ({ createdAt }: any) =>
                   moment(new Date(createdAt)).format('lll'),
               },
-              {
-                title: 'Actions',
-                cellStyle: {
-                  textAlign: 'right',
-                },
-                export: true,
-                // width: "18%",
-                // field: "pick",
-                render: (row) => (
-                  <>
-                    <div className="flex">
-                      <Tooltip title="Edit">
-                        <Avatar
-                          onClick={() => setOpenEditPrescriptionDrawer(true)}
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-theme !p-0"
-                          sx={{
-                            mr: '.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <BorderColor sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip>
-                      <Tooltip title="Delete">
-                        <Avatar
-                          // onClick={() => handleDelete(row?.id)}
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-red-700 !p-0"
-                          sx={{
-                            mr: '0.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <Delete sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip>
-                      <Tooltip title="View Invoice">
-                        <Avatar
-                          // onClick={() => handleDelete(row?.id)}
-                          onClick={() =>
-                            router.push(`/admin/invoices/payment-invoice`)
-                          }
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-primary !p-0"
-                          sx={{
-                            mr: '0.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <ReceiptLong sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip>
-                    </div>
-                  </>
-                ),
-              },
+              // {
+              //   title: 'Actions',
+              //   cellStyle: {
+              //     textAlign: 'right',
+              //   },
+              //   export: true,
+              //   // width: "18%",
+              //   // field: "pick",
+              //   render: (row) => (
+              //     <>
+              //       <div className="flex">
+              //         <Tooltip title="Edit">
+              //           <Avatar
+              //             onClick={() => setOpenEditPrescriptionDrawer(true)}
+              //             variant="rounded"
+              //             className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-theme !p-0"
+              //             sx={{
+              //               mr: '.1vw',
+              //               padding: '0px !important',
+              //               backgroundColor: 'Highlight',
+              //               cursor: 'pointer',
+              //               color: '',
+              //             }}
+              //           >
+              //             <BorderColor sx={{ padding: '0px !important' }} />
+              //           </Avatar>
+              //         </Tooltip>
+              //         <Tooltip title="Delete">
+              //           <Avatar
+              //             // onClick={() => handleDelete(row?.id)}
+              //             variant="rounded"
+              //             className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-red-700 !p-0"
+              //             sx={{
+              //               mr: '0.1vw',
+              //               padding: '0px !important',
+              //               backgroundColor: 'Highlight',
+              //               cursor: 'pointer',
+              //               color: '',
+              //             }}
+              //           >
+              //             <Delete sx={{ padding: '0px !important' }} />
+              //           </Avatar>
+              //         </Tooltip>
+              //         <Tooltip title="View Invoice">
+              //           <Avatar
+              //             // onClick={() => handleDelete(row?.id)}
+              //             onClick={() =>
+              //               router.push(`/admin/invoices/payment-invoice`)
+              //             }
+              //             variant="rounded"
+              //             className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-primary !p-0"
+              //             sx={{
+              //               mr: '0.1vw',
+              //               padding: '0px !important',
+              //               backgroundColor: 'Highlight',
+              //               cursor: 'pointer',
+              //               color: '',
+              //             }}
+              //           >
+              //             <ReceiptLong sx={{ padding: '0px !important' }} />
+              //           </Avatar>
+              //         </Tooltip>
+              //       </div>
+              //     </>
+              //   ),
+              // },
             ]}
             // detailPanel={[
             //   {
