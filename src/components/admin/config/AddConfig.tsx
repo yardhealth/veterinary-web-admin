@@ -88,7 +88,7 @@ const AddConfig = () => {
         ...success?.data,
       }
       Swal.fire('Success', success.message, 'success')
-
+      submitProps.resetForm()
       console.log(payment)
 
       return
