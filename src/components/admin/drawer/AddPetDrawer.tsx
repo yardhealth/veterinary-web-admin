@@ -13,6 +13,8 @@ import {
   AccessTimeFilled,
   BorderColor,
   CalendarMonth,
+  Category,
+  Class,
   CurrencyRupee,
   Done,
   EmailOutlined,
@@ -23,7 +25,9 @@ import {
   Phone,
   Photo,
   Receipt,
+  Scale,
   Timer,
+  Transgender,
 } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import { Form, Formik } from 'formik'
@@ -64,7 +68,7 @@ const AddPetDrawer = ({ open, onClose, mutate, activeData, _id }: Props) => {
         type: 'text',
         validationSchema: Yup.string().required('Pet Category is required'),
         initialValue: '',
-        icon: <BorderColor />,
+        icon: <Category />,
         required: true,
       },
       {
@@ -77,7 +81,7 @@ const AddPetDrawer = ({ open, onClose, mutate, activeData, _id }: Props) => {
         type: 'text',
         validationSchema: Yup.string().required('Pet Name is required'),
         initialValue: '',
-        icon: <EmailOutlined />,
+        icon: <BorderColor />,
         required: true,
       },
       {
@@ -90,7 +94,7 @@ const AddPetDrawer = ({ open, onClose, mutate, activeData, _id }: Props) => {
         type: 'select',
         validationSchema: Yup.string().required('Pet Gender is required'),
         initialValue: '',
-        icon: <Phone />,
+        icon: <Transgender />,
         options: [
           {
             label: 'Male',
@@ -115,7 +119,7 @@ const AddPetDrawer = ({ open, onClose, mutate, activeData, _id }: Props) => {
         type: 'text',
         validationSchema: Yup.string().required('Pet Breed is required'),
         initialValue: '',
-        icon: <Phone />,
+        icon: <Class />,
         required: true,
       },
       {
@@ -128,7 +132,7 @@ const AddPetDrawer = ({ open, onClose, mutate, activeData, _id }: Props) => {
         type: 'number',
         validationSchema: Yup.string().required('Pet Age is required'),
         initialValue: '',
-        icon: <Phone />,
+        icon: <BorderColor />,
         required: true,
       },
       {
@@ -141,7 +145,7 @@ const AddPetDrawer = ({ open, onClose, mutate, activeData, _id }: Props) => {
         type: 'number',
         validationSchema: Yup.string().required('Pet Weight is required'),
         initialValue: '',
-        icon: <Phone />,
+        icon: <Scale />,
         required: true,
       },
       {

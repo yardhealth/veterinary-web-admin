@@ -130,25 +130,25 @@ export default () => {
           },
         ],
       },
-      // {
-      //   key: '10',
-      //   title: 'Reports',
-      //   icon: <Receipt />,
-      //   submenus: [
-      //     {
-      //       key: '10.1',
-      //       route: '/admin/reports/upload-report',
-      //       title: 'Upload Report',
-      //       icon: <BorderColor />,
-      //     },
-      //     {
-      //       key: '10.2',
-      //       route: '/admin/reports/view-all-reports',
-      //       title: 'View All Reports',
-      //       icon: <Science />,
-      //     },
-      //   ],
-      // },
+      {
+        key: '10',
+        title: 'Reports',
+        icon: <Receipt />,
+        submenus: [
+          {
+            key: '10.1',
+            route: '/admin/reports/upload-report',
+            title: 'Upload Report',
+            icon: <BorderColor />,
+          },
+          {
+            key: '10.2',
+            route: '/admin/reports/view-all-reports',
+            title: 'View All Reports',
+            icon: <Science />,
+          },
+        ],
+      },
       {
         key: '5',
         title: 'Invoices',

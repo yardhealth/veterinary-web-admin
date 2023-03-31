@@ -46,14 +46,14 @@ type Props = {
 }
 
 const EditScheduleDrawer = ({ open, onClose, mutate, activeData }: Props) => {
-  console.log(open)
+  console.log(activeData)
 
   const AddScheduleSchema = useMemo(() => {
     return [
       {
         key: '2',
         // placeholder: 'Enter your email',
-        name: 'startTimeSlot',
+        name: 'startTime',
         label: 'Start Time *',
         placeholder: '',
         styleContact: 'rounded-lg',
@@ -66,7 +66,7 @@ const EditScheduleDrawer = ({ open, onClose, mutate, activeData }: Props) => {
       {
         key: '3',
         // placeholder: 'Enter your email',
-        name: 'endTimeSlot',
+        name: 'endTime',
         label: 'End Time *',
         placeholder: '',
         styleContact: 'rounded-lg',
@@ -79,7 +79,7 @@ const EditScheduleDrawer = ({ open, onClose, mutate, activeData }: Props) => {
       {
         key: '4',
         // placeholder: 'Enter your email',
-        name: 'breakStartTime',
+        name: 'breakStart',
         label: 'Break Start Time *',
         placeholder: '',
         styleContact: 'rounded-lg',
@@ -92,7 +92,7 @@ const EditScheduleDrawer = ({ open, onClose, mutate, activeData }: Props) => {
       {
         key: '4',
         // placeholder: 'Enter your email',
-        name: 'breakEndTime',
+        name: 'breakEnd',
         label: 'Break End Time *',
         placeholder: '',
         styleContact: 'rounded-lg',
@@ -177,16 +177,16 @@ const EditScheduleDrawer = ({ open, onClose, mutate, activeData }: Props) => {
             initialValues={
               activeData?._id
                 ? {
-                    startTimeSlot: getHoursAndMinutes(
+                    startTime: getHoursAndMinutes(
                       new Date(activeData?.startTimeSlot)
                     ),
-                    endTimeSlot: getHoursAndMinutes(
+                    endTime: getHoursAndMinutes(
                       new Date(activeData?.endTimeSlot)
                     ),
-                    breakStartTime: getHoursAndMinutes(
+                    breakStart: getHoursAndMinutes(
                       new Date(activeData?.breakStartTime)
                     ),
-                    breakEndTime: getHoursAndMinutes(
+                    breakEnd: getHoursAndMinutes(
                       new Date(activeData?.breakEndTime)
                     ),
 

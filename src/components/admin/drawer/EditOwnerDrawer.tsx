@@ -60,7 +60,12 @@ const EditOwnerDrawer = ({ open, onClose, mutate, activeData }: Props) => {
         placeholder: '',
         styleContact: 'rounded-lg mb-10',
         type: 'text',
-        validationSchema: Yup.string().required('Owner Name is required'),
+        validationSchema: Yup.string()
+          .matches(
+            /^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/gi,
+            'Name can only contain Latin letters.'
+          )
+          .required('Owner Name is required'),
         initialValue: '',
         icon: <BorderColor />,
         required: true,
@@ -75,7 +80,7 @@ const EditOwnerDrawer = ({ open, onClose, mutate, activeData }: Props) => {
         type: 'text',
         validationSchema: Yup.string()
           .email('Please enter a valid email address')
-          .required('Owner Name is required'),
+          .required('Owner Email is required'),
         initialValue: '',
         icon: <EmailOutlined />,
         required: true,
@@ -88,7 +93,14 @@ const EditOwnerDrawer = ({ open, onClose, mutate, activeData }: Props) => {
         placeholder: '',
         styleContact: 'rounded-lg mb-10',
         type: 'number',
-        validationSchema: Yup.string().required('Owner Name is required'),
+        validationSchema: Yup.string()
+          .matches(
+            /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+            'Phone number is invalid'
+          )
+          .required('Enter phone Number.')
+          .min(5, 'Minimum 5 Digits')
+          .max(16, 'Maximum 16 Digits'),
         initialValue: '',
         icon: <Phone />,
         required: true,
@@ -161,7 +173,7 @@ const EditOwnerDrawer = ({ open, onClose, mutate, activeData }: Props) => {
             variant="h5"
             sx={{ marginBottom: 3 }}
           >
-            Edit Schedule
+            Edit Owner
           </Typography>
           <Formik
             enableReinitialize
