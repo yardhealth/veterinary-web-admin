@@ -8,34 +8,40 @@ import TextInput from 'components/core/TextInput'
 import {
   Add,
   BorderColor,
+  ContactPhone,
   Done,
   Email,
   Info,
   MedicationLiquid,
   Person,
   Phone,
+  Photo,
   Science,
 } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import { Form, Formik, FormikProps } from 'formik'
 import { useMemo, useState } from 'react'
 import * as Yup from 'yup'
-import { useFetch } from 'hooks'
+import { useFetch, useGET, useMutation } from 'hooks'
 import CategoryType from 'types/category'
 import CustomerType from 'types/customer'
 // import { database, storage } from 'configs'
 import Swal from 'sweetalert2'
 import PhotoUpload from 'components/core/PhotoUpload'
+import { AdminAutocomplete } from 'components/core'
 
 const AddReport = () => {
-  const [categories] = useFetch<CategoryType[]>(`/Categories`, {
-    needNested: false,
-    needArray: true,
-  })
-  const [customers] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
+  const [userdata, setUserdata] = useState<any>({})
+  console.log(userdata)
+  const { data: userData, mutate: userMutate } =
+    useGET<any[]>(`user/getallUsers`)
+  console.log(userData)
+
+  const { data: singleUser, mutate: userGet } = useGET<any[]>(
+    `prescription/get-pet-details?userId=${userdata?._id}`
+  )
+  console.log(singleUser)
+
   const AddPrescriptionSchema = useMemo(() => {
     return [
       {
@@ -45,46 +51,84 @@ const AddReport = () => {
         label: 'Owner Name *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
-        type: 'select',
+        type: 'autocomplete',
         validationSchema: Yup.string().required('Owner Name is required'),
         initialValue: '',
         icon: <BorderColor />,
-        options: [
-          {
-            label: 'Kate',
-            value: 'Kate',
-          },
-          {
-            label: 'James',
-            value: 'James',
-          },
-          {
-            label: 'Alex',
-            value: 'Alex',
-          },
-          {
-            label: 'Peter',
-            value: 'Peter',
-          },
-        ],
+        options: userData?.success?.data?.map((item, i) => {
+          return {
+            data: item,
+            label: `${item?.name} (${item?.email})`,
+            value: item?._id,
+            key: item?.name,
+          }
+        }),
         required: true,
       },
 
       {
-        key: '8',
+        key: '1',
         // placeholder: 'Enter your email',
-        name: 'photo',
-        label: 'Upload Lab report *',
+        name: 'email',
+        label: 'Email *',
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
         type: 'text',
-        validationSchema: Yup.string().required('Lab report is required'),
+        validationSchema: Yup.string()
+          .required('Email Required.')
+          .email('Enter valid email'),
         initialValue: '',
-        icon: <Science />,
+        icon: <Email />,
+        required: true,
+      },
+      {
+        key: '2',
+        // placeholder: 'Enter your email',
+        name: 'phoneNumber',
+        label: 'Contact Number *',
+        placeholder: '',
+        styleContact: 'rounded-lg mb-5',
+        type: 'number',
+        validationSchema: Yup.string().required('Contact number is required'),
+        initialValue: '',
+        icon: <ContactPhone />,
+        required: true,
+      },
+
+      {
+        key: '4',
+        label: 'Pet Name',
+        name: 'petName',
+        type: 'autocomplete',
+        validationSchema: Yup.string().required('Pet Name is required'),
+        initialValue: '',
+        icon: <BorderColor />,
+        styleContact: 'rounded-lg mb-5',
+
+        options: singleUser?.success?.data?.map((item, i) => {
+          return {
+            label: `${item?.pet?.petName} (${item?.pet?.petCategory})`,
+            value: item?.pet?._id,
+            key: item?.pet?._id,
+          }
+        }),
+        required: true,
+      },
+
+      {
+        key: '6',
+        name: 'reportPhoto',
+        label: 'Pet Image',
+        type: 'file',
+        placeholder: '',
+        styleContact: 'rounded-lg',
+        validationSchema: Yup.string().required('file is required'),
+        initialValue: '',
+        icon: <Photo />,
         required: true,
       },
     ]
-  }, [categories])
+  }, [userData?.success?.data?.length, singleUser])
   const [articleValue, setArticleValue] = useState('')
   const [image, setImage] = useState<any>('')
   const [countryDetails, setCountryDetails] = useState({
@@ -93,8 +137,42 @@ const AddReport = () => {
     phone: '91',
   })
 
+  const { isMutating, trigger } = useMutation(`report/create`, {
+    isFormData: true,
+  })
+
   const handleSend = async (values: any, submitProps: any) => {
     console.log(values)
+    try {
+      const petDetails = singleUser?.success?.data?.find(
+        (petDetail) => petDetail?.pet?._id === values?.petName
+      )
+      console.log(petDetails)
+      console.log(petDetails?._id)
+      const formData = new FormData()
+
+      formData.append('userId', userdata?._id)
+      formData.append('petId', petDetails?.pet?._id)
+      formData.append('appointmentId', petDetails?._id)
+      formData.append('reportPhoto', values?.reportPhoto)
+
+      const { error, success } = await trigger(formData as any)
+      if (error) return Swal.fire('Error', error.message, 'error')
+
+      const addPet = {
+        ...success?.data,
+      }
+      submitProps.resetForm()
+      Swal.fire('Success', success.message, 'success')
+
+      console.log(addPet)
+      // mutate()
+      return
+    } catch (error) {
+      submitProps.setSubmitting(false)
+      Swal.fire('Error', 'Invalid login credentials', 'error')
+      console.log(error)
+    }
   }
   const initialValues = AddPrescriptionSchema.reduce(
     (accumulator, currentValue) => {
@@ -169,7 +247,13 @@ const AddReport = () => {
 
       <div className="m-auto w-[50vw]">
         <Formik
-          initialValues={initialValues}
+          enableReinitialize
+          initialValues={{
+            ...initialValues,
+            email: userdata?.email,
+            phoneNumber: userdata?.phoneNumber,
+            ownerName: userdata?._id,
+          }}
           validationSchema={Yup.object(validationSchema)}
           onSubmit={handleSend}
         >
@@ -179,20 +263,60 @@ const AddReport = () => {
               {console.log(formik.errors)}
               {AddPrescriptionSchema?.map((inputItem: any, index: any) => (
                 <div key={index}>
-                  {inputItem?.name === 'photo' ? (
-                    <div className="w-full">
-                      <FormControl fullWidth>
+                  {inputItem?.type === 'autocomplete' ? (
+                    <div className=" w-full pb-4">
+                      <AdminAutocomplete
+                        size={'medium'}
+                        label={inputItem?.label}
+                        isOptionEqualToValue={(option, value) =>
+                          option?.value === value?.value
+                        }
+                        error={Boolean(
+                          formik?.touched[inputItem?.name] &&
+                            formik?.errors[inputItem?.name]
+                        )}
+                        helperText={
+                          formik?.touched[inputItem?.name] &&
+                          (formik?.errors[inputItem?.name] as any)
+                        }
+                        onChange={(e, value) => {
+                          console.log(value?.value, inputItem?.name)
+                          formik?.setFieldValue(inputItem?.name, value?.value)
+                          inputItem?.name === 'ownerName' &&
+                            setUserdata(value?.data)
+                        }}
+                        options={inputItem?.options}
+                        noOptionText={
+                          <div className="flex w-full flex-col gap-2">
+                            <small className="tracking-wide">
+                              No options found
+                            </small>
+                          </div>
+                        }
+                      />
+                    </div>
+                  ) : inputItem?.name === 'reportPhoto' ? (
+                    <div className="">
+                      <FormControl
+                        fullWidth
+                        className="flex w-full items-center justify-center"
+                      >
                         <PhotoUpload
-                          txtName="Upload Lab Report"
+                          txtName="Upload Your Profile Photo"
                           variant={'square'}
                           value={image}
                           onChange={(e: any) => {
                             setImage(e)
-                            formik?.setFieldValue('photo', e?.target?.files[0])
+                            formik?.setFieldValue(
+                              'reportPhoto',
+                              e?.target?.files[0]
+                            )
                           }}
-                          className={'mt-4 mb-5 !w-full !rounded-lg !bg-theme'}
+                          className={
+                            'mt-4 mb-5 flex !w-1/2 !rounded-lg !bg-theme'
+                          }
                           height={200}
-                          width={400}
+                          width={40}
                         />
                         {formik?.touched[inputItem.name] &&
                           (formik?.errors[inputItem.name] as any) && (

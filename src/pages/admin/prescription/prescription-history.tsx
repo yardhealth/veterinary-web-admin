@@ -11,7 +11,6 @@ import { useState } from 'react'
 import { useGET } from 'hooks'
 import moment from 'moment'
 import Lottie from 'lottie-react'
-import pdfAnimation from '../../../animation/pdf.json'
 
 const style = {
   position: 'absolute' as 'absolute',

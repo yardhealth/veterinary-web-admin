@@ -382,7 +382,7 @@ const CompletedAppointments = () => {
                           <Info sx={{ padding: '0px !important' }} />
                         </Avatar>
                       </Tooltip>
-                      <Tooltip title="Delete">
+                      {/* <Tooltip title="Delete">
                         <Avatar
                           // onClick={() => handleDelete(row?.id)}
                           variant="rounded"
@@ -397,113 +397,24 @@ const CompletedAppointments = () => {
                         >
                           <Delete sx={{ padding: '0px !important' }} />
                         </Avatar>
-                      </Tooltip>
+                      </Tooltip> */}
                     </div>
                   </>
                 ),
               },
             ]}
-            // detailPanel={[
-            //   {
-            //     tooltip: 'info',
-            //     icon: 'info',
-            //     openIcon: 'visibility',
-            //     render: ({ rowData }) => (
-            //       <>
-            //         <div
-            //           style={{
-            //             padding: '12px',
-            //             margin: 'auto',
-            //             backgroundColor: '#eef5f9',
-            //           }}
-            //         >
-            //           <Card
-            //             sx={{
-            //               minWidth: 400,
-            //               maxWidth: 450,
-            //               transition: '0.3s',
-            //               margin: 'auto',
-            //               borderRadius: '10px',
-            //               boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
-            //               '&:hover': {
-            //                 boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
-            //               },
-            //             }}
-            //           >
-            //             <CardContent>
-            //               <Typography gutterBottom align="left">
-            //                 State :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.state ? rowData.state : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //               <Typography gutterBottom align="left">
-            //                 City :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.city ? rowData.city : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //               <Typography gutterBottom align="left">
-            //                 Zip Code :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.pinCode
-            //                     ? rowData.pinCode
-            //                     : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //               <Typography gutterBottom align="left">
-            //                 Street Name :
-            //                 <span
-            //                   style={{
-            //                     color: 'rgb(30, 136, 229)',
-            //                     fontSize: '15px',
-            //                     wordBreak: 'break-word',
-            //                     wordWrap: 'break-word',
-            //                   }}
-            //                 >
-            //                   {/* {rowData?.streetName
-            //                     ? rowData.streetName
-            //                     : 'Not Provided'} */}
-            //                 </span>
-            //               </Typography>
-            //             </CardContent>
-            //           </Card>
-            //         </div>
-            //       </>
-            //     ),
-            //   },
-            // ]}
-            actions={[
-              {
-                icon: 'add',
-                tooltip: 'Add Appointments',
-                isFreeAction: true,
-                onClick: () => {
-                  router.push('/admin/appointments/create-appointments')
-                },
-              },
-            ]}
+            actions={
+              [
+                // {
+                //   icon: 'add',
+                //   tooltip: 'Add Appointments',
+                //   isFreeAction: true,
+                //   onClick: () => {
+                //     router.push('/admin/appointments/create-appointments')
+                //   },
+                // },
+              ]
+            }
           />
         </div>
       </div>

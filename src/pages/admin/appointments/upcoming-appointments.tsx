@@ -544,16 +544,18 @@ const UpcomingAppointments = () => {
             //     ),
             //   },
             // ]}
-            actions={[
-              {
-                icon: 'add',
-                tooltip: 'Add Appointments',
-                isFreeAction: true,
-                onClick: () => {
-                  router.push('/admin/appointments/create-appointments')
-                },
-              },
-            ]}
+            actions={
+              [
+                // {
+                //   icon: 'add',
+                //   tooltip: 'Add Appointments',
+                //   isFreeAction: true,
+                //   onClick: () => {
+                //     router.push('/admin/appointments/create-appointments')
+                //   },
+                // },
+              ]
+            }
           />
         </div>
       </div>

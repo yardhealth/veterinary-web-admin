@@ -129,9 +129,9 @@ const Login = () => {
                                         }
                                       >
                                         {showPassword ? (
-                                          <Visibility />
-                                        ) : (
                                           <VisibilityOff />
+                                        ) : (
+                                          <Visibility />
                                         )}
                                       </IconButton>
                                     )}

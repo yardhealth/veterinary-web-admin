@@ -161,7 +161,7 @@ const ViewConsultationFee = () => {
                           <Receipt sx={{ padding: '0px !important' }} />
                         </Avatar>
                       </Tooltip> */}
-                      <Tooltip title="Edit">
+                      {/* <Tooltip title="Edit">
                         <Avatar
                           onClick={() => handleClick(row)}
                           variant="rounded"
@@ -176,7 +176,7 @@ const ViewConsultationFee = () => {
                         >
                           <BorderColor sx={{ padding: '0px !important' }} />
                         </Avatar>
-                      </Tooltip>
+                      </Tooltip> */}
                       <Tooltip title="Delete">
                         <Avatar
                           onClick={() => handleDelete(row?._id)}

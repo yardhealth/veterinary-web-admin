@@ -10,7 +10,7 @@ import Modal from '@mui/material/Modal'
 import { MuiTblOptions } from 'utils'
 // import { database } from 'configs'
 import { useState } from 'react'
-import { useFetch } from 'hooks'
+import { useFetch, useGET } from 'hooks'
 import Swal from 'sweetalert2'
 import moment from 'moment'
 import {
@@ -20,6 +20,7 @@ import {
   Receipt,
   Visibility,
 } from '@mui/icons-material'
+import { BASE_URL } from 'configs'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -48,68 +49,47 @@ const ViewAllReports = () => {
   const [openEditPrescriptionDrawer, setOpenEditPrescriptionDrawer] =
     useState(false)
 
-  const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
-    needNested: false,
-    needArray: true,
-  })
-  // console.log(data)
-  console.log(openEditPrescriptionDrawer)
+  // const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
+  //   needNested: false,
+  //   needArray: true,
+  // })
 
-  const [tabelData, setTabelData] = useState([
-    {
-      sl: '1',
-      ownerName: 'Kate',
-      pet: 'Dog',
-      petName: 'Cooper',
-      drugName: 'Ketoconazole',
-      instruction: 'once a day',
-      time: 'After meal',
-      prescriptionNote: 'Lorem ipsum dolor sit.',
-    },
-  ])
+  const { data, mutate } = useGET<any[]>(`report/getall`)
+  // console.log(data)
+  // console.log(openEditPrescriptionDrawer)
+
+  const handleDelete = async (id: string) => {
+    try {
+      const accessToken = window?.localStorage?.getItem('ACCESS_TOKEN')
+      const res = await fetch(`${BASE_URL}/report/delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      const data = await res.json()
+      if (res.status !== 200) throw new Error(data.message)
+      Swal.fire('Deleted Successfully', 'Deleted', 'success')
+      mutate?.()
+    } catch (error) {}
+  }
 
   return (
     <AdminLayout title="View All Reports">
       <div className="grid grid-cols-12 content-between gap-6  px-5">
         <div className="!border-grey-500 !shadow-xl col-span-12 flex w-full flex-col justify-center gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-12">
-          <Modal
-            open={openInfoModal}
-            onClose={handleInfoCloseModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box className="gap-3" sx={style}>
-              <div className="flex w-32 cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-gray-400 p-3">
-                <img src="/file.png" alt="" />
-                <div className="flex items-center justify-center gap-2">
-                  <Tooltip title="View">
-                    <Visibility />
-                  </Tooltip>
-                  <Tooltip title="Download">
-                    <Download />
-                  </Tooltip>
-                </div>
-              </div>
-              <div className="flex w-32 cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-gray-400 p-3">
-                <img src="/file.png" alt="" />
-                <div className="flex items-center justify-center gap-2">
-                  <Tooltip title="View">
-                    <Visibility />
-                  </Tooltip>
-                  <Tooltip title="Download">
-                    <Download />
-                  </Tooltip>
-                </div>
-              </div>
-            </Box>
-          </Modal>
           <EditUploadReportDrawer
             open={openEditPrescriptionDrawer}
             onClose={() => setOpenEditPrescriptionDrawer(false)}
             // mutate={mutate}
           />
           <MaterialTable
-            data={tabelData}
+            data={
+              data?.success?.data
+                ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+                : []
+            }
             components={{
               Container: (props) => <Paper {...props} elevation={5} />,
             }}
@@ -128,9 +108,50 @@ const ViewAllReports = () => {
               },
               {
                 title: 'Owner Name',
-                field: 'ownerName',
+                field: 'user',
                 editable: 'never',
                 emptyValue: '--',
+                render: ({ user }) => {
+                  return user.name
+                },
+                // width: "2%",
+              },
+
+              {
+                title: 'Pet Name',
+                field: 'pet',
+                editable: 'never',
+                emptyValue: '--',
+                render: ({ pet }) => {
+                  return pet.petName
+                },
+                // width: "2%",
+              },
+              {
+                title: 'Pet Category',
+                field: 'pet',
+                editable: 'never',
+                emptyValue: '--',
+                render: ({ pet }) => {
+                  return pet.petCategory
+                },
+                // width: "2%",
+              },
+              {
+                title: 'View Repport',
+                field: 'reportPhoto',
+                editable: 'never',
+                render: ({ reportPhoto }) => {
+                  return (
+                    <div>
+                      <a target="_blank" href={reportPhoto}>
+                        <img className="w-20" src="/report.png" alt="" />
+                      </a>
+                    </div>
+                  )
+                },
+                emptyValue: '--',
+
                 // width: "2%",
               },
 
@@ -153,41 +174,9 @@ const ViewAllReports = () => {
                 render: (row) => (
                   <>
                     <div className="flex">
-                      <Tooltip title="View Reports">
-                        <Avatar
-                          onClick={handleInfoOpen}
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-blue-700 !p-0"
-                          sx={{
-                            mr: '.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <Receipt sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip>
-                      <Tooltip title="Edit">
-                        <Avatar
-                          onClick={() => setOpenEditPrescriptionDrawer(true)}
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-theme !p-0"
-                          sx={{
-                            mr: '.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <BorderColor sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip>
                       <Tooltip title="Delete">
                         <Avatar
-                          // onClick={() => handleDelete(row?.id)}
+                          onClick={() => handleDelete(row?._id)}
                           variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-red-700 !p-0"
                           sx={{

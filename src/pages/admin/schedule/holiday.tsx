@@ -121,7 +121,7 @@ const Holiday = () => {
                 render: (row) => (
                   <>
                     <div className="flex">
-                      <Tooltip title="Edit Holiday">
+                      {/* <Tooltip title="Edit Holiday">
                         <Avatar
                           onClick={() => setOpeAddHolidayDrawer(true)}
                           variant="rounded"
@@ -136,7 +136,7 @@ const Holiday = () => {
                         >
                           <BorderColor sx={{ padding: '0px !important' }} />
                         </Avatar>
-                      </Tooltip>
+                      </Tooltip> */}
                       <Tooltip title="Delete">
                         <Avatar
                           // onClick={() => handleDelete(row?.id)}
