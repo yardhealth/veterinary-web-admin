@@ -43,16 +43,6 @@ const Holiday = () => {
   const { data, mutate } = useGET<any[]>(`holiday/getall`)
   console.log(data)
 
-  const [tabelData, settabelData] = useState([
-    {
-      sl: '1',
-      day: 'mon',
-      slot: '10:00',
-      reason: 'Personal',
-      createdAt: 'March 2, 2023 3:57 PM',
-    },
-  ])
-
   return (
     <AdminLayout title="Holiday">
       <div className="grid grid-cols-12 content-between gap-6  px-5">

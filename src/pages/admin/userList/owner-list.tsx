@@ -20,12 +20,20 @@ import ViewPet from 'components/admin/userList/ViewPet'
 const OwnerList = () => {
   const router = useRouter()
   const [activeData, setActiveData] = useState<any>()
+  console.log(activeData)
 
   const [openEditPrescriptionDrawer, setOpenEditPrescriptionDrawer] =
     useState(false)
 
   const { data, mutate, isLoading } = useGET<any[]>(`user/getall?role=USER`)
   console.log(data)
+
+  const {
+    data: addressData,
+    mutate: addressMutate,
+    isLoading: addressLoading,
+  } = useGET<any[]>(`address/address-admin?userId=6409bf44ffba39a214d4a003`)
+  console.log(addressData)
 
   // console.log(data)
   console.log(openEditPrescriptionDrawer)
@@ -123,46 +131,46 @@ const OwnerList = () => {
                 emptyValue: '--',
                 //   hidden:true,
               },
-              {
-                title: 'House Number',
-                field: 'phoneNumber',
-                searchable: true,
-                export: true,
-                emptyValue: '--',
-                //   hidden:true,
-              },
-              {
-                title: 'Apartment Number',
-                field: 'phoneNumber',
-                searchable: true,
-                export: true,
-                emptyValue: '--',
-                //   hidden:true,
-              },
-              {
-                title: 'Zip code',
-                field: 'phoneNumber',
-                searchable: true,
-                export: true,
-                emptyValue: '--',
-                //   hidden:true,
-              },
-              {
-                title: 'City',
-                field: 'phoneNumber',
-                searchable: true,
-                export: true,
-                emptyValue: '--',
-                //   hidden:true,
-              },
-              {
-                title: 'State',
-                field: 'phoneNumber',
-                searchable: true,
-                export: true,
-                emptyValue: '--',
-                //   hidden:true,
-              },
+              // {
+              //   title: 'House Number',
+              //   field: 'phoneNumber',
+              //   searchable: true,
+              //   export: true,
+              //   emptyValue: '--',
+              //   //   hidden:true,
+              // },
+              // {
+              //   title: 'Apartment Number',
+              //   field: 'phoneNumber',
+              //   searchable: true,
+              //   export: true,
+              //   emptyValue: '--',
+              //   //   hidden:true,
+              // },
+              // {
+              //   title: 'Zip code',
+              //   field: 'phoneNumber',
+              //   searchable: true,
+              //   export: true,
+              //   emptyValue: '--',
+              //   //   hidden:true,
+              // },
+              // {
+              //   title: 'City',
+              //   field: 'phoneNumber',
+              //   searchable: true,
+              //   export: true,
+              //   emptyValue: '--',
+              //   //   hidden:true,
+              // },
+              // {
+              //   title: 'State',
+              //   field: 'phoneNumber',
+              //   searchable: true,
+              //   export: true,
+              //   emptyValue: '--',
+              //   //   hidden:true,
+              // },
 
               {
                 title: 'Created At',

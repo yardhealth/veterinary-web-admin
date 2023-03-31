@@ -41,6 +41,7 @@ const Dashboard = () => {
   const { data: petCategory, mutate: pet } = useGET<any[]>(
     `dashboard/pet-category`
   )
+  console.log(petCategory)
 
   const { data: yearUpcoming, mutate: yearUp } = useGET<any[]>(
     `dashboard/appointment-year-upcoming`
@@ -112,7 +113,7 @@ const Dashboard = () => {
             // <Science className="h-7 w-7 rounded-md text-[#ff7717]  group-hover:text-white" />
             <Avatar variant="rounded" src={TotalIncome.src} />
           }
-          clickableRoute="/panel/admin/lab/all-lab-test"
+          clickableRoute="/admin/invoices/all-invoices"
         />
 
         <div className="!border-grey-500 !shadow-xl col-span-12  w-full gap-5 rounded-xl pt-9 md:col-span-12 lg:col-span-8">
@@ -126,14 +127,14 @@ const Dashboard = () => {
             }
             series={[
               {
-                name: 'Completed',
+                name: 'Upcoming',
                 data:
                   yearUpcoming?.success?.data?.map((item) => {
                     return item?.Upcoming
                   }) || [],
               },
               {
-                name: 'Upcoming',
+                name: 'Completed',
                 data:
                   yearCompleted?.success?.data?.map((item) => {
                     return item?.Completed
