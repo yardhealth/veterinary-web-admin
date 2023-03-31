@@ -14,6 +14,7 @@ import moment from 'moment'
 // import { database } from 'configs'
 import Swal from 'sweetalert2'
 import AddHolidayDrawer from 'components/admin/drawer/AddHolidayDrawer'
+import { BASE_URL } from 'configs'
 
 const Holiday = () => {
   const router = useRouter()
@@ -22,7 +23,22 @@ const Holiday = () => {
 
   // console.log(data)
   console.log(openAddHolidayDrawer)
-  const handleDelete = (row: CustomerType) => {}
+  const handleDelete = async (id: string) => {
+    try {
+      const accessToken = window?.localStorage?.getItem('ACCESS_TOKEN')
+      const res = await fetch(`${BASE_URL}/holiday/delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      const data = await res.json()
+      if (res.status !== 200) throw new Error(data.message)
+      Swal.fire('Deleted Successfully', 'Deleted', 'success')
+      mutate?.()
+    } catch (error) {}
+  }
 
   const { data, mutate } = useGET<any[]>(`holiday/getall`)
   console.log(data)
@@ -139,7 +155,7 @@ const Holiday = () => {
                       </Tooltip> */}
                       <Tooltip title="Delete">
                         <Avatar
-                          // onClick={() => handleDelete(row?.id)}
+                          onClick={() => handleDelete(row?._id)}
                           variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-red-700 !p-0"
                           sx={{
