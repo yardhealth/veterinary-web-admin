@@ -1,37 +1,23 @@
-import EditScheduleDrawer from 'components/admin/drawer/EditScheduleDrawer'
-import { Add, AddCircle, BorderColor, Delete } from '@mui/icons-material'
-import HeadStyle from 'components/core/HeadStyle'
-import MaterialTable from '@material-table/core'
-import {
-  Avatar,
-  Box,
-  Card,
-  CardContent,
-  Paper,
-  Typography,
-} from '@mui/material'
-import Tooltip from '@mui/material/Tooltip'
-import CustomerType from 'types/customer'
-import { useRouter } from 'next/router'
-import AdminLayout from 'layouts/admin'
-import { MuiTblOptions } from 'utils'
-import { useState } from 'react'
-import { useFetch, useGET, useMutation } from 'hooks'
-import moment from 'moment'
-// import { database } from 'configs'
-import Swal from 'sweetalert2'
-import EditPetDrawer from 'components/admin/drawer/EditPetDrawer'
-import { BASE_URL } from 'configs'
-import Modal from '@mui/material/Modal'
-import AddPet from './AddPet'
 import BookAppointmentDrawer from '../drawer/BookAppointmentDrawer'
+import EditPetDrawer from 'components/admin/drawer/EditPetDrawer'
+import { BorderColor, Delete } from '@mui/icons-material'
+import HeadStyle from 'components/core/HeadStyle'
 import AddPetDrawer from '../drawer/AddPetDrawer'
+import MaterialTable from '@material-table/core'
+import { Avatar, Paper } from '@mui/material'
+import Tooltip from '@mui/material/Tooltip'
+import { useRouter } from 'next/router'
+import { MuiTblOptions } from 'utils'
+import { BASE_URL } from 'configs'
+import { useState } from 'react'
+import { useGET } from 'hooks'
+import Swal from 'sweetalert2'
+import moment from 'moment'
 
 const ViewPet = ({ rowData }: any) => {
   console.log(rowData)
   const router = useRouter()
   const [activeData, setActiveData] = useState<any>()
-  const [activeName, setActiveName] = useState<any>()
   const [openEditPetDrawer, setOpenEditPetDrawer] = useState(false)
   const [bookAppointmentDrawer, setBookAppointmentDrawer] = useState(false)
   const [addPetDrawer, setAddPetDrawer] = useState(false)

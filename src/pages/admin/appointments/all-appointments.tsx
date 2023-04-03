@@ -1,42 +1,15 @@
-import AddCustomerDrawer from 'components/admin/drawer/AddCustomerDrawer'
-import {
-  BorderColor,
-  Close,
-  Delete,
-  Done,
-  Info,
-  Person,
-  Transgender,
-  Update,
-} from '@mui/icons-material'
+import { Avatar, Card, Modal, Paper, Typography } from '@mui/material'
+import { Close, Done, Info } from '@mui/icons-material'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
-import {
-  Avatar,
-  Box,
-  Card,
-  CardContent,
-  Modal,
-  Paper,
-  Typography,
-} from '@mui/material'
+import { useGET, useMutation } from 'hooks'
 import Tooltip from '@mui/material/Tooltip'
 import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
 import { MuiTblOptions } from 'utils'
-import { useMemo, useState } from 'react'
-import { useFetch, useGET, useMutation } from 'hooks'
-import CustomerType from 'types/customer'
-import moment from 'moment'
-// import { database } from 'configs'
+import { useState } from 'react'
 import Swal from 'sweetalert2'
-import { formatCurrency, getArrFromObj } from '@ashirbad/js-core'
-import EditUpcomingAppointmentDrawer from 'components/admin/drawer/EditUpcomingAppointmentDrawer'
-import Status from 'components/core/Status'
-import * as Yup from 'yup'
-import { TextInput } from 'components/core'
-import { Form, Formik } from 'formik'
-import { LoadingButton } from '@mui/lab'
+import moment from 'moment'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -56,9 +29,9 @@ const AllAppointments = () => {
   const router = useRouter()
 
   const [petDetails, setPetDetails] = useState<any>()
-  const [openModal, setOpenModal] = useState(false)
-  const handleOpen = () => setOpenModal(true)
-  const handleCloseModal = () => setOpenModal(false)
+  // const [openModal, setOpenModal] = useState(false)
+  // const handleOpen = () => setOpenModal(true)
+  // const handleCloseModal = () => setOpenModal(false)
 
   const [openInfoModal, setOpenInfoModal] = useState(false)
   const handleInfoOpen = (data: any) => {
@@ -410,9 +383,7 @@ const AllAppointments = () => {
                 cellStyle: {
                   textAlign: 'right',
                 },
-                export: true,
-                // width: "18%",
-                // field: "pick",
+
                 render: (row) => (
                   <>
                     <div className="flex gap-1">

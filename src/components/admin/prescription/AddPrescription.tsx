@@ -29,13 +29,10 @@ const AddPrescription = () => {
   )
   console.log(singleUser)
 
-  // const [appointmentId, setAppointmentId] = useState<any>({})
-
   const AddPrescriptionSchema = useMemo(() => {
     return [
       {
         key: '1',
-        // placeholder: 'Enter your email',
         name: 'ownerName',
         label: 'Owner Name *',
         placeholder: '',

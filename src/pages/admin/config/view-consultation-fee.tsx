@@ -1,35 +1,17 @@
-import EditUploadReportDrawer from 'components/admin/drawer/EditFeeDrawer'
-import { Avatar, Paper } from '@mui/material'
+import EditFeeDrawer from 'components/admin/drawer/EditFeeDrawer'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
+import { Avatar, Paper } from '@mui/material'
+import { Delete } from '@mui/icons-material'
 import Tooltip from '@mui/material/Tooltip'
 import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
-import { BorderColor, Delete } from '@mui/icons-material'
-import { MuiTblOptions, useChange } from 'utils'
+import { MuiTblOptions } from 'utils'
+import { BASE_URL } from 'configs'
 import { useState } from 'react'
-import { useGET, useMutation } from 'hooks'
+import { useGET } from 'hooks'
 import Swal from 'sweetalert2'
 import moment from 'moment'
-import EditFeeDrawer from 'components/admin/drawer/EditFeeDrawer'
-import { BASE_URL } from 'configs'
-
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  borderRadius: 5,
-  boxShadow: 24,
-  p: 4,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexGap: '4px',
-}
 
 const ViewConsultationFee = () => {
   const router = useRouter()
@@ -41,22 +23,10 @@ const ViewConsultationFee = () => {
   const [openEditPrescriptionDrawer, setOpenEditPrescriptionDrawer] =
     useState(false)
 
-  // const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
-  //   needNested: false,
-  //   needArray: true,
-  // })
-  // console.log(data)
   console.log(openEditPrescriptionDrawer)
   const { data, mutate } = useGET<any[]>(`payment/getall`)
   console.log(data)
 
-  const [tabelData, setTabelData] = useState([
-    {
-      sl: '1',
-      consultationType: 'Home',
-      serviceCharge: '1000',
-    },
-  ])
   const handleClick = (Data: any) => {
     setOpenEditPrescriptionDrawer(true)
     setActiveData(Data)

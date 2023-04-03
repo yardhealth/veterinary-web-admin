@@ -1,45 +1,14 @@
-import CustomerTypeSelecter from 'components/core/CustomerTypeSelecter'
-import CountrySelector from 'components/core/CountrySelector'
-import moment from 'moment'
-import {
-  Container,
-  Drawer,
-  Typography,
-  FormControl,
-  FormHelperText,
-} from '@mui/material'
-import AddExpenseSchema from 'schemas/AddExpenseSchema'
+import { CalendarMonth, Done, LocationCity, Person } from '@mui/icons-material'
+import { Container, Drawer, Typography } from '@mui/material'
+import AvailableSlot from 'components/core/AvailableSlot'
+import { useEffect, useMemo, useState } from 'react'
 import TextInput from 'components/core/TextInput'
-import {
-  AccessTimeFilled,
-  BorderColor,
-  CalendarMonth,
-  CurrencyRupee,
-  Done,
-  HistoryToggleOff,
-  HourglassBottom,
-  Info,
-  LocationCity,
-  Person,
-  Photo,
-  Receipt,
-  Timer,
-} from '@mui/icons-material'
+import { useGET, useMutation } from 'hooks'
 import { LoadingButton } from '@mui/lab'
 import { Form, Formik } from 'formik'
-import { useEffect, useMemo, useState } from 'react'
-import * as Yup from 'yup'
-// import { database, storage } from 'configs'
-import CustomerType from 'types/customer'
 import Swal from 'sweetalert2'
-import PhotoUpload from 'components/core/PhotoUpload'
-// import CategorySelecter from 'components/core/CategorySelecter'
-import CategoryType from 'types/category'
-import { useFetch, useGET, useMutation } from 'hooks'
-import Weekdays from 'components/core/Weekdays'
-import { getHoursAndMinutes } from 'utils'
-import ConsultationTypeSelecter from '../appointments/ConsultationTypeSelecter'
-import AvailableSlot from 'components/core/AvailableSlot'
+import moment from 'moment'
+import * as Yup from 'yup'
 
 type Props = {
   open?: boolean | any

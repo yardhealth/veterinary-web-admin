@@ -25,6 +25,7 @@ const Dashboard = () => {
   const { data: upcomingAppointment, mutate: upcoming } = useGET<any[]>(
     `dashboard/upcoming-appointment`
   )
+  console.log(upcomingAppointment)
 
   const { data: completedAppointment, mutate: completed } = useGET<any[]>(
     `dashboard/completed-appointment`
@@ -33,6 +34,7 @@ const Dashboard = () => {
   const { data: totalClients, mutate: clients } = useGET<any[]>(
     `dashboard/total-clients`
   )
+  console.log(totalClients)
 
   const { data: totalIncome, mutate: income } = useGET<any[]>(
     `dashboard/total-income`
@@ -58,7 +60,11 @@ const Dashboard = () => {
         <InfoCards
           title="Upcoming Appointments"
           iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
-          content={`${upcomingAppointment?.success?.data}`}
+          content={`${
+            yearUpcoming?.success?.data?.length === undefined
+              ? 0
+              : yearUpcoming?.success?.data?.length
+          }`}
           titleClassName="text-black font-bold text-base"
           contentClassName="text-black"
           className="col-span-12 w-full bg-white transition-all duration-500 ease-in-out hover:scale-95 sm:col-span-12 md:col-span-6 lg:col-span-3"

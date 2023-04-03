@@ -2,42 +2,16 @@ import EditUploadReportDrawer from 'components/admin/drawer/EditFeeDrawer'
 import { Avatar, Box, Paper } from '@mui/material'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
+import { Delete } from '@mui/icons-material'
 import Tooltip from '@mui/material/Tooltip'
-import CustomerType from 'types/customer'
 import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
-import Modal from '@mui/material/Modal'
 import { MuiTblOptions } from 'utils'
-// import { database } from 'configs'
+import { BASE_URL } from 'configs'
 import { useState } from 'react'
-import { useFetch, useGET } from 'hooks'
+import { useGET } from 'hooks'
 import Swal from 'sweetalert2'
 import moment from 'moment'
-import {
-  BorderColor,
-  Delete,
-  Download,
-  Receipt,
-  Visibility,
-} from '@mui/icons-material'
-import { BASE_URL } from 'configs'
-
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  borderRadius: 5,
-  boxShadow: 24,
-  p: 4,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexGap: '4px',
-}
 
 const ViewAllReports = () => {
   const router = useRouter()
@@ -49,14 +23,8 @@ const ViewAllReports = () => {
   const [openEditPrescriptionDrawer, setOpenEditPrescriptionDrawer] =
     useState(false)
 
-  // const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
-  //   needNested: false,
-  //   needArray: true,
-  // })
-
   const { data, mutate } = useGET<any[]>(`report/getall`)
   // console.log(data)
-  // console.log(openEditPrescriptionDrawer)
 
   const handleDelete = async (id: string) => {
     try {
@@ -138,7 +106,7 @@ const ViewAllReports = () => {
                 // width: "2%",
               },
               {
-                title: 'View Repport',
+                title: 'View Report',
                 field: 'reportPhoto',
                 editable: 'never',
                 render: ({ reportPhoto }) => {

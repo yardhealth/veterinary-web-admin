@@ -1,5 +1,3 @@
-import CustomerTypeSelecter from 'components/core/CustomerTypeSelecter'
-import CountrySelector from 'components/core/CountrySelector'
 import {
   Container,
   Drawer,
@@ -7,41 +5,26 @@ import {
   FormControl,
   FormHelperText,
 } from '@mui/material'
-import AddExpenseSchema from 'schemas/AddExpenseSchema'
+
 import TextInput from 'components/core/TextInput'
 import {
-  AccessTimeFilled,
   BorderColor,
-  CalendarMonth,
   Category,
   Class,
   CurrencyRupee,
   Done,
-  EmailOutlined,
-  HistoryToggleOff,
-  HourglassBottom,
-  Info,
-  Person,
-  Phone,
   Photo,
-  Receipt,
   Scale,
-  Timer,
   Transgender,
 } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import { Form, Formik } from 'formik'
 import { useEffect, useMemo, useState } from 'react'
 import * as Yup from 'yup'
-// import { database, storage } from 'configs'
-import CustomerType from 'types/customer'
+
 import Swal from 'sweetalert2'
 import PhotoUpload from 'components/core/PhotoUpload'
-// import CategorySelecter from 'components/core/CategorySelecter'
-import CategoryType from 'types/category'
-import { useFetch, useMutation } from 'hooks'
-import Weekdays from 'components/core/Weekdays'
-import { getHoursAndMinutes } from 'utils'
+import { useMutation } from 'hooks'
 
 type Props = {
   open?: boolean | any
@@ -215,6 +198,7 @@ const AddPetDrawer = ({ open, onClose, mutate, activeData, _id }: Props) => {
       },
     ]
   }, [activeData])
+
   const initialValues = AddScheduleSchema.reduce(
     (accumulator, currentValue) => {
       accumulator[currentValue.name] = currentValue.initialValue
@@ -271,7 +255,7 @@ const AddPetDrawer = ({ open, onClose, mutate, activeData, _id }: Props) => {
       return
     } catch (error) {
       submitProps.setSubmitting(false)
-      Swal.fire('Error', 'Invalid login credentials', 'error')
+      Swal.fire('Error', 'Something went wrong', 'error')
       console.log(error)
     }
   }

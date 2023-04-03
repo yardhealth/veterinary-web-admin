@@ -1,27 +1,23 @@
-import AddCustomerDrawer from 'components/admin/drawer/AddCustomerDrawer'
-import { BorderColor, Delete } from '@mui/icons-material'
+import AddHolidayDrawer from 'components/admin/drawer/AddHolidayDrawer'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
-import { Avatar, Card, CardContent, Paper, Typography } from '@mui/material'
+import { Avatar, Paper } from '@mui/material'
+import { Delete } from '@mui/icons-material'
 import Tooltip from '@mui/material/Tooltip'
 import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
 import { MuiTblOptions } from 'utils'
-import { useState } from 'react'
-import { useFetch, useGET } from 'hooks'
-import CustomerType from 'types/customer'
-import moment from 'moment'
-// import { database } from 'configs'
-import Swal from 'sweetalert2'
-import AddHolidayDrawer from 'components/admin/drawer/AddHolidayDrawer'
 import { BASE_URL } from 'configs'
+import { useState } from 'react'
+import { useGET } from 'hooks'
+import Swal from 'sweetalert2'
+import moment from 'moment'
 
 const Holiday = () => {
   const router = useRouter()
 
   const [openAddHolidayDrawer, setOpeAddHolidayDrawer] = useState(false)
 
-  // console.log(data)
   console.log(openAddHolidayDrawer)
   const handleDelete = async (id: string) => {
     try {
@@ -122,27 +118,9 @@ const Holiday = () => {
                   textAlign: 'right',
                 },
                 export: true,
-                // width: "18%",
-                // field: "pick",
                 render: (row) => (
                   <>
                     <div className="flex">
-                      {/* <Tooltip title="Edit Holiday">
-                        <Avatar
-                          onClick={() => setOpeAddHolidayDrawer(true)}
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-theme !p-0"
-                          sx={{
-                            mr: '.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <BorderColor sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip> */}
                       <Tooltip title="Delete">
                         <Avatar
                           onClick={() => handleDelete(row?._id)}

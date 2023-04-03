@@ -2,12 +2,9 @@ import { Container, Typography } from '@mui/material'
 import { Form, Formik, FormikProps } from 'formik'
 import TextInput from 'components/core/TextInput'
 import BillInputField from './BillInputField'
-// import { database, storage } from 'configs'
+import { useGET, useMutation } from 'hooks'
 import { useMemo, useState } from 'react'
-import CustomerType from 'types/customer'
-import CategoryType from 'types/category'
 import { LoadingButton } from '@mui/lab'
-import { useFetch, useGET, useMutation } from 'hooks'
 import Swal from 'sweetalert2'
 import * as Yup from 'yup'
 import {
@@ -19,7 +16,6 @@ import {
   Email,
   MedicationLiquid,
   Percent,
-  Person,
 } from '@mui/icons-material'
 import { AdminAutocomplete } from 'components/core'
 
@@ -159,12 +155,50 @@ const AddInvoice = () => {
           lg: 6,
         },
       },
+      {
+        key: '3',
+        // placeholder: 'Enter your name',
+        name: 'gst',
+        label: 'GST *',
+        placeholder: '',
+        styleContact: 'rounded-xl bg-white mb-5',
+        validationSchema: Yup.string().required('GST is required'),
+        initialValue: '',
+        type: 'number',
+        icon: <Percent />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+      },
 
       {
         key: '3',
         // placeholder: 'Enter your name',
         name: 'grossTotal',
-        label: 'Gross Total *',
+        label: 'Gross Total Excluding GST',
+        placeholder: '',
+        styleContact: 'rounded-xl bg-white mb-5',
+        validationSchema: Yup.string().optional(),
+        initialValue: '',
+        type: 'number',
+        icon: <CurrencyRupee />,
+        required: true,
+        contactField: {
+          xs: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+        },
+      },
+      {
+        key: '3',
+        // placeholder: 'Enter your name',
+        name: 'gstTotal',
+        label: 'Gross Total Including GST',
         placeholder: '',
         styleContact: 'rounded-xl bg-white mb-5',
         validationSchema: Yup.string().optional(),
@@ -183,21 +217,19 @@ const AddInvoice = () => {
   }, [userData?.success?.data?.length, singleUser])
 
   const { isMutating, trigger } = useMutation(`invoice/create`)
+
   const handleSend = async (values: any, submitProps: any) => {
     console.log(values)
-
     const petDetails = singleUser?.success?.data?.find(
       (petDetail) => petDetail?.pet?._id === values?.petName
     )
     console.log(petDetails?.pet?.petName)
-
     const invoiceData = values.item.map((item: any) => {
       return {
         itemName: `${item.value}`,
         itemAmount: `${item.amount}`,
       }
     })
-
     const newObject: any = {
       wholeData: invoiceData,
       userName: userdata?.name,
@@ -210,21 +242,19 @@ const AddInvoice = () => {
       subTotal: values?.subTotal,
       discount: Number(values?.discount),
       grossTotal: values?.grossTotal,
+      gst: values?.gst,
+      gstTotal: values?.gstTotal,
     }
     console.log(newObject)
-
     try {
       const { error, success } = await trigger(newObject)
       if (error) return Swal.fire('Error', error.message, 'error')
-
       const addInvoice = {
         ...success?.data,
       }
       submitProps.resetForm()
       Swal.fire('Success', success.message, 'success')
-
       console.log(addInvoice)
-
       return
     } catch (error) {
       submitProps.setSubmitting(false)
@@ -232,6 +262,23 @@ const AddInvoice = () => {
       console.log(error)
     }
   }
+
+  // const trail = async () => {
+  //   try {
+  //     const res = await fetch('https://yardexpress.in/convert-pdf', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: '<h1>Hello world</h1>',
+  //     })
+  //     const result = await res.json()
+  //     console.log(result)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
+
   const initialValues = AddInvoiceSchema.reduce((accumulator, currentValue) => {
     accumulator[currentValue.name] = currentValue.initialValue
     return accumulator
@@ -353,11 +400,72 @@ const AddInvoice = () => {
                 0
               )
       )
+
+      formik?.setFieldValue(
+        'gstTotal',
+        formik?.values?.gst
+          ? formik?.values?.item
+              ?.map((item: any) => {
+                if (item.key === key) {
+                  return {
+                    ...item,
+                    value,
+                    amount,
+                  }
+                }
+                return item
+              })
+              ?.reduce(
+                (accumulator: any, currentValue: any) =>
+                  accumulator + Number(currentValue?.amount),
+                0
+              ) -
+              (formik?.values?.item
+                ?.map((item: any) => {
+                  if (item.key === key) {
+                    return {
+                      ...item,
+                      value,
+                      amount,
+                    }
+                  }
+                  return item
+                })
+                ?.reduce(
+                  (accumulator: any, currentValue: any) =>
+                    accumulator + Number(currentValue?.amount),
+                  0
+                ) *
+                formik?.values?.gst) /
+                100
+          : formik?.values?.item
+              ?.map((item: any) => {
+                if (item.key === key) {
+                  return {
+                    ...item,
+                    value,
+                    amount,
+                  }
+                }
+                return item
+              })
+              ?.reduce(
+                (accumulator: any, currentValue: any) =>
+                  accumulator + Number(currentValue?.amount),
+                0
+              )
+      )
     } catch (error) {}
   }
-
+  // const a =10
+  // const b = 20
+  //  a-b===10?a+b : a-b===15?a*b : a/b
   return (
     <Container
+      // onClick={() => {
+      //   alert('hi')
+      //   trail()
+      // }}
       maxWidth="xl"
       // style={{
       //   width: '40vw',
@@ -494,6 +602,20 @@ const AddInvoice = () => {
                               'grossTotal',
                               formik?.values?.subTotal -
                                 (formik?.values?.subTotal * e.target.value) /
+                                  100
+                            )
+                          } else {
+                            formik?.handleChange
+                          }
+                          if (inputItem?.name === 'gst') {
+                            formik?.setFieldValue(
+                              inputItem?.name,
+                              e.target.value
+                            )
+                            formik?.setFieldValue(
+                              'gstTotal',
+                              formik?.values?.grossTotal -
+                                (formik?.values?.grossTotal * e.target.value) /
                                   100
                             )
                           } else {

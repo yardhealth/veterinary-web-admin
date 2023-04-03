@@ -1,41 +1,18 @@
-import CustomerTypeSelecter from 'components/core/CustomerTypeSelecter'
-import CountrySelector from 'components/core/CountrySelector'
-import {
-  Container,
-  Drawer,
-  Typography,
-  FormControl,
-  FormHelperText,
-} from '@mui/material'
-import AddExpenseSchema from 'schemas/AddExpenseSchema'
+import { Container, Drawer, Typography } from '@mui/material'
+import { useEffect, useMemo, useState } from 'react'
 import TextInput from 'components/core/TextInput'
+import { getHoursAndMinutes } from 'utils'
+import { LoadingButton } from '@mui/lab'
+import { Form, Formik } from 'formik'
+import { useMutation } from 'hooks'
+import Swal from 'sweetalert2'
+import * as Yup from 'yup'
 import {
   AccessTimeFilled,
-  BorderColor,
-  CalendarMonth,
-  CurrencyRupee,
   Done,
   HistoryToggleOff,
   HourglassBottom,
-  Info,
-  Person,
-  Photo,
-  Receipt,
-  Timer,
 } from '@mui/icons-material'
-import { LoadingButton } from '@mui/lab'
-import { Form, Formik } from 'formik'
-import { useEffect, useMemo, useState } from 'react'
-import * as Yup from 'yup'
-// import { database, storage } from 'configs'
-import CustomerType from 'types/customer'
-import Swal from 'sweetalert2'
-import PhotoUpload from 'components/core/PhotoUpload'
-// import CategorySelecter from 'components/core/CategorySelecter'
-import CategoryType from 'types/category'
-import { useFetch, useMutation } from 'hooks'
-import Weekdays from 'components/core/Weekdays'
-import { getHoursAndMinutes } from 'utils'
 
 type Props = {
   open?: boolean | any

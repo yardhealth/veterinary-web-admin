@@ -1,18 +1,17 @@
-import EditUploadReportDrawer from 'components/admin/drawer/EditFeeDrawer'
-import { Avatar, Paper } from '@mui/material'
+import EditHealthIssuesDrawer from 'components/admin/drawer/EditHealthIssuesDrawer'
+import { BorderColor, Delete } from '@mui/icons-material'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
+import { Avatar, Paper } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
+import { useGET, useMutation } from 'hooks'
 import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
-import { BorderColor, Delete } from '@mui/icons-material'
 import { MuiTblOptions } from 'utils'
-import { useEffect, useState } from 'react'
-import { useGET, useMutation } from 'hooks'
+import { BASE_URL } from 'configs'
+import { useState } from 'react'
 import Swal from 'sweetalert2'
 import moment from 'moment'
-import EditHealthIssuesDrawer from 'components/admin/drawer/EditHealthIssuesDrawer'
-import { BASE_URL } from 'configs'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -35,29 +34,14 @@ const ViewHealthIssues = () => {
   const { isMutating, trigger } = useMutation(`health-particular/getall`)
   const router = useRouter()
   const [activeData, setActiveData] = useState<any>()
-  const [openInfoModal, setOpenInfoModal] = useState(false)
-  const handleInfoOpen = () => setOpenInfoModal(true)
-  const handleInfoCloseModal = () => setOpenInfoModal(false)
 
   const [openEditPrescriptionDrawer, setOpenEditPrescriptionDrawer] =
     useState(false)
 
-  // const [data, isLoading] = useFetch<CustomerType[]>(`/Customers`, {
-  //   needNested: false,
-  //   needArray: true,
-  // })
-  // console.log(data)
   console.log(openEditPrescriptionDrawer)
   const { data, mutate, isLoading } = useGET<any[]>(`health-particular/getall`)
   console.log(data)
 
-  const [tabelData, setTabelData] = useState([
-    {
-      sl: '1',
-      consultationType: 'Home',
-      serviceCharge: '1000',
-    },
-  ])
   const handleClick = (Data: any) => {
     setOpenEditPrescriptionDrawer(true)
     setActiveData(Data)
@@ -152,22 +136,6 @@ const ViewHealthIssues = () => {
                 render: (row) => (
                   <>
                     <div className="flex">
-                      {/* <Tooltip title="View Reports">
-                        <Avatar
-                          onClick={handleInfoOpen}
-                          variant="rounded"
-                          className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-blue-700 !p-0"
-                          sx={{
-                            mr: '.1vw',
-                            padding: '0px !important',
-                            backgroundColor: 'Highlight',
-                            cursor: 'pointer',
-                            color: '',
-                          }}
-                        >
-                          <Receipt sx={{ padding: '0px !important' }} />
-                        </Avatar>
-                      </Tooltip> */}
                       <Tooltip title="Edit">
                         <Avatar
                           onClick={() => handleClick(row)}
@@ -206,18 +174,7 @@ const ViewHealthIssues = () => {
                 ),
               },
             ]}
-            actions={
-              [
-                // {
-                //   icon: 'add',
-                //   tooltip: 'Add Prescription',
-                //   isFreeAction: true,
-                //   onClick: () => {
-                //     router.push('/admin/prescription/create-prescription')
-                //   },
-                // },
-              ]
-            }
+            actions={[]}
           />
         </div>
       </div>

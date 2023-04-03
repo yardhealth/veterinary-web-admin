@@ -1,25 +1,15 @@
-import AddCustomerDrawer from 'components/admin/drawer/AddCustomerDrawer'
-import { BorderColor, Check, Delete, Info } from '@mui/icons-material'
+import { Avatar, Card, Modal, Paper, Typography } from '@mui/material'
+import { Check, Info } from '@mui/icons-material'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
-import {
-  Avatar,
-  Card,
-  CardContent,
-  Modal,
-  Paper,
-  Typography,
-} from '@mui/material'
+import { useGET, useMutation } from 'hooks'
 import Tooltip from '@mui/material/Tooltip'
 import AdminLayout from 'layouts/admin'
 import { useRouter } from 'next/router'
 import { MuiTblOptions } from 'utils'
 import { useState } from 'react'
-import { useFetch, useGET, useMutation } from 'hooks'
-import CustomerType from 'types/customer'
-import moment from 'moment'
-// import { database } from 'configs'
 import Swal from 'sweetalert2'
+import moment from 'moment'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -85,24 +75,6 @@ const UpcomingAppointments = () => {
       return
     } catch (error) {}
   }
-
-  // const [tabelData, setTabelData] = useState([
-  //   {
-  //     sl: '1',
-  //     ownerName: 'Kate',
-  //     pet: 'Dog',
-  //     gender: 'male',
-  //     name: 'Cooper',
-  //     breed: 'German Shepherd',
-  //     age: '3',
-  //     healthIssues: 'Injury',
-  //     consultationType: 'Clinic',
-  //     appointmentDate: '20-03-2022',
-  //     appointmentTime: '15:20',
-  //     paymentMethod: 'cash',
-  //     createdAt: 'March 2, 2023 3:57 PM',
-  //   },
-  // ])
 
   return (
     <AdminLayout title="Upcoming Appointments">

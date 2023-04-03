@@ -1,34 +1,25 @@
+import PhotoUpload from 'components/core/PhotoUpload'
+import { AdminAutocomplete } from 'components/core'
+import { Form, Formik, FormikProps } from 'formik'
+import TextInput from 'components/core/TextInput'
+import { useGET, useMutation } from 'hooks'
+import { useMemo, useState } from 'react'
+import { LoadingButton } from '@mui/lab'
+import Swal from 'sweetalert2'
+import {
+  BorderColor,
+  ContactPhone,
+  Done,
+  Email,
+  Photo,
+} from '@mui/icons-material'
 import {
   Container,
   FormControl,
   FormHelperText,
   Typography,
 } from '@mui/material'
-import TextInput from 'components/core/TextInput'
-import {
-  Add,
-  BorderColor,
-  ContactPhone,
-  Done,
-  Email,
-  Info,
-  MedicationLiquid,
-  Person,
-  Phone,
-  Photo,
-  Science,
-} from '@mui/icons-material'
-import { LoadingButton } from '@mui/lab'
-import { Form, Formik, FormikProps } from 'formik'
-import { useMemo, useState } from 'react'
 import * as Yup from 'yup'
-import { useFetch, useGET, useMutation } from 'hooks'
-import CategoryType from 'types/category'
-import CustomerType from 'types/customer'
-// import { database, storage } from 'configs'
-import Swal from 'sweetalert2'
-import PhotoUpload from 'components/core/PhotoUpload'
-import { AdminAutocomplete } from 'components/core'
 
 const AddReport = () => {
   const [userdata, setUserdata] = useState<any>({})
@@ -153,8 +144,14 @@ const AddReport = () => {
 
       formData.append('userId', userdata?._id)
       formData.append('petId', petDetails?.pet?._id)
+      formData.append('reportPhoto', values?.petImage)
       formData.append('appointmentId', petDetails?._id)
-      formData.append('reportPhoto', values?.reportPhoto)
+      formData.append('gender', values?.gender)
+      formData.append('breed', values?.breed)
+      formData.append('age', values?.age)
+      formData.append('weight', values?.weight)
+      formData.append('aggression', values?.aggression)
+      formData.append('vaccinated', values?.vaccinated)
 
       const { error, success } = await trigger(formData as any)
       if (error) return Swal.fire('Error', error.message, 'error')
@@ -295,7 +292,7 @@ const AddReport = () => {
                         }
                       />
                     </div>
-                  ) : inputItem?.name === 'reportPhoto' ? (
+                  ) : inputItem?.name === 'petImage' ? (
                     <div className="">
                       <FormControl
                         fullWidth
@@ -308,7 +305,7 @@ const AddReport = () => {
                           onChange={(e: any) => {
                             setImage(e)
                             formik?.setFieldValue(
-                              'reportPhoto',
+                              'petImage',
                               e?.target?.files[0]
                             )
                           }}

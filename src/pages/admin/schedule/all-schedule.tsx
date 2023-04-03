@@ -1,18 +1,15 @@
 import EditScheduleDrawer from 'components/admin/drawer/EditScheduleDrawer'
-import { BorderColor, Delete } from '@mui/icons-material'
 import HeadStyle from 'components/core/HeadStyle'
+import { BorderColor } from '@mui/icons-material'
 import MaterialTable from '@material-table/core'
 import { Avatar, Paper } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
-import CustomerType from 'types/customer'
-import { useRouter } from 'next/router'
 import AdminLayout from 'layouts/admin'
+import { useRouter } from 'next/router'
 import { MuiTblOptions } from 'utils'
 import { useState } from 'react'
-import { useFetch, useGET } from 'hooks'
+import { useGET } from 'hooks'
 import moment from 'moment'
-// import { database } from 'configs'
-import Swal from 'sweetalert2'
 
 const AllSchedule = () => {
   const router = useRouter()
@@ -28,20 +25,6 @@ const AllSchedule = () => {
 
   // console.log(data)
   console.log(openEditPrescriptionDrawer)
-
-  const [tabelData, settabelData] = useState([
-    {
-      sl: '1',
-      day: 'mon',
-      startTime: '10:00',
-      endTime: '18:00',
-      breakTime: '13:00',
-      intervalPeriod: '1 hr',
-      slotDuration: '15',
-      slotGap: '5',
-      createdAt: 'March 2, 2023 3:57 PM',
-    },
-  ])
 
   const handleClick = (Data: any) => {
     setOpenEditPrescriptionDrawer(true)
