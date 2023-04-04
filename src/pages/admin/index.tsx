@@ -58,7 +58,7 @@ const Dashboard = () => {
     <AdminLayout title="Admin Dashboard">
       <div className="m-5 !mb-6 grid grid-cols-12 content-between gap-6 ">
         <InfoCards
-          title="Pending Appointments"
+          title="All Appointments"
           iconClassName="bg-[#f3f8f2] group-hover:bg-[#ff7717]"
           content={`${upcomingAppointment?.success?.data}`}
           titleClassName="text-black font-bold text-base"
