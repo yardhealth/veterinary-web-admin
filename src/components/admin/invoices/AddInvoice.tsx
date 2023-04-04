@@ -164,7 +164,9 @@ const AddInvoice = () => {
         label: 'GST *',
         placeholder: '',
         styleContact: 'rounded-xl bg-white mb-5',
-        validationSchema: Yup.string().required('GST is required'),
+        validationSchema: Yup.number()
+          .min(0, 'enter positive value')
+          .required('GST is required'),
         initialValue: '',
         type: 'number',
         icon: <Percent />,
@@ -423,7 +425,7 @@ const AddInvoice = () => {
                 (accumulator: any, currentValue: any) =>
                   accumulator + Number(currentValue?.amount),
                 0
-              ) -
+              ) +
               (formik?.values?.item
                 ?.map((item: any) => {
                   if (item.key === key) {
@@ -618,7 +620,7 @@ const AddInvoice = () => {
                             )
                             formik?.setFieldValue(
                               'gstTotal',
-                              formik?.values?.grossTotal -
+                              formik?.values?.grossTotal +
                                 (formik?.values?.grossTotal * e.target.value) /
                                   100
                             )
