@@ -273,6 +273,9 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
                           name={inputItem?.name}
                           title={inputItem?.label}
                           options={inputItem.options}
+                          inputProps={{
+                            min: moment(new Date()).format('YYYY-MM-DD'),
+                          }}
                           disabled={
                             inputItem?.name === 'slot' &&
                             formik.values.fullDay === 'Yes'

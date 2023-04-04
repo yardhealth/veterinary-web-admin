@@ -69,7 +69,7 @@ const Dashboard = () => {
             // <PermContactCalendar className="h-7 w-7 rounded-md text-[#ff7717] group-hover:text-white " />
             <Avatar variant="rounded" src={UpcomingAppointments.src} />
           }
-          clickableRoute="/admin/appointments/upcoming-appointments"
+          clickableRoute="/admin/appointments/all-appointments"
         />
         <InfoCards
           title="Completed Appointments"
