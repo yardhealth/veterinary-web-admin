@@ -45,43 +45,43 @@ const EditHealthIssuesDrawer = ({
   // const { isMutating, trigger } = useMutation(`payment/create`)
   const AddPrescriptionSchema = useMemo(() => {
     return [
-      {
-        key: '17',
-        // placeholder: 'Enter your name',
-        name: 'healthIssue',
-        label: 'Select Issues *',
-        placeholder: '',
-        type: 'select',
-        styleContact: 'rounded-xl mb-5 bg-white ',
-        validationSchema: Yup.string().required('Select this field'),
-        initialValue: activeData?.healthIssue,
-        icon: <Person />,
-        required: true,
-        contactField: {
-          xs: 12,
-          sm: 12,
-          md: 6,
-          lg: 6,
-        },
-        options: [
-          {
-            label: 'General Health Issues',
-            value: 'General Health Issues',
-          },
-          {
-            label: 'Digestive Problems',
-            value: 'Digestive Problems',
-          },
-          {
-            label: 'Skin Problems',
-            value: 'Skin Problems',
-          },
-          {
-            label: 'Eye and Ear Problems',
-            value: 'Eye and Ear Problems',
-          },
-        ],
-      },
+      // {
+      //   key: '17',
+      //   // placeholder: 'Enter your name',
+      //   name: 'healthIssue',
+      //   label: 'Select Issues *',
+      //   placeholder: '',
+      //   type: 'select',
+      //   styleContact: 'rounded-xl mb-5 bg-white ',
+      //   validationSchema: Yup.string().required('Select this field'),
+      //   initialValue: activeData?.healthIssue,
+      //   icon: <Person />,
+      //   required: true,
+      //   contactField: {
+      //     xs: 12,
+      //     sm: 12,
+      //     md: 6,
+      //     lg: 6,
+      //   },
+      //   options: [
+      //     {
+      //       label: 'General Health Issues',
+      //       value: 'General Health Issues',
+      //     },
+      //     {
+      //       label: 'Digestive Problems',
+      //       value: 'Digestive Problems',
+      //     },
+      //     {
+      //       label: 'Skin Problems',
+      //       value: 'Skin Problems',
+      //     },
+      //     {
+      //       label: 'Eye and Ear Problems',
+      //       value: 'Eye and Ear Problems',
+      //     },
+      //   ],
+      // },
       {
         key: '1',
         // placeholder: 'Enter your email',

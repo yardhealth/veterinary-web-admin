@@ -11,10 +11,10 @@ type Props = {
 }
 const AvailableSlot = ({ className = '', date, onClick, value }: Props) => {
   const router = useRouter()
-  if (new Date(date) <= new Date()) {
-    Swal.fire('Please select a future date')
-    date = ''
-  }
+  // if (new Date(date) <= new Date()) {
+  //   Swal.fire('Please select a future date')
+  //   date = ''
+  // }
 
   const { data, mutate, isLoading } = useGET<any[]>(
     `slot/get?date=${new Date(date)}&timeSection=EVENING`

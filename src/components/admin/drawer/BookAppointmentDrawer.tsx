@@ -424,6 +424,7 @@ const BookAppointmentDrawer = ({ open, onClose, activeData }: Props) => {
         ...success?.data,
       }
       submitProps.resetForm()
+      setImage('')
       Swal.fire('Success', success.message, 'success')
 
       console.log(addAppointment)
@@ -544,6 +545,9 @@ const BookAppointmentDrawer = ({ open, onClose, activeData }: Props) => {
                           options={inputItem.options}
                           title={inputItem?.label}
                           multiline={inputItem?.multiline}
+                          inputProps={{
+                            min: moment(new Date()).format('YYYY-MM-DD'),
+                          }}
                           rows={inputItem?.rows}
                           type={inputItem?.type as any}
                           startIcon={inputItem?.icon}

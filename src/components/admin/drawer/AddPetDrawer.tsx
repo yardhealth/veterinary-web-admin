@@ -249,7 +249,7 @@ const AddPetDrawer = ({ open, onClose, mutate, activeData, _id }: Props) => {
       }
       submitProps.resetForm()
       Swal.fire('Success', success.message, 'success')
-
+      setImage('')
       console.log(addPet)
       mutate()
       return
