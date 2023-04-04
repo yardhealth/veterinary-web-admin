@@ -18,8 +18,10 @@ import {
   Percent,
 } from '@mui/icons-material'
 import { AdminAutocomplete } from 'components/core'
+import { useRouter } from 'next/router'
 
 const AddInvoice = () => {
+  const router = useRouter()
   const [userdata, setUserdata] = useState<any>({})
   console.log(userdata)
   const { data: userData, mutate: userMutate } =
@@ -252,9 +254,11 @@ const AddInvoice = () => {
       const addInvoice = {
         ...success?.data,
       }
+      setUserdata('')
       submitProps.resetForm()
       Swal.fire('Success', success.message, 'success')
       console.log(addInvoice)
+      router.push('/admin/invoices/all-invoices')
       return
     } catch (error) {
       submitProps.setSubmitting(false)

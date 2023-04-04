@@ -1,10 +1,15 @@
 import {
+  AddLocation,
+  Apartment,
   BorderColor,
   Done,
   EmailOutlined,
+  House,
+  LocationCity,
   Person,
   Phone,
   Photo,
+  PushPin,
 } from '@mui/icons-material'
 import PhotoUpload from 'components/core/PhotoUpload'
 import TextInput from 'components/core/TextInput'
@@ -98,7 +103,7 @@ const AddUser = () => {
         type: 'number',
         validationSchema: Yup.string().optional(),
         initialValue: '',
-        icon: <Phone />,
+        icon: <House />,
         required: true,
       },
       {
@@ -111,7 +116,7 @@ const AddUser = () => {
         type: 'number',
         validationSchema: Yup.string().optional(),
         initialValue: '',
-        icon: <Phone />,
+        icon: <Apartment />,
         required: true,
       },
       {
@@ -124,7 +129,7 @@ const AddUser = () => {
         type: 'text',
         validationSchema: Yup.string().optional(),
         initialValue: '',
-        icon: <Phone />,
+        icon: <AddLocation />,
         required: true,
       },
       {
@@ -137,7 +142,7 @@ const AddUser = () => {
         type: 'number',
         validationSchema: Yup.string().optional(),
         initialValue: '',
-        icon: <Phone />,
+        icon: <PushPin />,
         required: true,
       },
       {
@@ -150,7 +155,7 @@ const AddUser = () => {
         type: 'text',
         validationSchema: Yup.string().optional(),
         initialValue: '',
-        icon: <Phone />,
+        icon: <LocationCity />,
         required: true,
       },
     ]

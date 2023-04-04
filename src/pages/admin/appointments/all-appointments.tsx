@@ -391,7 +391,16 @@ const AllAppointments = () => {
                         <Avatar
                           onClick={() => {
                             setAppointmentId(row._id)
-                            handleConfirm()
+                            Swal.fire({
+                              text: 'Do you want to Continue?',
+                              icon: 'question',
+                              showCancelButton: true,
+                            }).then((result) => {
+                              if (result.value) {
+                                handleConfirm()
+                              }
+                            })
+                            //
                           }}
                           variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-green-500 !p-0"

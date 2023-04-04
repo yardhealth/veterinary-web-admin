@@ -34,7 +34,8 @@ const Dashboard = () => {
   const { data: totalClients, mutate: clients } = useGET<any[]>(
     `dashboard/total-clients`
   )
-  console.log(totalClients)
+
+  console.log(totalClients?.success?.data)
 
   const { data: totalIncome, mutate: income } = useGET<any[]>(
     `dashboard/total-income`

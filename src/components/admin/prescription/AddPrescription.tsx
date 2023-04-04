@@ -16,8 +16,10 @@ import {
   MedicationLiquid,
 } from '@mui/icons-material'
 import * as Yup from 'yup'
+import { useRouter } from 'next/router'
 
 const AddPrescription = () => {
+  const router = useRouter()
   const [userdata, setUserdata] = useState<any>({})
   console.log(userdata)
   const { data: userData, mutate: userMutate } =
@@ -151,10 +153,12 @@ const AddPrescription = () => {
       const addPrescription = {
         ...success?.data,
       }
+      setUserdata('')
       submitProps.resetForm()
       Swal.fire('Success', success.message, 'success')
-
+      router.push('/admin/prescription/prescription-history')
       console.log(addPrescription)
+      console.log(values)
 
       return
     } catch (error) {
