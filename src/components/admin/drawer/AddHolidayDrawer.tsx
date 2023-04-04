@@ -6,11 +6,6 @@ import {
   BorderColor,
   CurrencyRupee,
   Done,
-  HistoryToggleOff,
-  HourglassBottom,
-  Info,
-  LineWeight,
-  MergeType,
   Person,
   Timer,
   Transgender,
@@ -36,8 +31,12 @@ type Props = {
 
 const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
   const [date, setDate] = useState()
+  const [section, setSection] = useState()
+  console.log(section)
   console.log(date)
-  const { data, mutate: dateMutate } = useGET<any[]>(`slot/get?date=${date}`)
+  const { data, mutate: dateMutate } = useGET<any[]>(
+    `slot/get?date=${date}&timeSection=${section}`
+  )
   console.log(data)
 
   const AddHolidaySchema = useMemo(() => {
@@ -82,6 +81,34 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
           {
             label: 'No',
             value: 'No',
+          },
+        ],
+      },
+
+      {
+        key: '2',
+        // placeholder: 'Enter your email',
+        name: 'section',
+        label: 'Select Section *',
+        placeholder: '',
+        styleContact: 'rounded-lg',
+        type: 'select',
+        validationSchema: Yup.string().when('fullDay', {
+          is: 'No',
+          then: Yup.string().required('Field required'),
+          otherwise: Yup.string(),
+        }),
+        initialValue: '',
+        icon: <Transgender />,
+        required: true,
+        options: [
+          {
+            label: 'MORNING',
+            value: 'MORNING',
+          },
+          {
+            label: 'EVENING',
+            value: 'EVENING',
           },
         ],
       },
@@ -257,6 +284,7 @@ const AddHolidayDrawer = ({ open, onClose, mutate }: Props) => {
                 {formik.values?.day &&
                   setDate(new Date(formik.values.day).toISOString() as any)}
                 {console.log(formik)}
+                {formik.values?.section && setSection(formik.values?.section)}
 
                 {AddHolidaySchema?.map((inputItem, index) => (
                   <div key={index}>

@@ -48,6 +48,7 @@ type Props = {
 }
 
 const EditPetDrawer = ({ open, onClose, mutate, activeData }: Props) => {
+  console.log(activeData)
   const AddScheduleSchema = useMemo(() => {
     return [
       {
@@ -148,7 +149,7 @@ const EditPetDrawer = ({ open, onClose, mutate, activeData }: Props) => {
         placeholder: '',
         styleContact: 'rounded-lg mb-5',
         type: 'select',
-        validationSchema: Yup.string().optional(),
+        validationSchema: Yup.string().required('This field is required'),
         initialValue: '',
         icon: <CurrencyRupee />,
         required: true,
@@ -158,15 +159,13 @@ const EditPetDrawer = ({ open, onClose, mutate, activeData }: Props) => {
             value: 'LOW',
           },
           {
-            label: 'Med',
-            value: 'MED',
+            label: 'MED',
+            value: 'MEDIUM',
           },
           {
-            label: 'High',
+            label: 'HIGH',
             value: 'HIGH',
           },
-
-          ,
         ],
       },
       {
@@ -190,7 +189,6 @@ const EditPetDrawer = ({ open, onClose, mutate, activeData }: Props) => {
             label: 'No',
             value: 'NO',
           },
-          ,
         ],
       },
     ]
