@@ -295,25 +295,25 @@ export default () => {
       //   icon: <Notifications />,
       //   route: '/admin/notifications',
       // },
-      {
-        key: '8',
-        title: 'Settings',
-        icon: <Settings />,
-        submenus: [
-          {
-            key: '8.1',
-            route: '/admin/change-password',
-            title: 'Change Password',
-            icon: <Key />,
-          },
-          // {
-          //   key: '3.2',
-          //   route: '/admin/update-email',
-          //   title: 'Update Email',
-          //   icon: <EmailOutlined />,
-          // },
-        ],
-      },
+      // {
+      //   key: '8',
+      //   title: 'Settings',
+      //   icon: <Settings />,
+      //   submenus: [
+      //     {
+      //       key: '8.1',
+      //       route: '/admin/change-password',
+      //       title: 'Change Password',
+      //       icon: <Key />,
+      //     },
+      //     {
+      //       key: '3.2',
+      //       route: '/admin/update-email',
+      //       title: 'Update Email',
+      //       icon: <EmailOutlined />,
+      //     },
+      //   ],
+      // },
       // {
       //   key: '4',
       //   title: 'Users',

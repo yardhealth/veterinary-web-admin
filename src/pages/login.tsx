@@ -20,6 +20,7 @@ import {
   TextField,
   TextFieldProps,
 } from '@mui/material'
+import Head from 'next/head'
 
 const Login = () => {
   const { change } = useChange()
@@ -65,118 +66,126 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
 
   return (
-    <section className="flex h-screen w-full bg-white">
-      <div className="flex h-full w-full items-center justify-center">
-        <div className="flex flex-col items-center rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
-          <div>
-            <div className="mx-auto w-24 md:w-64">
-              <img
-                className="w-full object-contain"
-                src="/veterinaryLogo.png"
-                alt=""
-              />
-            </div>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={Yup.object(validationSchema)}
-              onSubmit={handleLogin}
-            >
-              {(formik) => (
-                <Form>
-                  <Card className="w-[22rem] px-4 md:w-[40rem]">
-                    <CardContent>
-                      <div className="flex flex-col place-content-center py-2">
-                        <p className="text-center text-xl font-semibold text-theme md:text-2xl">
-                          LOGIN
-                        </p>
-                        <p className="mt-1 text-center text-xs font-thin text-[#DD3350] md:text-sm">
-                          Enter your credentials to access your panel
-                        </p>
-                      </div>
-                      {LoginSchema().map((inputItem) => (
-                        <Field name={inputItem.name} key={inputItem.key}>
-                          {(props: {
-                            meta: { touched: any; error: any }
-                            field: JSX.IntrinsicAttributes & TextFieldProps
-                          }) => (
-                            <TextField
-                              variant="outlined"
-                              size="small"
-                              fullWidth
-                              margin="normal"
-                              label={inputItem.label}
-                              type={showPassword ? 'text' : inputItem.type}
-                              error={Boolean(
-                                props.meta.touched && props.meta.error
-                              )}
-                              helperText={
-                                props.meta.touched && props.meta.error
-                              }
-                              InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    {inputItem.startIcon}
-                                  </InputAdornment>
-                                ),
-                                endAdornment: (
-                                  <InputAdornment position="end">
-                                    {inputItem.type === 'password' && (
-                                      <IconButton
-                                        onClick={() =>
-                                          setShowPassword(!showPassword)
-                                        }
-                                      >
-                                        {showPassword ? (
-                                          <VisibilityOff />
-                                        ) : (
-                                          <Visibility />
-                                        )}
-                                      </IconButton>
-                                    )}
-                                  </InputAdornment>
-                                ),
-                              }}
-                              {...props.field}
-                            />
-                          )}
-                        </Field>
-                      ))}
+    <>
+      <Head>
+        <title>Veterinary</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <section className="flex h-screen w-full bg-white">
+        <div className="flex h-full w-full items-center justify-center">
+          <div className="flex flex-col items-center rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+            <div>
+              <div className="mx-auto w-24 md:w-64">
+                <img
+                  className="w-full object-contain"
+                  src="/veterinaryLogo.png"
+                  alt=""
+                />
+              </div>
+              <Formik
+                initialValues={initialValues}
+                validationSchema={Yup.object(validationSchema)}
+                onSubmit={handleLogin}
+              >
+                {(formik) => (
+                  <Form>
+                    <Card className="w-[22rem] px-4 md:w-[40rem]">
+                      <CardContent>
+                        <div className="flex flex-col place-content-center py-2">
+                          <p className="text-center text-xl font-semibold text-theme md:text-2xl">
+                            LOGIN
+                          </p>
+                          <p className="mt-1 text-center text-xs font-thin text-[#DD3350] md:text-sm">
+                            Enter your credentials to access your panel
+                          </p>
+                        </div>
+                        {LoginSchema().map((inputItem) => (
+                          <Field name={inputItem.name} key={inputItem.key}>
+                            {(props: {
+                              meta: { touched: any; error: any }
+                              field: JSX.IntrinsicAttributes & TextFieldProps
+                            }) => (
+                              <TextField
+                                variant="outlined"
+                                size="small"
+                                fullWidth
+                                margin="normal"
+                                label={inputItem.label}
+                                type={showPassword ? 'text' : inputItem.type}
+                                error={Boolean(
+                                  props.meta.touched && props.meta.error
+                                )}
+                                helperText={
+                                  props.meta.touched && props.meta.error
+                                }
+                                InputProps={{
+                                  startAdornment: (
+                                    <InputAdornment position="start">
+                                      {inputItem.startIcon}
+                                    </InputAdornment>
+                                  ),
+                                  endAdornment: (
+                                    <InputAdornment position="end">
+                                      {inputItem.type === 'password' && (
+                                        <IconButton
+                                          onClick={() =>
+                                            setShowPassword(!showPassword)
+                                          }
+                                        >
+                                          {showPassword ? (
+                                            <VisibilityOff />
+                                          ) : (
+                                            <Visibility />
+                                          )}
+                                        </IconButton>
+                                      )}
+                                    </InputAdornment>
+                                  ),
+                                }}
+                                {...props.field}
+                              />
+                            )}
+                          </Field>
+                        ))}
 
-                      <div className="flex place-content-center py-4">
-                        <Button
-                          type="submit"
-                          disabled={
-                            formik.isSubmitting || !formik.isValid || isMutating
-                          }
-                          variant="contained"
-                          color="primary"
-                          className="!bg-theme"
-                          size="large"
-                          startIcon={
-                            isMutating ? (
-                              <CircularProgress size={16} />
-                            ) : (
-                              <LoginOutlined />
-                            )
-                          }
-                        >
-                          Login
-                        </Button>
-                      </div>
-                      <Link href="/forgot-password">
-                        <p className="cursor-pointer text-center text-xs text-theme transition-all duration-200 ease-in-out hover:font-semibold hover:text-youtube md:text-sm">
-                          Forgot password ?
-                        </p>
-                      </Link>
-                    </CardContent>
-                  </Card>
-                </Form>
-              )}
-            </Formik>
+                        <div className="flex place-content-center py-4">
+                          <Button
+                            type="submit"
+                            disabled={
+                              formik.isSubmitting ||
+                              !formik.isValid ||
+                              isMutating
+                            }
+                            variant="contained"
+                            color="primary"
+                            className="!bg-theme"
+                            size="large"
+                            startIcon={
+                              isMutating ? (
+                                <CircularProgress size={16} />
+                              ) : (
+                                <LoginOutlined />
+                              )
+                            }
+                          >
+                            Login
+                          </Button>
+                        </div>
+                        <Link href="/forgot-password">
+                          <p className="cursor-pointer text-center text-xs text-theme transition-all duration-200 ease-in-out hover:font-semibold hover:text-youtube md:text-sm">
+                            Forgot password ?
+                          </p>
+                        </Link>
+                      </CardContent>
+                    </Card>
+                  </Form>
+                )}
+              </Formik>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
 
