@@ -20,8 +20,10 @@ import {
   Typography,
 } from '@mui/material'
 import * as Yup from 'yup'
+import { useRouter } from 'next/router'
 
 const AddReport = () => {
+  const router = useRouter()
   const [userdata, setUserdata] = useState<any>({})
   console.log(userdata)
   const { data: userData, mutate: userMutate } =
@@ -159,10 +161,13 @@ const AddReport = () => {
       const addPet = {
         ...success?.data,
       }
+      setUserdata('')
       submitProps.resetForm()
       Swal.fire('Success', success.message, 'success')
+      router.push('/admin/reports/view-all-reports')
+      // console.log(values)
 
-      console.log(addPet)
+      // console.log(addPet)
       // mutate()
       return
     } catch (error) {
