@@ -77,67 +77,19 @@ const RescheduleDrawer = ({ open, onClose, activeData }: Props) => {
     setImage(open?.documentUrl)
   }, [open?.documentUrl])
 
-  const { isMutating, trigger } = useMutation(
-    `appointment-booked-by-admin/create`
+  const { trigger, isMutating } = useMutation(
+    `appointment/reschedule-admin/${activeData?._id}`,
+    { method: 'PATCH' }
   )
 
   const handleSend = async (values: any, submitProps: any) => {
     console.log(values)
 
-    let wholeData: {
-      healthIssue: string
-      healthIssueParticular: string
-    }[] = []
-
-    if (values?.digestiveProblems) {
-      values?.digestiveProblem?.forEach((element: string) => {
-        wholeData.push({
-          healthIssue: 'digestiveProblems',
-          healthIssueParticular: element,
-        })
-      })
-    }
-    if (values?.eyeAndEarProblems) {
-      values?.eyeAndEarProblems?.forEach((element: string) => {
-        wholeData.push({
-          healthIssue: 'eyeAndEarProblems',
-          healthIssueParticular: element,
-        })
-      })
-    }
-    if (values?.generalHealthIssues) {
-      values?.generalHealthIssues?.forEach((element: string) => {
-        wholeData.push({
-          healthIssue: 'eyeAndEarProblems',
-          healthIssueParticular: element,
-        })
-      })
-    }
-    if (values?.skinProblems) {
-      values?.skinProblems?.forEach((element: string) => {
-        wholeData.push({
-          healthIssue: 'skinProblems',
-          healthIssueParticular: element,
-        })
-      })
-    }
-    if (values?.other) {
-      values?.other?.forEach((element: string) => {
-        wholeData.push({
-          healthIssue: 'other',
-          healthIssueParticular: element,
-        })
-      })
-    }
     const newObject: any = {
-      petId: activeData._id,
-      userId: activeData.user,
-      wholeData: wholeData,
-      consultation: values.consultation,
-      appointDate: new Date(values.appointmentDate).toISOString(),
-      appointStartTime: moment(values?.slot?.split('@')[0]).format('HH:mm'),
-      appointEndTime: moment(values?.slot?.split('@')[1]).format('HH:mm'),
-      paymentMethod: values.paymentMethod,
+      userId: activeData?.user,
+      rescheduleDate: new Date(values.appointmentDate).toISOString(),
+      rescheduleStartTime: moment(values?.slot?.split('@')[0]).format('HH:mm'),
+      rescheduleEndTime: moment(values?.slot?.split('@')[1]).format('HH:mm'),
     }
     console.log(newObject)
 
@@ -145,14 +97,14 @@ const RescheduleDrawer = ({ open, onClose, activeData }: Props) => {
       const { error, success } = await trigger(newObject)
       if (error) return Swal.fire('Error', error.message, 'error')
 
-      const addAppointment = {
+      const reschedule = {
         ...success?.data,
       }
       submitProps.resetForm()
       setImage('')
       Swal.fire('Success', success.message, 'success')
 
-      console.log(addAppointment)
+      console.log(reschedule)
 
       return
     } catch (error) {
@@ -176,9 +128,9 @@ const RescheduleDrawer = ({ open, onClose, activeData }: Props) => {
             variant="h5"
             sx={{ marginBottom: 3 }}
           >
-            Book Appointment For{' '}
+            Reschedule Appointment For{' '}
             <span className="font-semibold text-theme">
-              {activeData?.petName}
+              {activeData?.pet?.petName}
             </span>
           </Typography>
           <Formik
