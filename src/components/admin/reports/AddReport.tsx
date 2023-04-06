@@ -144,7 +144,7 @@ const AddReport = () => {
 
       formData.append('userId', userdata?._id)
       formData.append('petId', petDetails?.pet?._id)
-      formData.append('reportPhoto', values?.petImage)
+      formData.append('reportPhoto', values?.reportPhoto)
       formData.append('appointmentId', petDetails?._id)
       formData.append('gender', values?.gender)
       formData.append('breed', values?.breed)
@@ -292,7 +292,7 @@ const AddReport = () => {
                         }
                       />
                     </div>
-                  ) : inputItem?.name === 'petImage' ? (
+                  ) : inputItem?.name === 'reportPhoto' ? (
                     <div className="">
                       <FormControl
                         fullWidth
@@ -305,7 +305,7 @@ const AddReport = () => {
                           onChange={(e: any) => {
                             setImage(e)
                             formik?.setFieldValue(
-                              'petImage',
+                              'reportPhoto',
                               e?.target?.files[0]
                             )
                           }}
