@@ -384,10 +384,10 @@ const AllAppointments = () => {
               {
                 title: 'Created At',
                 editable: 'never',
-                field: 'timestamp',
+                field: 'createdAt',
                 filtering: false,
-                render: ({ timestamp }: any) =>
-                  moment(new Date(timestamp)).format('lll'),
+                render: ({ createdAt }: any) =>
+                  moment(new Date(createdAt)).format('lll'),
               },
 
               {
