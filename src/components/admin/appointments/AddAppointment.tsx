@@ -582,74 +582,74 @@ const AddAppointment = () => {
         icon: <House />,
         required: true,
       },
-      {
-        key: '19',
-        // placeholder: 'Enter your email',
-        name: 'address2',
-        label: 'Apartment/Road/Area *',
-        placeholder: '',
-        styleContact: 'rounded-lg mb-5',
-        type: 'text',
-        validationSchema: Yup.string().when('consultation', {
-          is: 'Home',
-          then: Yup.string().optional(),
-          otherwise: Yup.string(),
-        }),
-        initialValue: '',
-        icon: <AddRoad />,
-        required: true,
-      },
-      {
-        key: '20',
-        // placeholder: 'Enter your email',
-        name: 'address3',
-        label: 'State *',
-        placeholder: '',
-        styleContact: 'rounded-lg mb-5',
-        type: 'text',
-        validationSchema: Yup.string().when('consultation', {
-          is: 'Home',
-          then: Yup.string().optional(),
-          otherwise: Yup.string(),
-        }),
-        initialValue: '',
-        icon: <LocationOn />,
-        required: true,
-      },
-      {
-        key: '21',
-        // placeholder: 'Enter your email',
-        name: 'address4',
-        label: 'Zip Code *',
-        placeholder: '',
-        styleContact: 'rounded-lg mb-5',
-        type: 'number',
-        validationSchema: Yup.string().when('consultation', {
-          is: 'Home',
-          then: Yup.string().optional(),
-          otherwise: Yup.string(),
-        }),
-        initialValue: '',
-        icon: <PushPin />,
-        required: true,
-      },
-      {
-        key: '22',
-        // placeholder: 'Enter your email',
-        name: 'consultationType5',
-        label: 'City *',
-        placeholder: '',
-        styleContact: 'rounded-lg mb-5',
-        type: 'text',
-        validationSchema: Yup.string().when('consultation', {
-          is: 'Home',
-          then: Yup.string().optional(),
-          otherwise: Yup.string(),
-        }),
-        initialValue: '',
-        icon: <LocationCity />,
-        required: true,
-      },
+      // {
+      //   key: '19',
+      //   // placeholder: 'Enter your email',
+      //   name: 'address2',
+      //   label: 'Apartment/Road/Area *',
+      //   placeholder: '',
+      //   styleContact: 'rounded-lg mb-5',
+      //   type: 'text',
+      //   validationSchema: Yup.string().when('consultation', {
+      //     is: 'Home',
+      //     then: Yup.string().optional(),
+      //     otherwise: Yup.string(),
+      //   }),
+      //   initialValue: '',
+      //   icon: <AddRoad />,
+      //   required: true,
+      // },
+      // {
+      //   key: '20',
+      //   // placeholder: 'Enter your email',
+      //   name: 'address3',
+      //   label: 'State *',
+      //   placeholder: '',
+      //   styleContact: 'rounded-lg mb-5',
+      //   type: 'text',
+      //   validationSchema: Yup.string().when('consultation', {
+      //     is: 'Home',
+      //     then: Yup.string().optional(),
+      //     otherwise: Yup.string(),
+      //   }),
+      //   initialValue: '',
+      //   icon: <LocationOn />,
+      //   required: true,
+      // },
+      // {
+      //   key: '21',
+      //   // placeholder: 'Enter your email',
+      //   name: 'address4',
+      //   label: 'Zip Code *',
+      //   placeholder: '',
+      //   styleContact: 'rounded-lg mb-5',
+      //   type: 'number',
+      //   validationSchema: Yup.string().when('consultation', {
+      //     is: 'Home',
+      //     then: Yup.string().optional(),
+      //     otherwise: Yup.string(),
+      //   }),
+      //   initialValue: '',
+      //   icon: <PushPin />,
+      //   required: true,
+      // },
+      // {
+      //   key: '22',
+      //   // placeholder: 'Enter your email',
+      //   name: 'consultationType5',
+      //   label: 'City *',
+      //   placeholder: '',
+      //   styleContact: 'rounded-lg mb-5',
+      //   type: 'text',
+      //   validationSchema: Yup.string().when('consultation', {
+      //     is: 'Home',
+      //     then: Yup.string().optional(),
+      //     otherwise: Yup.string(),
+      //   }),
+      //   initialValue: '',
+      //   icon: <LocationCity />,
+      //   required: true,
+      // },
 
       {
         key: '23',
@@ -834,114 +834,6 @@ const AddAppointment = () => {
                       />
                     </div>
                   ) : inputItem?.name === 'address1' ? (
-                    formik?.values?.consultation === 'Home' ? (
-                      <div className=" w-full">
-                        <TextInput
-                          fullWidth
-                          key={index}
-                          name={inputItem?.name}
-                          title={inputItem?.label as any}
-                          // multiline={inputItem?.multiline}
-                          // rows={inputItem?.rows}
-                          type={inputItem.type as any}
-                          startIcon={inputItem?.icon}
-                          styleContact={inputItem?.styleContact}
-                          error={Boolean(
-                            formik?.touched[inputItem.name] &&
-                              formik?.errors[inputItem.name]
-                          )}
-                          helperText={
-                            formik?.touched[inputItem.name] &&
-                            (formik?.errors[inputItem.name] as any)
-                          }
-                          value={formik?.values[inputItem.name]}
-                          onChange={formik?.handleChange}
-                          onBlur={formik?.handleBlur}
-                        />
-                      </div>
-                    ) : null
-                  ) : inputItem?.name === 'address2' ? (
-                    formik?.values?.consultation === 'Home' ? (
-                      <div className=" w-full">
-                        <TextInput
-                          fullWidth
-                          key={index}
-                          name={inputItem?.name}
-                          title={inputItem?.label as any}
-                          // multiline={inputItem?.multiline}
-                          // rows={inputItem?.rows}
-                          type={inputItem.type as any}
-                          startIcon={inputItem?.icon}
-                          styleContact={inputItem?.styleContact}
-                          error={Boolean(
-                            formik?.touched[inputItem.name] &&
-                              formik?.errors[inputItem.name]
-                          )}
-                          helperText={
-                            formik?.touched[inputItem.name] &&
-                            (formik?.errors[inputItem.name] as any)
-                          }
-                          value={formik?.values[inputItem.name]}
-                          onChange={formik?.handleChange}
-                          onBlur={formik?.handleBlur}
-                        />
-                      </div>
-                    ) : null
-                  ) : inputItem?.name === 'address3' ? (
-                    formik?.values?.consultation === 'Home' ? (
-                      <div className=" w-full">
-                        <TextInput
-                          fullWidth
-                          key={index}
-                          name={inputItem?.name}
-                          title={inputItem?.label as any}
-                          // multiline={inputItem?.multiline}
-                          // rows={inputItem?.rows}
-                          type={inputItem.type as any}
-                          startIcon={inputItem?.icon}
-                          styleContact={inputItem?.styleContact}
-                          error={Boolean(
-                            formik?.touched[inputItem.name] &&
-                              formik?.errors[inputItem.name]
-                          )}
-                          helperText={
-                            formik?.touched[inputItem.name] &&
-                            (formik?.errors[inputItem.name] as any)
-                          }
-                          value={formik?.values[inputItem.name]}
-                          onChange={formik?.handleChange}
-                          onBlur={formik?.handleBlur}
-                        />
-                      </div>
-                    ) : null
-                  ) : inputItem?.name === 'address4' ? (
-                    formik?.values?.consultation === 'Home' ? (
-                      <div className="w-full">
-                        <TextInput
-                          fullWidth
-                          key={index}
-                          name={inputItem?.name}
-                          title={inputItem?.label as any}
-                          // multiline={inputItem?.multiline}
-                          // rows={inputItem?.rows}
-                          type={inputItem.type as any}
-                          startIcon={inputItem?.icon}
-                          styleContact={inputItem?.styleContact}
-                          error={Boolean(
-                            formik?.touched[inputItem.name] &&
-                              formik?.errors[inputItem.name]
-                          )}
-                          helperText={
-                            formik?.touched[inputItem.name] &&
-                            (formik?.errors[inputItem.name] as any)
-                          }
-                          value={formik?.values[inputItem.name]}
-                          onChange={formik?.handleChange}
-                          onBlur={formik?.handleBlur}
-                        />
-                      </div>
-                    ) : null
-                  ) : inputItem?.name === 'consultationType5' ? (
                     formik?.values?.consultation === 'Home' ? (
                       <div className=" w-full">
                         <TextInput

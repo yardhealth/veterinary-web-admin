@@ -1,5 +1,5 @@
 import { Avatar, Card, Modal, Paper, Typography } from '@mui/material'
-import { Close, Done, Info } from '@mui/icons-material'
+import { Close, Done, Info, Update } from '@mui/icons-material'
 import HeadStyle from 'components/core/HeadStyle'
 import MaterialTable from '@material-table/core'
 import { useGET, useMutation } from 'hooks'
@@ -10,6 +10,7 @@ import { MuiTblOptions } from 'utils'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 import moment from 'moment'
+import RescheduleDrawer from 'components/admin/drawer/RescheduleDrawer'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -27,7 +28,8 @@ const style = {
 
 const AllAppointments = () => {
   const router = useRouter()
-
+  const [activeData, setActiveData] = useState<any>()
+  const [bookAppointmentDrawer, setBookAppointmentDrawer] = useState(false)
   const [petDetails, setPetDetails] = useState<any>()
   // const [openModal, setOpenModal] = useState(false)
   // const handleOpen = () => setOpenModal(true)
@@ -40,6 +42,10 @@ const AllAppointments = () => {
   }
   const handleInfoCloseModal = () => setOpenInfoModal(false)
 
+  const handleAppointment = (Data: any) => {
+    setBookAppointmentDrawer(true)
+    setActiveData(Data)
+  }
   const [openEditAppointmentDrawer, setOpenEditAppointmentDrawer] =
     useState(false)
 
@@ -257,6 +263,12 @@ const AllAppointments = () => {
             </Card>
           </Modal>
 
+          <RescheduleDrawer
+            open={bookAppointmentDrawer}
+            onClose={() => setBookAppointmentDrawer(false)}
+            activeData={activeData}
+            mutate={mutate}
+          />
           <MaterialTable
             data={
               data?.success?.data
@@ -372,10 +384,10 @@ const AllAppointments = () => {
               {
                 title: 'Created At',
                 editable: 'never',
-                field: 'createdAt',
+                field: 'timestamp',
                 filtering: false,
-                render: ({ createdAt }: any) =>
-                  moment(new Date(createdAt)).format('lll'),
+                render: ({ timestamp }: any) =>
+                  moment(new Date(timestamp)).format('lll'),
               },
 
               {
@@ -419,7 +431,16 @@ const AllAppointments = () => {
                         <Avatar
                           onClick={() => {
                             setAppointmentId(row._id)
-                            handleCancel()
+                            Swal.fire({
+                              text: 'Do you want to Continue?',
+                              icon: 'question',
+                              showCancelButton: true,
+                            }).then((result) => {
+                              if (result.value) {
+                                handleCancel()
+                              }
+                            })
+                            //
                           }}
                           variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-red-500 !p-0"
@@ -434,10 +455,10 @@ const AllAppointments = () => {
                           <Close sx={{ padding: '0px !important' }} />
                         </Avatar>
                       </Tooltip>
-                      {/* <Tooltip title="Reschedule">
+                      <Tooltip title="Reschedule">
                         <Avatar
                           // onClick={() => setOpenEditAppointmentDrawer(true)}
-                          onClick={handleOpen}
+                          onClick={() => handleAppointment(row)}
                           variant="rounded"
                           className="!mr-0.5 !ml-0.5 !cursor-pointer !bg-[#ff7717] !p-0"
                           sx={{
@@ -450,7 +471,7 @@ const AllAppointments = () => {
                         >
                           <Update sx={{ padding: '0px !important' }} />
                         </Avatar>
-                      </Tooltip> */}
+                      </Tooltip>
                     </div>
                   </>
                 ),
