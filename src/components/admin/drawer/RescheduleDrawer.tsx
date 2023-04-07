@@ -1,4 +1,4 @@
-import { CalendarMonth, Done, LocationCity, Person } from '@mui/icons-material'
+import { CalendarMonth, Done, LocationCity } from '@mui/icons-material'
 import { Container, Drawer, Typography } from '@mui/material'
 import AvailableSlot from 'components/core/AvailableSlot'
 import { useEffect, useMemo, useState } from 'react'

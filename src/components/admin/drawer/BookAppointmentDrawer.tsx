@@ -426,7 +426,7 @@ const BookAppointmentDrawer = ({ open, onClose, activeData }: Props) => {
       submitProps.resetForm()
       setImage('')
       Swal.fire('Success', success.message, 'success')
-
+      onClose?.()
       console.log(addAppointment)
 
       return
