@@ -18,10 +18,10 @@ type Props = {
   activeData?: any
 }
 
-const RescheduleDrawer = ({ open, onClose, activeData }: Props) => {
+const RescheduleDrawer = ({ open, onClose, mutate, activeData }: Props) => {
   console.log(activeData)
   const [appointmentDate, setAppointmentDate] = useState<any>()
-  const { data, mutate } = useGET<any[]>(`health-particular/getall`)
+  const { data, mutate: newMutate } = useGET<any[]>(`health-particular/getall`)
 
   const {
     data: feeData,
@@ -78,15 +78,16 @@ const RescheduleDrawer = ({ open, onClose, activeData }: Props) => {
   }, [open?.documentUrl])
 
   const { trigger, isMutating } = useMutation(
-    `appointment/reschedule-admin/${activeData?._id}`,
-    { method: 'PATCH' }
+    `appointment/reschedule-admin`
+    // { method: 'PATCH' }
   )
 
   const handleSend = async (values: any, submitProps: any) => {
     console.log(values)
 
     const newObject: any = {
-      userId: activeData?.user,
+      appointmentId: activeData?._id,
+      userId: activeData?.user?._id,
       rescheduleDate: new Date(values.appointmentDate).toISOString(),
       rescheduleStartTime: moment(values?.slot?.split('@')[0]).format('HH:mm'),
       rescheduleEndTime: moment(values?.slot?.split('@')[1]).format('HH:mm'),
@@ -103,7 +104,8 @@ const RescheduleDrawer = ({ open, onClose, activeData }: Props) => {
       submitProps.resetForm()
       setImage('')
       Swal.fire('Success', success.message, 'success')
-
+      mutate?.()
+      onClose?.()
       console.log(reschedule)
 
       return
