@@ -72,12 +72,12 @@ export default () => {
                     // }}
                   >
                     <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full">
-                      <ICONS.Notification className={`h-6 w-6 text-sky-700 `} />
+                      <ICONS.Notification className={`h-6 w-6 text-theme `} />
                     </div>
                     <div className="flex w-full items-center justify-between pl-3">
                       <div className="grid w-4/5 gap-2">
                         <p className="font-bold text-primary">{item?.title}</p>
-                        <h4 className={`text-lg leading-none text-sky-700 `}>
+                        <h4 className={`text-lg leading-none text-theme `}>
                           {item?.message}
                         </h4>
                         <p className="text-sm leading-5 text-gray-500">
