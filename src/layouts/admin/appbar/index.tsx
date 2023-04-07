@@ -5,7 +5,7 @@ import { Avatar, Badge, Tooltip } from '@mui/material'
 import { ICONS } from 'assets'
 import QuickAccessMenu from 'components/core/QuickAccessMenu'
 import { useAppContext } from 'contexts'
-import { useFetch } from 'hooks'
+import { useFetch, useGET } from 'hooks'
 import Link from 'next/link'
 import { NotificationType } from 'types'
 import AccountMenu from './AccountMenu'
@@ -17,6 +17,8 @@ export default function AppBar() {
   //     filter: (notification: NotificationType) => !notification.isRead,
   //   }
   // )
+  const { data, mutate } = useGET<any[]>(`notification/getall`)
+  console.log(data?.success?.data)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

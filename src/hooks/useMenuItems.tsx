@@ -209,19 +209,19 @@ export default () => {
             key: '10.2',
             route: '/admin/config/view-consultation-fee',
             title: 'View Consultation Fee',
-            icon: <ReceiptLong />,
+            icon: <CurrencyRupee />,
           },
           {
             key: '10.3',
             route: '/admin/config/add-new-health-issues',
             title: 'Add New Health Issues',
-            icon: <ReceiptLong />,
+            icon: <BorderColor />,
           },
           {
             key: '10.4',
             route: '/admin/config/view-health-issues',
             title: 'View Health Issues',
-            icon: <ReceiptLong />,
+            icon: <LocalHospital />,
           },
           // {
           //   key: '10.5cdc',

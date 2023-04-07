@@ -31,9 +31,6 @@ const AllAppointments = () => {
   const [activeData, setActiveData] = useState<any>()
   const [bookAppointmentDrawer, setBookAppointmentDrawer] = useState(false)
   const [petDetails, setPetDetails] = useState<any>()
-  // const [openModal, setOpenModal] = useState(false)
-  // const handleOpen = () => setOpenModal(true)
-  // const handleCloseModal = () => setOpenModal(false)
 
   const [openInfoModal, setOpenInfoModal] = useState(false)
   const handleInfoOpen = (data: any) => {
@@ -305,7 +302,6 @@ const AllAppointments = () => {
                 editable: 'never',
                 emptyValue: '--',
                 render: ({ pet }) => pet.petName,
-
                 // width: "2%",
               },
 
@@ -313,7 +309,6 @@ const AllAppointments = () => {
                 title: 'Health Issues',
                 field: 'health',
                 searchable: true,
-
                 emptyValue: '--',
                 render: ({ health }) => (
                   <>
@@ -343,7 +338,6 @@ const AllAppointments = () => {
                   return moment(data.appointDate).format('MMM Do YY')
                 },
                 emptyValue: '--',
-                //   hidden:true,
                 filtering: false,
               },
               {
@@ -357,7 +351,6 @@ const AllAppointments = () => {
                   return moment(data.appointStartTime).format('LT')
                 },
                 emptyValue: '--',
-                //   hidden:true,
                 filtering: false,
               },
               {
@@ -398,6 +391,7 @@ const AllAppointments = () => {
 
                 render: (row) => (
                   <>
+                    {console.log(row)}
                     <div className="flex gap-1">
                       <Tooltip title="Accept">
                         <Avatar

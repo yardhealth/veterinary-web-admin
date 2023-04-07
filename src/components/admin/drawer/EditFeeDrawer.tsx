@@ -59,7 +59,7 @@ const EditFeeDrawer = ({ open, onClose, mutate, activeData }: Props) => {
         },
         options: [
           {
-            label: 'Home',
+            label: 'Home Visit',
             value: 'Home',
           },
           {

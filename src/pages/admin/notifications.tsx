@@ -4,7 +4,7 @@ import { NOT_FOUND } from 'assets/animations'
 import { Empty } from 'components/core'
 // import { database } from 'configs'
 import { useAppContext } from 'contexts'
-import { useFetch } from 'hooks'
+import { useFetch, useGET } from 'hooks'
 import moment from 'moment'
 import { Fragment } from 'react'
 import Swal from 'sweetalert2'
@@ -15,6 +15,9 @@ export default () => {
   // const [notifications] = useFetch<NotificationType[]>(
   //   `notifications/${user?.uid}`
   // )
+  const { data, mutate } = useGET<any[]>(`notification/getall`)
+  console.log(data?.success?.data)
+  const notifications: any = data?.success?.data
   const deleteAllNotifications = async () => {
     const { value } = await Swal.fire({
       title: 'Are you sure?',
@@ -37,7 +40,7 @@ export default () => {
             <p className="text-2xl font-semibold leading-6 text-gray-800">
               Notifications
             </p>
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <button className="shadow-md rounded-md bg-green-300 px-4 py-2">
                 Read All
               </button>
@@ -47,64 +50,51 @@ export default () => {
               >
                 Delete All
               </button>
-            </div>
+            </div> */}
           </div>
 
-          {/* {notifications?.length ? (
+          {notifications?.length ? (
             <>
-              {
-              // notifications?.map(
-              //   ({ id, title, message, createdAt, isRead }) => (
-              //     <Fragment key={id}>
-              //       <div
-              //         className="shadow hover:shadow-lg mt-4 flex w-full cursor-pointer items-center rounded bg-white p-3 duration-300"
-              //         onClick={() => {
-              //           Swal.fire({
-              //             title: title,
-              //             html: message,
-              //             showCloseButton: true,
-              //           })
-              //           database
-              //             .ref(`notifications/${user?.uid}/${id}`)
-              //             .update({ isRead: true })
-              //         }}
-              //       >
-              //         <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full">
-              //           <ICONS.Notification
-              //             className={`h-6 w-6 ${
-              //               isRead ? 'text-black' : 'text-sky-700'
-              //             }`}
-              //           />
-              //         </div>
-              //         <div className="flex w-full items-center justify-between pl-3">
-              //           <div className="grid w-4/5 gap-2">
-              //             <h4
-              //               className={`text-lg leading-none ${
-              //                 isRead ? 'text-black' : 'text-sky-700'
-              //               }`}
-              //             >
-              //               {title}
-              //             </h4>
-              //             <p className="text-sm leading-5 text-gray-500">
-              //               {moment(new Date(createdAt)).fromNow()}
-              //             </p>
-              //           </div>
-              //           <p className="flex cursor-pointer text-xs leading-3">
-              //             <ICONS.ChevronRight
-              //               className={`h-6 w-6 text-black`}
-              //             />
-              //           </p>
-              //         </div>
-              //       </div>
-              //     </Fragment>
-              //   )
-              // )
-              }
+              {notifications?.map((item: any, i: any) => (
+                // { id, title, message, createdAt, isRead }
+                <Fragment key={i}>
+                  <div
+                    className="shadow hover:shadow-lg mt-4 flex w-full cursor-pointer items-center rounded bg-white p-3 duration-300"
+                    // onClick={() => {
+                    //   Swal.fire({
+                    //     title: title,
+                    //     html: message,
+                    //     showCloseButton: true,
+                    //   })
+                    //   database
+                    //     .ref(`notifications/${user?.uid}/${id}`)
+                    //     .update({ isRead: true })
+                    // }}
+                  >
+                    <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full">
+                      <ICONS.Notification className={`h-6 w-6 text-sky-700 `} />
+                    </div>
+                    <div className="flex w-full items-center justify-between pl-3">
+                      <div className="grid w-4/5 gap-2">
+                        <p className="font-bold text-primary">{item?.title}</p>
+                        <h4 className={`text-lg leading-none text-sky-700 `}>
+                          {item?.message}
+                        </h4>
+                        <p className="text-sm leading-5 text-gray-500">
+                          {moment(new Date(item?.createdAt)).fromNow()}
+                        </p>
+                      </div>
+                      {/* <p className="flex cursor-pointer text-xs leading-3">
+                        <ICONS.ChevronRight className={`h-6 w-6 text-black`} />
+                      </p> */}
+                    </div>
+                  </div>
+                </Fragment>
+              ))}
             </>
-          ) : */}
-          {/* (
-          )} */}
-          <Empty title={'No notifications yet'} src={NOT_FOUND.src} />
+          ) : (
+            <Empty title={'No notifications yet'} src={NOT_FOUND.src} />
+          )}
         </section>
       </>
     </AdminLayout>

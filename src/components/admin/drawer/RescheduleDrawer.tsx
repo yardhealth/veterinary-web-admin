@@ -21,7 +21,7 @@ type Props = {
 const RescheduleDrawer = ({ open, onClose, mutate, activeData }: Props) => {
   // console.log(activeData)
   const [appointmentDate, setAppointmentDate] = useState<any>()
-  const { data, mutate: newMutate } = useGET<any[]>(`health-particular/getall`)
+  // const { data, mutate: newMutate } = useGET<any[]>(`health-particular/getall`)
 
   const {
     data: feeData,
@@ -102,12 +102,11 @@ const RescheduleDrawer = ({ open, onClose, mutate, activeData }: Props) => {
         ...success?.data,
       }
       submitProps.resetForm()
-      setImage('')
+      // setImage('')
       Swal.fire('Success', success.message, 'success')
       mutate?.()
       onClose?.()
       console.log(reschedule)
-
       return
     } catch (error) {
       submitProps.setSubmitting(false)

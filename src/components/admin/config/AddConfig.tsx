@@ -46,7 +46,7 @@ const AddConfig = () => {
         },
         options: [
           {
-            label: 'Home',
+            label: 'Home Visit',
             value: 'Home',
           },
           {
