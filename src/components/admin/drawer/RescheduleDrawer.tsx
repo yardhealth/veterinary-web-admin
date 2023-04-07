@@ -19,7 +19,7 @@ type Props = {
 }
 
 const RescheduleDrawer = ({ open, onClose, mutate, activeData }: Props) => {
-  console.log(activeData)
+  // console.log(activeData)
   const [appointmentDate, setAppointmentDate] = useState<any>()
   const { data, mutate: newMutate } = useGET<any[]>(`health-particular/getall`)
 
@@ -83,7 +83,7 @@ const RescheduleDrawer = ({ open, onClose, mutate, activeData }: Props) => {
   )
 
   const handleSend = async (values: any, submitProps: any) => {
-    console.log(values)
+    // console.log(values)
 
     const newObject: any = {
       appointmentId: activeData?._id,
@@ -144,8 +144,8 @@ const RescheduleDrawer = ({ open, onClose, mutate, activeData }: Props) => {
             {(formik) => (
               <Form>
                 {/* <Weekdays /> */}
-                {console.log(formik.errors)}
-                {console.log(formik.values)}
+                {/* {console.log(formik.errors)} */}
+                {/* {console.log(formik.values)} */}
                 {BookAppointmentSchema?.map((inputItem: any, index: any) => (
                   <div key={index}>
                     {inputItem?.name === 'slot' ? (
@@ -159,61 +159,6 @@ const RescheduleDrawer = ({ open, onClose, mutate, activeData }: Props) => {
                           value={formik?.values?.slot}
                         />
                       </div>
-                    ) : inputItem?.name === 'consultationType5' ? (
-                      formik?.values?.consultation === 'Home' ? (
-                        <div className=" w-full">
-                          <TextInput
-                            fullWidth
-                            key={index}
-                            name={inputItem?.name}
-                            title={inputItem?.label as any}
-                            // multiline={inputItem?.multiline}
-                            // rows={inputItem?.rows}
-                            type={inputItem.type as any}
-                            startIcon={inputItem?.icon}
-                            styleContact={inputItem?.styleContact}
-                            error={Boolean(
-                              formik?.touched[inputItem.name] &&
-                                formik?.errors[inputItem.name]
-                            )}
-                            helperText={
-                              formik?.touched[inputItem.name] &&
-                              (formik?.errors[inputItem.name] as any)
-                            }
-                            value={formik?.values[inputItem.name]}
-                            onChange={formik?.handleChange}
-                            onBlur={formik?.handleBlur}
-                          />
-                        </div>
-                      ) : null
-                    ) : inputItem?.name === 'description' ? (
-                      formik?.values?.healthIssues?.length &&
-                      formik?.values?.healthIssues?.includes('Other') ? (
-                        <div className=" w-full">
-                          <TextInput
-                            fullWidth
-                            key={index}
-                            name={inputItem?.name}
-                            title={inputItem?.label as any}
-                            multiline={inputItem?.multiline}
-                            rows={inputItem?.rows}
-                            type={inputItem.type as any}
-                            // startIcon={inputItem?.icon}
-                            styleContact={inputItem?.styleContact}
-                            error={Boolean(
-                              formik?.touched[inputItem.name] &&
-                                formik?.errors[inputItem.name]
-                            )}
-                            helperText={
-                              formik?.touched[inputItem.name] &&
-                              (formik?.errors[inputItem.name] as any)
-                            }
-                            value={formik?.values[inputItem.name]}
-                            onChange={formik?.handleChange}
-                            onBlur={formik?.handleBlur}
-                          />
-                        </div>
-                      ) : null
                     ) : (
                       <div className={'w-full'}>
                         {setAppointmentDate(formik?.values?.appointmentDate)}
