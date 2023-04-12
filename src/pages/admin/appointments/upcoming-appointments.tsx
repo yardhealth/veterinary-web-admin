@@ -305,7 +305,7 @@ const UpcomingAppointments = () => {
                 field: 'appointDate',
                 searchable: true,
                 render(data, type) {
-                  return moment(data.appointDate).format('MMM Do YY')
+                  return moment(data.appointDate).format('LL')
                 },
                 emptyValue: '--',
                 //   hidden:true,

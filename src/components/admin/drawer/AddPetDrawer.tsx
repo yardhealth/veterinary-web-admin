@@ -295,7 +295,7 @@ const AddPetDrawer = ({ open, onClose, mutate, activeData, _id }: Props) => {
                           className="flex w-full items-center justify-center"
                         >
                           <PhotoUpload
-                            txtName="Upload Your Profile Photo"
+                            txtName="Upload Your Pet Photo"
                             variant={'square'}
                             value={image}
                             onChange={(e: any) => {

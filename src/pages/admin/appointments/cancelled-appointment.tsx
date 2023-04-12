@@ -288,7 +288,7 @@ const CancelledAppointments = () => {
               },
 
               {
-                title: 'Appointment Time',
+                title: 'Appointment Date',
                 field: 'appointDate',
                 searchable: true,
                 cellStyle: {
@@ -296,7 +296,7 @@ const CancelledAppointments = () => {
                 },
                 emptyValue: '--',
                 render(data, type) {
-                  return moment(data.appointDate).format('MMM Do YY')
+                  return moment(data.appointDate).format('LL')
                 },
                 //   hidden:true,
                 filtering: false,
