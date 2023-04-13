@@ -47,7 +47,7 @@ const AddConfig = () => {
         options: [
           {
             label: 'Home Visit',
-            value: 'Home',
+            value: 'Home Visit',
           },
           {
             label: 'Clinic Visit',
