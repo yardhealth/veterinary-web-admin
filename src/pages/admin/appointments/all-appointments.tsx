@@ -129,7 +129,7 @@ const AllAppointments = () => {
                   }}
                 >
                   {` `}
-                  {petDetails?.user?.email}
+                  {petDetails?.email}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -143,7 +143,7 @@ const AllAppointments = () => {
                   }}
                 >
                   {` `}
-                  {petDetails?.user?.phoneNumber}
+                  {petDetails?.phoneNumber}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -273,21 +273,10 @@ const AllAppointments = () => {
                 ? data?.success?.data?.map((_, i) => ({
                     ..._,
                     sl: i + 1,
-                    user: {
-                      name: _?.user?.name,
-                      email: _?.user?.email,
-                      phoneNumber: _?.user?.phoneNumber,
-                    },
-
-                    pet: {
-                      petName: _?.pet?.petName,
-                      gender: _?.pet?.gender,
-                      breed: _?.pet?.breed,
-                      age: _?.pet?.age,
-                      vaccinated: _?.pet?.vaccinated,
-                      aggression: _?.pet?.aggression,
-                    },
-
+                    user: _.user?.name,
+                    email: _.user?.email,
+                    phoneNumber: _.user?.phoneNumber,
+                    petName: _.pet?.petName,
                     health: _?.health
                       .map((item: any) => {
                         return item.healthIssueParticular
@@ -297,7 +286,7 @@ const AllAppointments = () => {
                     appointDate: moment(_?.appointDate).format('LL'),
                     appointStartTime: moment(_?.appointStartTime).format('LT'),
                     appointEndTime: moment(_?.appointEndTime).format('LT'),
-                    createdAt: moment(new Date(_?.createdAt)).format('lll'),
+                    createdAt: moment(new Date(_?.createdAt)).format('LL'),
                   }))
                 : []
             }
@@ -322,15 +311,15 @@ const AllAppointments = () => {
                 field: 'user',
                 editable: 'never',
                 emptyValue: '--',
-                render: ({ user }) => user?.name,
+                render: ({ user }) => user,
                 // width: "2%",
               },
               {
                 title: 'Pet Name',
-                field: 'pet',
+                field: 'petName',
                 editable: 'never',
                 emptyValue: '--',
-                render: ({ pet }) => pet?.petName,
+                render: ({ petName }) => petName,
                 // width: "2%",
               },
 

@@ -102,7 +102,7 @@ const UpcomingAppointments = () => {
                   }}
                 >
                   {` `}
-                  {petDetails?.user?.email}
+                  {petDetails?.email}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -116,7 +116,7 @@ const UpcomingAppointments = () => {
                   }}
                 >
                   {` `}
-                  {petDetails?.user?.phoneNumber}
+                  {petDetails?.phoneNumber}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -241,6 +241,8 @@ const UpcomingAppointments = () => {
                     ..._,
                     sl: i + 1,
                     user: _.user?.name,
+                    email: _.user?.email,
+                    phoneNumber: _.user?.phoneNumber,
                     petName: _.pet?.petName,
                     health: _?.health
                       ?.map((item: any, index: any) => {
@@ -251,7 +253,7 @@ const UpcomingAppointments = () => {
                     appointDate: moment(_?.appointDate).format('LL'),
                     appointStartTime: moment(_?.appointStartTime).format('LT'),
                     appointEndTime: moment(_?.appointEndTime).format('LT'),
-                    createdAt: moment(new Date(_?.createdAt)).format('lll'),
+                    createdAt: moment(new Date(_?.createdAt)).format('LL'),
                   }))
                 : []
             }

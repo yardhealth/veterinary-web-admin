@@ -234,7 +234,7 @@ const CancelledAppointments = () => {
                     appointDate: moment(_?.appointDate).format('LL'),
                     appointStartTime: moment(_?.appointStartTime).format('LT'),
                     appointEndTime: moment(_?.appointEndTime).format('LT'),
-                    createdAt: moment(new Date(_?.createdAt)).format('lll'),
+                    createdAt: moment(new Date(_?.createdAt)).format('LL'),
                   }))
                 : []
             }

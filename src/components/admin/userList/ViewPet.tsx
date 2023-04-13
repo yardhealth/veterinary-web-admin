@@ -95,7 +95,7 @@ const ViewPet = ({ rowData }: any) => {
                 ? data?.success?.data?.map((_, i) => ({
                     ..._,
                     sl: i + 1,
-                    createdAt: moment(new Date(_?.createdAt)).format('lll'),
+                    createdAt: moment(new Date(_?.createdAt)).format('LL'),
                   }))
                 : []
             }

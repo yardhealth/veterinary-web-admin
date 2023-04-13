@@ -61,7 +61,7 @@ const ViewAllReports = () => {
                     user: _?.user?.name,
                     petName: _?.pet?.petName,
                     petCategory: _?.pet?.petCategory,
-                    createdAt: moment(new Date(_?.createdAt)).format('lll'),
+                    createdAt: moment(new Date(_?.createdAt)).format('LL'),
                   }))
                 : []
             }

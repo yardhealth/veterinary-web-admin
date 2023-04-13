@@ -54,7 +54,7 @@ const AllSchedule = () => {
                     endTimeSlot: moment(_?.endTimeSlot).format('LT'),
                     breakStartTime: moment(_?.breakStartTime).format('LT'),
                     breakEndTime: moment(_?.breakEndTime).format('LT'),
-                    createdAt: moment(new Date(_?.createdAt)).format('lll'),
+                    createdAt: moment(new Date(_?.createdAt)).format('LL'),
                   }))
                 : []
             }
