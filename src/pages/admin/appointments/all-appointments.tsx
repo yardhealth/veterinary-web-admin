@@ -58,6 +58,7 @@ const AllAppointments = () => {
     `appointment/update-status/${appointmentId}`,
     { method: 'PATCH' }
   )
+  console.log(petDetails)
 
   const handleConfirm = async () => {
     const newObject: any = {
@@ -272,8 +273,21 @@ const AllAppointments = () => {
                 ? data?.success?.data?.map((_, i) => ({
                     ..._,
                     sl: i + 1,
-                    user: _?.user?.name,
-                    pet: _?.pet?.petName,
+                    user: {
+                      name: _?.user?.name,
+                      email: _?.user?.email,
+                      phoneNumber: _?.user?.phoneNumber,
+                    },
+
+                    pet: {
+                      petName: _?.pet?.petName,
+                      gender: _?.pet?.gender,
+                      breed: _?.pet?.breed,
+                      age: _?.pet?.age,
+                      vaccinated: _?.pet?.vaccinated,
+                      aggression: _?.pet?.aggression,
+                    },
+
                     health: _?.health
                       .map((item: any) => {
                         return item.healthIssueParticular
@@ -308,7 +322,7 @@ const AllAppointments = () => {
                 field: 'user',
                 editable: 'never',
                 emptyValue: '--',
-                render: ({ user }) => user,
+                render: ({ user }) => user?.name,
                 // width: "2%",
               },
               {
@@ -316,7 +330,7 @@ const AllAppointments = () => {
                 field: 'pet',
                 editable: 'never',
                 emptyValue: '--',
-                render: ({ pet }) => pet,
+                render: ({ pet }) => pet?.petName,
                 // width: "2%",
               },
 
@@ -411,7 +425,7 @@ const AllAppointments = () => {
 
                 render: (row) => (
                   <>
-                    {console.log(row)}
+                    {/* {console.log(row)} */}
                     <div className="flex gap-1">
                       <Tooltip title="Accept">
                         <Avatar
@@ -419,6 +433,7 @@ const AllAppointments = () => {
                             setAppointmentId(row._id)
                             Swal.fire({
                               text: 'Do you want to Continue?',
+
                               icon: 'question',
                               showCancelButton: true,
                             }).then((result) => {
@@ -501,6 +516,7 @@ const AllAppointments = () => {
                 // field: "pick",
                 render: (row) => (
                   <>
+                    {console.log(row)}
                     <div className="flex">
                       <Tooltip title="Info">
                         <Avatar

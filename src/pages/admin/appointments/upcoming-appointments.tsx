@@ -53,6 +53,7 @@ const UpcomingAppointments = () => {
     appointmentId && `appointment/update-status/${appointmentId}`,
     { method: 'PATCH' }
   )
+  console.log(petDetails)
 
   const handleSend = async () => {
     const newObject: any = {
@@ -393,7 +394,7 @@ const UpcomingAppointments = () => {
                 // field: "pick",
                 render: (row) => (
                   <>
-                    {console.log(row._id)}
+                    {console.log(row)}
                     <div className="flex">
                       <Tooltip title="Info">
                         <Avatar
