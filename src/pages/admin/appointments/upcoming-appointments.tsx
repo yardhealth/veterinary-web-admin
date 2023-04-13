@@ -46,7 +46,7 @@ const UpcomingAppointments = () => {
     `appointment-booked-by-admin/appointment-status?status=CONFIRM`
   )
   console.log(data)
-  console.log(petDetails)
+  // console.log(petDetails)
 
   const [appointmentId, setAppointmentId] = useState<any>('')
   const { isMutating, trigger } = useMutation(
@@ -236,7 +236,22 @@ const UpcomingAppointments = () => {
           <MaterialTable
             data={
               data?.success?.data
-                ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+                ? data?.success?.data?.map((_, i) => ({
+                    ..._,
+                    sl: i + 1,
+                    user: _.user?.name,
+                    petName: _.pet?.petName,
+                    health: _?.health
+                      ?.map((item: any, index: any) => {
+                        return item.healthIssueParticular
+                      })
+                      .join(', '),
+                    consultation: _?.consultation?.label,
+                    appointDate: moment(_?.appointDate).format('LL'),
+                    appointStartTime: moment(_?.appointStartTime).format('LT'),
+                    appointEndTime: moment(_?.appointEndTime).format('LT'),
+                    createdAt: moment(new Date(_?.createdAt)).format('lll'),
+                  }))
                 : []
             }
             components={{
@@ -260,16 +275,16 @@ const UpcomingAppointments = () => {
                 field: 'user',
                 editable: 'never',
                 emptyValue: '--',
-                render: ({ user }) => user.name,
+                render: ({ user }) => user,
                 // width: "2%",
               },
 
               {
                 title: 'Pet Name',
-                field: 'pet',
+                field: 'petName',
                 editable: 'never',
                 emptyValue: '--',
-                render: ({ pet }) => pet.petName,
+                render: ({ petName }) => petName,
 
                 // width: "2%",
               },
@@ -280,15 +295,16 @@ const UpcomingAppointments = () => {
                 searchable: true,
 
                 emptyValue: '--',
-                render: ({ health }) => (
-                  <>
-                    {health
-                      .map((item: any) => {
-                        return item.healthIssueParticular
-                      })
-                      .join(', ')}
-                  </>
-                ),
+                // render: ({ health }) => (
+                //   <>
+                //     {health
+                //       .map((item: any) => {
+                //         return item.healthIssueParticular
+                //       })
+                //       .join(', ')}
+                //   </>
+                // ),
+                render: ({ health }) => health,
                 filtering: false,
               },
               {
@@ -297,7 +313,7 @@ const UpcomingAppointments = () => {
                 searchable: true,
 
                 emptyValue: '--',
-                render: ({ consultation }) => consultation.label,
+                render: ({ consultation }) => consultation,
                 filtering: false,
               },
               {
@@ -305,7 +321,8 @@ const UpcomingAppointments = () => {
                 field: 'appointDate',
                 searchable: true,
                 render(data, type) {
-                  return moment(data.appointDate).format('LL')
+                  // return moment(data.appointDate).format('LL')
+                  return data.appointDate
                 },
                 emptyValue: '--',
                 //   hidden:true,
@@ -318,9 +335,10 @@ const UpcomingAppointments = () => {
                 cellStyle: {
                   textAlign: 'center',
                 },
-                render(data, type) {
-                  return moment(data.appointStartTime).format('LT')
+                render({ appointStartTime }) {
+                  return appointStartTime
                 },
+
                 emptyValue: '--',
                 //   hidden:true,
                 filtering: false,
@@ -333,7 +351,7 @@ const UpcomingAppointments = () => {
                   textAlign: 'center',
                 },
                 render(data, type) {
-                  return moment(data.appointEndTime).format('LT')
+                  return data.appointEndTime
                 },
                 emptyValue: '--',
                 //   hidden:true,
@@ -362,7 +380,8 @@ const UpcomingAppointments = () => {
                 field: 'createdAt',
                 filtering: false,
                 render: ({ createdAt }: any) =>
-                  moment(new Date(createdAt)).format('lll'),
+                  // moment(new Date(createdAt)).format('lll'),
+                  createdAt,
               },
               {
                 title: 'Actions',

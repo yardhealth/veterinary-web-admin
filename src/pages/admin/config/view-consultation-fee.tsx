@@ -62,7 +62,11 @@ const ViewConsultationFee = () => {
           <MaterialTable
             data={
               data?.success?.data
-                ? data?.success?.data?.map((_, i: any) => ({ ..._, sl: i + 1 }))
+                ? data?.success?.data?.map((_, i: any) => ({
+                    ..._,
+                    sl: i + 1,
+                    createdAt: moment(new Date(_?.createdAt)).format('lll'),
+                  }))
                 : []
             }
             components={{
@@ -102,7 +106,8 @@ const ViewConsultationFee = () => {
                 field: 'createdAt',
                 filtering: false,
                 render: ({ createdAt }: any) =>
-                  moment(new Date(createdAt)).format('lll'),
+                  // moment(new Date(createdAt)).format('lll'),
+                  createdAt,
               },
               {
                 title: 'Actions',

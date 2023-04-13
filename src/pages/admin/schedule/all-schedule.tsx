@@ -46,7 +46,16 @@ const AllSchedule = () => {
           <MaterialTable
             data={
               data?.success?.data
-                ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+                ? data?.success?.data?.map((_, i) => ({
+                    ..._,
+                    sl: i + 1,
+                    day: moment(_?.day).format('dddd'),
+                    startTimeSlot: moment(_?.startTimeSlot).format('LT'),
+                    endTimeSlot: moment(_?.endTimeSlot).format('LT'),
+                    breakStartTime: moment(_?.breakStartTime).format('LT'),
+                    breakEndTime: moment(_?.breakEndTime).format('LT'),
+                    createdAt: moment(new Date(_?.createdAt)).format('lll'),
+                  }))
                 : []
             }
             components={{
@@ -71,7 +80,7 @@ const AllSchedule = () => {
                 editable: 'never',
                 emptyValue: '--',
                 render(data, type) {
-                  return moment(data.day).format('dddd')
+                  return data.day
                 },
               },
               {
@@ -80,7 +89,8 @@ const AllSchedule = () => {
                 editable: 'never',
                 emptyValue: '--',
                 render(data, type) {
-                  return moment(data.startTimeSlot).format('LT')
+                  // return moment(data.startTimeSlot).format('LT')
+                  return data.startTimeSlot
                 },
               },
 
@@ -93,7 +103,8 @@ const AllSchedule = () => {
                 //   hidden:true,
                 filtering: false,
                 render(data, type) {
-                  return moment(data.endTimeSlot).format('LT')
+                  // return moment(data.endTimeSlot).format('LT')
+                  return data.endTimeSlot
                 },
               },
 
@@ -106,7 +117,8 @@ const AllSchedule = () => {
                 //   hidden:true,
                 filtering: false,
                 render(data, type) {
-                  return moment(data.breakStartTime).format('LT')
+                  // return moment(data.breakStartTime).format('LT')
+                  return data.breakStartTime
                 },
               },
               {
@@ -118,7 +130,8 @@ const AllSchedule = () => {
                 //   hidden:true,
                 filtering: false,
                 render(data, type) {
-                  return moment(data.breakEndTime).format('LT')
+                  // return moment(data.breakEndTime).format('LT')
+                  return data.breakEndTime
                 },
               },
 
@@ -142,7 +155,8 @@ const AllSchedule = () => {
                 field: 'createdAt',
                 filtering: false,
                 render: ({ createdAt }: any) =>
-                  moment(new Date(createdAt)).format('lll'),
+                  // moment(new Date(createdAt)).format('lll'),
+                  createdAt,
               },
               {
                 title: 'Actions',

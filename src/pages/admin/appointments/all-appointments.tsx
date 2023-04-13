@@ -269,7 +269,22 @@ const AllAppointments = () => {
           <MaterialTable
             data={
               data?.success?.data
-                ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+                ? data?.success?.data?.map((_, i) => ({
+                    ..._,
+                    sl: i + 1,
+                    user: _?.user?.name,
+                    pet: _?.pet?.petName,
+                    health: _?.health
+                      .map((item: any) => {
+                        return item.healthIssueParticular
+                      })
+                      .join(', '),
+                    consultation: _?.consultation?.label,
+                    appointDate: moment(_?.appointDate).format('LL'),
+                    appointStartTime: moment(_?.appointStartTime).format('LT'),
+                    appointEndTime: moment(_?.appointEndTime).format('LT'),
+                    createdAt: moment(new Date(_?.createdAt)).format('lll'),
+                  }))
                 : []
             }
             components={{
@@ -293,7 +308,7 @@ const AllAppointments = () => {
                 field: 'user',
                 editable: 'never',
                 emptyValue: '--',
-                render: ({ user }) => user.name,
+                render: ({ user }) => user,
                 // width: "2%",
               },
               {
@@ -301,7 +316,7 @@ const AllAppointments = () => {
                 field: 'pet',
                 editable: 'never',
                 emptyValue: '--',
-                render: ({ pet }) => pet.petName,
+                render: ({ pet }) => pet,
                 // width: "2%",
               },
 
@@ -310,15 +325,17 @@ const AllAppointments = () => {
                 field: 'health',
                 searchable: true,
                 emptyValue: '--',
-                render: ({ health }) => (
-                  <>
-                    {health
-                      .map((item: any) => {
-                        return item.healthIssueParticular
-                      })
-                      .join(', ')}
-                  </>
-                ),
+                // render: ({ health }) => (
+                //   <>
+                //     {health
+                //       .map((item: any) => {
+                //         return item.healthIssueParticular
+                //       })
+                //       .join(', ')}
+                //   </>
+                // ),
+                render: ({ health }) => health,
+
                 filtering: false,
               },
               {
@@ -327,7 +344,7 @@ const AllAppointments = () => {
                 searchable: true,
 
                 emptyValue: '--',
-                render: ({ consultation }) => consultation.label,
+                render: ({ consultation }) => consultation,
                 filtering: false,
               },
               {
@@ -335,7 +352,8 @@ const AllAppointments = () => {
                 field: 'appointDate',
                 searchable: true,
                 render(data, type) {
-                  return moment(data.appointDate).format('LL')
+                  // return moment(data.appointDate).format('LL')
+                  return data.appointDate
                 },
                 emptyValue: '--',
                 filtering: false,
@@ -348,7 +366,8 @@ const AllAppointments = () => {
                   textAlign: 'center',
                 },
                 render(data, type) {
-                  return moment(data.appointStartTime).format('LT')
+                  // return moment(data.appointStartTime).format('LT')
+                  return data.appointStartTime
                 },
                 emptyValue: '--',
                 filtering: false,
@@ -361,7 +380,7 @@ const AllAppointments = () => {
                   textAlign: 'center',
                 },
                 render(data, type) {
-                  return moment(data.appointEndTime).format('LT')
+                  return data.appointEndTime
                 },
                 emptyValue: '--',
                 //   hidden:true,
@@ -380,7 +399,8 @@ const AllAppointments = () => {
                 field: 'createdAt',
                 filtering: false,
                 render: ({ createdAt }: any) =>
-                  moment(new Date(createdAt)).format('lll'),
+                  // moment(new Date(createdAt)).format('lll'),
+                  createdAt,
               },
 
               {

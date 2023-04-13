@@ -55,7 +55,14 @@ const ViewAllReports = () => {
           <MaterialTable
             data={
               data?.success?.data
-                ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+                ? data?.success?.data?.map((_, i) => ({
+                    ..._,
+                    sl: i + 1,
+                    user: _?.user?.name,
+                    petName: _?.pet?.petName,
+                    petCategory: _?.pet?.petCategory,
+                    createdAt: moment(new Date(_?.createdAt)).format('lll'),
+                  }))
                 : []
             }
             components={{
@@ -80,28 +87,28 @@ const ViewAllReports = () => {
                 editable: 'never',
                 emptyValue: '--',
                 render: ({ user }) => {
-                  return user.name
+                  return user
                 },
                 // width: "2%",
               },
 
               {
                 title: 'Pet Name',
-                field: 'pet',
+                field: 'petName',
                 editable: 'never',
                 emptyValue: '--',
-                render: ({ pet }) => {
-                  return pet.petName
+                render: ({ petName }) => {
+                  return petName
                 },
                 // width: "2%",
               },
               {
                 title: 'Pet Category',
-                field: 'pet',
+                field: 'petCategory',
                 editable: 'never',
                 emptyValue: '--',
-                render: ({ pet }) => {
-                  return pet.petCategory
+                render: ({ petCategory }) => {
+                  return petCategory
                 },
                 // width: "2%",
               },
@@ -129,7 +136,8 @@ const ViewAllReports = () => {
                 field: 'createdAt',
                 filtering: false,
                 render: ({ createdAt }: any) =>
-                  moment(new Date(createdAt)).format('lll'),
+                  // moment(new Date(createdAt)).format('lll'),
+                  createdAt,
               },
               {
                 title: 'Actions',

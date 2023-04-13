@@ -304,7 +304,7 @@ const AddReport = () => {
                         className="flex w-full items-center justify-center"
                       >
                         <PhotoUpload
-                          txtName="Upload Your Profile Photo"
+                          txtName="Upload Your Report"
                           variant={'square'}
                           value={image}
                           onChange={(e: any) => {

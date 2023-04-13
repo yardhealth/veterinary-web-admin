@@ -18,7 +18,7 @@ export default function AppBar() {
   //   }
   // )
   const { data, mutate } = useGET<any[]>(`notification/getall`)
-  console.log(data?.success?.data)
+  // console.log(data?.success?.data)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

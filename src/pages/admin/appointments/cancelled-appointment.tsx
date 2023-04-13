@@ -220,7 +220,22 @@ const CancelledAppointments = () => {
             data={
               // tabelData
               data?.success?.data
-                ? data?.success?.data?.map((_, i) => ({ ..._, sl: i + 1 }))
+                ? data?.success?.data?.map((_, i) => ({
+                    ..._,
+                    sl: i + 1,
+                    user: _.user?.name,
+                    petName: _.pet?.petName,
+                    health: _?.health
+                      ?.map((item: any, index: any) => {
+                        return item.healthIssueParticular
+                      })
+                      .join(', '),
+                    consultation: _?.consultation?.label,
+                    appointDate: moment(_?.appointDate).format('LL'),
+                    appointStartTime: moment(_?.appointStartTime).format('LT'),
+                    appointEndTime: moment(_?.appointEndTime).format('LT'),
+                    createdAt: moment(new Date(_?.createdAt)).format('lll'),
+                  }))
                 : []
             }
             components={{
@@ -244,16 +259,16 @@ const CancelledAppointments = () => {
                 field: 'user',
                 editable: 'never',
                 emptyValue: '--',
-                render: ({ user }) => user.name,
+                render: ({ user }) => user,
                 // width: "2%",
               },
-              {
-                title: 'Pet',
-                field: 'pet',
-                editable: 'never',
 
+              {
+                title: 'Pet Name',
+                field: 'petName',
+                editable: 'never',
                 emptyValue: '--',
-                render: ({ pet }) => pet.petName,
+                render: ({ petName }) => petName,
 
                 // width: "2%",
               },
@@ -264,16 +279,16 @@ const CancelledAppointments = () => {
                 searchable: true,
 
                 emptyValue: '--',
-                render: ({ health }) => (
-                  <>
-                    {health
-                      .map((item: any) => {
-                        return item.healthIssueParticular
-                      })
-                      .join(', ')}
-                  </>
-                ),
-                //   hidden:true,
+                // render: ({ health }) => (
+                //   <>
+                //     {health
+                //       .map((item: any) => {
+                //         return item.healthIssueParticular
+                //       })
+                //       .join(', ')}
+                //   </>
+                // ),
+                render: ({ health }) => health,
                 filtering: false,
               },
               {
@@ -282,22 +297,18 @@ const CancelledAppointments = () => {
                 searchable: true,
 
                 emptyValue: '--',
-                render: ({ consultation }) => consultation.label,
-                //   hidden:true,
+                render: ({ consultation }) => consultation,
                 filtering: false,
               },
-
               {
                 title: 'Appointment Date',
                 field: 'appointDate',
                 searchable: true,
-                cellStyle: {
-                  textAlign: 'center',
+                render(data, type) {
+                  // return moment(data.appointDate).format('LL')
+                  return data.appointDate
                 },
                 emptyValue: '--',
-                render(data, type) {
-                  return moment(data.appointDate).format('LL')
-                },
                 //   hidden:true,
                 filtering: false,
               },
@@ -308,9 +319,10 @@ const CancelledAppointments = () => {
                 cellStyle: {
                   textAlign: 'center',
                 },
-                render(data, type) {
-                  return moment(data.appointStartTime).format('LT')
+                render({ appointStartTime }) {
+                  return appointStartTime
                 },
+
                 emptyValue: '--',
                 //   hidden:true,
                 filtering: false,
@@ -323,7 +335,7 @@ const CancelledAppointments = () => {
                   textAlign: 'center',
                 },
                 render(data, type) {
-                  return moment(data.appointEndTime).format('LT')
+                  return data.appointEndTime
                 },
                 emptyValue: '--',
                 //   hidden:true,
@@ -336,6 +348,15 @@ const CancelledAppointments = () => {
                 emptyValue: '--',
                 // width: "2%",
               },
+              // {
+              //   title: 'Payment Method',
+              //   field: 'paymentMethod',
+              //   searchable: true,
+
+              //   emptyValue: '--',
+              //   //   hidden:true,
+              //   filtering: false,
+              // },
 
               {
                 title: 'Created At',
@@ -343,7 +364,8 @@ const CancelledAppointments = () => {
                 field: 'createdAt',
                 filtering: false,
                 render: ({ createdAt }: any) =>
-                  moment(new Date(createdAt)).format('lll'),
+                  // moment(new Date(createdAt)).format('lll'),
+                  createdAt,
               },
               {
                 title: 'Actions',
