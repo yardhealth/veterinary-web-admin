@@ -71,7 +71,7 @@ const CompletedAppointments = () => {
                   }}
                 >
                   {/* {rowData?.city ? rowData.city : 'Not Provided'} */}{' '}
-                  {petDetails?.user?.email}
+                  {petDetails?.email}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -85,7 +85,7 @@ const CompletedAppointments = () => {
                   }}
                 >
                   {` `}
-                  {petDetails?.user?.phoneNumber}
+                  {petDetails?.phoneNumber}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -213,6 +213,8 @@ const CompletedAppointments = () => {
                     ..._,
                     sl: i + 1,
                     user: _.user?.name,
+                    email: _.user?.email,
+                    phoneNumber: _.user?.phoneNumber,
                     petName: _.pet?.petName,
                     health: _?.health
                       ?.map((item: any, index: any) => {

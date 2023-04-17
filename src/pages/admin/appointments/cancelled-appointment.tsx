@@ -80,7 +80,7 @@ const CancelledAppointments = () => {
                   }}
                 >
                   {` `}
-                  {petDetails?.user?.email}
+                  {petDetails?.email}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -94,7 +94,7 @@ const CancelledAppointments = () => {
                   }}
                 >
                   {` `}
-                  {petDetails?.user?.phoneNumber}
+                  {petDetails?.phoneNumber}
                 </span>
               </Typography>
               <Typography gutterBottom align="left">
@@ -225,6 +225,8 @@ const CancelledAppointments = () => {
                     sl: i + 1,
                     user: _.user?.name,
                     petName: _.pet?.petName,
+                    email: _.user?.email,
+                    phoneNumber: _.user?.phoneNumber,
                     health: _?.health
                       ?.map((item: any, index: any) => {
                         return item.healthIssueParticular
